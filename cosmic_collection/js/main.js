@@ -2348,7 +2348,19 @@ function processNewCardDiscovered() {
       Object.keys(state.effects.currencyPerPokeMultiplier).forEach(cur => {
         state.effects.currencyPerPokeMultiplier[cur] *= Math.pow(2, difference);
       });
+    } else if (difference < 0) {
+      lastFullyDiscoveredRealms = fullyDiscoveredRealms;
+
+      //divide currencyPerSecMultiplier and currencyPerPokeMultiplier by 2^(-difference)
+      //apply this to all currencies
+      Object.keys(state.effects.currencyPerSecMultiplier).forEach(cur => {
+        state.effects.currencyPerSecMultiplier[cur] /= Math.pow(2, -difference);
+      });
+      Object.keys(state.effects.currencyPerPokeMultiplier).forEach(cur => {
+        state.effects.currencyPerPokeMultiplier[cur] /= Math.pow(2, -difference);
+      });
     }
+
   }
 }
 

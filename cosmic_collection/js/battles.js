@@ -703,6 +703,8 @@ function showSacrificeDialog(cardId) {
       // Lock the card
       lockCard(cardId);
 
+      processNewCardDiscovered();
+
       dialog.remove();
       saveState();
       updateBattleUI();
