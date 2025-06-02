@@ -610,11 +610,11 @@
   function saveGameProgress() {
     const zonesProgress = zones.map(z => z.tasks.map(t => t.count));
     const data = { gameState, currentZoneIndex, zonesProgress };
-    localStorage.setItem("degensAdventureProgress", JSON.stringify(data));
+    localStorage.setItem("prismaticAdventureProgress", JSON.stringify(data));
   }
 
   function loadGameProgress() {
-    const saved = localStorage.getItem("degensAdventureProgress");
+    const saved = localStorage.getItem("prismaticAdventureProgress");
     if (!saved) return;
     try {
       const data = JSON.parse(saved);
@@ -635,7 +635,7 @@
   }
 
   function copySave() {
-    const saveData = localStorage.getItem("degensAdventureProgress");
+    const saveData = localStorage.getItem("prismaticAdventureProgress");
     if (!saveData) {
       showMessage("No save data found");
       return;
@@ -668,7 +668,7 @@
         // Show a custom confirmation modal instead of confirm()
         showPasteConfirmationModal(() => {
           // On user confirmation:
-          localStorage.setItem("degensAdventureProgress", decrypted);
+          localStorage.setItem("prismaticAdventureProgress", decrypted);
           showMessage("Save loaded!");
           location.reload();
         });
@@ -3378,7 +3378,7 @@
       </p>
       <p>
         More content and challenges are on the horizon in future updates. The complete v1.0 game will have 33 zones.
-        In the meantime, you can explore <a href="https://www.degensidle.com/" target="_blank"><strong>Degens Idle</strong></a>
+        In the meantime, you can explore <a href="https://www.kuzzigames.com/" target="_blank"><strong>KuzziGames</strong></a>
         and join our <a href="https://discordapp.com/channels/1268685194819538984/1337527757629816933" target="_blank">Discord Channel</a>
         to keep up with development!
       </p>
@@ -3556,7 +3556,7 @@
         updateBookwormAchievement("save");
         // Ensure progress is saved.
         saveGameProgress();
-        const saveData = localStorage.getItem("degensAdventureProgress");
+        const saveData = localStorage.getItem("prismaticAdventureProgress");
         if (!saveData) {
           showMessage("No save data found");
           return;
@@ -3566,7 +3566,7 @@
         // Compute file name.
         const totalSerenity = computeSerenityTotalValue();
         const perkCount = Object.keys(gameState.perks).filter(key => gameState.perks[key] !== false).length;
-        let fileName = "Degens Adventure - ";
+        let fileName = "Prismatic Adventure - ";
         if (totalSerenity > 0) {
           fileName += "Serenity_" + formatNumber(totalSerenity) + ", ";
         }
@@ -3619,7 +3619,7 @@
             }
             // On user confirmation, set the save data.
             showPasteConfirmationModal(() => {
-              localStorage.setItem("degensAdventureProgress", saveString);
+              localStorage.setItem("prismaticAdventureProgress", saveString);
               showMessage("Save loaded from file!");
               location.reload();
             });
@@ -3683,7 +3683,7 @@
       restartAll.addEventListener("click", () => {
         updateBookwormAchievement("fullRestart");
         showRestartConfirmationModal(() => {
-          localStorage.removeItem("degensAdventureProgress");
+          localStorage.removeItem("prismaticAdventureProgress");
           fullRestart();
           modal.remove(); // remove the settings modal as well, if desired
         });
@@ -3701,7 +3701,7 @@
       discordBtn.appendChild(discordImg);
       discordBtn.setAttribute(
         "data-tooltip",
-        "The Degens Idle Discord<br>" +
+        "Kuzzi Games Discord<br>" +
         "Discussion for this game is in the<br>" +
         "#adventure-chat channel."
       );
@@ -3719,7 +3719,7 @@
       coffeeBtn.textContent = "Buy Me a Coffee";
       coffeeBtn.setAttribute(
         "data-tooltip",
-        "If you enjoy Degens Adventure and want to see more,<br>feel free to support the developer!"
+        "If you enjoy Prismatic Adventure and want to see more,<br>feel free to support the developer!"
       );
       coffeeBtn.addEventListener("click", () => {
         window.open("https://buymeacoffee.com/ssiatkowski", "_blank");
@@ -3738,7 +3738,7 @@
         "data-tooltip",
         "Try <b>Degens Idle</b><br>" +
         "Experience a deeper, more balanced strategy-based incremental game!<br>" +
-        "While Degens Adventure is still in its infancy,<br>" +
+        "While Prismatic Adventure is still in its infancy,<br>" +
         "Degens Idle is much more mature and refined.<br>" +
         "It has undergone extensive revisions and community-driven optimizations,<br>" +
         "offering roughly 2 months of immersive gameplay,<br>" +
