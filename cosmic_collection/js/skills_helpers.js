@@ -423,105 +423,105 @@ window.skills = [
     {
       id: 4001,
       name: "Not Less Cards",
-      description: "+1 to min cards per poke.",
+      description: "+2 to min cards per poke.",
       cost: { realmId: 1, currencyId: "stone", amount: 1e6 },
       purchased: false
     },
     {
       id: 4002,
       name: "Not Less Cards 2",
-      description: "+2 to min cards per poke.",
+      description: "+4 to min cards per poke.",
       cost: { realmId: 2, currencyId: "coral", amount: 1e6 },
       purchased: false
     },
     {
       id: 4003,
       name: "Not Less Cards 3",
-      description: "+5 to min cards per poke.",
+      description: "+10 to min cards per poke.",
       cost: { realmId: 3, currencyId: "pollen", amount: 1e6 },
       purchased: false
     },
     {
       id: 4004,
       name: "Not Less Cards 4",
-      description: "+6 to min cards per poke.",
+      description: "+12 to min cards per poke.",
       cost: { realmId: 4, currencyId: "egg", amount: 1e6 },
       purchased: false
     },
     {
       id: 4005,
       name: "Not Less Cards 5",
-      description: "+8 to min cards per poke.",
+      description: "+14 to min cards per poke.",
       cost: { realmId: 3, currencyId: "rune", amount: 1e4 },
       purchased: false
     },
     {
       id: 4006,
       name: "Not Less Cards 6",
-      description: "+8 to min cards per poke.",
+      description: "+16 to min cards per poke.",
       cost: { realmId: 4, currencyId: "pearl", amount: 1e4 },
       purchased: false
     },
     {
       id: 4007,
       name: "Not Less Cards 7",
-      description: "+12 to min cards per poke.",
+      description: "+24 to min cards per poke.",
       cost: { realmId: 5, currencyId: "royal_jelly", amount: 1e4 },
       purchased: false
     },
     {
       id: 4008,
       name: "Not Less Cards 8",
-      description: "+15 to min cards per poke.",
+      description: "+30 to min cards per poke.",
       cost: { realmId: 5, currencyId: "feather", amount: 1e4 },
       purchased: false
     },
     {
       id: 4009,
       name: "Not Less Cards 9",
-      description: "+10 to min cards per poke.",
+      description: "+20 to min cards per poke.",
       cost: { realmId: 5, currencyId: "crystal", amount: 1e6 },
       purchased: false
     },
     {
       id: 4010,
       name: "Not Less Cards 10",
-      description: "+20 to min cards per poke.",
+      description: "+50 to min cards per poke.",
       cost: { realmId: 6, currencyId: "cosmic_ray", amount: 1e4 },
       purchased: false
     },
     {
       id: 4011,
       name: "Not Less Cards 11",
-      description: "+20 to min cards per poke.",
+      description: "+40 to min cards per poke.",
       cost: { realmId: 7, currencyId: "tooth", amount: 1e6 },
       purchased: false
     },
     {
       id: 4012,
       name: "Not Less Cards 12",
-      description: "+30 to min cards per poke.",
+      description: "+60 to min cards per poke.",
       cost: { realmId: 8, currencyId: "coin", amount: 1e6 },
       purchased: false
     },
     {
       id: 4013,
       name: "Not Less Cards 13",
-      description: "+44 to min cards per poke.",
+      description: "+88 to min cards per poke.",
       cost: { realmId: 9, currencyId: "spirit", amount: 1e6 },
       purchased: false
     },
     {
       id: 4014,
       name: "Not Less Cards 14",
-      description: "+100 to min cards per poke.",
+      description: "+200 to min cards per poke.",
       cost: { realmId: 10, currencyId: "tooth", amount: 1e12 },
       purchased: false
     },
     {
       id: 4015,
       name: "Not Less Cards 15",
-      description: "+1500 to min cards per poke.",
+      description: "+3000 to min cards per poke.",
       cost: { realmId: 11, currencyId: "feather", amount: 1.5e12 },
       purchased: false
     },
@@ -2232,49 +2232,49 @@ function applySkill(id, skipCost = false) {
         renderRealmFilters();
         break;
       case 4001: // Not Less Cards
-        state.effects.minCardsPerPoke += 1;
-        break;
-      case 4002:
         state.effects.minCardsPerPoke += 2;
         break;
+      case 4002:
+        state.effects.minCardsPerPoke += 4;
+        break;
       case 4003:
-        state.effects.minCardsPerPoke += 5;
-        break;
-      case 4004:
-        state.effects.minCardsPerPoke += 6;
-        break;
-      case 4005:
-        state.effects.minCardsPerPoke += 8;
-        break;
-      case 4006:
-        state.effects.minCardsPerPoke += 8;
-        break;
-      case 4007:
-        state.effects.minCardsPerPoke += 12;
-        break;
-      case 4008:
-        state.effects.minCardsPerPoke += 15;
-        break;
-      case 4009:
         state.effects.minCardsPerPoke += 10;
         break;
-      case 4010:
-        state.effects.minCardsPerPoke += 20;
+      case 4004:
+        state.effects.minCardsPerPoke += 12;
         break;
-      case 4011:
-        state.effects.minCardsPerPoke += 20;
+      case 4005:
+        state.effects.minCardsPerPoke += 14;
         break;
-      case 4012:
+      case 4006:
+        state.effects.minCardsPerPoke += 16;
+        break;
+      case 4007:
+        state.effects.minCardsPerPoke += 24;
+        break;
+      case 4008:
         state.effects.minCardsPerPoke += 30;
         break;
+      case 4009:
+        state.effects.minCardsPerPoke += 20;
+        break;
+      case 4010:
+        state.effects.minCardsPerPoke += 50;
+        break;
+      case 4011:
+        state.effects.minCardsPerPoke += 40;
+        break;
+      case 4012:
+        state.effects.minCardsPerPoke += 60;
+        break;
       case 4013:
-        state.effects.minCardsPerPoke += 44;
+        state.effects.minCardsPerPoke += 88;
         break;
       case 4014:
-        state.effects.minCardsPerPoke += 100;
+        state.effects.minCardsPerPoke += 200;
         break;
       case 4015:
-        state.effects.minCardsPerPoke += 1500;
+        state.effects.minCardsPerPoke += 3000;
         break;
       case 5001: // Nobody Likes Rocks
         realms[0].deselectMultiplier /= 2;

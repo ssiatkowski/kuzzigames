@@ -266,7 +266,7 @@ window.cards = [
           "type": "level",
           "amount": 10
         },
-        "value": 2.0
+        "value": 3.0
       },
       {
         "type": "flatMaxCardsPerPoke",
@@ -1895,7 +1895,7 @@ window.cards = [
         "type": "flatMaxCardsPerPoke",
         "requirement": {
           "type": "level",
-          "amount": 20
+          "amount": 15
         },
         "value": 5.0
       },
