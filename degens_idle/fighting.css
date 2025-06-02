@@ -1,0 +1,261 @@
+/* Fighting Overlay */
+.fighting-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; /* Arrange content vertically */
+    z-index: 100;
+}
+
+/* Center the content and space between player and enemy */
+.fighting-overlay-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch; /* Stretch sections to be the same height */
+    width: 80%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+
+/* Health Bars */
+.health-bar {
+    width: 100%;
+    height: 30px; /* Make the health bar thicker */
+    background-color: #555;
+    border-radius: 10px;
+    margin-top: 10px;
+    overflow: hidden;
+    position: relative; /* For positioning the health number */
+}
+
+/* The fill inside the health bar */
+.health-fill {
+    height: 100%;
+    background-color: #f00;
+    transition: width 0.3s;
+    z-index: 1; /* Ensure it stays behind the health number */
+}
+
+.health-flash-green {
+    background-color: #39FF14 !important; /* Bright green color */
+    transition: background-color 0.1s ease-in-out; /* Smooth transition */
+}
+
+/* Health Number */
+.health-number {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2; /* Ensure it stays above the health fill */
+    color: white;
+    font-weight: bold;
+    line-height: 30px; /* Align the text vertically within the health bar */
+    text-shadow: 1px 1px 2px black; /* Add some contrast to the text */
+    pointer-events: none; /* Ensure it doesn't interfere with clicks */
+}
+
+
+/* Fight Log adjustments */
+.fight-log {
+    width: 80%; /* Make it span the entire width of the overlay content */
+    max-width: 800px;
+    max-height: 300px;
+    overflow-y: auto;
+    background-color: #222;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 20px;
+    font-size: 14px;
+    text-align: left;
+    color: white; /* Ensure text is visible */
+    margin: 20px auto; /* Center the fight log */
+    line-height: 1.1; /* Adjust the line height to reduce spacing */
+}
+
+/* Adjust the size and positioning of the sections */
+.enemy-section, .player-section {
+    width: 30%; /* Set the width of the sections */
+    max-width: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 20px;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 10px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    justify-content: space-between; /* Ensure content is spaced evenly */
+    height: 100%; /* Ensure both sections stretch to the same height */
+    min-height: 300px; /* Ensure minimum height for consistency */
+}
+
+
+/* Images aligned at the bottom */
+.enemy-section img, .player-section img {
+    width: 100%;
+    height: auto; /* Maintain aspect ratio */
+    margin-top: auto; /* Push the image to the bottom */
+}
+
+/* Ensure stats are always at the top and images centered */
+.stats {
+    text-align: left;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: white;
+    width: 100%;
+    flex: 1; /* Allow stats to grow and fill space */
+}
+
+.STAT {
+    display: grid;
+    grid-template-columns: 45% 55%;
+    font-size: 15px;
+    justify-content: space-between;
+}
+
+/* Stats styling */
+.stats p {
+    margin: 2px 0; /* Reduce the top and bottom margin */
+    padding: 0; /* Remove padding */
+    line-height: 1.2; /* Adjust line-height for more compact text */
+}
+
+/* VS Text */
+.vs-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 20px;
+    font-size: 36px;
+    color: white;
+}
+
+/* Forfeit Button */
+.forfeit-button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #ff4444;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.forfeit-button:hover {
+    background-color: #ffffff;
+}
+
+
+.floating-damage {
+    position: absolute;
+    font-size: 40px; /* Increased font size */
+    font-weight: bold;
+    opacity: 1;
+    transition: transform 1s ease, opacity 1s ease;
+    pointer-events: none; /* Disable pointer interactions */
+    transform: translateY(0); /* Initial position */
+}
+
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    /* Hide the VS sign on small screens */
+    .vs-text {
+        display: none;
+    }
+
+    /* Increase image size and section width on small screens */
+    .enemy-section, .player-section {
+        width: 39%; /* Set the width to 48% of the screen width */
+        max-width: none; /* Allow the sections to be as wide as needed */
+        flex-shrink: 0; /* Prevent the sections from shrinking */
+    }
+
+    .enemy-section img, .player-section img {
+        width: 100%; /* Ensure the image takes up the full width of the section */
+        height: auto; /* Maintain aspect ratio */
+    }
+
+    .STAT {
+        display: grid;
+        grid-template-columns: 50% 50%;
+        font-size: 13px;
+        justify-content: space-between;
+    }
+
+    /* Ensure that the text does not wrap and uses the full width */
+    .stats p {
+        white-space: nowrap; /* Prevent text wrapping */
+        overflow: hidden; /* Hide any overflow text */
+        text-overflow: ellipsis; /* Add ellipsis (...) to overflow text */
+        font-size: 10px; /* Smaller font size for mobile devices */
+    }
+
+    /* Adjust the flex layout to avoid wrapping */
+    .fighting-overlay-content {
+        flex-wrap: nowrap; /* Prevent sections from wrapping to the next line */
+        justify-content: space-between; /* Distribute space evenly */
+        padding: 0; /* Remove padding */
+        margin: 0 auto; /* Center the content */
+        width: 100%; /* Ensure the content takes up the full screen width */
+    }
+
+    /* Reduce the padding to make better use of space */
+    .enemy-section, .player-section {
+        padding: 2px; /* Reduce padding to make more space for the content */
+    }
+
+    .floating-damage {
+        font-size: 28px;
+    }
+}
+
+/* Winner/Loser/Dead/Taunting Text */
+.result-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    font-size: 48px;
+    font-weight: bold;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 10px 20px;
+    border-radius: 10px;
+    z-index: 1;
+    text-align: center;
+    pointer-events: none; /* Prevent interaction with the text */
+}
+
+.winner-text {
+    color: green;
+}
+
+.loser-text {
+    color: red;
+}
+
+.taunting-text {
+    color: red;
+}
+
+.dead-text {
+    color: green;
+}
+
+#playerImageContainer, #enemyImageContainer {
+    position: relative;
+}

@@ -1,0 +1,1352 @@
+/* Basic reset and typography */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+* {
+  -webkit-user-select: none; /* Chrome, Safari, Opera */
+  -moz-user-select: none;    /* Firefox */
+  -ms-user-select: none;     /* Internet Explorer/Edge */
+  user-select: none;         /* Standard syntax */
+  -webkit-touch-callout: none; /* Prevent callout on iOS */
+}
+html, body {
+  overflow-x: hidden;
+  touch-action: manipulation;
+}
+body {
+  font-family: Arial, sans-serif;
+  background: #222;
+  color: #eee;
+  padding: 20px;
+  position: relative;
+}
+
+/* Ensure fixed elements do not cover content */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding-top: 100px;  /* space for fixed topStatus */
+  padding-bottom: 60px; /* space for fixed footer */
+}
+
+/* ---------------------- */
+/* Top Status Area (Fixed & Centered) */
+/* ---------------------- */
+#topStatus {
+  display: flex;
+  gap: 20px;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 40px); /* full width minus body padding */
+  max-width: 900px;
+  background: #222;
+  padding: 10px 0px;
+  z-index: 1000;
+}
+
+/* Settings Column – now 50% larger */
+.settings-column {
+  flex: 0 0 8%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.settings-column img {
+  max-width: 64px;   /* increased from ~30px */
+  max-height: 64px;
+  cursor: pointer;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.settings-column img:hover {
+  filter: brightness(1.5);
+}
+
+/* Bars Container occupies 75% of the topStatus area */
+.bars-container {
+  flex: 0 0 72%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+}
+
+/* Each status bar row uses a grid layout: label and the bar */
+.status-bar {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.status-label {
+  margin-right: 2px; /* minimal gap so the bar is right next to the label */
+  font-size: 0.75em;
+}
+
+/* Bar container is now “longer” (taller) and serves as the positioning context */
+.status-bar-bg {
+  position: relative;
+  background: #555;
+  height: 20px;        /* increased height from 15px for a longer bar */
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* The fill element (its width is updated via JS) */
+.status-bar-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0%;
+  transition: width 0.2s;
+}
+
+/* Specific fill colors for each type of bar */
+#energyBarFill {
+  background: #e74c3c;
+  pointer-events: none;
+}
+#copiumBarFill {
+  background: #dbd834;
+  pointer-events: none;
+}
+#delusionBarFill {
+  background: #9b59b6;
+  pointer-events: none;
+}
+
+#energyBarFill.glowing {
+  animation: glowPulse 1s infinite alternate;
+}
+
+@keyframes glowPulse {
+  from { box-shadow: inset 0 0 5px 2px #e74c3c; }
+  to { box-shadow: inset 0 0 6px 1px rgba(71, 240, 255, 0.8); }
+}
+
+/* Glow for low energy (energy below 10% of startingEnergy) */
+#energyBarFill.energy-low {
+  animation: lowEnergyPulse 1s infinite alternate;
+}
+
+@keyframes lowEnergyPulse {
+  from { box-shadow: inset 0 0 5px 2px #dbd834; }
+  to   { box-shadow: inset 0 0 15px 5px rgb(87, 11, 11, 0.8); }
+}
+
+/* Glow for high copium (copium above 8000) */
+#copiumBarFill.copium-high {
+  animation: highCopiumPulse 1s infinite alternate;
+}
+
+@keyframes highCopiumPulse {
+  from { box-shadow: inset 0 0 5px 2px rgba(255, 165, 0, 0.8); }
+  to   { box-shadow: inset 0 0 15px 5px rgb(123, 82, 6); }
+}
+
+
+/* Glow for high delusion (delusion above 8000) */
+#delusionBarFill.delusion-high {
+  animation: highDelusionPulse 1s infinite alternate;
+}
+
+@keyframes highDelusionPulse {
+  from { box-shadow: inset 0 0 5px 2px #9b59b6; }
+  to   { box-shadow: inset 0 0 15px 5px #361941; }
+}
+
+
+
+/* The numeric value is positioned in the center of the bar */
+.status-bar-value {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.75em;
+  color: #fff;
+  pointer-events: none;
+}
+
+/* ---------------------- */
+/* Upgrades Display Styling */
+/* ---------------------- */
+.upgrades-container {
+  flex: 0 0 15%;  /* 50% wider than 10% (10% * 1.5 = 15%) */
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: left;
+}
+
+.upgrade-display {
+  background: #000000;
+  padding: 4px 6px;
+  border-radius: 6px;
+  font-size: 0.75em;
+  width: 100%;
+  text-align: center;
+  cursor: default;
+}
+.upgrade-label:after {
+  content: ":";
+}
+.upgrade-display .upgrade-label,
+.upgrade-display .upgrade-value {
+  pointer-events: none;
+}
+
+#knowledgeUpgDiv {
+  color: rgb(40, 210, 117);
+  font-weight: bold;
+}
+
+#powerUpgDiv {
+  color: rgb(222, 34, 191);
+  font-weight: bold;
+}
+
+/* Style the Serenity upgrade display to be blue and taller */
+#serenityUpgDiv {
+  background: linear-gradient(135deg, #3498db, #176aa1);
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 0.9em;
+  color: #ffffff; /* choose a color that fits your theme */
+  padding: 5px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#serenityUpgDiv:hover {
+  filter: brightness(1.1);
+}
+/************************************/
+/* Additional or revised CSS rules: */
+/************************************/
+
+/* A “blue” border for the modal */
+.prestige-modal-blueborder {
+  border: 2px solid #3498db !important; /* override green border */
+}
+
+/* Centered header, “X” top-right */
+.modal-header-centered {
+  position: relative;
+  display: flex;
+  justify-content: center; /* center the title horizontally */
+  align-items: center;
+  margin-bottom: 10px;
+}
+.modal-header-centered h2 {
+  margin: 0;
+}
+.modal-close-topright {
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  font-size: 1.4em;
+  font-weight: bold;
+  padding: 0 6px;
+}
+
+/* Info container for Serenity & Gains */
+.serenity-info-container {
+  margin-bottom: 10px;
+}
+
+/* “Section” wrapper, each with a row for 2 columns */
+.serenity-section {
+  margin: 20px 0;
+  border-top: 1px solid #555;
+  padding-top: 10px;
+}
+.serenity-section h3 {
+  margin-bottom: 10px;
+  text-align: center;
+}
+.serenity-section-row {
+  display: flex;
+  gap: 20px;
+}
+
+.serenity-upgrade-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+
+/* Each column for Unlockables/Infinite in that section */
+.serenity-upgrades-col {
+  flex: 1;
+  background: #444;
+  padding: 10px;
+  border-radius: 4px;
+}
+.serenity-upgrades-col h4 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+/* The final row with the “Prestige” and “Exit” buttons */
+.serenity-buttons-container {
+  margin-top: 20px;
+  text-align: center;
+}
+
+/* Make each upgrade slot look like a “button”: */
+.serenity-upgrade-slot {
+  background: #555;
+  margin: 5px 0;
+  padding: 10px;
+  border-radius: 6px;
+  text-align: center;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: background 0.2s, transform 0.2s;
+}
+.serenity-upgrade-slot:hover {
+  transform: scale(1.02);
+}
+
+/* Sub-elements for name & cost on separate lines */
+.serenity-upgrade-name {
+  font-weight: bold;
+  margin-bottom: 3px;
+  pointer-events: none;
+}
+.serenity-upgrade-cost {
+  font-size: 0.85em;
+  color: #ddd;
+  pointer-events: none;
+}
+
+/* Color-coded states: locked, affordable, purchased */
+.upgrade-slot-locked {
+  background: #666 !important; /* gray, not affordable or locked */
+  color: #aaa;
+}
+.upgrade-slot-affordable {
+  background: #27ae60 !important; /* green if user can afford */
+  color: #fff;
+}
+.upgrade-slot-purchased {
+  background: #1e90ff !important; /* light-blue if purchased */
+  color: #fff;
+}
+
+/* “Prestige” button in the modal, styled like your Prestige Task: */
+.prestige-task-button {
+  background: linear-gradient(135deg, #3498db, #176aa1) !important;
+  color: #fff !important;
+  animation: prestigeGlow 2s infinite;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  height: 50px !important;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: filter 0.2s ease;
+}
+.prestige-task-button:hover:not([disabled]) {
+  filter: brightness(1.1);
+}
+.prestige-task-button[disabled] {
+  background: #444 !important; /* gray out if disabled */
+  animation: none !important;
+  cursor: not-allowed;
+}
+
+.task-control button.big-x {
+  position: relative;          /* For the pseudo-element to position correctly */
+  border: 2px dashed red;      /* Red dashed border on the button */
+}
+
+
+
+
+/* ---------------------- */
+/* Skills Display (50% smaller) */
+/* ---------------------- */
+#skills {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.skill {
+  width: 100px;
+  background: #333;
+  padding: 5px;
+  border-radius: 5px;
+  text-align: center;
+  user-select: none;
+  cursor: default;
+  font-size: 0.75em;
+}
+.skill * {
+  user-select: none;
+  cursor: default;
+}
+.skill:hover {
+  background: #444;
+}
+.skill-name {
+  pointer-events: none;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.skill-bar {
+  width: 100%;
+  background: #555;
+  height: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-bottom: 5px;
+  pointer-events: none;
+}
+.skill-bar-fill {
+  height: 100%;
+  background: #27ae60;
+  width: 0%;
+  transition: width 0.2s;
+}
+.skill-info {
+  font-size: 1em;
+  pointer-events: none;
+}
+.skill-info .skill-xp,
+.skill-info .skill-xp-total {
+  pointer-events: none;
+  opacity: 0.5;
+  font-size: 0.9em;
+}
+
+/* ---------------------- */
+/* Main area layout */
+/* ---------------------- */
+.game-layout {
+  display: flex;
+  gap: 20px;
+}
+.left-column {
+  width: 66%;
+}
+.right-column {
+  width: 34%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+/* Zone Image */
+#zoneName {
+  margin: 0;
+  font-size: 1.3em;
+  text-align: center;
+}
+#zoneImage {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 2px solid #555;
+  border-radius: 5px;
+}
+
+/* ---------------------- */
+/* Resources & Perks */
+/* ---------------------- */
+#resourcesContainer,
+#perksContainer {
+  width: 100%;
+  background: #333;
+  padding: 10px;
+  border-radius: 5px;
+}
+#resourcesContainer h3,
+#perksContainer h3 {
+  margin-bottom: 10px;
+  display: inline-block;
+  margin-right: 10px; /* add some spacing */
+}
+
+.perk-count {
+  font-size: 0.8em;
+  color: #aaa;
+}
+
+/* Resources grid */
+#resourcesGrid, .perks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(54px, 1fr));
+  gap: 2px;
+}
+
+/* Resource items */
+.resource-item, .perk-item img {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  cursor: pointer; 
+}
+.resource-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.resource-count {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  padding: 2px 5px;
+  font-size: 0.8em;
+  border-radius: 3px;
+}
+
+.resource-item:hover {
+  transform: scale(1.1);
+  filter: brightness(1.2);
+}
+
+/* ----- Resource Toggle Styling ----- */
+#resourceToggle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+#resourceToggle button {
+  background: #444;
+  color: #fff;
+  border: 1px solid #666;
+  padding: 3px 5px;
+  font-size: 0.65em;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s, filter 0.2s;
+}
+
+#resourceToggle button.active {
+  background: #27ae60;
+  border-color: #1e8449;
+  color: #fff;
+}
+
+#resourceToggle button:hover {
+  filter: brightness(1.2);
+}
+
+.perk-item {
+  display: inline-block;
+  position: relative;
+  cursor: default;
+}
+
+.perk-item.locked img {
+  filter: grayscale(1);
+  opacity: 0.5;
+}
+.perk-item.unlocked img {
+  filter: none;
+  opacity: 1;
+}
+.perk-item:hover {
+  filter: brightness(1.3);
+}
+
+/* For toggleable perks that are enabled */
+.perk-item.toggleable-enabled::after {
+  content: "ON";
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  background: green;
+  color: white;
+  font-size: 10px;
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+/* Badge for toggleable perks that are disabled */
+.perk-item.disabled::after {
+  content: "OFF";
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  background: red;
+  color: white;
+  font-size: 10px;
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+
+/* ---------------------- */
+/* Tasks Styling */
+/* ---------------------- */
+#tasks .task {
+  background: #333;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+.task-control {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  margin-bottom: 5px;
+}
+.task-control button {
+  width: 50%;
+  padding: 10px;
+  font-size: 0.9em;
+  background: linear-gradient(145deg, #27ae60, #247646);
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  position: relative;
+}
+.task-control button:disabled {
+  background: #555;
+  cursor: not-allowed;
+}
+.task-control button.active {
+  filter: brightness(115%) !important;
+  border: 1.5px solid #ffcc00; /* Add a border or change color */
+}
+.task-control button:hover {
+  transform: scale(1.02);
+  filter: brightness(0.9);
+}
+.task-control img.resource-icon {
+  width: 16px;
+  height: 16px;
+  margin-left: 3px;
+  vertical-align: middle;
+}
+.task.mandatory-task .task-control button {
+  background: linear-gradient(135deg, #a46b16, #744b0d);
+}
+
+.task.boss-task .task-control button {
+  background: linear-gradient(135deg, #801010, #5f0808);
+}
+
+.task.travel-task .task-control button:enabled {
+  background: linear-gradient(135deg, #194731, #123926);
+}
+/* Prestige Task Button Styling */
+.task.prestige-task .task-control button {
+  background: linear-gradient(135deg, #3498db, #176aa1);
+  color: #fff;
+  transition: background-color 0.2s, filter 0.2s;
+  animation: prestigeGlow 2s infinite;
+}
+
+@keyframes prestigeGlow {
+  0% {
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(52, 152, 219, 0.9);
+  }
+  100% {
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.6);
+  }
+}
+
+.task.prestige-task .task-control button:hover {
+  filter: brightness(1.1);
+}
+
+
+.perk-star {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  color: #f1c40f;
+  font-size: 1.2em;
+  pointer-events: none;
+}
+.rep-container {
+  width: 50%;
+  display: grid;
+  grid-template-columns: repeat(10, auto); /* 10 columns */
+  justify-content: flex-start;
+  align-items: center;
+  gap: 5px;
+  padding-left: 5px;
+}
+.rep-indicator {
+  width: 16px;
+  height: 16px;
+  background: #777;
+  border-radius: 2px;
+}
+.rep-indicator.completed {
+  background: #27ae60;
+}
+.current-progress-bar {
+  width: 100%;
+  height: 10px;
+  background: #555;
+  border-radius: 5px;
+  margin-top: 5px;
+  overflow: hidden;
+}
+.current-progress-fill {
+  height: 100%;
+  background: #3498db;
+  width: 0%;
+  transition: width 0.2s;
+}
+#tasks .task p {
+  margin-top: 5px;
+  font-size: 0.8em;
+}
+
+/* ---------------------- */
+/* Footer (Fixed at Bottom) */
+/* ---------------------- */
+footer {
+  text-align: center;
+  font-size: 0.9em;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 40px);
+  max-width: 900px;
+  background: #222;
+  padding: 10px 0;
+  z-index: 1000;
+}
+
+/* ---------------------- */
+/* Game Over Overlay */
+/* ---------------------- */
+#gameOverScreenEnergy, #gameOverScreenCopium, #gameOverScreenDelusion {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+#gameOverContentEnergy, #gameOverContentCopium, #gameOverContentDelusion {
+  text-align: center;
+}
+#gameOverContentEnergy h2, #gameOverContentCopium h2, #gameOverContentDelusion h2 {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+#gameOverContentEnergy button, #gameOverContentCopium button, #gameOverContentDelusion button {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  font-size: 1em;
+  background: #27ae60;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* ---------------------- */
+/* Settings Modal */
+/* ---------------------- */
+/* Modal overlay */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1100;
+}
+
+/* Unified modal content with enhanced style */
+.modal-content {
+  background: linear-gradient(135deg, #555, #333);
+  border: 2px solid #27ae60;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+  padding: 30px;
+  border-radius: 8px;
+  text-align: center;
+  max-width: 500px;
+  width: 90%;
+  color: #fff;
+  overflow-y: auto;
+}
+
+/* Headings inside modals */
+.modal-content h2 {
+  font-size: 1.8em;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+/* Paragraphs and text content */
+.modal-content p {
+  font-size: 1em;
+  margin-bottom: 20px;
+  line-height: 1.4;
+  color: #ddd;
+}
+
+/* Buttons inside modals */
+.modal-content button {
+  padding: 10px 20px;
+  font-size: 1em;
+  background: #27ae60;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  margin: 4px;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.modal-content button:hover {
+  background: #1e8449;
+  transform: scale(1.05);
+}
+
+/* Prestige modal modifier (can be added in addition to modal-content) */
+.prestige-modal {
+  max-width: 75%;
+  /* You can override or add additional styles if desired */
+}
+
+.prestige-modal h2 {
+  color: #eee;
+  margin-bottom: 20px;
+}
+
+.prestige-modal p {
+  color: #eee;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.prestige-modal a {
+  color: #e67e22;
+  text-decoration: underline;
+}
+
+.prestige-btn-wrapper {
+  text-align: center;
+  margin-top: 30px;
+}
+
+
+/* ---------------------- */
+/* Custom Tooltip */
+/* ---------------------- */
+.custom-tooltip {
+  position: absolute;
+  background: #000000ab;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 3px;
+  font-size: 0.8em;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.1s;
+  z-index: 10000;
+}
+
+#versionBanner {
+  background-color: #ff4444;  /* bright red background */
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+  font-size: 0.9em;
+  display: none; /* Hidden by default */
+}
+
+/* --- Settings Modal Buttons --- */
+/* Base style for all buttons in the settings modal */
+.modal-content button {
+  width: 200px;
+  height: 40px;
+  font-size: 1em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* Specific button colors with higher specificity */
+.modal-content button.btn-version {
+  background-color: #9a9794 !important;
+  color: #fff !important;
+}
+.modal-content button.btn-tutorial {
+  background-color: #e67e22 !important;
+  color: #fff !important;
+}
+.modal-content button.btn-achievements {
+  background-color: #58a1d2 !important;
+  color: #fff !important;
+}
+.modal-content button.btn-red {
+  background-color: #e74c3c !important;
+  color: #fff !important;
+}
+.modal-content button.btn-green {
+  background-color: #27ae60 !important;
+  color: #fff !important;
+}
+.modal-content button.btn-discord {
+  background-color: rgb(200, 200, 200) !important;
+  color: #000 !important;
+  object-fit: fill;
+}
+
+.modal-content button.btn-discord img {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.modal-content button.btn-yellow {
+  background-color: #cfc210 !important;
+  color: #fff !important;
+}
+
+.modal-content button.btn-degens {
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* For the Degens Idle button image, force it to fill the button even if the aspect ratio is lost */
+.modal-content button.btn-degens img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  display: block;
+  pointer-events: none;
+}
+
+#changelogModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1300;
+}
+
+.save-buttons-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 200px;  /* or whatever fits best */
+  justify-items: center; /* each cell stretches horizontally */
+  align-items: center;     /* vertically center in each cell */
+}
+
+.save-buttons-container button {
+  width: 100%; 
+  display: flex;          /* make icon+text center nicely */
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  box-sizing: border-box; /* ensures no unexpected padding shift */
+  padding: 6px;           /* adjust as you like */
+}
+
+/* Style for copy and paste save buttons with icons and text */
+.modal-content button.btn-copy,
+.modal-content button.btn-paste {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9em;
+  background: #5b5b5b;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.modal-content button.btn-copy:hover,
+.modal-content button.btn-paste:hover {
+  transform: scale(1.05);
+  background: #1e8449;
+}
+
+.modal-content button.btn-copy img,
+.modal-content button.btn-paste img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.btn-copy img,
+.btn-copy span,
+.btn-paste img,
+.btn-paste span {
+  pointer-events: none;
+}
+
+#zoneAutomation {
+  margin-top: 5px;
+  font-size: 1.2em;
+  text-align: center;
+  color: #eee;
+}
+
+#zoneAutomation button {
+  background: linear-gradient(135deg, #27ae60, #567764);
+  padding: 10px 15px;
+  border-radius: 3px;
+  cursor: pointer;
+  margin: 5px;
+}
+
+
+#zoneAutomation button:hover {
+  transform: scale(1.02);
+  filter: brightness(0.9);
+}
+
+/* Base styles for the automation buttons */
+#zoneAutomation button {
+  border: none;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  outline: none;
+}
+
+/* Slight scale on hover */
+#zoneAutomation button:hover {
+  transform: scale(1.05);
+}
+
+/* Active state: darker gradient, pulsing animation, and stronger glow */
+#zoneAutomation button.active {
+  background: linear-gradient(135deg, #27ae60, #567764);
+  animation: pulseAnimation 1.5s infinite;
+  box-shadow: 0 0 15px rgba(46, 204, 113, 0.8);
+}
+
+/* Pulse keyframes */
+@keyframes pulseAnimation {
+  0% {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(17, 72, 40, 0.5);
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgb(158, 199, 175);
+  }
+  100% {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(46, 204, 113, 0.5);
+  }
+}
+
+.resource-automation-btn {
+  background: linear-gradient(135deg, #27ae60, #567764);
+  padding: 3px 8px;
+  border-radius: 3px;
+  cursor: pointer;
+  margin: 3px;
+  border: none;
+  color: #fff;
+  transition: transform 0.2s ease, filter 0.2s ease;
+  outline: none;
+}
+
+.resource-automation-btn:hover {
+  transform: scale(1.02);
+  filter: brightness(0.9);
+}
+
+.resource-automation-btn.active {
+  background: linear-gradient(135deg, #1e8449, #27ae60);
+  animation: pulseAnimation 1.5s infinite;
+  box-shadow: 0 0 15px rgba(46, 204, 113, 0.8);
+}
+
+
+footer {
+  background-color: transparent;
+  pointer-events: none; /* if you want clicks to pass through the footer */
+}
+
+/* The footer’s message container (it’s a <p> but we override display) */
+#message {
+  background-color: transparent !important;
+  pointer-events: none;
+  margin: 0;
+  padding: 0;
+}
+
+
+/* Each individual message */
+.message-item {
+  background: rgba(0, 0, 0, 0.25);
+  color: #fff;
+  margin: 2px 0;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+.perk-unlock-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  /* Center the content within the message element */
+  text-align: center;
+}
+
+.perk-unlock-message img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.perk-unlock-message .perk-text {
+  text-align: center;
+}
+
+/* Custom Checkbox Styles for "Leave 1" */
+input[type="checkbox"].custom-checkbox {
+  transform: scale(1.5);
+  width: 12px;
+  height: 12px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background-color: gray;
+  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
+  cursor: pointer;
+  position: relative;
+}
+
+input[type="checkbox"].custom-checkbox:checked {
+  background-color: green;
+}
+
+input[type="checkbox"].custom-checkbox:checked::after {
+  content: "";
+  position: absolute;
+  left: 3px;
+  top: 0px;
+  width: 3px;
+  height: 6px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+
+/* Achievements Modal */
+#achievementsModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1200;
+}
+
+#achievementsModal .modal-content {
+  background-color: #fff;
+  padding: 20px;
+  max-height: 80vh;
+  overflow-y: auto;
+  width: 80%;
+  max-width: 800px;
+  border-radius: 8px;
+}
+
+/* Achievements Grid */
+#achievementsGrid {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 10px;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+/* Each achievement cell */
+.achievement-cell {
+  width: 100%;
+  padding-top: 100%; /* for square aspect ratio */
+  position: relative;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: #f9f9f9;
+}
+
+.achievement-cell img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+
+/* Media Queries for Mobile Devices */
+@media (max-width: 768px) {
+  #topStatus {
+    max-width: 100%;
+    gap: 5px; /* optional: adjust gap if needed */
+  }
+  .bars-container {
+    flex: 0 0 55%;
+  }
+  .upgrades-container {
+    flex: 0 0 29%;  /* 50% wider than 10% (10% * 1.5 = 15%) */
+  }
+  .upgrade-display {
+    font-size: 0.65em;
+  }
+  #serenityUpgDiv {
+    font-size: 0.7em;
+  }
+  .skill {
+    width: 80px;
+    font-size: 0.75em;
+  }
+  .skill-info {
+    font-size: 0.9em;
+  }
+  .skill-info .skill-xp,
+  .skill-info .skill-xp-total {
+    font-size: 0.9em;
+  }
+  .rep-indicator {
+    width: 9px;
+    height: 9px;
+  }
+  .rep-container {
+    gap: 1px;
+  }
+  
+  .perk-count {
+    font-size: 0.6em;
+  }
+
+  #resourcesGrid, .perks-grid {
+    grid-template-columns: repeat(auto-fill, minmax(46px, 1fr));
+    gap: 1px;
+  }
+  .resource-item, .perk-item img {
+    width: 43px;
+    height: 43px;
+  }
+  
+  .task-control button {
+    padding: 7.5px;
+    font-size: 0.7em;
+  }
+
+  /* Reduce vertical spacing between tasks (margin-bottom reduced from 10px to 7.5px) */
+  #tasks .task {
+    margin-bottom: 7.5px;
+  }
+  
+  /* Also adjust task paragraph text font-size from 0.7em to 0.65em */
+  #tasks .task p {
+    font-size: 0.65em;
+    margin-bottom: -5px;
+  }
+
+  .custom-tooltip {
+    font-size: 0.6em;
+  }
+
+  #zoneAutomation {
+    font-size: 0.9em;
+  }
+  
+  #zoneAutomation button {
+    padding: 5px 10px;
+    margin: 3px;
+  }
+
+  .prestige-modal {
+    max-width: 90%;
+  }
+
+  .serenity-upgrade-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  #zoneName {
+    min-height: 3.9em; /* reserves space for three lines */
+  }
+
+  .modal-content button {
+    height: 35px;
+    margin: 2px;
+  }
+
+  #achievementsGrid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}

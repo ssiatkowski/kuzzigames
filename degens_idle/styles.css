@@ -1,0 +1,1518 @@
+:root {
+    --glowing-animation-duration: 2s;
+}
+
+html, body {
+    overflow-x: hidden;
+    overscroll-behavior-x: none; /* Disable horizontal overscroll */
+    overflow-y: auto; /* Allow vertical scrolling */
+    width: 100%;
+    height: 100%;
+    touch-action: pan-y; /* Restrict touch actions to vertical scrolling */
+}
+
+.container {
+    max-width: 100vw; /* 100% of the viewport width */
+    min-width: 100vw; /* Prevent shrinking below viewport width */
+    overflow-x: hidden; /* Prevent horizontal scroll */
+    box-sizing: border-box; /* Include padding in width calculation */
+}
+
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 10; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100vw; /* Full width, use vw to ensure no overflow */
+    height: 100vh; /* Full height */
+    overflow-y: hidden; /* Enable vertical scroll if needed */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    background-color: rgba(0, 0, 0, 0.8); /* Black w/ opacity */
+    box-sizing: border-box; /* Ensure padding doesn't affect the width */
+}
+
+.modal-content {
+    background-color: #1e1e1e; /* Dark background */
+    margin: 5% auto; /* Centered */
+    padding: 20px;
+    border: 1px solid #333; /* Dark border */
+    width: 75%; /* Could be more or less, depending on screen size */
+    max-height: 80%; /* Constrain height to avoid overflow */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+    color: #e0e0e0; /* Light text color */
+    font-family: Arial, sans-serif;
+    position: relative;
+    overflow-y: auto; /* Ensure content inside modal scrolls if needed */
+}
+
+
+/* Add this to your existing CSS */
+.modal-restart {
+    background-color: #ff4d4d; /* Red background */
+    border: 2px solid #cc0000; /* Darker red border */
+    color: #330000; /* Dark red text color */
+}
+
+/* Modal for Infinite Embrace (subtle pink) */
+.modal-embrace {
+    background-color: #1e1e1e; /* Same dark background as original */
+    border: 1px solid #cc6699; /* Subtle pink border */
+    color: #e0e0e0; /* Same light text color as original */
+}
+
+
+/* The Close Button */
+.close-button {
+    color: #e0e0e0;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Modal title */
+#modalTitle {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Modal message */
+#modalMessage {
+    margin: 10px 0;
+    line-height: 1.6;
+}
+
+/* Modal close button */
+#modalCloseButton {
+    display: block;
+    margin: 20px auto 0;
+    padding: 10px 20px;
+    background-color: #e74c3c; /* Red background */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#modalCloseButton:hover {
+    background-color: #c0392b; /* Darker red on hover */
+}
+
+#modalConfirmButtons {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+#modalConfirmButton, #modalCancelButton {
+    background-color: #4CAF50; /* Green */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#modalCancelButton {
+    background-color: #f44336; /* Red */
+}
+
+#modalImage {
+    max-width: 90vw; /* Set maximum width to 90% of the viewport width */
+    max-height: 1400px;
+    width: auto; /* Maintain the image's aspect ratio */
+    margin: 10px 0;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    background-color: #121212; /* Dark background */
+    color: #e0e0e0; /* Light text color */
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+h1, h2 {
+    color: #e0e0e0; /* Light text color */
+}
+
+#main-container {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+}
+
+#title-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 17%;
+}
+
+#title-container {
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px; /* Add margin to space out from the button */
+    background-image: url('imgs/textures/banner_side.png'); /* Set desktop background image */
+    background-size: contain; /* Ensure the image covers the entire container */
+    background-position: center; /* Center the image within the container */
+    background-repeat: no-repeat; /* Prevent repeating */
+    width: 100%; /* Ensure it fills the column width */
+    height: 80vh; /* Set height to full viewport height */
+}
+
+#button-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Adjusts spacing between buttons */
+    align-items: center;
+    margin-top: 20px;
+}
+
+#restartButton {
+    background-color: #e74c3c; /* Red background */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    white-space: nowrap; /* Prevent text wrapping */
+    width: 100%; /* Take up the full width of the container */
+}
+
+#restartButton:hover {
+    background-color: #c0392b; /* Darker red on hover */
+}
+
+#restartPrestige {
+    background-color: #e97467; /* Red background */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    white-space: nowrap; /* Prevent text wrapping */
+    width: 100%; /* Take up the full width of the container */
+}
+
+#restartPrestige:hover {
+    background-color: #c0392b; /* Darker red on hover */
+}
+
+#settingsButton {
+    background-color: #82afb3; /* Gray background */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    border-radius: 5px;
+    white-space: nowrap; /* Prevent text wrapping */
+    width: 100%; /* Take up the full width of the container */
+}
+
+#settingsButton:hover {
+    background-color: #5f6a6a; /* Darker gray on hover */
+}
+
+#game {
+    background-color: #1e1e1e; /* Dark background for game container */
+    border: 1px solid #333; /* Darker border */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    width: 300px;
+}
+
+.resource {
+    margin-bottom: 20px;
+}
+
+.resource-value {
+    font-size: 2em;
+    font-weight: bold;
+    color: #76ff03; /* Light green for resource values */
+}
+
+.resource-value:hover {
+    background-color: #333;
+    cursor: pointer;
+}
+
+.resource-gain-tooltip {
+    pointer-events: none;  /* Make the tooltip non-interactive */
+    background-color: rgba(43, 43, 43, 0.97); /* Dark gray with less transparency */
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 18px;
+    z-index: 1000; /* Ensure it's above other elements */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    position: absolute; /* Ensure proper placement */
+    white-space: nowrap; /* Prevent any text wrapping */
+    overflow-x: auto; /* Allow horizontal scrolling for overflow content */
+    max-width: 100%; /* Ensure the tooltip doesn't overflow the screen */
+    pointer-events: none; /* Ensure no blocking when hidden or visible */
+    transform: translateX(-50%); /* part of centering the tooltip */
+}
+
+
+.per-second {
+    font-size: 0.8em;
+    color: #bdbdbd; /* Lighter text color for per second info */
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+
+/* Mini-game tooltip container */
+.mini-game-tooltip {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.8); /* Dark background */
+    color: white; /* White text */
+    padding: 8px;
+    border-radius: 5px;
+    font-size: 14px;
+    white-space: nowrap;
+    z-index: 1000; /* Ensure it's above everything else */
+    pointer-events: none; /* Prevent interference with mouse events */
+    opacity: 0; /* Hidden by default */
+    transition: opacity 0.2s ease;
+}
+
+/* Mini-game tooltip visible state */
+.mini-game-tooltip.visible {
+    opacity: 1;
+}
+
+
+/* .resource .per-second {
+    display: flex;
+    align-items: center;
+} */
+
+button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #424242; /* Dark button background */
+    color: #e0e0e0; /* Light button text */
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    touch-action: manipulation;
+}
+
+button:hover {
+    background-color: #616161; /* Lighter on hover */
+}
+
+button.affordable {
+    background-color: #4caf50; /* Green */
+    color: white;
+    touch-action: manipulation;
+}
+
+/* God Mode Affordable Button */
+button.affordable-godmode {
+    background-color: #1e90ff; /* DodgerBlue */
+    color: white;
+    border: 2px solid #00bfff; /* DeepSkyBlue */
+    box-shadow: 0 0 10px #1e90ff, 0 0 20px #00bfff; /* Blue shadow for glow effect */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+button.affordable-godmode:hover {
+    background-color: #1c86ee; /* Slightly darker DodgerBlue */
+    box-shadow: 0 0 15px #1e90ff, 0 0 30px #00bfff; /* Brighter blue shadow on hover */
+}
+
+/* Purple God Mode Affordable Button */
+button.affordable-pu-godmode {
+    background-color: #8e44ad; /* Purple */
+    color: white;
+    border: 2px solid #b565c8; /* Light Purple */
+    box-shadow: 0 0 10px #8e44ad, 0 0 20px #b565c8; /* Purple shadow for glow effect */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+button.affordable-pu-godmode:hover {
+    background-color: #7d3c98; /* Slightly darker Purple */
+    box-shadow: 0 0 15px #8e44ad, 0 0 30px #b565c8; /* Brighter purple shadow on hover */
+}
+
+/* Blue and Purple God Mode Affordable Button with Animated Wave Glow */
+button.affordable-double-godmode {
+    background: linear-gradient(45deg, #1e90ff, #8e44ad); /* Gradient from Blue to Purple */
+    color: white;
+    border: 2px solid #4b6cb7; /* A mix between blue and purple for the border */
+    box-shadow: 0 0 20px #1e90ff, 0 0 20px #8e44ad, 0 0 30px #4b6cb7; /* Blue and Purple shadow for glow effect */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    animation: waveGlow var(--glowing-animation-duration) infinite linear; /* Wave-like glow animation */
+}
+
+button.affordable-double-godmode:hover {
+    background: linear-gradient(45deg, #1c86ee, #7d3c98); /* Slightly darker gradient on hover */
+    box-shadow: 0 0 25px #1e90ff, 0 0 25px #8e44ad, 0 0 40px #4b6cb7; /* Brighter blue and purple shadow on hover */
+}
+
+/* Keyframes for Wave-Like Glow Animation */
+@keyframes waveGlow {
+    0% {
+        box-shadow: -10px 0 20px #1e90ff, 10px 0 20px #8e44ad, 0 0 30px #4b6cb7;
+    }
+    25% {
+        box-shadow: 0 -10px 20px #1e90ff, 0 10px 20px #8e44ad, 0 0 30px #4b6cb7;
+    }
+    50% {
+        box-shadow: 10px 0 20px #1e90ff, -10px 0 20px #8e44ad, 0 0 30px #4b6cb7;
+    }
+    75% {
+        box-shadow: 0 10px 20px #1e90ff, 0 -10px 20px #8e44ad, 0 0 30px #4b6cb7;
+    }
+    100% {
+        box-shadow: -10px 0 20px #1e90ff, 10px 0 20px #8e44ad, 0 0 30px #4b6cb7;
+    }
+}
+
+#upgrades {
+    text-align: center; /* Centers the h2 text */
+}
+
+button:disabled {
+    background-color: #333; /* Darker gray */
+    color: #666; /* Darker text */
+    cursor: not-allowed;
+}
+
+/* Styles for the collect buttons */
+button.collect-button {
+    background-color: #28a745; /* Green background */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 5px; /* Add margin for spacing */
+    display: inline-block; /* Ensure buttons are inline */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    touch-action: manipulation;
+}
+
+button.collect-button:not(.disabled):hover {
+    background-color: #218838; /* Darker green on hover */
+    transform: scale(1.1); /* Slightly larger on hover */
+}
+
+button.collect-button:active {
+    background-color: #1e7e34; /* Even darker green on click */
+    transform: scale(1.05); /* Slightly smaller on click */
+}
+
+button.game-button {
+    background-color: #4caf50; /* Initial background */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 5px;
+    position: relative; /* Needed for progress bar */
+    overflow: hidden; /* Hide overflow for progress bar */
+    display: inline-block; /* Ensure buttons are inline */
+    transition: background-color 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
+}
+
+button.game-button .progress {
+    background-color: rgba(40, 167, 69, 0.7); /* Semi-transparent green */
+    height: 100%; /* Make sure the progress bar fills the button height */
+    position: absolute; /* Position it over the button */
+    top: 0;
+    left: 0;
+    z-index: 1; /* Ensure it's above the button content */
+    transition: width 0.1s linear; /* Smooth progress bar increase */
+}
+
+button.game-button .button-content {
+    position: relative; /* Ensure the button content is above the progress bar */
+    z-index: 2;
+}
+
+button.game-button:not(.disabled):hover {
+    background-color: #218838; /* Darker green on hover */
+    transform: scale(1.1); /* Slightly larger on hover */
+}
+
+button.game-button:active {
+    background-color: #1e7e34; /* Even darker green on click */
+    transform: scale(1.05); /* Slightly smaller on click */
+}
+
+
+
+
+/* Ensure buttons are aligned next to each other */
+.resource .buttons {
+    display: flex;
+    gap: 10px;
+}
+
+#purchasedUpgrades {
+    margin-top: 20px;
+    text-align: center;
+}
+
+button.disabled {
+    background-color: #333; /* Darker gray */
+    color: #666; /* Darker text */
+    cursor: not-allowed;
+}
+
+#right-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Tooltip container */
+.upgradeTooltip {
+    position: absolute;
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    display: none; /* Hidden by default */
+    font-size: 14px;
+    max-width: 200px; /* Adjust width as needed */
+    z-index: 1005;
+    pointer-events: none; /* Ensure no blocking when hidden or visible */
+}
+
+.upgradeTooltip p {
+    margin: 0 0 5px;
+}
+
+.upgradeTooltip .upgrade-earnings {
+    font-weight: bold;
+}
+
+.upgradeTooltip .godmode-earnings {
+    color: #1e90ff; /* Example style for God Mode earnings */
+}
+
+.upgradeTooltip .pu-godmode-earnings {
+    color: #8E44AD; /* Example style for God Mode earnings */
+}
+
+.upgrade-button-container {
+    position: relative;
+}
+
+.upgrade {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    flex-direction: column;
+    text-align: left;
+}
+
+.upgrade .upgrade-cost p {
+    margin-top: 2.5px; 
+    margin-bottom: 2.5px; 
+}
+
+.purchased-upgrade {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    flex-direction: column;
+    text-align: left;
+}
+
+/* Ensure the switch stays on top of the image */
+.upgrade-container {
+    position: relative;
+    display: inline-block;
+}
+
+.upgrade-header {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    z-index: 1;
+}
+
+#upgradeList {
+    font-size: 0.9em; 
+}
+
+.purchased-upgrade img {
+    width: 130px; 
+    height: 130px; 
+    margin-bottom: 2.5px; 
+}
+
+/* Add a hover effect to indicate that the upgrade is clickable */
+.purchased-upgrade.clickable {
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.purchased-upgrade.clickable:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.upgrade-img {
+    width: 90px; 
+    height: 90px; 
+    margin-right: 10px;
+}
+
+.purchased-upgrade .upgrade-earnings p {
+    margin-top: 2.5px; 
+    margin-bottom: 2.5px; 
+}
+
+/* Make the upgrade name font smaller and ensure it wraps */
+.purchased-upgrade .upgrade-name {
+    font-size: 14px; /* Make font size smaller */
+    max-width: 120%; /* Ensure the name doesn't exceed the image width */
+    word-wrap: break-word; /* Wrap text that goes beyond the limit */
+    white-space: normal; /* Allow text to wrap to the next line */
+    margin: 0; /* Remove default margin */
+}
+
+/* Blue glow for God Mode Purchased Upgrades */
+.purchased-upgrade-godmode img {
+    box-shadow: 0 0 20px #1e90ff, 0 0 50px #00bfff; /* Blue shadow for glow effect */
+    border: 3px solid #00bfff; /* DeepSkyBlue */
+}
+/* Purple glow for Parallel Universe God Mode Purchased Upgrades */
+.purchased-upgrade-pu-godmode img {
+    box-shadow: 0 0 20px #8e44ad, 0 0 50px #b565c8; /* Purple shadow for glow effect */
+    border: 3px solid #b565c8; /* Light purple border */
+}
+/* Half Purple, Half Blue Glow for Double God Mode Purchased Upgrades */
+.purchased-upgrade-double-godmode img {
+    box-shadow: 
+        10px 0 20px #8e44ad, /* Purple glow */
+        -5px 0 20px #1e90ff, /* Blue glow */
+        0 0 20px #b565c8,    /* Light purple glow */
+        -5px 0 20px #00bfff; /* Light blue glow */
+    border: 5px solid;
+    border-image: linear-gradient(45deg, #8e44ad, #1e90ff);
+    border-image-slice: 1; /* To apply the gradient to the border */
+    animation: waveGlow var(--glowing-animation-duration) infinite linear; /* Wave-like glow animation */
+}
+
+/* Container for the multibuy buttons */
+.multibuy-buttons-container {
+    display: flex;
+    justify-content: center; /* Centers the buttons horizontally */
+    flex-wrap: nowrap; /* Ensure buttons do not wrap to the next line */
+    gap: 10px; /* Optional: add some space between buttons */
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); 
+    gap: 10px;
+}
+
+.avail-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr); 
+}
+
+
+#ascendUpgradeSelection {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#ascendUpgradeList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.ascend-upgrade-item {
+    background-color: #4b4d4b; /* Gray */
+    color: white;
+    border: 2px solid #fff;
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: transform 0.2s;
+}
+
+.ascend-upgrade-item:hover {
+    transform: scale(1.1);
+}
+
+.ascend-upgrade-item.selected, .ascend-upgrade-item.is-godmode.selected, .ascend-upgrade-item.is-pugodmode.selected {
+    background-color: #4CAF50; /* Green */
+}
+
+.ascend-upgrade-item.is-godmode {
+    background-color: #1E90FF; /* Blue for God-Mode */
+}
+
+.ascend-upgrade-item.is-pugodmode {
+    background-color: #8E44AD; /* Purple for Parallel Universe God-Mode */
+}
+
+.prestige-multiplier-text {
+    font-size: 1.25em;
+    color: #ffd700; /* Gold color */
+    font-weight: normal;
+    margin-top: 10px;
+    text-align: center;
+    transition: all 0.5s ease;
+    text-shadow: 0 0 2px #ffff99, 0 0 5px #ffa500, 0 0 8px #ff8c00;
+}
+
+
+/* Media Queries for Mobile Devices */
+@media (max-width: 768px) {
+    #title-container {
+        margin-bottom: 10px;
+        padding-bottom: 0; /* Remove bottom padding */
+        background-image: url('imgs/textures/banner_thin.png'); /* Set mobile background image */    
+        background-size: contain; /* Cover the full width */
+        background-position: center; /* Center the image within the container */
+        background-repeat: no-repeat; /* Prevent repeating */
+        width: 100vw; /* Make sure it spans the full viewport width */
+        max-height: 100px; /* Allow height to adjust based on the content */
+    }
+
+    /* Adjust the game container for mobile layout */
+    #main-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        margin-left: 0;
+        margin-top: 20px;
+    }
+
+    #game {
+        width: 90%; /* Adjust width for better display on mobile */
+    }
+
+    /* Adjust the width of the upgrade sections */
+    #purchasedUpgrades, #right-section {
+        width: 100%; /* Full width on mobile */
+    }
+
+    .grid {
+        grid-template-columns: repeat(2, 1fr); /* Adjust grid layout */
+    }
+
+    .avail-grid {
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 10px;
+    }
+
+    .purchased-upgrade img, .upgrade-img {
+        width: 150px; /* Smaller image size */
+        height: 150px; /* Maintain aspect ratio */
+    }
+
+    button {
+        font-size: 14px; /* Adjust button font size */
+        padding: 8px 16px; /* Adjust button padding */
+        width: auto; /* Ensure buttons resize */
+    }
+
+    #upgradeList {
+        font-size: 0.8em; 
+    }
+
+    .multibuy-buttons-container button {
+        font-size: 1.2em; /* Increase font size */
+        padding: 15px 25px; /* Increase padding */
+        width: 100%; /* Make buttons fill the container width */
+    }
+
+    .ascend-upgrade-container {
+        display: flex;
+        flex-wrap: wrap; /* Allow buttons to wrap to the next line */
+        justify-content: flex-start; /* Align buttons to the left */
+        padding: 10px;
+        box-sizing: border-box;
+    }
+    
+    .ascend-upgrade-item {
+        flex: 1 1 42%; /* Ensure each button takes roughly 48% of the container's width */
+        margin: 10px; /* Add space between buttons */
+        max-width: 42%; /* Prevent buttons from growing beyond 48% */
+        box-sizing: border-box; /* Ensure padding/margins are considered in the width */
+        text-align: center;
+    }
+    
+    .resource-gain-tooltip {
+        font-size: 16px; /* Make the font slightly smaller on mobile */
+        max-width: 90vw;  /* Allow tooltip to take up 90% of the viewport on mobile */
+        padding: 8px; /* Adjust padding for smaller screens */
+    }
+
+}
+
+/* Flexbox container for cookie and warp button */
+#cookieButtonContainer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+
+#cookieButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: block;
+    margin: 0 auto; /* Center horizontally */
+    touch-action: manipulation;
+    position: relative; /* Add this to position the tooltip */
+    user-select: none;  /* Prevent text selection */
+    -webkit-user-select: none;  /* Safari */
+    -moz-user-select: none;     /* Firefox */
+    -ms-user-select: none;      /* Internet Explorer/Edge */
+}
+
+#cookieButton img {
+    width: 140px; /* Adjust size as needed */
+    height: auto;
+}
+
+#cookieButton:active img {
+    transform: scale(0.9);
+}
+
+#cookieButton.spinning img {
+    animation: spin-animation 1s linear infinite;
+}
+
+
+@keyframes spin-animation {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.cookieTooltip {
+    visibility: hidden;
+    background-color: rgba(85, 85, 85, 0.8); /* Slightly see-through background */
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px 10px;
+    position: absolute;
+    z-index: 5;
+    bottom: 50%; /* Position above the cookie button */
+    left: 50%;
+    transform: translate(-50%, 50%); /* Center horizontally and vertically */
+    opacity: 0;
+    transition: opacity 0.3s;
+    width: 200px; /* Adjust width as needed */
+    font-size: 12px; /* Smaller text size */
+}
+
+.cookieTooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%; /* Bottom of the tooltip */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgba(85, 85, 85, 0.8) transparent transparent transparent; /* Arrow pointing down with the same semi-transparent color */
+}
+
+#cookieButton:hover .cookieTooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+
+@keyframes clickAnimation {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+#warpTimeButtonContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; /* Make this the reference point for the tooltip */
+}
+
+#warpTimeButton {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    background-image: url('imgs/warp_circle.png'); /* Your custom image */
+    background-size: cover;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border: 3px solid #000000;
+    box-sizing: border-box;
+}
+
+#warpTimeButton .button-content {
+    z-index: 2;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}
+
+#warpTimeButton .overlay-circle {
+    position: absolute;
+    width: 110%; /* Make the overlay slightly larger than the button */
+    height: 110%; /* Ensure it covers the entire button including the edges */
+    border-radius: 50%;
+    background-image: conic-gradient(transparent 0deg, rgba(0, 0, 0, 0.9) 0deg 360deg); /* Start transparent and progress */
+    z-index: 1;
+    top: -5%; /* Shift the overlay to ensure it's centered properly */
+    left: -5%;
+    clip-path: circle(50%); /* Keep the circular clipping */
+    transition: background-image 0.5s linear; /* Smooth reveal */
+}
+
+#warpTimeButton.spinning {
+    animation: spin-animation 1s linear infinite;
+}
+
+#warpTimeButton.spinning .overlay-circle {
+    display: none; /* Hide overlay when spinning */
+}
+
+
+#warpTimeButtonContainer .cookieTooltip {
+    white-space: nowrap; /* Prevent the text from wrapping */
+    width: auto; /* Automatically adjust the width based on content */
+    max-width: 100%; /* Prevents the tooltip from being too wide */
+}
+
+#warpTimeButtonContainer:hover .cookieTooltip {
+    visibility: visible;
+    opacity: 1;
+    font-size: 14px;
+    pointer-events: none; /* Ensure no blocking when hidden or visible */
+}
+
+#warpTimeButton.affordable {
+    background-color: rgba(255, 255, 255, 0.9); /* Normal active button */
+}
+
+#warpTimeButton.not-affordable {
+    background-color: rgba(128, 128, 128, 0.5); /* Gray background for disabled */
+    cursor: not-allowed; /* Indicate that it's not clickable */
+}
+
+
+@keyframes countdown {
+    from { background-image: conic-gradient(#76ff03 360deg, #121212 360deg); }
+    to { background-image: conic-gradient(#76ff03 0deg, #121212 0deg); }
+}
+
+
+
+/* Common Custom Button Styling */
+.custom-button {
+    display: block;
+    margin: 10px auto;
+    width: 100%;
+    height: 50px;
+    font-weight: bold;
+    border-radius: 5px;
+    border: 2px solid rgb(0, 0, 0);
+    cursor: pointer;
+    color: white;
+    text-align: center;
+    letter-spacing: 0.5px;
+    transition: 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(145deg, #fff, #f0f0f0);
+    background-position-y: 50% ;
+}
+
+.custom-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.custom-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Prestige Button Styling */
+#prestigeButton.custom-button {
+    border-color: rgb(255, 160, 87);
+    color: orange;
+    background-image: url('imgs/textures/prestige-button.png');
+}
+
+#prestigeButton.custom-button:hover {
+    border-color: rgb(255, 209, 122);
+    color: rgb(255, 227, 175);
+    box-shadow: 0px 0px 7px 5px rgb(199, 155, 72), 0px 0px 7px 3px rgb(146, 115, 57) inset;
+
+}
+
+/* Ascend Button Styling */
+#ascendButton.custom-button {
+    border-color: lightskyblue;
+    color: lightseagreen;
+    background-image: url('imgs/textures/god-mode-button.png');
+}
+
+#ascendButton.custom-button:hover {
+    border-color: rgb(122, 173, 255);
+    color: rgb(175, 182, 255);
+    box-shadow: 0px 0px 7px 5px rgb(93, 143, 174), 0px 0px 7px 3px rgb(100, 153, 186) inset;
+}
+
+/* Transcend Button Styling */
+#transcendButton.custom-button {
+    border-color: #9449b3;
+    color: #b64fe3;
+    background-image: url('imgs/textures/parrallel-god-mode-button.png');
+}
+
+#transcendButton.custom-button:hover {
+    border-color: #9449b3;
+    color: #d2a3e7;
+    box-shadow: 0px 0px 7px 5px #783992, 0px 0px 7px 3px #7d3d98 inset;
+}
+
+/* Big Crunch Button Styling */
+#bigCrunchButton.custom-button {
+    color: #ff5233;
+    border-color: #ff7a62;
+    background-image: url('imgs/textures/big-crunch-button.png');
+}
+
+#bigCrunchButton.custom-button:hover {
+    border-color: #ff8558;
+    color: #ffad8f;
+    box-shadow: 0px 0px 7px 5px #a4421e, 0px 0px 7px 3px #a73c15 inset;
+}
+
+/* Infinite Embrace Button Styling */
+#infiniteEmbraceButton.custom-button {
+    color: #ff6fae; /* Pink color */
+    border-color: #ff9fc5;
+    font-size: 0.9em;
+    background: rgb(13,5,12);
+    background: linear-gradient(180deg, rgba(13,5,12,1) 0%, rgba(89,46,87,1) 77%, rgba(153,82,149,1) 100%);
+}
+
+#infiniteEmbraceButton.custom-button:hover {
+    border-color: #ffa7d0;
+    color: #ffc1e1;
+    box-shadow: 0px 0px 7px 5px #ff76b5, 0px 0px 7px 3px #ff85c2 inset;
+}
+
+
+
+
+.god-mode-text {
+    font-size: 1.2em;
+    color: rgb(247, 247, 247);
+    font-weight: bold;
+    text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 12px #00bfff, 0 0 15px #00bfff;
+    margin-top: 10px;
+    text-align: center;
+    transition: all 0.5s ease;
+}
+
+.pu-god-text {
+    font-size: 1.2em;
+    color: rgb(247, 247, 247);
+    font-weight: bold;
+    text-shadow: 
+        0 0 5px #8a2be2,  /* First layer of purple glow */
+        0 0 10px #8a2be2,  /* Second layer of purple glow */
+        0 0 12px #7b68ee,  /* Third layer with a slightly lighter shade */
+        0 0 15px #7b68ee;  /* Fourth layer with a slightly lighter shade */
+    margin-top: 10px;
+    text-align: center;
+    transition: all 0.5s ease;
+}
+
+
+.big-crunch-text {
+    font-size: 1.2em; /* Slightly bigger font size */
+    color: rgb(247, 247, 247);
+    font-weight: bold;
+    text-shadow: 
+        0 0 5px #ff4500,  /* First layer of orange-red glow */
+        0 0 10px #ff4500,  /* Second layer of orange-red glow */
+        0 0 12px #ff4500,  /* Third layer of orange-red glow */
+        0 0 15px #ff6347,  /* Fourth layer with a slightly lighter shade */
+        0 0 20px #ff6347,  /* Fifth layer with a slightly lighter shade */
+        0 0 30px #ff6347;  /* Sixth layer with a slightly lighter shade */
+    margin-top: 10px;
+    text-align: center;
+    transition: all 0.5s ease;
+}
+
+.stellar-harvest-text {
+    font-size: 1.1em;
+    color: rgb(190, 247, 190);
+    font-weight: bold;
+    text-shadow: 
+        0 0 4px #32cd32,  /* First layer of green glow */
+        0 0 8px #00ff00;  /* Third layer with a brighter green */
+    margin-top: 10px;
+    text-align: center;
+    transition: all 0.5s ease;
+}
+
+
+/* Library button specific styles */
+#libraryButton {
+    background-color: #8B4513; /* SaddleBrown */
+    color: #fff;
+    font-family: 'Impact', 'Arial Black', sans-serif; /* Same font as Power Hall and Love Hall */
+    font-size: 28px; /* Increased font size to match other hall buttons */
+    padding: 0;
+    border: 3px solid #291604; /* Darker brown for border */
+    border-radius: 10px; /* Slightly rounder corners to match the other buttons */
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6); /* Stronger shadow */
+    transition: all 0.4s ease; /* Smooth transition */
+    text-shadow: 3px 3px 6px #000; /* Intense text shadow to match */
+    background-image: url('imgs/textures/rustic_wood.jpg'); /* Keep the rustic wood texture */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center; /* Center the texture on the button */
+    aspect-ratio: 800 / 150; /* Maintain the aspect ratio like the other buttons */
+    width: 100%; /* Full-width like other buttons */
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase; /* Capitalize for uniformity */
+    background-blend-mode: multiply; /* Keep the rustic texture blend */
+}
+
+#libraryButton:hover {
+    background-color: #f3814c; /* Sienna */
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.7); /* Larger shadow on hover */
+    transform: translateY(-7px) scale(1.08); /* Lift and scale effect */
+}
+
+#libraryButton:active {
+    background-color: #8B4513; /* SaddleBrown on click */
+    box-shadow: 0 7px 12px rgba(0, 0, 0, 0.5); /* Slightly smaller shadow on click */
+    transform: translateY(3px) scale(0.96); /* Slight push down and scale down */
+}
+
+
+/* Power Hall button specific styles */
+#powerHallButton {
+    background-color: #1a1a1a; /* Dark gray */
+    color: #ffcc00; /* Bright gold */
+    font-family: 'Impact', 'Arial Black', sans-serif; /* Bold, powerful font */
+    font-size: 32px;
+    padding: 0;
+    border: 3px solid #333300; /* Dark gold for border */
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6); /* Stronger shadow */
+    transition: all 0.4s ease; /* Smooth transition */
+    text-shadow: 3px 3px 6px #000; /* Intense text shadow */
+    background-image: url('imgs/textures/power2.jpg'); /* Use the power texture image */
+    background-size: cover; /* Ensure the texture covers the entire button */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+    background-position: center; /* Center the image on the button */
+    aspect-ratio: 800 / 150; /* Maintain the aspect ratio of the image */
+    width: 100%; /* Set width to 100% of the container */
+    text-align: center; /* Center the text */
+    display: flex; /* Use flexbox for centering */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    text-transform: uppercase; /* Make text uppercase for added impact */
+    background-blend-mode: overlay; /* Blend mode for better visibility */
+}
+
+#powerHallButton:hover {
+    background-color: rgba(196, 178, 80, 0.2); /* Dark gold on hover */
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.7); /* Larger shadow on hover */
+    transform: translateY(-7px) scale(1.08); /* More noticeable lift and scaling */
+}
+
+#powerHallButton:active {
+    background-color: #1a1a1a; /* Return to dark gray on click */
+    box-shadow: 0 7px 12px rgba(0, 0, 0, 0.5); /* Slightly smaller shadow on click */
+    transform: translateY(3px) scale(0.96); /* Slight push down and scale down */
+}
+
+/* Love Hall button specific styles */
+#loveHallButton {
+    background-color: #1a1a1a; /* Dark gray */
+    color: #ff66b2; /* Pinkish love color */
+    font-family: 'Impact', 'Arial Black', sans-serif; /* Bold, powerful font */
+    font-size: 32px;
+    padding: 0;
+    border: 3px solid #660033; /* Dark pink for border */
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6); /* Stronger shadow */
+    transition: all 0.4s ease; /* Smooth transition */
+    text-shadow: 3px 3px 6px #000; /* Intense text shadow */
+    background-image: url('imgs/textures/love.jpg'); /* Use the love texture image */
+    background-size: cover; /* Ensure the texture covers the entire button */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+    background-position: center; /* Center the image on the button */
+    aspect-ratio: 800 / 150; /* Maintain the aspect ratio of the image */
+    width: 100%; /* Set width to 100% of the container */
+    text-align: center; /* Center the text */
+    display: flex; /* Use flexbox for centering */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    text-transform: uppercase; /* Make text uppercase for added impact */
+    background-blend-mode: overlay; /* Blend mode for better visibility */
+}
+
+#loveHallButton:hover {
+    background-color: #660033; /* Dark pink on hover */
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.7); /* Larger shadow on hover */
+    transform: translateY(-7px) scale(1.08); /* More noticeable lift and scaling */
+}
+
+#loveHallButton:active {
+    background-color: #1a1a1a; /* Return to dark gray on click */
+    box-shadow: 0 7px 12px rgba(0, 0, 0, 0.5); /* Slightly smaller shadow on click */
+    transform: translateY(3px) scale(0.96); /* Slight push down and scale down */
+}
+
+/* Hall of Balance button specific styles */
+#balanceHallButton {
+    background-color: #1a1a1a; /* Dark gray */
+    color: #64cfd3; /* Gold color for text */
+    font-family: 'Impact', 'Arial Black', sans-serif; /* Bold, powerful font */
+    font-size: 32px;
+    padding: 0;
+    border: 2px solid #565e2c; /* Darker gold for border */
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6); /* Strong shadow */
+    transition: all 0.4s ease; /* Smooth transition */
+    text-shadow: 3px 3px 6px #000; /* Intense text shadow */
+    background-image: url('imgs/textures/balance.jpg'); /* Use the balance texture image */
+    background-size: cover; /* Ensure the texture covers the entire button */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+    background-position: center; /* Center the image on the button */
+    aspect-ratio: 800 / 150; /* Maintain the aspect ratio of the image */
+    width: 100%; /* Set width to 100% of the container */
+    text-align: center; /* Center the text */
+    display: flex; /* Use flexbox for centering */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    text-transform: uppercase; /* Make text uppercase for added impact */
+    background-blend-mode: overlay; /* Blend mode for better visibility */
+}
+
+#balanceHallButton:hover {
+    background-color: #dd9f02; /* Darker gold on hover */
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.7); /* Larger shadow on hover */
+    transform: translateY(-7px) scale(1.08); /* More noticeable lift and scaling */
+}
+
+#balanceHallButton:active {
+    background-color: #1a1a1a; /* Return to dark gray on click */
+    box-shadow: 0 7px 12px rgba(0, 0, 0, 0.5); /* Slightly smaller shadow on click */
+    transform: translateY(3px) scale(0.96); /* Slight push down and scale down */
+}
+
+
+
+/* Switch button styles */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 34px;
+    height: 20px;
+    margin-left: 10px;
+}
+
+.hidden {
+    display:none;
+}
+
+.switch input {
+    display: none;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ffcccc; /* Light red for off state */
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 14px;
+    width: 14px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #4CAF50; /* Green for on state */
+}
+
+
+input:checked + .slider:before {
+    transform: translateX(14px);
+}
+
+.status-overlay {
+    position: absolute;
+    padding: 10px 20px;
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    display: none; /* Hidden by default */
+    z-index: 1000; /* Ensure it appears above other elements */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 80%; /* Ensure it doesn't overflow on small screens */
+    pointer-events: none; /* Ensure no blocking when hidden or visible */
+}
+
+.status-overlay.success {
+    background-color: #d4edda;
+    color: #155724;
+    border-color: #c3e6cb;
+}
+
+.status-overlay.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-color: #f5c6cb;
+}
+
+#gameArea {
+    background-color: #333; /* Darker background */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+    z-index: 3;
+}
+
+#miniGameStartModal .modal-content {
+    width: 80%;
+    max-width: 500px;
+    background-color: #1e1e1e;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+#miniGameModalButtons {
+    margin-top: 20px;
+}
+
+.modal-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.modal-button.play-button {
+    background-color: #4CAF50;
+    color: #ffffff;
+}
+
+.modal-button.skip-button {
+    background-color: #FFA500;
+    color: #ffffff;
+}
+
+
+#popup-tooltip {
+    position: fixed;
+    bottom: 40px; /* Moved up slightly */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: gray;
+    color: white;
+    padding: 20px 40px; /* Increased padding for a bigger window */
+    border-radius: 10px; /* Increased border-radius for a smoother appearance */
+    font-size: 18px; /* Slightly larger font size */
+    font-weight: bold; /* Make the font bold */
+    z-index: 10000;
+    opacity: 0;
+    transition: opacity 1.0s ease;
+    max-width: 80%; /* Optional: Restrict the max width */
+    pointer-events: none; /* Ensure no blocking when hidden or visible */
+    
+    /* Use flex to align children (image and text) */
+    display: flex;
+    align-items: center;
+}
+
+#popup-tooltip.visible-popup-tooltip {
+    opacity: 1;
+}
+
+.hidden-popup-tooltip {
+    opacity: 0;
+}
+
+.tooltip-achievement-icon {
+    width: 50px;           /* Scale image to 50px width */
+    height: 50px;          /* Scale image to 50px height */
+    margin-right: 12px;    /* Add space between image and text */
+    background-color: #fff; /* Set a white background */
+    border: 1px solid #ccc; /* Add a light border */
+    border-radius: 4px;    /* Slight rounding on corners */
+    object-fit: cover;     /* Maintain aspect ratio of the image */
+    vertical-align: middle;
+}
+
+.heart-mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0);
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.heart-mask img {
+    width: 100vw;  /* Start with the width filling the viewport */
+    height: auto;  /* Keep the aspect ratio */
+    transform: scale(50);  /* Start much larger than the viewport */
+    transform-origin: center;  /* Ensure the heart scales from its center */
+    transition: transform 1s ease-in-out;  /* Smooth transition for shrinking and expanding */
+}
+
+#numPurchasedGodModeUpgrades {
+    text-shadow: 
+        0 0 10px #1e90ff, 0 0 20px #1e90ff,
+        0 0 10px #00bfff, 0 0 20px #00bfff;
+}
+
+#numPurchasedPUGodModeUpgrades {
+    text-shadow: 
+        0 0 10px #8e44ad, 0 0 20px #8e44ad, 
+        0 0 10px #b565c8, 0 0 20px #b565c8;
+}
+
+#numPurchasedDoubleGodModeUpgrades {
+    text-shadow: 
+        0 0 12px #1e90ff, 0 0 24px #1e90ff, /* Repeat blue */
+        0 0 12px #8e44ad, 0 0 24px #8e44ad, /* Repeat purple */
+        0 0 15px #7745d4, 0 0 30px #7745d4; /* Repeat bluish purple */
+}
+
+/* countdown timer */
+
+.countdown-container {
+    width: 300px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    position: relative;
+}
+
+.countdown-progress-bar {
+    width: 100%;
+    height: 5px;
+    background-color: #eee;
+    overflow: hidden;
+    position: relative;
+}
+
+.countdown-progress {
+    width: 100%;
+    height: 100%;
+    background-color: #4CAF50;
+    transition: width 0.1s linear, background-color 0.3s ease;
+}
+
+.countdown-time-display {
+    position: absolute;
+    top: 1%;
+    left: 99%;
+    transform: translate(-100%, 0);
+    font-size: small;
+    font-weight: bold;
+    color: white; 
+    z-index: 1;
+    margin-top: 5px;
+}
+
+.countdown-warning {
+    background-color: #FFA500;
+}
+
+.countdown-danger {
+    background-color: #FF0000;
+}

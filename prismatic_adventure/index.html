@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <!-- Mobile-friendly viewport -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Degens Adventure</title>
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico"> <!-- For older browsers -->
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon_32.png"> <!-- For modern browsers -->
+  <link rel="icon" type="image/png" sizes="64x64" href="images/favicon_64.png">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <!-- Top status section with settings image, bars, and upgrades -->
+    <div id="topStatus">
+      <!-- Settings Column -->
+      <div class="settings-column">
+        <img id="settingsImage" src="images/settings.png" alt="Settings">
+      </div>
+      
+      <!-- Bars Container -->
+      <div class="bars-container">
+        <!-- Energy Bar -->
+        <div class="status-bar" id="energyBarContainer">
+          <span class="status-label">Energy</span>
+          <div class="status-bar-bg" id="energyBar">
+             <div class="status-bar-fill" id="energyBarFill"></div>
+             <span class="status-bar-value" id="energyText">100</span>
+          </div>
+        </div>
+        
+        <!-- Copium Bar (initially hidden) -->
+        <div class="status-bar" id="copiumBarContainer" style="display:none;">
+          <span class="status-label">Copium</span>
+          <div class="status-bar-bg" id="copiumBar">
+             <div class="status-bar-fill" id="copiumBarFill"></div>
+             <span class="status-bar-value" id="copiumText">0</span>
+          </div>
+        </div>
+        
+        <!-- Delusion Bar (initially hidden) -->
+        <div class="status-bar" id="delusionBarContainer" style="display:none;">
+          <span class="status-label">Delusion</span>
+          <div class="status-bar-bg" id="delusionBar">
+             <div class="status-bar-fill" id="delusionBarFill"></div>
+             <span class="status-bar-value" id="delusionText">0</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Upgrades Container (unchanged except for background styling below) -->
+      <div class="upgrades-container">
+        <div class="upgrade-display" id="knowledgeUpgDiv" style="display:none;">
+          <span class="upgrade-label">Knowledge</span>
+          <span class="upgrade-value" id="knowledgeUpgValue">0</span>
+        </div>
+        <div class="upgrade-display" id="powerUpgDiv" style="display:none;">
+          <span class="upgrade-label">Power</span>
+          <span class="upgrade-value" id="powerUpgValue">0</span>
+        </div>
+        <div class="upgrade-display" id="serenityUpgDiv" style="display:none; cursor:pointer;">
+          <span class="upgrade-label">Serenity</span>
+          <span class="upgrade-value" id="serenityUpgValue">0</span>
+        </div>
+        <!-- Other upgrade items… -->
+      </div>
+    </div>
+    
+
+    <header>
+      <!-- Skills display (populated by game.js) -->
+      <div id="skills"></div>
+    </header>
+
+    <!-- Main layout split into two columns -->
+    <main class="game-layout">
+      <!-- Left column (2/3 width) -->
+      <div class="left-column">
+        <div id="narrative">
+          <p id="scenarioText"></p>
+        </div>
+        <!-- Tasks display (populated by game.js) -->
+        <div id="tasks"></div>
+      </div>
+
+      <!-- Right column (1/3 width): zone details, resources, perks -->
+      <div class="right-column">
+        <h2 id="zoneName"></h2>
+        <div id="zoneAutomation"></div>
+        <img id="zoneImage" src="" alt="Zone Image" />
+
+        <div id="resourcesContainer">
+          <h3>Resources</h3>
+          <div class="resources-grid" id="resourcesGrid"></div>
+        </div>
+
+        <div id="perksContainer">
+          <h3>Perks <span id="perkCount" class="perk-count">(0/0)</span></h3>
+          <div class="perks-grid"></div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer (with message) -->
+    <footer>
+      <p id="message"></p>
+    </footer>
+  </div>
+
+  <!-- Remove these static overlays from your HTML -->
+  <div id="gameOverScreenEnergy" class="hidden">…</div>
+  <div id="gameOverScreenCopium" class="hidden">…</div>
+  <div id="gameOverScreenDelusion" class="hidden">…</div>
+
+
+  <!-- Scripts -->
+  <script src="tutorial.js"></script>
+  <script src="formatting.js"></script>
+  <script src="sounds.js"></script>
+  <script src="zones.js"></script>
+  <script src="resources.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>

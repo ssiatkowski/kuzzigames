@@ -1,0 +1,152 @@
+/*─────────────────────────────────────────────────────────────────────
+  Global Reset & Variables
+─────────────────────────────────────────────────────────────────────*/
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* Primary colors */
+  --bg-color: #1a1a1a;
+  --text-color: #f0f0f0;
+  --accent-color: #4caf50; /* a bright green accent */
+  --card-bg: #2a2a2a;
+  --card-shadow: rgba(0, 0, 0, 0.5);
+
+  /* Font sizes */
+  --fz-sm: 0.9rem;
+  --fz-md: 1rem;
+  --fz-lg: 1.25rem;
+  --fz-xl: 2rem;
+
+  /* Spacing */
+  --sp-sm: 0.5rem;
+  --sp-md: 1rem;
+  --sp-lg: 2rem;
+  --sp-xl: 4rem;
+}
+
+html,
+body {
+  height: 100%;
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  scroll-behavior: smooth;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/*─────────────────────────────────────────────────────────────────────
+  Header
+─────────────────────────────────────────────────────────────────────*/
+.site-header {
+  background: var(--card-bg);
+  padding: var(--sp-md) 0;
+  text-align: center;
+  border-bottom: 2px solid var(--accent-color);
+}
+
+.site-header .logo {
+  font-size: var(--fz-xl);
+  font-weight: 600;
+}
+
+.site-header .logo span {
+  color: var(--accent-color);
+}
+
+.site-header .tagline {
+  margin-top: var(--sp-sm);
+  font-size: var(--fz-md);
+  color: #ccc;
+}
+
+/*─────────────────────────────────────────────────────────────────────
+  Game Grid
+─────────────────────────────────────────────────────────────────────*/
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--sp-lg);
+  margin: var(--sp-xl) 0;
+}
+
+/* Card Styles */
+.game-card {
+  background-color: var(--card-bg);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px var(--card-shadow);
+  text-decoration: none;
+  color: var(--text-color);
+  transform: translateY(20px);
+  opacity: 0;
+  transition: transform 0.6s ease-out, opacity 0.6s ease-out;
+}
+
+.game-card.visible {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.game-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 3px solid var(--accent-color);
+  border-radius: 6px 6px 0 0;
+}
+
+.card-content {
+  padding: var(--sp-md);
+}
+
+.card-content h3 {
+  font-size: var(--fz-lg);
+  margin-bottom: var(--sp-sm);
+  color: var(--accent-color);
+}
+
+.card-content p {
+  font-size: var(--fz-sm);
+  color: #ddd;
+  margin-bottom: var(--sp-sm);
+}
+
+/* Small tweak for "Playtime" text */
+.card-content .playtime {
+  color: #bbb;
+  font-style: italic;
+  margin-top: 0.25rem;
+}
+
+/* Hover effect */
+.game-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px var(--card-shadow);
+}
+
+/*─────────────────────────────────────────────────────────────────────
+  Footer
+─────────────────────────────────────────────────────────────────────*/
+.site-footer {
+  background-color: var(--card-bg);
+  padding: var(--sp-md) 0;
+  text-align: center;
+  border-top: 2px solid var(--accent-color);
+}
+
+.site-footer p {
+  font-size: var(--fz-sm);
+  color: #aaa;
+}

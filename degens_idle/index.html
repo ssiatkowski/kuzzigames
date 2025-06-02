@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-B4NNMM8SSN"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-B4NNMM8SSN');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Degens Idle: An Incremental Strategy Game with Unique Challenges and Deep Progression</title>
+    <meta name="description" content="Immerse yourself in Degens Idle, the ultimate strategy-based idle game with deep and unique progression systems. Unlock powerful upgrades, navigate intricate prestige layers, and make challenging decisions that shape your journey. No ads, no paywalls—just pure strategic gameplay.">
+    <meta name="keywords" content="Degens Idle, idle game, incremental game, free idle game, no ads game, prestige layers, simulation, strategy, deep progression, unique challenges, strategic gameplay, resource management, RPG elements, upgrade systems, skill tree, incremental strategy, browser game, no paywalls, strategic decision-making, idle RPG, challenging gameplay">
+    <!-- Include the JSON-LD structured data -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "VideoGame",
+            "name": "Degens Idle",
+            "url": "https://www.degensidle.com",
+            "description": "Immerse yourself in Degens Idle, the ultimate strategy-based idle game with deep and unique progression systems. Unlock powerful upgrades, navigate intricate prestige layers, and make challenging decisions that shape your journey. No ads, no paywalls—just pure strategic gameplay.",
+            "genre": ["Idle Game", "Simulation", "Strategy", "RPG", "Incremental Game"],
+            "keywords": "idle game, incremental game, free game, no ads, prestige, simulation, strategy, RPG, deep progression, unique challenges",
+            "publisher": {
+            "@type": "Person",
+            "name": "Kuzzi"
+            },
+            "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "5.0",
+            "reviewCount": "42069"
+            },
+            "author": {
+            "@type": "Person",
+            "name": "Kuzzi"
+            },
+            "image": "https://www.degensidle.com/imgs/textures/character_icon.jpg",
+            "operatingSystem": ["Windows", "macOS", "Linux", "Android", "iOS"],
+            "applicationCategory": "Game",
+            "datePublished": "2024-08-20"
+        }
+        </script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/localforage/1.9.0/localforage.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.4.4/lz-string.min.js"></script>
+    <link rel="icon" type="image/x-icon" href="imgs/textures/favicon.ico"> <!-- For older browsers -->
+    <link rel="icon" type="image/png" sizes="32x32" href="imgs/textures/favicon_32.png"> <!-- For modern browsers -->
+    <link rel="icon" type="image/png" sizes="64x64" href="imgs/textures/favicon_64.png">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="library.css">
+    <link rel="stylesheet" href="powerhall.css">
+    <link rel="stylesheet" href="lovehall.css">
+    <link rel="stylesheet" href="balancehall.css">
+    <link rel="stylesheet" href="settings.css">
+    <link rel="stylesheet" href="fighting.css">
+    <link rel="stylesheet" href="meditation.css">
+    <link rel="stylesheet" href="achievements.css">
+</head>
+<body>
+    <div id="messageModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="closeMessageModal">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <p id="modalMessage"></p>
+            <img id="modalImage" src="" alt="">
+            <button id="modalCloseButton">Close</button>
+            <div id="modalConfirmButtons">
+                <button id="modalConfirmButton">Confirm</button>
+                <button id="modalCancelButton">Cancel</button>
+            </div>
+            <div id="ascendUpgradeSelection">
+                <h3>Select your upgrade(s):</h3>
+                <div id="ascendUpgradeList"></div>
+                <button id="upgradeConfirmButton" style="display:none;">Confirm Selection</button>
+            </div>
+        </div>
+    </div>
+    <div id="miniGameStartModal" class="modal">
+        <div class="modal-content">
+            <h2 id="miniGameModalTitle"></h2>
+            <p id="miniGameModalMessage"></p>
+            <div id="miniGameModalButtons">
+                <!-- Buttons will be dynamically added here -->
+            </div>
+        </div>
+    </div>    
+    <!-- Immediate Message Modal -->
+    <div id="immediateMessageModal" class="modal">
+        <div class="modal-content">
+            <span id="closeImmediateMessageModal" class="close-button">&times;</span>
+            <h2 id="immediateModalTitle"></h2>
+            <p id="immediateModalMessage"></p>
+            <button id="immediateModalCloseButton" class="modalCancelButton">Close</button>
+        </div>
+    </div>
+    <div id="main-container">
+        <div id="title-column">
+            <div id="title-container">
+                <!-- Background image is now handled via CSS -->
+            </div>
+            <div id="button-container">
+                <button id="automationButton" class="automation-button">
+                    Automation
+                    <div class="square"></div>
+                    <div class="square"></div>
+                    <div class="square"></div>
+                    <div class="square"></div>
+                    <div class="square"></div>
+                    <div class="square"></div>
+                    <div class="square"></div>
+                    <div class="square"></div>
+                    <div class="square"></div>
+                    <div class="square"></div>
+                </button>
+                <button id="achievementsButton">Achievements</button>
+                <button id="settingsButton">Settings</button>
+                <button id="restartPrestige">Restart This Prestige</button>
+            </div>
+        </div>
+        <div id="game">
+            <div class="resource">
+                <p><b>C</b>opium: <span id="copium" class="resource-value">0</span></p>
+                <p class="per-second">Copium per second: <span id="cps">0</span>
+                    <label class="switch hidden" id="toggleCopiumLabel">
+                        <input type="checkbox" id="toggleCopium">
+                        <span class="slider"></span>
+                    </label>
+                </p>
+                <div class="buttons">
+                    <button id="collectCopiumButton" class="collect-button">Collect Copium</button>
+                    <button id="speedGame" class="game-button">
+                        <span class="button-content">Speed Game</span>
+                        <div class="progress"></div>
+                    </button>
+                </div>
+            </div>
+            <div class="resource">
+                <p><b>D</b>elusion: <span id="delusion" class="resource-value">0</span></p>
+                <p class="per-second">Delusion per second: <span id="dps">0</span>
+                    <label class="switch hidden" id="toggleDelusionLabel">
+                        <input type="checkbox" id="toggleDelusion">
+                        <span class="slider"></span>
+                    </label>
+                </p>
+                <div class="buttons">
+                    <button id="collectDelusionButton" class="collect-button">Collect Delusion</button>
+                    <button id="memoryGame" class="game-button">
+                        <span class="button-content">Memory Game</span>
+                        <div class="progress"></div>
+                    </button>
+                </div>
+            </div>
+            <div class="resource">
+                <p><b>Y</b>acht <b>M</b>oney: <span id="yachtMoney" class="resource-value">0</span></p>
+                <p class="per-second">Yacht Money per second: <span id="ymps">0</span>
+                    <label class="switch hidden" id="toggleYachtMoneyLabel">
+                        <input type="checkbox" id="toggleYachtMoney">
+                        <span class="slider"></span>
+                    </label>
+                </p>
+                <div class="buttons">
+                    <button id="collectYachtMoneyButton" class="collect-button">Collect Yacht Money</button>
+                    <button id="mathGame" class="game-button">
+                        <span class="button-content">Math Game</span>
+                        <div class="progress"></div>
+                    </button>
+                </div>
+            </div>
+            <div class="resource">
+                <p><b>T</b>roll <b>P</b>oints: <span id="trollPoints" class="resource-value">0</span></p>
+                <p class="per-second">Troll Points per second: <span id="tpps">0</span>
+                    <label class="switch hidden" id="toggleTrollPointsLabel">
+                        <input type="checkbox" id="toggleTrollPoints">
+                        <span class="slider"></span>
+                    </label>
+                </p>
+                <div class="buttons">
+                    <button id="collectTrollPointsButton" class="collect-button">Collect Troll Points</button>
+                    <button id="luckGame" class="game-button">
+                        <span class="button-content">Luck Game</span>
+                        <div class="progress"></div>
+                    </button>
+                </div>
+            </div>
+            <div class="resource">
+                <p><b>H</b>opium: <span id="hopium" class="resource-value">0</span></p>
+                <p class="per-second">Hopium per second: <span id="hps">0</span>
+                    <label class="switch hidden" id="toggleHopiumLabel">
+                        <input type="checkbox" id="toggleHopium">
+                        <span class="slider"></span>
+                    </label>
+                </p>
+                <!-- No collect button for Hopium -->
+            </div>
+            <div class="resource">
+                <p><b>K</b>nowledge: <span id="knowledge" class="resource-value">0</span></p>
+                <p class="per-second">Knowledge per second: <span id="kps">0</span></p>
+            </div>
+            <div class="resource" id="power-container" style="display: none;">
+                <p><b>P</b>ower: <span id="power" class="resource-value">0</span></p>
+                <p class="per-second">Power per second: <span id="pps">0</span></p>
+            </div>
+            <div class="resource" id="serenity-container" style="display: none;">
+                <p><b>S</b>erenity: <span id="serenity" class="resource-value">0</span></p>
+                <p class="per-second">Serenity per second: <span id="sps">0</span></p>
+            </div>
+            <div id="cookieButtonContainer">
+                <!-- Cookie Button -->
+                <button id="cookieButton">
+                    <img src="imgs/cookie.jpg" alt="Cookie">
+                    <span class="cookieTooltip">Each cookie click counts as 10 clicks on collect buttons for Copium, Delusion, Yacht Money, and Troll Points!</span>
+                </button>
+
+                <!-- Warp Time Button -->
+                <div id="warpTimeButtonContainer">
+                    <button id="warpTimeButton" class="game-button" style="display: none;">
+                        <span class="button-content"></span>
+                        <div class="overlay-circle"></div> <!-- Overlay that will mask the progress -->
+                    </button>
+                    <span class="cookieTooltip">Warp Time!</span>
+                </div>
+            </div>
+
+            <p class="stellar-harvest-text" id="stellar-harvest-display" style="display:none;">Stellar Harvest Mult x1.00</p>
+            <button id="prestigeButton" style="display:none;" class="custom-button">Prestige</button>
+            <p class="prestige-multiplier-text" id="prestige-multiplier">Prestige: x1.00 mult</p>
+            <button id="ascendButton" style="display:none;" class="custom-button">ASCEND ABOVE MORTALS</button>
+            <p class="god-mode-text" id="god-mode-display">God-Mode Level 0 (x1.00 mult)</p>
+            <button id="transcendButton" style="display:none;" class="custom-button">PARALLEL TRANSCEND</button>
+            <p class="pu-god-text" id="pu-god-display" style="display:none;">PU God Level 0 (x1.00 mult)</p>
+            <button id="bigCrunchButton" style="display:none;" class="custom-button">Big Crunch</button>
+            <p class="big-crunch-text" id="big-crunch-display" style="display:none;">Big Crunch Power 1e-7 (x1.00 mult)</p>
+            <button id="infiniteEmbraceButton" style="display:none;" class="custom-button">Infinite Embrace</button>
+            <button id="libraryButton">Hall of Knowledge</button>
+            <button id="powerHallButton" style="display:none;">Hall of Power</button>
+            <button id="loveHallButton" style="display:none;">Hall of Love</button>
+            <button id="balanceHallButton" style="display:none;">Hall of Balance</button>
+        </div>
+        <div id="upgrades">
+            <h2>Upgrades</h2>
+            <div class="multibuy-buttons-container">
+                <button id="buySeenButton" class="hidden">Buy Seen</button>
+                <button id="buyMaxButton" class="hidden">Buy Max</button>
+            </div>
+            <div id="upgradeList" class="avail-grid">
+                <!-- Upgrades will be dynamically added here -->
+            </div>
+        </div>
+        <div id="right-section">
+            <div id="tradeSection">
+                <h2>Trade Resources</h2>
+                <label for="fromResource">From:</label>
+                <select id="fromResource" onchange="updateTradeRatio()">
+                    <option value="copium">Copium</option>
+                    <option value="delusion">Delusion</option>
+                    <option value="yachtMoney">Yacht Money</option>
+                    <option value="trollPoints">Troll Points</option>
+                </select>
+
+                <label for="fromResource">To:</label>
+                <select id="toResource" onchange="updateTradeRatio()">
+                    <option value="copium">Copium</option>
+                    <option value="delusion" selected>Delusion</option>
+                    <option value="yachtMoney">Yacht Money</option>
+                    <option value="trollPoints">Troll Points</option>
+                    <option value="hopium">Hopium</option> <!-- Add Hopium as a tradeable resource -->
+                </select>
+                <label for="tradeAmount">Amount:</label>
+                <input type="text" id="tradeAmount" value="" placeholder="Enter (e.g. 1.5M or 50%)" style="font-size: 16px;">
+                <p id="tradeRatioDisplay">Trade ratio is 10:1</p>
+                <button id="tradeButton">Trade</button>
+                <button id="tradeTenPercentButton">Trade 10%</button>
+            </div>
+            <div id="purchasedUpgrades">
+                <div id="purchasedUpgradesHeader" class="multibuy-buttons-container">
+                    <h2>Purchased Upgrades </h2>
+                    <h2 id="numPurchasedUpgradesStart" style="display: none;">(</h2>
+                    <h2 id="numPurchasedNormalUpgrades" style="display: none;">123</h2>
+                    <h2 id="numPurchasedSepOne" style="display: none;">|</h2>
+                    <h2 id="numPurchasedGodModeUpgrades" style="display: none;">123</h2>
+                    <h2 id="numPurchasedSepTwo"style="display: none;">|</h2>
+                    <h2 id="numPurchasedPUGodModeUpgrades" style="display: none;">123</h2>
+                    <h2 id="numPurchasedSepThree"style="display: none;">|</h2>
+                    <h2 id="numPurchasedDoubleGodModeUpgrades" style="display: none;">123</h2>
+                    <h2 id="numPurchasedUpgradesEnd" style="display: none;">)</h2>
+                </div>
+                <div id="purchasedList" class="grid">
+                    <!-- Purchased upgrades will be shown here with images -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="statusOverlay" class="status-overlay"></div>
+    <div id="popup-tooltip" class="hidden-popup-tooltip"></div>
+    <!-- Fighting Mini-Game Overlay -->
+    <div id="fightingOverlay" class="fighting-overlay" style="display: none;">
+        <div class="fighting-overlay-content">
+            <!-- Player Stats and Image -->
+            <div class="player-section">
+                <div class="stats">
+                    <div class="STAT">
+                        <div>Max HP:</div>
+                        <div id="playerHealthStat"></div>
+                    </div>
+                    <div class="STAT">
+                        <span>Damage:</span>
+                        <span id="playerDamageStat"></span>
+                    </div>
+                    <div class="STAT">
+                        <span>Speed:</span>
+                        <span id="playerAttackSpeedStat"></span>
+                    </div>
+                    <div class="STAT">
+                        <span>Defense:</span>
+                        <span id="playerDefenseStat"></span>
+                    </div>
+                    <div id="playerCritChanceContainer" class="STAT">
+                        <span>Crit:</span>
+                        <span id="playerCritChanceStat"></span>
+                    </div>
+                    <div id="playerCritDamageContainer" class="STAT">
+                        <span>Crit Dmg:</span>
+                        <span id="playerCritDamageStat"></span>
+                    </div>
+                    <div id="playerDodgeContainer" class="STAT">
+                        <span>Dodge:</span>
+                        <span id="playerDodgeStat"></span>
+                    </div>
+                    <div id="playerNonCritDodgeContainer" class="STAT">
+                        <span>Non-Crit Dodge:</span>
+                        <span id="playerNonCritDodgeStat"></span>
+                    </div>
+                    <div id="playerStunContainer" class="STAT">
+                        <span>Stun:</span>
+                        <span id="playerStunStat"></span>
+                    </div>
+                    <div id="playerAbsorbContainer" class="STAT">
+                        <span>Absorb:</span>
+                        <span id="playerAbsorbStat"></span>
+                    </div>
+                </div>
+                <div id="playerImageContainer"></div>
+                <div class="health-bar">
+                    <div id="playerHealthBar" class="health-fill"></div>
+                </div>
+            </div>
+
+            <!-- VS Text -->
+            <div class="vs-text">
+                <h1>VS</h1>
+            </div>
+
+            <!-- Enemy Stats and Image -->
+            <div class="enemy-section">
+                <div class="stats">
+                    <div class="STAT">
+                        <div>Max HP:</div>
+                        <div id="enemyHealthStat"></div>
+                    </div>
+                    <div class="STAT">
+                        <div>Damage:</div>
+                        <div id="enemyDamageStat"></div>
+                    </div>
+                    <div class="STAT">
+                        <div>Speed:</div>
+                        <div id="enemyAttackSpeedStat"></div>
+                    </div>
+                    <div class="STAT">
+                        <div>Defense:</div>
+                        <div id="enemyDefenseStat"></div>
+                    </div>
+                    <div id="enemyCritChanceContainer" class="STAT">
+                        <div>Crit:</div>
+                        <div id="enemyCritChanceStat"></div>
+                    </div>
+                    <div id="enemyCritDamageContainer" class="STAT">
+                        <div>Crit Dmg:</div>
+                        <div id="enemyCritDamageStat"></div>
+                    </div>
+                    <div id="enemyDodgeContainer" class="STAT">
+                        <div>Dodge:</div>
+                        <div id="enemyDodgeStat"></div>
+                    </div>
+                    <div id="enemyNonCritDodgeContainer" class="STAT">
+                        <div>Non-Crit Dodge:</div>
+                        <div id="enemyNonCritDodgeStat"></div>
+                    </div>
+                    <div id="enemyStunContainer" class="STAT">
+                        <div>Stun:</div>
+                        <div id="enemyStunStat"></div>
+                    </div>
+                    <div id="enemyAbsorbContainer" class="STAT">
+                        <div>Absorb:</div>
+                        <div id="enemyAbsorbStat"></div>
+                    </div>
+                </div>
+                <div id="enemyImageContainer"></div>
+                <div class="health-bar">
+                    <div id="enemyHealthBar" class="health-fill"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fight Log -->
+        <div id="fightLog" class="fight-log"></div>
+
+        <!-- Forfeit Button -->
+        <button id="forfeitButton" class="forfeit-button">Forfeit</button>
+    </div>
+    <div id="meditationOverlay" class="meditation-overlay" style="display: none;">
+        <div id="meditationWrapper" class="meditation-wrapper">
+            <div class="meditation-overlay-content">
+                <!-- Meditation Arena -->
+                <div class="meditation-arena">
+                    <div id="arena" class="arena"></div>
+                </div>
+
+                <!-- Meditation Info Section -->
+                <div class="meditation-info">
+                    <h2 id="meditationChallengeName">Meditation Challenge</h2>
+                </div>
+
+                <!-- Updated Meditation Stats Section -->
+                <div id="meditationStats" class="meditation-info">
+                    <div class="stat-row">
+                        <p>Time: <span id="meditationTimer" class="stat-value"></span></p>
+                        <p>Focus: <span id="meditationFocus" class="stat-value"></span></p>
+                    </div>
+                    <div class="stat-row">
+                        <p># of Balls: <span id="meditationBallCount" class="stat-value"></span></p>
+                        <p>Ball Size: <span id="meditationBallSize" class="stat-value"></span></p>
+                    </div>
+                    <div class="stat-row">
+                        <p>Arena Size: <span id="meditationArenaSize" class="stat-value"></span></p>
+                        <p>Velocity: <span id="meditationVelocity" class="stat-value"></span></p>
+                    </div>
+                    <div class="stat-row">
+                        <p>Turn Radius: <span id="meditationTurnRadius" class="stat-value"></span>&deg;</p>
+                        <p>Gravity: <span id="meditationGravity" class="stat-value"></span></p>
+                    </div>
+                    <div class="stat-row">
+                        <p>Respawn Time: <span id="meditationRespawnTime" class="stat-value"></span>s</p>
+                        <p id="meditationWindRow" style="display: none;">Wind: <span id="meditationWind" class="stat-value"></span></p>
+                    </div>
+                    <div class="stat-row">
+                        <p id="meditationRespawnFactorRow" style="display: none;">Respawn Factor: <span id="meditationRespawnFactor" class="stat-value"></span></p>
+                        <p id="meditationLivesPerBallRow" style="display: none;">Focus Per Ball: <span id="meditationLivesPerBall" class="stat-value"></span></p>
+                    </div>
+                </div>
+
+                <!-- Stop Meditation Button -->
+                <button id="meditationStopButton" class="meditation-stop-button">Stop Meditation</button>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- Include the Library overlay HTML -->
+    <div id="libraryOverlay" class="library-overlay" style="display: none;">
+        <div class="library-overlay-content">
+            <span class="close-button" id="closeLibraryOverlay">&times;</span>
+            <h1>Hall of Knowledge</h1>
+            <h4>Welcome to the illustrious Hall of Knowledge, a revered sanctuary where the wisdom of ages is preserved and shared. Within these hallowed halls, you will unlock a wealth of skills and insights, each meticulously curated to empower your journey.<br><br>Every skill you acquire here is a beacon of enlightenment, enduring through prestiges, ascensions, and beyond—though some forces may still challenge their permanence. Embrace the journey and let your wisdom guide you through every stage of your odyssey.</h4>
+            <div id="librarySkills">
+                <!-- Skills will be dynamically added here -->
+            </div>
+            <button id="closeLibraryButton">Exit</button>
+        </div>
+    </div>
+    <div id="powerHallOverlay" class="powerhall-overlay" style="display: none;">
+        <div class="powerhall-overlay-content">
+            <span class="close-button" id="closePowerHallOverlay">&times;</span>
+            <h1>HALL OF POWER</h1>
+            <h4>Welcome to the Hall of Power, a place where the strongest beings from countless realities converge. Nestled between the threads of the megaverse, this market of might is unlike anything you've ever encountered. Here, the air crackles with energy as warriors, sorcerers, and cosmic entities barter and trade not for trinkets, but for raw power itself.<br><br>Each skill you master within these hallowed grounds is a key to unlocking the primordial forces that bind the megaverse together. As you hone your abilities, you’ll find yourself ascending through challenges that test the limits of your strength, pushing you ever closer to the ultimate power that echoes through every universe and dimension.</h4>
+            <div id="powerHallSkills">
+                <!-- Power skills will be dynamically added here -->
+            </div>
+            <button id="closePowerHallButton">Exit</button>
+        </div>
+    </div>
+    <div id="loveHallOverlay" class="lovehall-overlay" style="display: none;">
+        <div class="lovehall-overlay-content">
+            <span class="close-button" id="closeLoveHallOverlay">&times;</span>
+            <h1>HALL OF LOVE</h1>
+            <h4>
+                You’ve discovered that love and serenity are the keys to life’s true balance. The skills here are purchased using <strong>Love Points</strong>, which you acquire each time you perform an <strong>Infinite Embrace</strong>. These skills are entangled forces within three pillars of balance. For every skill you purchase, its entangled counterpart becomes more costly, reinforcing the delicate equilibrium between growth and sacrifice.
+                <br><br>
+                In the <strong>first pillar</strong>, the cost increases by <strong>2.8 times</strong>—reflecting the quantum nature of the universe, as 2 * sqrt(2) represents Bell’s Inequality for quantum entangled particle correlation. In the <strong>second pillar</strong>, the increase is <strong>27 times</strong>, symbolizing the 27 dimensions of string theory. The <strong>third pillar</strong> magnifies the cost by <strong>42 times</strong>, an homage to the ultimate answer to life, the universe, and everything.
+                <br><br>
+                <span style="color: red;">Choose wisely, for balance is the ultimate lesson of love.</span>
+            </h4>            <!-- More visible Love Points display -->
+            <div id="lovePointsDisplay">
+                Love Points: 0
+            </div>
+
+            <div id="loveHallSkills">
+                <!-- Skills will be dynamically added here -->
+            </div>
+
+            <button id="closeLoveHallButton">Exit</button>
+            <button id="respecButton" style="background-color: red; color: white; display: none;">
+                Respec and Restart Embrace
+            </button>
+        </div>
+    </div>
+    <div id="balanceHallOverlay" class="balancehall-overlay" style="display: none;">
+        <div class="balancehall-overlay-content">
+            <span class="close-button" id="closeBalanceHallOverlay">&times;</span>
+            <h1>HALL OF BALANCE</h1>
+            <h4>
+                Welcome to the Hall of Balance, a sanctuary where equilibrium and harmony are prized above all. Here, the dualities of existence converge in perfect symmetry, offering insight to those who seek more than just power or peace alone. Each resource you balance within these walls draws you closer to the core of all knowledge, where mastery over extremes leads to true wisdom.<br><br>
+                As you explore these hallowed grounds, remember that balance is a delicate art—a path that asks for restraint and release in equal measure. Embrace this journey, for it is here that you will learn the ultimate truth of existence: only through balance can one truly unlock the boundless potential of the self.
+            </h4>
+            <div id="balanceHallSkills">
+                <!-- Balance Hall sliders and skill buttons will be dynamically added here -->
+            </div>
+            <button id="closeBalanceHallButton">Exit</button>
+        </div>
+    </div>
+    <!-- Settings Overlay -->
+    <div id="settingsOverlay" class="settings-overlay" style="display: none;">
+        <div class="settings-overlay-content">
+            <span class="close-button" id="closeSettingsOverlay">&times;</span>
+            <h1>Settings</h1>
+            <h4>Degens Idle v0.9751</h4>
+
+            <div class="settings-section">
+                <h3>Save Management</h3>
+                <div class="settings-buttons two-columns">
+                    <!-- Left Column -->
+                    <div class="left-column">
+                        <button id="exportSaveButton">
+                            <img src="imgs/textures/download.png" alt=""> Save File
+                        </button>
+                        <button id="importSaveButton">
+                            <img src="imgs/textures/upload.png" alt=""> Load File
+                        </button>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div class="right-column">
+                        <button id="copySaveButton">
+                            <img src="imgs/textures/copy.png" alt=""> Copy Save
+                        </button>
+                        <button id="pasteSaveButton">
+                            <img src="imgs/textures/paste.png" alt=""> Paste Save
+                        </button>
+                    </div>
+                </div>
+                <div class="settings-checkbox">
+                    <input type="checkbox" id="autoSaveCheckbox" name="autoSave">
+                    <label for="autoSave">Auto Save to file before relevant Prestige Layers</label>
+                </div>
+            </div>
+
+
+
+            <div class="settings-section">
+                <h3>Gameplay Options</h3>
+                <div class="settings-buttons">
+                    <button id="howToPlayButton"><i class="icon-info"></i> How to Play?</button>
+                    <button id="trailerButton"><i class="icon-info"></i> Game Trailer</button>
+                    <button id="numberFormatButton" class="full-width-button">Number Format: Mixed</button>
+                </div>
+                <div class="settings-switch" style="margin-bottom: 10px;">
+                    <label for="enableButtonAnimations">Glowing Animations (CPU intensive)</label>
+                    <label class="switch">
+                        <input type="checkbox" id="enableButtonAnimations">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <button id="restartButton">Restart Entire Game</button>
+            </div>
+
+            <div class="settings-section">
+                <h3>Community & Support</h3>
+                <div class="settings-note">
+                    Your feedback is crucial as the game grows. Every suggestion, insight, and idea you share directly influences the development of Degens Idle. The players and community are at the heart of this game's evolution, shaping its future with every piece of feedback. Whether it's refining gameplay mechanics, introducing new features, or just sharing your experiences, your contributions help make this game better for everyone. Together, we’re building something special, and I genuinely value and appreciate your involvement in this journey.
+                </div>
+                <button id="feedbackButton"><i class="icon-feedback"></i> Give Feedback</button>
+                <button id="discordButton">
+                    <img src="imgs/textures/discord.svg" alt="Discord" id="discordIcon">
+                </button>
+                <button id="wikiButton"><i class="icon-wiki"></i> Wiki</button>
+                <button id="degensAdventureButton"><i class="icon-wiki"></i> Degens Adventure</button>
+                <button id="donateButton"><i class="icon-donate"></i> Donate</button>
+            </div>
+
+            <button id="closeSettingsButton">Exit</button>
+        </div>
+    </div>
+
+    <!-- Automation Overlay -->
+    <div id="automationOverlay" class="automation-overlay" style="display: none;">
+        <div class="automation-overlay-content">
+            <span class="close-button" id="closeAutomationOverlay">&times;</span>
+            <h1>Automation Settings</h1>
+
+            <!-- Quick Mode Switch for Prestige -->
+            <div class="settings-switch" id="quickModePrestigeContainer" style="margin-bottom: 10px; display: none;">
+                <label for="enableQuickModePrestige">Quick Prestige: Skip pop-up</label>
+                <label class="switch">
+                    <input type="checkbox" id="enableQuickModePrestige">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <!-- Quick Mode Switch for Ascend -->
+            <div class="settings-switch" id="quickModeAscendContainer" style="margin-bottom: 10px; display: none;">
+                <label for="enableQuickModeAscend">Quick Ascend: Skip upgrade selection</label>
+                <label class="switch">
+                    <input type="checkbox" id="enableQuickModeAscend">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <!-- Quick Mode Switch for Transcend -->
+            <div class="settings-switch" id="quickModeTranscendContainer" style="margin-bottom: 10px; display: none;">
+                <label for="enableQuickModeTranscend">Quick Transcend: Skip upgrade selection</label>
+                <label class="switch">
+                    <input type="checkbox" id="enableQuickModeTranscend">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <!-- Quick Mode Switch for Big Crunch -->
+            <div class="settings-switch" id="quickModeBigCrunchContainer" style="margin-bottom: 10px; display: none;">
+                <label for="enableQuickModeBigCrunch">Quick Big Crunch: Skip pop-up</label>
+                <label class="switch">
+                    <input type="checkbox" id="enableQuickModeBigCrunch">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <!-- Quick Mode Switch for Infinite Embrace -->
+            <div class="settings-switch" id="quickModeInfiniteEmbraceContainer" style="margin-bottom: 10px; display: none;">
+                <label for="enableQuickModeInfiniteEmbrace">Quick Infinite Embrace: Skip pop-up</label>
+                <label class="switch">
+                    <input type="checkbox" id="enableQuickModeInfiniteEmbrace">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <!-- Quick Mode Switch for Mini Game Skips -->
+            <div class="settings-switch" id="quickModeMiniGameSkipContainer" style="margin-bottom: 10px; display: none;">
+                <label for="enableQuickModeMiniGameSkip">Quick Mini Games: Skip pop-up</label>
+                <label class="switch">
+                    <input type="checkbox" id="enableQuickModeMiniGameSkip">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <!-- Content will be dynamically updated by JavaScript -->
+            <div id="automationContent">
+                <!-- Placeholder content, will be replaced by JS -->
+            </div>
+
+            <button id="saveAutomationSettingsButton" class="green-button">Save Settings</button>
+            <button id="exitAutomationOverlayButton" class="red-button">Cancel</button>
+        </div>
+    </div>
+
+    <!-- Achievements Overlay -->
+    <div id="achievementsOverlay" class="achievements-overlay" style="display: none;">
+        <div class="achievements-overlay-content">
+            <span class="close-button" id="closeAchievementsOverlay">&times;</span>
+            <h1>Achievements</h1>
+            <div id="achievements-info">Achievements Unlocked: 0/100 | Multiplier: 1.00x (to ALL RESOURCES)</div>
+
+            <!-- Tabs for Achievement Categories -->
+            <div id="achievementTabs" class="achievement-tabs" data-default-tab="all">
+                <button type="button" class="tab-button" data-tab="all">All</button>
+                <button type="button" class="tab-button" data-tab="progression">Progression</button>
+                <button type="button" class="tab-button" data-tab="freebie">Freebie</button>
+                <button type="button" class="tab-button" data-tab="puzzle">Puzzle</button>
+                <button type="button" class="tab-button" data-tab="skill">Skill</button>
+            </div>
+
+            <!-- Info box to display count of unlocked achievements in current tab -->
+            <div id="achievementCount" class="achievement-count">Unlocked: 0/0</div>
+
+            <div id="achievements-grid">
+                <!-- Achievements will be dynamically added here -->
+            </div>
+            <button id="closeAchievementsButton">Exit</button>
+        </div>
+    </div>
+
+
+
+    <!-- Donation Overlay -->
+    <div id="donationOverlay" class="donation-overlay" style="display: none;">
+        <div class="donation-overlay-content">
+            <span class="close-button" id="closeDonationOverlay">&times;</span>
+            <h1>Support the Game</h1>
+            <p>Thanks for even thinking about donating! Making an idle game has always been a dream of mine, and this game is my baby, born from a deep love for idle games and a desire to bring joy to your screen. This is my first game ever, and I had to reach back over a decade to remember things I learned as an undergrad. No matter what, this is a passion project, so I'll keep developing it, and I promise—no paid features or ads of any kind will ever invade our fun. While I'm not struggling financially (no ramen diet here, unless by choice), a little token of appreciation from you would mean the world to me. It’s like a virtual high-five that keeps me motivated to juggle this project alongside my full-time job, life responsibilities, and other numerous hobbies. So, if you enjoy the game and can spare a few coins, it would be an enormous encouragement! Thanks a bunch!</p>
+            <button id="donateSmallButton">Buy me a Coffee</button>
+            <button id="donateMediumButton">Venmo me directly</button>
+            <button id="donateLargeButton">Cash by Carrier Pidgeon</button>
+            <button id="closeDonationButton">Exit</button>
+        </div>
+    </div>
+    <!-- Hidden file input for importing save file -->
+    <input type="file" id="importFileInput" style="display: none;">
+    <script src="lib/events.js"></script>
+    <script src="lib/components.js"></script>
+    <script src="upgrades.js"></script>
+    <script src="script.js"></script>
+    <script src="library.js"></script>
+    <script src="powerhall.js"></script>
+    <script src="lovehall.js"></script>
+    <script src="balancehall.js"></script>
+    <script src="settings.js"></script>
+    <script src="fighting.js"></script>
+    <script src="meditation.js"></script>
+    <script src="minigames.js"></script>
+    <script src="achievements.js"></script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+/* Overlay for the Library */
+.library-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
+    overflow: hidden; /* Prevent body scrolling */
+}
+
+.library-overlay-content {
+    background-color: #1e1e1e;
+    padding: 20px;
+    border: 1px solid #333;
+    border-radius: 10px;
+    text-align: center;
+    color: #e0e0e0;
+    width: 80%; /* Adjust width as needed */
+    max-height: 90%; /* Ensure it fits within the screen */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+/* Skill Tree Container */
+#librarySkills {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.library-skill-level {
+    width: 100%;
+    border: 1px solid #444;
+    padding: 10px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.library-skill-level-label {
+    position: absolute;
+    top: -15px;
+    left: 10px;
+    background-color: #1e1e1e;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.library-skill-row {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 20px 0;
+}
+
+.libraryskill {
+    background-color: #333;
+    border: 1px solid #555;
+    border-radius: 10px;
+    margin: 5px;
+    padding: 3px;
+    width: 150px;
+    text-align: center;
+    position: relative;
+    cursor: pointer; /* Make it look like a button */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.libraryskill:hover {
+    transform: translateY(-2px);
+}
+
+.libraryskill.locked {
+    background-color: #555;
+}
+
+.libraryskill.affordable {
+    background-color: #4caf50; /* Green */
+}
+
+.libraryskill.purchased {
+    background-color: #800080; /* Purple */
+}
+
+.libraryskill .skill-cost {
+    display: block; /* Always show cost */
+}
+
+.libraryskill h3,
+.libraryskill p {
+    display: none; /* Hide by default */
+}
+
+.libraryskill.affordable h3,
+.libraryskill.affordable p,
+.libraryskill.purchased h3,
+.libraryskill.purchased p {
+    display: block; /* Show when affordable or purchased */
+}
+
+/* Media query for mobile devices */
+@media (max-width: 768px) {
+    .skill-row {
+        justify-content: space-around;
+    }
+    .libraryskill {
+        width: calc(49% - 35px); /* Two skills per row with some margin */
+        font-size: 0.8em; /* Smaller font size for mobile */
+        padding: 5px; /* Adjust padding for smaller screens */
+    }
+    .skill-level-label {
+        font-size: 14px; /* Smaller label font size */
+    }
+}
