@@ -496,6 +496,111 @@ function updateBattleCardGrid(cardGrid) {
   });
 }
 
+// Helper function to render effects
+function renderCardEffects(c, isSpecial = false) {
+  const effectsList = isSpecial ? c.specialEffects : c.baseEffects;
+  if (!effectsList || !effectsList.length) return '';
+  
+  return effectsList.map(def => {
+    // Skip special effects that don't meet requirements
+    if (isSpecial) {
+      if (def.requires) {
+        const required = cardMap[def.requires.card];
+        if (!required || required.tier < def.requires.tier) {
+          return '';
+        }
+      }
+      // Add level requirement check
+      if (def.requirement?.type === 'level' && c.level < def.requirement.amount) {
+        return '';
+      }
+    }
+
+    // For effects label
+    let label;
+    switch (def.type) {
+      case "currencyPerPoke":
+      case "currencyPerSec":
+      case "flatCurrencyPerPoke":
+      case "flatCurrencyPerSecond":
+      case "currencyPerPokeMultiplier":
+      case "currencyPerSecMultiplier": {
+        const currency = currencies.find(cur => cur.id === def.currency);
+        const icon = currency ? 
+          `<img class="currency-effect-icon" src="assets/images/currencies/${currency.icon}" alt="${currency.name}"/>` : '';
+        const verb = def.type.includes('PerPoke') ? '/ Poke' : '/ Sec';
+        if (def.type.includes('Multiplier')) {
+          label = `Global ${icon} ${verb} Multiplier`;
+        } else {
+          label = `${icon} ${verb}`;
+        }
+        break;
+      }
+      case "rarityOddsDivider": {
+        const realmObj = realmMap[def.realm];
+        const realmColor = realmColors[def.realm];
+        const rarityColor = getComputedStyle(document.documentElement)
+          .getPropertyValue(`--rarity-${def.rarity}`);
+        label = [
+          `<span style="color:${realmColor}">${realmObj.name}</span>`,
+          `<span style="color:${rarityColor}">${def.rarity.toUpperCase()}</span> odds divider`
+        ].join(' ');
+        break;
+      }
+      default:
+        label = SPECIAL_EFFECT_NAMES[def.type] || EFFECT_NAMES[def.type] || def.type;
+    }
+
+    // Calculate value based on effect type
+    let valueHtml;
+    switch (def.type) {
+      case "merchantPriceDivider":
+        valueHtml = `×${formatNumber(def.value)}`;
+        break;
+      case "flatCurrencyPerPoke":
+      case "flatCurrencyPerSecond":
+        valueHtml = `+${formatNumber(def.value)}`;
+        break;
+      case "currencyPerPokeMultiplier":
+      case "currencyPerSecMultiplier":
+        valueHtml = `×${formatNumber(def.value)}`;
+        break;
+      case "allGeneratorMultiplier":
+        valueHtml = `×${formatNumber(def.value)}`;
+        break;
+      case "flatMaxCardsPerPoke":
+      case "flatMinCardsPerPoke":
+      case "flatCooldownDivider":
+      case "flatExtraMerchantRarityScaling":
+        valueHtml = `+${formatNumber(def.value)}`;
+        break;
+      case "rarityOddsDivider":
+        const baseDivider = def.value || def.amount || 0.01;
+        total = baseDivider * c.level * Math.pow(EFFECT_SCALES[def.type] || 2, c.tier - 1);
+        const cap = EFFECTS_RARITY_VALUES[c.rarity]?.oddsDividerCap;
+        const cappedTotal = Math.min(total, cap);
+        valueHtml = `${formatNumber(1 + cappedTotal)}`;
+        break;
+      default:
+        if (def.type === "minCardsPerPoke") {
+          baseValue = EFFECTS_RARITY_VALUES[c.rarity]?.minCardsPerPokeBaseValue || 0;
+        } else if (def.type === "maxCardsPerPoke") {
+          baseValue = EFFECTS_RARITY_VALUES[c.rarity]?.maxCardsPerPokeBaseValue || 0;
+        } else if (def.type === "cooldownDivider") {
+          baseValue = EFFECTS_RARITY_VALUES[c.rarity]?.cooldownDividerBaseValue || 0;
+        } else {
+          baseValue = def.value || def.amount || 0;
+        }
+        total = baseValue * c.level * Math.pow(EFFECT_SCALES[def.type] || 2, c.tier - 1);
+        valueHtml = `+${formatNumber(total)}`;
+    }
+
+    return `<div class="effect-line">
+      ${label}: <strong>${valueHtml}</strong>
+    </div>`;
+  }).filter(Boolean).join('');
+}
+
 // Show sacrifice dialog
 function showSacrificeDialog(cardId) {
   const c = cardMap[cardId];
@@ -505,110 +610,6 @@ function showSacrificeDialog(cardId) {
   const maxHp = calculateHP(c);
   const rr = realmMap[c.realm];
   const color = realmColors[c.realm];
-
-  // Helper function to render effects
-  function renderCardEffects(effectsList, isSpecial = false) {
-    if (!effectsList || !effectsList.length) return '';
-    
-    return effectsList.map(def => {
-      // Skip special effects that don't meet requirements
-      if (isSpecial) {
-        if (def.requires) {
-          const required = cardMap[def.requires.card];
-          if (!required || required.tier < def.requires.tier) {
-            return '';
-          }
-        }
-        // Add level requirement check
-        if (def.requirement?.type === 'level' && c.level < def.requirement.amount) {
-          return '';
-        }
-      }
-
-      // For effects label
-      let label;
-      switch (def.type) {
-        case "currencyPerPoke":
-        case "currencyPerSec":
-        case "flatCurrencyPerPoke":
-        case "flatCurrencyPerSecond":
-        case "currencyPerPokeMultiplier":
-        case "currencyPerSecMultiplier": {
-          const currency = currencies.find(cur => cur.id === def.currency);
-          const icon = currency ? 
-            `<img class="currency-effect-icon" src="assets/images/currencies/${currency.icon}" alt="${currency.name}"/>` : '';
-          const verb = def.type.includes('PerPoke') ? '/ Poke' : '/ Sec';
-          if (def.type.includes('Multiplier')) {
-            label = `Global ${icon} ${verb} Multiplier`;
-          } else {
-            label = `${icon} ${verb}`;
-          }
-          break;
-        }
-        case "rarityOddsDivider": {
-          const realmObj = realmMap[def.realm];
-          const realmColor = realmColors[def.realm];
-          const rarityColor = getComputedStyle(document.documentElement)
-            .getPropertyValue(`--rarity-${def.rarity}`);
-          label = [
-            `<span style="color:${realmColor}">${realmObj.name}</span>`,
-            `<span style="color:${rarityColor}">${def.rarity.toUpperCase()}</span> odds divider`
-          ].join(' ');
-          break;
-        }
-        default:
-          label = SPECIAL_EFFECT_NAMES[def.type] || EFFECT_NAMES[def.type] || def.type;
-      }
-
-      // Calculate value based on effect type
-      let valueHtml;
-      switch (def.type) {
-        case "merchantPriceDivider":
-          valueHtml = `×${formatNumber(def.value)}`;
-          break;
-        case "flatCurrencyPerPoke":
-        case "flatCurrencyPerSecond":
-          valueHtml = `+${formatNumber(def.value)}`;
-          break;
-        case "currencyPerPokeMultiplier":
-        case "currencyPerSecMultiplier":
-          valueHtml = `×${formatNumber(def.value)}`;
-          break;
-        case "allGeneratorMultiplier":
-          valueHtml = `×${formatNumber(def.value)}`;
-          break;
-        case "flatMaxCardsPerPoke":
-        case "flatMinCardsPerPoke":
-        case "flatCooldownDivider":
-        case "flatExtraMerchantRarityScaling":
-          valueHtml = `+${formatNumber(def.value)}`;
-          break;
-        case "rarityOddsDivider":
-          const baseDivider = def.value || def.amount || 0.01;
-          total = baseDivider * c.level * Math.pow(EFFECT_SCALES[def.type] || 2, c.tier - 1);
-          const cap = EFFECTS_RARITY_VALUES[c.rarity]?.oddsDividerCap;
-          const cappedTotal = Math.min(total, cap);
-          valueHtml = `${formatNumber(1 + cappedTotal)}`;
-          break;
-        default:
-          if (def.type === "minCardsPerPoke") {
-            baseValue = EFFECTS_RARITY_VALUES[c.rarity]?.minCardsPerPokeBaseValue || 0;
-          } else if (def.type === "maxCardsPerPoke") {
-            baseValue = EFFECTS_RARITY_VALUES[c.rarity]?.maxCardsPerPokeBaseValue || 0;
-          } else if (def.type === "cooldownDivider") {
-            baseValue = EFFECTS_RARITY_VALUES[c.rarity]?.cooldownDividerBaseValue || 0;
-          } else {
-            baseValue = def.value || def.amount || 0;
-          }
-          total = baseValue * c.level * Math.pow(EFFECT_SCALES[def.type] || 2, c.tier - 1);
-          valueHtml = `+${formatNumber(total)}`;
-      }
-
-      return `<div class="effect-line">
-        ${label}: <strong>${valueHtml}</strong>
-      </div>`;
-    }).filter(Boolean).join('');
-  }
 
   const dialog = document.createElement('div');
   dialog.className = 'sacrifice-dialog';
@@ -642,6 +643,10 @@ function showSacrificeDialog(cardId) {
           <span>Tier:</span>
           <strong>${c.tier} <span class="stat-change">→ 0</span></strong>
           <span>Realm:</span> <strong style="color:${color}">${rr.name}</strong>
+          ${cards.filter(c2 => c2.realm === c.realm).every(c2 => c2.quantity > 0) ? `
+            <span>Realm Conqueror:</span> 
+            <strong><span class="stat-change">→ -1</span></strong>
+          ` : ''} 
           <span>Rarity:</span> <strong style="color:var(--rarity-${c.rarity})">${c.rarity.toUpperCase()}</strong>
           <span>Power:</span> <strong>${formatNumber(c.power)}</strong>
           <span>Defense:</span> <strong>${formatNumber(c.defense)}</strong>
@@ -649,13 +654,13 @@ function showSacrificeDialog(cardId) {
         ${c.baseEffects ? `
           <h4>Effects <span class="effect-removed">→ removed</span></h4>
           <div class="sacrifice-modal-effects">
-            ${renderCardEffects(c.baseEffects)}
+            ${renderCardEffects(c)}
           </div>
         ` : ''}
         ${c.specialEffects ? `
           <h4>Special Effects <span class="effect-removed">→ removed</span></h4>
           <div class="sacrifice-modal-effects">
-            ${renderCardEffects(c.specialEffects, true)}
+            ${renderCardEffects(c, true)}
           </div>
         ` : ''}
       </div>

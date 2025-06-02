@@ -199,6 +199,25 @@ function updateStatsUI() {
                 <td>${EFFECT_NAMES.maxOfflineHours}</td>
                 <td>${state.maxOfflineHours} hours</td>
             </tr>
+    `;
+
+    if (skillMap[17001].purchased){
+        //compute total # realms where all cards are discovered
+      const fullyDiscoveredRealms = realms.filter(r => 
+        r.unlocked && 
+        cards.filter(c => c.realm === r.id).every(c => c.quantity > 0)
+      ).length;
+      const realmConquerorMultiplier = Math.pow(2, fullyDiscoveredRealms);
+
+      tblE.innerHTML += `
+            <tr>
+                <td>Realm Conqueror (All Mults)</td>
+                <td>${fullyDiscoveredRealms} (x${realmConquerorMultiplier.toFixed(0)})</td>
+            </tr>
+      `;
+    }
+
+    tblE.innerHTML += `
         </tbody>
     `;
 

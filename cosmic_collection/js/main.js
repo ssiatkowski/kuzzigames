@@ -47,7 +47,7 @@ window.state = {
   },
   effects: {
     minCardsPerPoke: 1,
-    maxCardsPerPoke: 2,
+    maxCardsPerPoke: 3,
     currencyPerPoke: {},
     currencyPerSec:   {},
     cooldownDivider: 1,
