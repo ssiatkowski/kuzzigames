@@ -74,6 +74,7 @@ window.state = {
   merchantBuyAllDiscount: 0.05,
   merchantBulkRoot: 3,
   maxOfflineHours: 4, // Maximum hours to consider for offline earnings
+  sacrificeLockoutTime: 24, // 24 hours lockout for sacrifices
   pokeRaritiesOmitted: [],
   hideOmittedRarities: true,  // New variable for checkbox state
   hideLockedCards: true, // New variable for checkbox state
@@ -138,6 +139,7 @@ function loadState() {
     state.merchantBulkChance = obj.merchantBulkChance || 0.25;
     state.merchantRefreshTime = obj.merchantRefreshTime || 0;
     state.maxOfflineHours = obj.maxOfflineHours || 4; // Load max offline hours
+    state.sacrificeLockoutTime = obj.sacrificeLockoutTime || 24; // Load sacrifice lockout time
         
     // === Determine whether any saved card actually has a `locked` property ===
     const savedOwned = obj.ownedCards || {};
@@ -238,6 +240,7 @@ function saveState() {
     timeCrunchValue: state.timeCrunchValue,
     merchantBulkChance: state.merchantBulkChance,
     maxOfflineHours: state.maxOfflineHours,
+    sacrificeLockoutTime: state.sacrificeLockoutTime,
     currentMerchantId: state.currentMerchant?.id ?? null,
     merchantOffers: state.merchantOffers.map(o => ({
       cardId:   o.cardId,
@@ -628,6 +631,15 @@ function performPoke() {
       lockedImg.src = 'assets/images/card_locked.png';
       lockedOverlay.appendChild(lockedImg);
       front.append(lockedOverlay);
+
+      // Add countdown if card is in lockoutTimers
+      if (state.battle.lockoutTimers[c.id]) {
+        const countdownEl = document.createElement('div');
+        countdownEl.className = 'lock-countdown';
+        const remainingTime = state.battle.lockoutTimers[c.id] - Date.now();
+        countdownEl.innerHTML = `Locked for<br>${formatDuration(remainingTime / 1000)}`;
+        front.append(countdownEl);
+      }
 
       const badge = document.createElement('div');
       badge.className = 'count-badge';
@@ -1767,6 +1779,16 @@ function renderCardsCollection() {
           lockedImg.src = 'assets/images/card_locked.png';
           lockedOverlay.appendChild(lockedImg);
           front.appendChild(lockedOverlay);
+
+          
+          // Add countdown if card is in lockoutTimers
+          if (state.battle.lockoutTimers[c.id]) {
+            const countdownEl = document.createElement('div');
+            countdownEl.className = 'lock-countdown';
+            const remainingTime = state.battle.lockoutTimers[c.id] - Date.now();
+            countdownEl.innerHTML = `Locked for<br>${formatDuration(remainingTime / 1000)}`;
+            front.append(countdownEl);
+          }
         }
       }
 

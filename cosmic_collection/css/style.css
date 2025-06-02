@@ -1694,3 +1694,22 @@ nav#tabs { margin-bottom: 15px; }
 .modal-lock-status span {
   font-weight: bold;
 }
+
+/* Style for the locked card countdown timer */
+.card-face.front .lock-countdown {
+  position: absolute;
+  bottom: 25%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(220, 22, 22, 0.9);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.9em;
+  font-weight: bold;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 5;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}

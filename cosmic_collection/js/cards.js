@@ -11078,7 +11078,7 @@ window.cards = [
   },
   {
     "id": "849",
-    "name": "Degens Adventure",
+    "name": "Prismatic Adventure",
     "realm": 8,
     "locked": false,
     "rarity": "exotic",

@@ -38,13 +38,13 @@ function calculateHP(card) {
   return Math.floor(card.defense * Math.sqrt(card.quantity));
 }
 
-// Lock a card for 24 hours
+// Lock a card for sacrificeLockoutTime hours
 function lockCard(cardId) {
   const card = cardMap[cardId];
   if (!card) return;
   
   card.locked = true;
-  state.battle.lockoutTimers[cardId] = Date.now() + (24 * 60 * 60 * 1000); // 24 hours
+  state.battle.lockoutTimers[cardId] = Date.now() + (state.sacrificeLockoutTime * 60 * 60 * 1000); // sacrificeLockoutTime is in hours
   saveState();
 }
 
@@ -52,7 +52,7 @@ function lockCard(cardId) {
 function getNextEnemy() {
   const greekGodsCards = cards.filter(c => c.realm === 11);
   // Find the first card that hasn't been battled yet
-  const enemy = greekGodsCards.find(c => c.locked);
+  const enemy = greekGodsCards.find(c => c.locked && !state.battle.lockoutTimers[c.id]);
   if (enemy) {
     // Initialize enemy properties
     enemy.attack = enemy.power * 10;
@@ -579,15 +579,19 @@ function renderCardEffects(c, isSpecial = false) {
         total = baseDivider * c.level * Math.pow(EFFECT_SCALES[def.type] || 2, c.tier - 1);
         const cap = EFFECTS_RARITY_VALUES[c.rarity]?.oddsDividerCap;
         const cappedTotal = Math.min(total, cap);
-        valueHtml = `${formatNumber(1 + cappedTotal)}`;
+        valueHtml = `${formatNumber(cappedTotal)}`;
+        break;
+      case "cooldownDivider":
+        baseValue = EFFECTS_RARITY_VALUES[c.rarity]?.cooldownDividerBaseValue || 0;
+        const tierContribution = (c.tier * (c.tier + 1)) / 2;
+        total = baseValue * c.level * tierContribution;
+        valueHtml = `×${formatNumber(total)}`;
         break;
       default:
         if (def.type === "minCardsPerPoke") {
           baseValue = EFFECTS_RARITY_VALUES[c.rarity]?.minCardsPerPokeBaseValue || 0;
         } else if (def.type === "maxCardsPerPoke") {
           baseValue = EFFECTS_RARITY_VALUES[c.rarity]?.maxCardsPerPokeBaseValue || 0;
-        } else if (def.type === "cooldownDivider") {
-          baseValue = EFFECTS_RARITY_VALUES[c.rarity]?.cooldownDividerBaseValue || 0;
         } else {
           baseValue = def.value || def.amount || 0;
         }
@@ -635,13 +639,16 @@ function showSacrificeDialog(cardId) {
         <button class="sacrifice-btn">Sacrifice Card</button>
       </div>
       <div class="sacrifice-right">
-        <div class="sacrifice-stats">
-          <span>Quantity:</span> 
-          <strong>${formatQuantity(c.quantity)} <span class="stat-change">→ 0</span></strong>
-          <span>Level:</span> 
-          <strong>${c.level} <span class="stat-change">→ 1</span></strong>
-          <span>Tier:</span>
-          <strong>${c.tier} <span class="stat-change">→ 0</span></strong>
+          <div class="sacrifice-warning">
+            <strong>Warning:</strong> Sacrificing this card will:
+            <ul style="margin: 8px 0; padding-left: 20px;">
+              <li>Remove it from your collection (${formatQuantity(c.quantity)} → 0) </li>
+              <li>Reset its tier (${c.tier} → 0) and level (${c.level} → 1)</li>
+              <li>Remove all its effects</li>
+              <li>Lock it for ${state.sacrificeLockoutTime} hours</li>
+            </ul>
+          </div>
+          <div class="sacrifice-stats">
           <span>Realm:</span> <strong style="color:${color}">${rr.name}</strong>
           ${cards.filter(c2 => c2.realm === c.realm).every(c2 => c2.quantity > 0) ? `
             <span>Realm Conqueror:</span> 
@@ -1006,7 +1013,7 @@ function showBattleHelp() {
       <ul>
         <li>To place a card in battle, you must sacrifice it from your collection.</li>
         <li>Sacrificing resets the card's level, tier, and quantity to 0.</li>
-        <li>The sacrificed card is locked for 24 hours after the battle. This prevents you from getting it from pokes and merchants.</li>
+        <li>The sacrificed card is locked for 24 hours (can be reduced) after the battle. This prevents you from getting it from pokes and merchants.</li>
         <li>All effects from the sacrificed card are removed on sacrifice.</li>
       </ul>
 
@@ -1014,7 +1021,7 @@ function showBattleHelp() {
       <ul>
         <li>Place your highest HP card in front to tank damage.</li>
         <li>Use multiple cards to increase your total damage output.</li>
-        <li>Consider the 24-hour lockout when choosing cards to sacrifice.</li>
+        <li>Consider the lockout timer when choosing cards to sacrifice.</li>
         <li>Check the enemy's stats to plan your strategy.</li>
       </ul>
     </div>

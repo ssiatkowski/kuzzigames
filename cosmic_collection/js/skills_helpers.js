@@ -1862,6 +1862,104 @@ window.skills = [
       cost: { realmId: 11, currencyId: "zeal", amount: 1.4e13 },
       purchased: false
     },
+    {
+      id: 24001,
+      name: "Shorter Sacrifice",
+      description: "Reduce sacrifice lockout time by 1 hour.",
+      cost: { realmId: 11, currencyId: "stone", amount: 1e18 },
+      purchased: false
+    },
+    {
+      id: 24002,
+      name: "Shorter Sacrifice 2",
+      description: "Reduce sacrifice lockout time by 1 hour.",
+      cost: { realmId: 11, currencyId: "coral", amount: 2e18 },
+      purchased: false
+    },
+    {
+      id: 24003,
+      name: "Shorter Sacrifice 3",
+      description: "Reduce sacrifice lockout time by 1 hour.",
+      cost: { realmId: 11, currencyId: "pollen", amount: 4e18 },
+      purchased: false
+    },
+    {
+      id: 24004,
+      name: "Shorter Sacrifice 4",
+      description: "Reduce sacrifice lockout time by 1 hour.",
+      cost: { realmId: 11, currencyId: "egg", amount: 8e18 },
+      purchased: false
+    },
+    {
+      id: 24005,
+      name: "Shorter Sacrifice 5",
+      description: "Reduce sacrifice lockout time by 1 hour.",
+      cost: { realmId: 11, currencyId: "crystal", amount: 1.5e19 },
+      purchased: false
+    },
+    {
+      id: 24006,
+      name: "Shorter Sacrifice 6",
+      description: "Reduce sacrifice lockout time by 1 hour.",
+      cost: { realmId: 11, currencyId: "rune", amount: 3e19 },
+      purchased: false
+    },
+    {
+      id: 24007,
+      name: "Shorter Sacrifice 7",
+      description: "Reduce sacrifice lockout time by 1 hour.",
+      cost: { realmId: 11, currencyId: "pearl", amount: 6e19 },
+      purchased: false
+    },
+    {
+      id: 24008,
+      name: "Shorter Sacrifice 8",
+      description: "Reduce sacrifice lockout time by 1 hour.",
+      cost: { realmId: 11, currencyId: "royal_jelly", amount: 1e20 },
+      purchased: false
+    },
+    {
+      id: 24009,
+      name: "Shorter Sacrifice 9",
+      description: "Reduce sacrifice lockout time by 1 hour.",
+      cost: { realmId: 11, currencyId: "feather", amount: 2e20 },
+      purchased: false
+    },
+    {
+      id: 24010,
+      name: "Shorter Sacrifice 10",
+      description: "Reduce sacrifice lockout time by 1 hour.",
+      cost: { realmId: 11, currencyId: "cosmic_ray", amount: 4e20 },
+      purchased: false
+    },
+    {
+      id: 24011,
+      name: "Shorter Sacrifice 11",
+      description: "Reduce sacrifice lockout time by 1 hour.",
+      cost: { realmId: 11, currencyId: "tooth", amount: 8e20 },
+      purchased: false
+    },
+    {
+      id: 24012,
+      name: "Shorter Sacrifice 12",
+      description: "Reduce sacrifice lockout time by 1 hour.",
+      cost: { realmId: 11, currencyId: "coin", amount: 1.5e21 },
+      purchased: false
+    },
+    {
+      id: 24013,
+      name: "Shorter Sacrifice 13",
+      description: "Reduce sacrifice lockout time by 1 hour.",
+      cost: { realmId: 11, currencyId: "spirit", amount: 3e21 },
+      purchased: false
+    },
+    {
+      id: 24014,
+      name: "Shorter Sacrifice 14",
+      description: "Reduce sacrifice lockout time by 1 hour.",
+      cost: { realmId: 11, currencyId: "zeal", amount: 6e21 },
+      purchased: false
+    }
   ];
 
   // --- PURCHASE LOGIC ---
@@ -2620,6 +2718,22 @@ function applySkill(id, skipCost = false) {
       case 23013: // Casual Gamer 13
       case 23014: // Casual Gamer 14
         state.maxOfflineHours += 4;
+        break;
+      case 24001: // Shorter Sacrifice
+      case 24002: // Shorter Sacrifice 2
+      case 24003: // Shorter Sacrifice 3
+      case 24004: // Shorter Sacrifice 4
+      case 24005: // Shorter Sacrifice 5
+      case 24006: // Shorter Sacrifice 6
+      case 24007: // Shorter Sacrifice 7
+      case 24008: // Shorter Sacrifice 8
+      case 24009: // Shorter Sacrifice 9
+      case 24010: // Shorter Sacrifice 10
+      case 24011: // Shorter Sacrifice 11
+      case 24012: // Shorter Sacrifice 12
+      case 24013: // Shorter Sacrifice 13
+      case 24014: // Shorter Sacrifice 14
+        state.sacrificeLockoutTime -= 1; // 1 hour
         break;
     }
 
