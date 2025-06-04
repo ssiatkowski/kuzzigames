@@ -136,10 +136,7 @@ function loadState() {
     state.interceptorValue = obj.interceptorValue || 0;
     state.interceptorActive = obj.interceptorActive || false;
     state.timeCrunchValue = obj.timeCrunchValue || 0;  // Load Time Crunch value
-    state.merchantBulkChance = obj.merchantBulkChance || 0.25;
     state.merchantRefreshTime = obj.merchantRefreshTime || 0;
-    state.maxOfflineHours = obj.maxOfflineHours || 4; // Load max offline hours
-    state.sacrificeLockoutTime = obj.sacrificeLockoutTime || 24; // Load sacrifice lockout time
         
     // === Determine whether any saved card actually has a `locked` property ===
     const savedOwned = obj.ownedCards || {};
@@ -238,8 +235,6 @@ function saveState() {
     interceptorValue: state.interceptorValue,
     interceptorActive: state.interceptorActive,
     timeCrunchValue: state.timeCrunchValue,
-    merchantBulkChance: state.merchantBulkChance,
-    maxOfflineHours: state.maxOfflineHours,
     sacrificeLockoutTime: state.sacrificeLockoutTime,
     currentMerchantId: state.currentMerchant?.id ?? null,
     merchantOffers: state.merchantOffers.map(o => ({
