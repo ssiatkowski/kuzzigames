@@ -1865,35 +1865,35 @@ window.skills = [
     {
       id: 24001,
       name: "Shorter Sacrifice",
-      description: "Reduce sacrifice lockout time by 1 hour.",
+      description: "Reduce sacrifice lockout time by 2 hours.",
       cost: { realmId: 11, currencyId: "stone", amount: 1e18 },
       purchased: false
     },
     {
       id: 24002,
       name: "Shorter Sacrifice 2",
-      description: "Reduce sacrifice lockout time by 1 hour.",
+      description: "Reduce sacrifice lockout time by 2 hours.",
       cost: { realmId: 11, currencyId: "coral", amount: 2e18 },
       purchased: false
     },
     {
       id: 24003,
       name: "Shorter Sacrifice 3",
-      description: "Reduce sacrifice lockout time by 1 hour.",
+      description: "Reduce sacrifice lockout time by 2 hours.",
       cost: { realmId: 11, currencyId: "pollen", amount: 4e18 },
       purchased: false
     },
     {
       id: 24004,
       name: "Shorter Sacrifice 4",
-      description: "Reduce sacrifice lockout time by 1 hour.",
+      description: "Reduce sacrifice lockout time by 2 hours.",
       cost: { realmId: 11, currencyId: "egg", amount: 8e18 },
       purchased: false
     },
     {
       id: 24005,
       name: "Shorter Sacrifice 5",
-      description: "Reduce sacrifice lockout time by 1 hour.",
+      description: "Reduce sacrifice lockout time by 2 hours.",
       cost: { realmId: 11, currencyId: "crystal", amount: 1.5e19 },
       purchased: false
     },
@@ -1956,8 +1956,15 @@ window.skills = [
     {
       id: 24014,
       name: "Shorter Sacrifice 14",
-      description: "Reduce sacrifice lockout time by 1 hour.",
+      description: "Reduce sacrifice lockout time by 2 hours.",
       cost: { realmId: 11, currencyId: "zeal", amount: 6e21 },
+      purchased: false
+    },
+    {
+      id: 25001,
+      name: "Card Leveler",
+      description: "Unlocks a button on Collection screen that levels all cards in current realm (left to right).",
+      cost: { realmId: 11, currencyId: "pearl", amount: 2.5e16 },
       purchased: false
     }
   ];
@@ -2724,6 +2731,9 @@ function applySkill(id, skipCost = false) {
       case 24003: // Shorter Sacrifice 3
       case 24004: // Shorter Sacrifice 4
       case 24005: // Shorter Sacrifice 5
+      case 24014: // Shorter Sacrifice 14
+        state.sacrificeLockoutTime -= 2; // 1 hour
+        break;
       case 24006: // Shorter Sacrifice 6
       case 24007: // Shorter Sacrifice 7
       case 24008: // Shorter Sacrifice 8
@@ -2732,8 +2742,9 @@ function applySkill(id, skipCost = false) {
       case 24011: // Shorter Sacrifice 11
       case 24012: // Shorter Sacrifice 12
       case 24013: // Shorter Sacrifice 13
-      case 24014: // Shorter Sacrifice 14
-        state.sacrificeLockoutTime -= 1; // 1 hour
+        state.sacrificeLockoutTime -= 1; // 2 hours
+        break;
+      case 25001: // Card Leveler
         break;
     }
 

@@ -1583,6 +1583,37 @@ function renderCardsCollection() {
   const list = document.getElementById('cards-list');
   list.innerHTML = '';
 
+  // Add Level All button if skill 25001 is purchased
+  if (skillMap[25001].purchased && currentCollectionRealm !== null) {
+    const levelAllBtn = document.createElement('button');
+    levelAllBtn.className = 'level-all-btn';
+    levelAllBtn.textContent = 'Level All';
+    levelAllBtn.addEventListener('click', () => {
+      // Get all visible cards in current realm with quantity > 0
+      const cardsToLevel = cards
+        .filter(c => c.realm === currentCollectionRealm && c.quantity > 0);
+
+      // Level up each card to its max affordable level
+      cardsToLevel.forEach(card => {
+        const result = calculateMaxAffordableLevel(card.id);
+        const increment = result.maxLevel - card.level;
+        
+        if (increment > 0 && result.totalCost.greaterThan(0)) {
+          // Subtract cost and level up
+          state.currencies[card.levelCost.currency] = 
+            (state.currencies[card.levelCost.currency] || new Decimal(0))
+              .minus(result.totalCost);
+          levelUp(card.id, increment);
+        }
+      });
+      
+      updateCurrencyBar();
+      renderCardsCollection();
+    });
+
+    list.appendChild(levelAllBtn);
+  }
+
   cards
     .filter(c => c.realm === currentCollectionRealm)
     .filter(c => {
@@ -1989,22 +2020,24 @@ function levelUp(cardId, increment = 1) {
   }
 }
 
-// Helper function to calculate max affordable level
+// Helper function to calculate max affordable level and total cost
 function calculateMaxAffordableLevel(cardId) {
   const c = cardMap[cardId];
   const baseCost = new Decimal(c.levelCost.amount);
-  const currency = state.currencies[c.levelCost.currency] || new Decimal(0);
-  let totalCost = new Decimal(0);
+  const availableCurrency = state.currencies[c.levelCost.currency] || new Decimal(0);
   let maxLevel = c.level;
+  let totalCost = new Decimal(0);
+  let currentCost = baseCost.times(Decimal.pow(c.levelScaling, maxLevel - 1));
+  currentCost = Decimal(floorTo3SigDigits(currentCost));
   
-  while (true) {
-    const nextLevelCost = baseCost.times(Decimal.pow(c.levelScaling, maxLevel));
-    if (totalCost.plus(nextLevelCost).greaterThan(currency)) {
-      break;
-    }
-    totalCost = totalCost.plus(nextLevelCost);
+  while (totalCost.plus(currentCost).lessThanOrEqualTo(availableCurrency)) {
+    totalCost = totalCost.plus(currentCost);
     maxLevel++;
+    currentCost = baseCost.times(Decimal.pow(c.levelScaling, maxLevel - 1));
+    currentCost = Decimal(floorTo3SigDigits(currentCost));
   }
+  
+  return { maxLevel, totalCost };
   
   return maxLevel;
 }
@@ -2128,7 +2161,12 @@ function resumeCooldown() {
 
   clearInterval(blackHoleTimer);
   if (fillAnim) anime.remove(globalFill);
-  globalFill.style.width = '0%';
+
+  const totalCooldown = calculateCooldown();
+  const progressPercent = ((totalCooldown - state.remainingCooldown) / totalCooldown) * 100;
+  
+  // Set initial width to match current progress
+  globalFill.style.width = `${progressPercent}%`;
 
   // 2) Recreate countdown
   countdownEl = holeBtn.querySelector('.countdown')
@@ -2156,10 +2194,10 @@ function resumeCooldown() {
     }
   }, 100);
 
-  // 4) Visual animation for the fill bar
+  // 4) Visual animation for the fill bar - start from current progress
   fillAnim = anime({
     targets: globalFill,
-    width: ['0%', '100%'],
+    width: [`${progressPercent}%`, '100%'],
     duration: state.remainingCooldown * 1000,
     easing: 'linear'
   });

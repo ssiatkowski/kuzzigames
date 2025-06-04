@@ -585,7 +585,7 @@ function renderCardEffects(c, isSpecial = false) {
         baseValue = EFFECTS_RARITY_VALUES[c.rarity]?.cooldownDividerBaseValue || 0;
         const tierContribution = (c.tier * (c.tier + 1)) / 2;
         total = baseValue * c.level * tierContribution;
-        valueHtml = `×${formatNumber(total)}`;
+        valueHtml = `+${formatNumber(total)}`;
         break;
       default:
         if (def.type === "minCardsPerPoke") {
