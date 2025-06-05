@@ -4,6 +4,15 @@
     margin: 0 auto;
 }
 
+.version {
+    text-align: center;
+    color: var(--font-color);
+    opacity: 0.8;
+    font-size: 1.4em;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
 .settings-section {
     margin-bottom: 30px;
 }
