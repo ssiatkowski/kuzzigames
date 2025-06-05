@@ -13,6 +13,12 @@ function initializeSettingsTab() {
     const saveToClipboardBtn = document.getElementById('saveToClipboardBtn');
     const loadFromClipboardBtn = document.getElementById('loadFromClipboardBtn');
 
+    // Community & Support buttons
+    const discordButton = document.getElementById('discordButton');
+    const donationButton = document.getElementById('donationButton');
+    const supporterCheckbox = document.getElementById('supporterCheckbox');
+    const supporterCheckboxContainer = document.getElementById('supporterCheckboxContainer');
+
     // Create unstuck warning modal
     const unstuckWarningModal = document.createElement('div');
     unstuckWarningModal.id = 'unstuckWarningModal';
@@ -288,6 +294,31 @@ function initializeSettingsTab() {
             '<i class="fas fa-times"></i> Auto-Use Max Absorber';
         saveState();
     });
+
+    // Initialize Discord button
+    discordButton.addEventListener('click', () => {
+        window.open('https://discord.gg/3r9HvqhCuJ', '_blank');
+    });
+
+    // Initialize Donation button
+    donationButton.addEventListener('click', () => {
+        window.open('https://coff.ee/ssiatkowski', '_blank');
+        state.donationButtonClicked = true;
+        supporterCheckboxContainer.style.display = 'block';
+        saveState();
+    });
+
+    // Initialize Supporter checkbox
+    supporterCheckbox.addEventListener('change', (e) => {
+        state.supporterCheckboxClicked = e.target.checked;
+        saveState();
+    });
+
+    // Initialize supporter checkbox state
+    if (state.donationButtonClicked) {
+        supporterCheckboxContainer.style.display = 'block';
+        supporterCheckbox.checked = state.supporterCheckboxClicked;
+    }
 }
 
 // Add this new function
@@ -305,3 +336,4 @@ function updateCardSize() {
     valueDisplay.textContent = Math.round(state.cardSizeScale * 100) + '%';
   }
 }
+

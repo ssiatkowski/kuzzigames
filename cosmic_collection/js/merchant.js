@@ -391,7 +391,7 @@ const merchants = [
       let quantity = 1;
       let quantityRandomVal = 0;
       if (ownQty > 9 && Math.random() < state.merchantBulkChance) {
-        const maxStack = Math.floor(Math.pow(ownQty, 1 / state.merchantBulkRoot));
+        const maxStack = Math.min(Math.floor(Math.pow(ownQty, 1 / state.merchantBulkRoot) * state.merchantBulkMult), ownQty);
         quantityRandomVal = Math.random();
         quantity = Math.max(1, Math.floor(quantityRandomVal * maxStack) + 1);
         price = price.times(Math.cbrt(quantity));

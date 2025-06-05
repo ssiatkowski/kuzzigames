@@ -172,6 +172,10 @@ function updateStatsUI() {
                 <td>${formatNumber(state.effects.maxCardsPerPoke)}</td>
             </tr>
             <tr>
+                <td>Max Cards Multiplier</td>
+                <td>x${(state.supporterCheckboxClicked ? 1.25 : 1)}</td>
+            </tr>
+            <tr>
                 <td>${EFFECT_NAMES.cooldownDivider}</td>
                 <td>${formatNumber(state.effects.cooldownDivider)}</td>
             </tr>
@@ -194,6 +198,10 @@ function updateStatsUI() {
             <tr>
                 <td>${SPECIAL_EFFECT_NAMES.merchantPriceDivider}</td>
                 <td>${formatNumber(state.effects.merchantPriceDivider)}</td>
+            </tr>
+            <tr>
+                <td>Merchant Max Stack Size</td>
+                <td>${state.merchantBulkMult > 1 ? `${state.merchantBulkMult} * ` : ``}${state.merchantBulkRoot}√qty</td>
             </tr>
             <tr>
                 <td>${EFFECT_NAMES.maxOfflineHours}</td>

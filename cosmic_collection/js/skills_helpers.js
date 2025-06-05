@@ -73,28 +73,28 @@ window.skills = [
     {
       id: 2001,
       name: "More Cards",
-      description: "+2 to max cards per poke.",
+      description: "+4 to max cards per poke.",
       cost: { realmId: 1, currencyId: "stone", amount: 5e3 },
       purchased: false
     },
     {
       id: 2002,
       name: "More Cards 2",
-      description: "+5 to max cards per poke.",
+      description: "+8 to max cards per poke.",
       cost: { realmId: 2, currencyId: "coral", amount: 1e4 },
       purchased: false
     },
     {
       id: 2003,
       name: "More Cards 3",
-      description: "+10 to max cards per poke.",
+      description: "+12 to max cards per poke.",
       cost: { realmId: 3, currencyId: "pollen", amount: 1.5e4 },
       purchased: false
     },
     {
       id: 2004,
       name: "More Cards 4",
-      description: "+15 to max cards per poke.",
+      description: "+16 to max cards per poke.",
       cost: { realmId: 4, currencyId: "egg", amount: 2e4 },
       purchased: false
     },
@@ -178,14 +178,14 @@ window.skills = [
     {
       id: 2101,
       name: "Massive Black Hole",
-      description: "+10 to max cards per poke.",
+      description: "+20 to max cards per poke.",
       cost: { realmId: 1, currencyId: "stone", amount: 1e7 },
       purchased: false
     },
     {
       id: 2102,
       name: "Massive Black Hole 2",
-      description: "+25 to max cards per poke.",
+      description: "+40 to max cards per poke.",
       cost: { realmId: 2, currencyId: "coral", amount: 2e7 },
       purchased: false
     },
@@ -1242,8 +1242,8 @@ window.skills = [
     {
       id: 12204,
       name: "Curious Interceptor",
-      description: "Discovering a new card while interceptor is active increases its duration by 30 seconds. (Now you can stop to check out the new card!) Getting a Tier Up gives 3 seconds. ",
-      cost: { realmId: 6, currencyId: "egg", amount: 1.5e8 },
+      description: "Discovering a new card while interceptor is active increases its duration by 15 seconds. (Now you can stop to check out the new card!) Getting a Tier Up gives 2 seconds. ",
+      cost: { realmId: 6, currencyId: "egg", amount: 1e8 },
       purchased: false
     },
     {
@@ -1537,13 +1537,27 @@ window.skills = [
       id: 19501,
       name: "Larger Card Stacks",
       description: "Increase max card bulk offer from 3√qty to 2.5√qty.",
-      cost: { realmId: 10, currencyId: "coral", amount: 1e12},
+      cost: { realmId: 4, currencyId: "coral", amount: 1e7},
       purchased: false
     },
     {
       id: 19502,
       name: "Larger Card Stacks 2",
       description: "Increase max card bulk offer from 2.5√qty to 2√qty.",
+      cost: { realmId: 6, currencyId: "coral", amount: 2e8},
+      purchased: false
+    },
+    {
+      id: 19503,
+      name: "Larger Card Stacks 3",
+      description: "Increase max card bulk offer from 2√qty to 10 * 2√qty",
+      cost: { realmId: 10, currencyId: "coral", amount: 1e12},
+      purchased: false
+    },
+    {
+      id: 19504,
+      name: "Larger Card Stacks 4",
+      description: "Increase max card bulk offer from 10 * 2√qty to 100 * 2√qty.",
       cost: { realmId: 11, currencyId: "coral", amount: 2.5e18},
       purchased: false
     },
@@ -1606,91 +1620,91 @@ window.skills = [
     {
       id: 21001,
       name: "Card Supernova",
-      description: "+1000 to max cards per poke.",
+      description: "+1111 to max cards per poke.",
       cost: { realmId: 8, currencyId: "stone", amount: 1e11 },
       purchased: false
     },
     {
       id: 21002,
       name: "Card Supernova 2",
-      description: "+2000 to max cards per poke.",
+      description: "+2222 to max cards per poke.",
       cost: { realmId: 8, currencyId: "coral", amount: 2e11 },
       purchased: false
     },
     {
       id: 21003,
       name: "Card Supernova 3",
-      description: "+3000 to max cards per poke.",
+      description: "+3333 to max cards per poke.",
       cost: { realmId: 8, currencyId: "pollen", amount: 3e11 },
       purchased: false
     },
     {
       id: 21004,
       name: "Card Supernova 4",
-      description: "+4000 to max cards per poke.",
+      description: "+4444 to max cards per poke.",
       cost: { realmId: 9, currencyId: "egg", amount: 4e11 },
       purchased: false
     },
     {
       id: 21005,
       name: "Card Supernova 5",
-      description: "+5000 to max cards per poke.",
+      description: "+5555 to max cards per poke.",
       cost: { realmId: 9, currencyId: "crystal", amount: 5e11 },
       purchased: false
     },
     {
       id: 21006,
       name: "Card Supernova 6",
-      description: "+6000 to max cards per poke.",
+      description: "+6666 to max cards per poke.",
       cost: { realmId: 9, currencyId: "tooth", amount: 6e11 },
       purchased: false
     },
     {
       id: 21007,
       name: "Card Supernova 7",
-      description: "+14000 to max cards per poke.",
+      description: "+14441 to max cards per poke.",
       cost: { realmId: 10, currencyId: "coin", amount: 7e12 },
       purchased: false
     },
     {
       id: 21008,
       name: "Card Supernova 8",
-      description: "+16000 to max cards per poke.",
+      description: "+16661 to max cards per poke.",
       cost: { realmId: 10, currencyId: "spirit", amount: 8e12 },
       purchased: false
     },
     {
       id: 21009,
       name: "Card Supernova 9",
-      description: "+18000 to max cards per poke.",
+      description: "+18881 to max cards per poke.",
       cost: { realmId: 10, currencyId: "rune", amount: 9e12 },
       purchased: false
     },
     {
       id: 21010,
       name: "Card Supernova 10",
-      description: "+20000 to max cards per poke.",
+      description: "+22222 to max cards per poke.",
       cost: { realmId: 11, currencyId: "pearl", amount: 1e13 },
       purchased: false
     },
     {
       id: 21011,
       name: "Card Supernova 11",
-      description: "+40000 to max cards per poke.",
+      description: "+44444 to max cards per poke.",
       cost: { realmId: 11, currencyId: "royal_jelly", amount: 1e14 },
       purchased: false
     },
     {
       id: 21012,
       name: "Card Supernova 12",
-      description: "+80000 to max cards per poke.",
+      description: "+88888 to max cards per poke.",
       cost: { realmId: 11, currencyId: "feather", amount: 1e15 },
       purchased: false
     },
     {
       id: 21013,
       name: "Card Supernova 13",
-      description: "+160000 to max cards per poke.",
+      description: "+166661 to max cards per poke.",
       cost: { realmId: 11, currencyId: "cosmic_ray", amount: 1e16 },
       purchased: false
     },
@@ -1964,7 +1978,7 @@ window.skills = [
       id: 25001,
       name: "Card Leveler",
       description: "Unlocks a button on Collection screen that levels all cards in current realm (left to right).",
-      cost: { realmId: 11, currencyId: "pearl", amount: 2.5e16 },
+      cost: { realmId: 10, currencyId: "pearl", amount: 1e11 },
       purchased: false
     }
   ];
@@ -2049,16 +2063,16 @@ function applySkill(id, skipCost = false) {
         initBattleSystem();
         break;
       case 2001: // More Cards
-        state.effects.maxCardsPerPoke += 2;
+        state.effects.maxCardsPerPoke += 4;
         break;
       case 2002:
-        state.effects.maxCardsPerPoke += 5;
+        state.effects.maxCardsPerPoke += 8;
         break;
       case 2003:
-        state.effects.maxCardsPerPoke += 10;
+        state.effects.maxCardsPerPoke += 12;
         break;
       case 2004:
-        state.effects.maxCardsPerPoke += 15;
+        state.effects.maxCardsPerPoke += 16;
         break;
       case 2005:
         state.effects.maxCardsPerPoke += 25;
@@ -2094,10 +2108,10 @@ function applySkill(id, skipCost = false) {
         state.effects.maxCardsPerPoke += 500;
         break;
       case 2101: // Massive Black Hole
-        state.effects.maxCardsPerPoke += 10;
+        state.effects.maxCardsPerPoke += 20;
         break;
       case 2102:
-        state.effects.maxCardsPerPoke += 25;
+        state.effects.maxCardsPerPoke += 40;
         break;
       case 2103:
         state.effects.maxCardsPerPoke += 50;
@@ -2627,6 +2641,12 @@ function applySkill(id, skipCost = false) {
       case 19502:
         state.merchantBulkRoot -= 0.5;
         break;
+      case 19503:
+        state.merchantBulkMult *= 10;
+        break;
+      case 19504:
+        state.merchantBulkMult *= 10;
+        break;
       case 20001:
         state.effects.currencyPerPokeMultiplier['stone'] *= 2;
         break;
@@ -2652,43 +2672,43 @@ function applySkill(id, skipCost = false) {
         state.effects.currencyPerPokeMultiplier['spirit'] *= 2;
         break;
       case 21001:
-        state.effects.maxCardsPerPoke += 1000;
+        state.effects.maxCardsPerPoke += 1111;
         break;
       case 21002:
-        state.effects.maxCardsPerPoke += 2000;
+        state.effects.maxCardsPerPoke += 2222;
         break;
       case 21003:
-        state.effects.maxCardsPerPoke += 3000;
+        state.effects.maxCardsPerPoke += 3333;
         break;
       case 21004:
-        state.effects.maxCardsPerPoke += 4000;
+        state.effects.maxCardsPerPoke += 4444;
         break;
       case 21005:
-        state.effects.maxCardsPerPoke += 5000;
+        state.effects.maxCardsPerPoke += 5555;
         break;
       case 21006:
-        state.effects.maxCardsPerPoke += 6000;
+        state.effects.maxCardsPerPoke += 6666;
         break;
       case 21007:
-        state.effects.maxCardsPerPoke += 14000;
+        state.effects.maxCardsPerPoke += 14441;
         break;
       case 21008:
-        state.effects.maxCardsPerPoke += 16000;
+        state.effects.maxCardsPerPoke += 16661;
         break;
       case 21009:
-        state.effects.maxCardsPerPoke += 18000;
+        state.effects.maxCardsPerPoke += 18881;
         break;
       case 21010:
-        state.effects.maxCardsPerPoke += 20000;
+        state.effects.maxCardsPerPoke += 22222;
         break;
       case 21011: // Card Supernova 11
-        state.effects.maxCardsPerPoke += 40000;
+        state.effects.maxCardsPerPoke += 44444;
         break;
       case 21012: // Card Supernova 12
-        state.effects.maxCardsPerPoke += 80000;
+        state.effects.maxCardsPerPoke += 88888;
         break;
       case 21013: // Card Supernova 13
-        state.effects.maxCardsPerPoke += 160000;
+        state.effects.maxCardsPerPoke += 166661;
         break;
       case 22001: // Rare Income
       case 22006: // Rare Income 6

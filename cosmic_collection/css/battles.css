@@ -101,6 +101,9 @@
   position: relative;
   width: 100%;
   height: 100%;
+  border: 4px solid;  /* Will use border-color from inline style */
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 /* Combat stat base */

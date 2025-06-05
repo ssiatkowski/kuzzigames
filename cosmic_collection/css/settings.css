@@ -348,4 +348,38 @@
 
 .card-size-control input[type="range"]::-ms-tooltip {
     display: none;
-} 
+}
+
+.settings-description {
+    margin-left: 10px;
+    color: #666;
+    font-size: 0.9em;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.checkbox-text {
+    margin-left: 8px;
+    color: #333;
+}
+
+#supporterCheckboxContainer {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+}
+
+#discordButton {
+    background-color: #5865F2;
+    color: white;
+}
+
+#donationButton {
+    background-color: #FFDD00;
+    color: #000;
+}

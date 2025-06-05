@@ -47,7 +47,7 @@ window.state = {
   },
   effects: {
     minCardsPerPoke: 1,
-    maxCardsPerPoke: 3,
+    maxCardsPerPoke: 4,
     currencyPerPoke: {},
     currencyPerSec:   {},
     cooldownDivider: 1,
@@ -67,12 +67,13 @@ window.state = {
   resourceGeneratorContribution: {},  // Track contributions for each resource
   harvesterValue: 0,
   absorberValue: 1,
-  interceptorValue: 0,     // Add interceptor value
-  interceptorActive: false, // Track if interceptor is active
-  timeCrunchValue: 0,     // Add Time Crunch value
+  interceptorValue: 0,
+  interceptorActive: false,
+  timeCrunchValue: 0,
   merchantBulkChance: 0.25,
   merchantBuyAllDiscount: 0.05,
   merchantBulkRoot: 3,
+  merchantBulkMult: 1,
   maxOfflineHours: 4, // Maximum hours to consider for offline earnings
   sacrificeLockoutTime: 24, // 24 hours lockout for sacrifices
   pokeRaritiesOmitted: [],
@@ -80,6 +81,8 @@ window.state = {
   hideLockedCards: true, // New variable for checkbox state
   remainingCooldown: 0,    // Add remaining cooldown to state
   timeCrunchMaxChargeTime: 300, // 5 minutes max charge time
+  donationButtonClicked: false,   // Track if donation button was clicked
+  supporterCheckboxClicked: false, // Track if supporter checkbox was clicked
   effectFilters: {
     activeGroups: new Set(),
     oddsRealms:      new Set(),    // <realmId>
@@ -137,6 +140,8 @@ function loadState() {
     state.interceptorActive = obj.interceptorActive || false;
     state.timeCrunchValue = obj.timeCrunchValue || 0;  // Load Time Crunch value
     state.merchantRefreshTime = obj.merchantRefreshTime || 0;
+    state.supporterCheckboxClicked = obj.supporterCheckboxClicked || false;
+    state.donationButtonClicked = obj.donationButtonClicked || false;
         
     // === Determine whether any saved card actually has a `locked` property ===
     const savedOwned = obj.ownedCards || {};
@@ -235,8 +240,9 @@ function saveState() {
     interceptorValue: state.interceptorValue,
     interceptorActive: state.interceptorActive,
     timeCrunchValue: state.timeCrunchValue,
-    sacrificeLockoutTime: state.sacrificeLockoutTime,
     currentMerchantId: state.currentMerchant?.id ?? null,
+    supporterCheckboxClicked: state.supporterCheckboxClicked,
+    donationButtonClicked: state.donationButtonClicked,
     merchantOffers: state.merchantOffers.map(o => ({
       cardId:   o.cardId,
       currency: o.currency,
@@ -428,7 +434,7 @@ function performPoke() {
   const e     = state.effects;
   const r = (Math.random() + Math.random()) / 2; // center-biased
   const draws = Math.floor(Math.floor(
-    ((r * (e.maxCardsPerPoke - e.minCardsPerPoke + 1)
+    ((r * (e.maxCardsPerPoke * (state.supporterCheckboxClicked ? 1.25 : 1) - e.minCardsPerPoke + 1)
   ) + e.minCardsPerPoke))
   * absorberMultiplier);
 
@@ -672,7 +678,7 @@ function performPoke() {
         badge.textContent = 'NEW';
         front.append(badge);
         if (wasNew && state.interceptorActive && skillMap[12204].purchased) {
-          state.interceptorValue = state.interceptorValue + 30;
+          state.interceptorValue = state.interceptorValue + 15;
         }
       } else if (newTier > oldTier) {
         const badge = document.createElement('div');
@@ -680,7 +686,7 @@ function performPoke() {
         badge.textContent = 'TIER UP';
         front.append(badge);
         if (state.interceptorActive && skillMap[12204].purchased) {
-          state.interceptorValue = state.interceptorValue + 3;
+          state.interceptorValue = state.interceptorValue + 2;
         }
       }
     }

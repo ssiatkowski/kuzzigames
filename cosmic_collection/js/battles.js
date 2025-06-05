@@ -435,9 +435,8 @@ function updateBattleCardGrid(cardGrid) {
     const attack = calculateAttackPower(card);
     const maxHp = calculateHP(card);
 
-    return `
-      <div class="battle-card-grid-item" data-id="${card.id}">
-        <div class="battle-card-face">
+    return `      <div class="battle-card-grid-item" data-id="${card.id}">
+        <div class="battle-card-face" style="border-color: ${realmColors[card.realm]}">
           <img class="battle-card-image" 
                src="assets/images/cards/${card.realm}/${slugify(card.name)}.jpg" 
                alt="${card.name}"

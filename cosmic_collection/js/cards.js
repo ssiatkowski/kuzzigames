@@ -264,7 +264,7 @@ window.cards = [
         "type": "flatMaxCardsPerPoke",
         "requirement": {
           "type": "level",
-          "amount": 10
+          "amount": 9
         },
         "value": 3.0
       },
@@ -2650,9 +2650,9 @@ window.cards = [
         "type": "flatMaxCardsPerPoke",
         "requirement": {
           "type": "level",
-          "amount": 10
+          "amount": 8
         },
-        "value": 100.0
+        "value": 80.0
       },
       {
         "type": "flatMaxCardsPerPoke",
@@ -3340,9 +3340,9 @@ window.cards = [
         "type": "flatMaxCardsPerPoke",
         "requirement": {
           "type": "level",
-          "amount": 5
+          "amount": 8
         },
-        "value": 15.0
+        "value": 20.0
       },
       {
         "type": "flatMaxCardsPerPoke",
@@ -5850,7 +5850,7 @@ window.cards = [
         "type": "currencyPerPokeMultiplier",
         "requirement": {
           "type": "level",
-          "amount": 30
+          "amount": 25
         },
         "currency": "rune",
         "value": 10.0
@@ -10123,7 +10123,7 @@ window.cards = [
         "type": "flatMaxCardsPerPoke",
         "requirement": {
           "type": "level",
-          "amount": 40
+          "amount": 30
         },
         "value": 1000000.0
       }
