@@ -23,6 +23,7 @@
   <link rel="stylesheet" href="css/main.css" />
   <link rel="stylesheet" href="css/settings.css" />
   <link rel="stylesheet" href="css/battles.css" />
+  <link rel="stylesheet" href="css/achievements.css" />
 </head>
 <body>
   <!-- Landscape Mode Overlay -->
@@ -74,6 +75,7 @@
     <button id="tab-btn-skills"  class="tab-btn">Skills</button>
     <button id="tab-btn-merchant"class="tab-btn">Merchant</button>
     <button id="tab-btn-battles" class="tab-btn">Battles</button>
+    <button id="tab-btn-achievements" class="tab-btn">Achievements</button>
     <button id="tab-btn-stats"   class="tab-btn">Stats</button>
     <button id="tab-btn-settings" class="tab-btn">Settings</button>
   </nav>
@@ -153,6 +155,12 @@
   <div id="tab-content-battles" class="tab-content" style="display:none;">
   </div>
 
+  <!-- ACHIEVEMENTS TAB -->
+  <div id="tab-content-achievements" class="tab-content">
+    <div id="achievements-container"></div>
+  </div>
+
+  <!-- Stats TAB -->
   <div id="tab-content-stats" class="tab-content" style="display:none;">
   </div>
   <div id="tab-content-settings" class="tab-content" style="display:none;">
@@ -281,7 +289,7 @@
   <script src="js/interceptor.js"></script>
   <script src="js/time_crunch.js"></script>
   <script src="js/battles.js"></script>
-
+  <script src="js/achievements.js"></script>
   <!-- Main Behavior -->
   <script src="js/main.js"></script>
 </body>

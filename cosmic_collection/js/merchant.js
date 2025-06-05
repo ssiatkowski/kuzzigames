@@ -385,7 +385,7 @@ const merchants = [
       // randomness ±99%
       // divide is not a function of Decimal, so we need to use a different approach
       const priceRandomVal = (Math.random()*1.98 + 0.01) * state.currentMerchant.priceMultiplier;
-      price = price.times(priceRandomVal).dividedBy(state.effects.merchantPriceDivider).ceil();
+      price = price.times(priceRandomVal).dividedBy(state.effects.merchantPriceDivider).dividedBy(state.achievementRewards.merchantPriceDivider).ceil();
   
       
       let quantity = 1;
@@ -741,75 +741,16 @@ const merchants = [
     if (buyoutCostContainer) {
       buyoutCostContainer.remove();
     }
-    renderMerchantTab();
+    renderMerchantTab();  
     updateCurrencyBar();
     state.stats.merchantPurchases++;
+    checkAchievements('merchantTrader');
   }
   
   
   // expose unlock helper if needed elsewhere
   window.unlockMerchantByName = unlockMerchantByName;
-  
-  function generateMerchantOffer() {
-    // Get all cards that can be offered
-    const availableCards = cards.filter(c => {
-      // Skip cards that are locked
-      if (c.realm === 11 && isCardLocked(c.id)) {
-        return false;
-      }
-      return c.quantity > 0;
-    });
 
-    if (availableCards.length === 0) return null;
-
-    // Pick a random card
-    const card = pickRandom(availableCards);
-    if (!card) return null;
-
-    // Pick a random currency
-    const currency = pickRandom(currencies.filter(c => c.id !== 'harvester' && c.id !== 'timeCrunch'));
-
-    // Calculate base price
-    const basePrice = card.power * card.tier * Math.sqrt(card.level);
-    const price = new Decimal(basePrice)
-      .times(currency.priceMultiplier)
-      .times(1 - state.effects.merchantPriceDivider);
-
-    // Calculate quantity
-    let quantity = 1;
-    if (Math.random() < state.merchantBulkChance) {
-      quantity = Math.floor(Math.random() * 3) + 1;
-    }
-
-    return {
-      cardId: card.id,
-      currency: currency.id,
-      price: price,
-      quantity: quantity
-    };
-  }
-
-  function updateMerchantOffer() {
-    const offer = getMerchantOffer();
-    if (!offer) return;
-    
-    const now = Date.now();
-    const elapsed = (now - offer.timestamp) / 1000;
-    const progress = Math.min(1, elapsed / offer.cooldown);
-    
-    const bar = document.querySelector('.merchant-offer .merchant-modal-bar');
-    const threshold = document.querySelector('.merchant-offer .threshold');
-    const countBadge = document.querySelector('.merchant-offer .count-badge');
-    
-    if (bar) bar.style.width = `${progress * 100}%`;
-    if (threshold) threshold.textContent = `${Math.ceil(offer.cooldown - elapsed)}s`;
-    if (countBadge) countBadge.textContent = offer.cards.length;
-    
-    if (progress >= 1) {
-      const newOffer = generateMerchantOffer();
-      setMerchantOffer(newOffer);
-    }
-  }
   
   let merchantIsNew = false;
   let merchantOffersOriginalCount = null;
@@ -846,6 +787,7 @@ const merchants = [
       giveCard(o.cardId, o.quantity || 1);
     }
     state.stats.merchantPurchases += state.merchantOffers.length;
+    checkAchievements('merchantTrader');
     state.merchantOffers = [];
     const now       = Date.now();
     const maxRemain = skillMap[19401].purchased ? 5 * 1000 : 10 * 1000;

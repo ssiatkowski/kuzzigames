@@ -167,14 +167,20 @@ function updateStatsUI() {
                 <td>${EFFECT_NAMES.minCardsPerPoke}</td>
                 <td>${formatNumber(state.effects.minCardsPerPoke)}</td>
             </tr>
+            ${(state.achievementRewards.minCardsMultiplier) ?
+            `<tr>
+                <td>Min Cards Multiplier</td>
+                <td>x${formatNumber(state.achievementRewards.minCardsMultiplier)}</td>
+            </tr>` : ''}
             <tr>
                 <td>${EFFECT_NAMES.maxCardsPerPoke}</td>
                 <td>${formatNumber(state.effects.maxCardsPerPoke)}</td>
             </tr>
-            <tr>
+            ${(state.supporterCheckboxClicked || state.achievementRewards.maxCardsMultiplier) ?
+            `<tr>
                 <td>Max Cards Multiplier</td>
-                <td>x${(state.supporterCheckboxClicked ? 1.25 : 1)}</td>
-            </tr>
+                <td>x${formatNumber((state.supporterCheckboxClicked ? 1.25 : 1) * state.achievementRewards.maxCardsMultiplier)}</td>
+            </tr>` : ''}
             <tr>
                 <td>${EFFECT_NAMES.cooldownDivider}</td>
                 <td>${formatNumber(state.effects.cooldownDivider)}</td>
@@ -197,7 +203,7 @@ function updateStatsUI() {
             </tr>
             <tr>
                 <td>${SPECIAL_EFFECT_NAMES.merchantPriceDivider}</td>
-                <td>${formatNumber(state.effects.merchantPriceDivider)}</td>
+                <td>${formatNumber(state.effects.merchantPriceDivider * state.achievementRewards.merchantPriceDivider)}</td>
             </tr>
             <tr>
                 <td>Merchant Max Stack Size</td>

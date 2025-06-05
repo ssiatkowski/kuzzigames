@@ -45,6 +45,12 @@ window.state = {
     totalPokes: 0,
     merchantPurchases: 0,
   },
+  achievementsUnlocked: new Set(),
+  achievementRewards: {
+    maxCardsMultiplier: 1.0, // Default multiplier for max cards
+    minCardsMultiplier: 1.0, // Default multiplier for min cards
+    merchantPriceDivider: 1.0, // Default price divider for merchant
+  },
   effects: {
     minCardsPerPoke: 1,
     maxCardsPerPoke: 4,
@@ -129,6 +135,13 @@ function loadState() {
       obj.purchasedSkills.forEach(sid => {
         applySkill(Number(sid), /*skipCost=*/true);
       });
+    }
+    // Load achievements
+    if (Array.isArray(obj.achievementsUnlocked)) {
+      state.achievementsUnlocked = new Set(obj.achievementsUnlocked);
+      state.achievementsUnlocked.forEach(achievementId => {
+        unlockAchievement(achievementId, duringLoad=true);
+      })
     }
     Object.entries(obj.currencies).forEach(([cid,val])=>{
       state.currencies[cid] = new Decimal(val);
@@ -233,6 +246,7 @@ function saveState() {
     purchasedSkills: skills.filter(s=>s.purchased).map(s=>s.id),
     currencies:      {},
     unlockedCurrencies: state.unlockedCurrencies,
+    achievementsUnlocked: Array.from(state.achievementsUnlocked),
     ownedCards:      {},
     stats:           { totalPokes: state.stats.totalPokes, merchantPurchases: state.stats.merchantPurchases },
     harvesterValue: state.harvesterValue,
@@ -273,7 +287,7 @@ function saveState() {
       } : null,
       lockoutTimers: state.battle.lockoutTimers,
       sortBy: state.battle.sortBy
-    }
+    },
   };
   currencies.forEach(c => {
     obj.currencies[c.id] = state.currencies[c.id].toString();
@@ -385,7 +399,7 @@ function updateCurrencyBar() {
 let currentTab = 'hole';
 
 function showTab(tab) {
-  const tabs = ['hole','cards','skills','merchant','battles','stats','settings'];
+  const tabs = ['hole','cards','skills','merchant','battles','achievements','stats','settings'];
   tabs.forEach(t=>{
     document.getElementById(`tab-content-${t}`)
       .style.display = (t===tab ? 'block' : 'none');
@@ -434,7 +448,7 @@ function performPoke() {
   const e     = state.effects;
   const r = (Math.random() + Math.random()) / 2; // center-biased
   const draws = Math.floor(Math.floor(
-    ((r * (e.maxCardsPerPoke * (state.supporterCheckboxClicked ? 1.25 : 1) - e.minCardsPerPoke + 1)
+    ((r * (e.maxCardsPerPoke * (state.achievementRewards.maxCardsMultiplier) * (state.supporterCheckboxClicked ? 1.25 : 1) - (e.minCardsPerPoke * state.achievementRewards.minCardsMultiplier)  + 1)
   ) + e.minCardsPerPoke))
   * absorberMultiplier);
 
@@ -529,6 +543,7 @@ function performPoke() {
 
   //increment total pokes
   state.stats.totalPokes++;
+  checkAchievements('holePoker');
 
   //global per-poke currencies
   Object.entries(state.effects.currencyPerPoke).forEach(([curId, rate]) => {
@@ -1559,6 +1574,7 @@ function renderEffectFilters() {
         e.stopPropagation();
         if (submenu.style.display === 'none') {
           submenu.style.display = 'flex';
+          submenu.style.zIndex = '1000';
           setTimeout(() => document.addEventListener('click', closeSubmenu), 0);
         }
       };
@@ -1894,6 +1910,7 @@ function updateGeneratorRates() {
   }
 
   // Resource Generator 8 (skill 10008)
+
   if (skillMap[10008].purchased) {
     const discoveredCount = cards.filter(c => c.realm === 8 && c.quantity > 0).length;
     const newContribution = discoveredCount * discoveredCount * state.effects.allGeneratorMultiplier;
@@ -1978,6 +1995,9 @@ function giveCard(cardId, amount = 1) {
     applyEffectsDelta(specialEffs, +1);
     c.lastAppliedEffects = newEffs;
     c.lastAppliedSpecialEffects = specialEffs;
+    if (newTier === 20) {
+      checkAchievements('tierFanatic', c.rarity);
+    }
   } 
 
   // Update generator rates if this is a new card discovery
@@ -1987,6 +2007,8 @@ function giveCard(cardId, amount = 1) {
     updateGeneratorRates();
     checkForNewCards();
     processNewCardDiscovered();
+    checkAchievements('cosmicCollector', c.realm);
+    checkAchievements('ageOfDiscovery');
     updatePokeFilterStats();
   }
 }
@@ -2382,7 +2404,7 @@ let lastFullyDiscoveredRealms = 0;
 function processNewCardDiscovered() {
   if (skillMap[16001].purchased){
     //compute total discovered cards
-    let totalDiscovered = cards.filter(c => c.quantity > 0).length ;
+    let totalDiscovered = cards.filter(c => c.quantity > 0).length;
     if (skillMap[16002].purchased){
       totalDiscovered *= totalDiscovered;
     }
@@ -2745,7 +2767,7 @@ document.addEventListener('DOMContentLoaded', async ()=>{
     saveState();
   }
 
-  ['hole','cards','skills','merchant','battles','stats','settings'].forEach(t=>{
+  ['hole','cards','skills','merchant','battles','achievements','stats','settings'].forEach(t=>{
     document.getElementById(`tab-btn-${t}`).onclick = ()=> showTab(t);
   });
   
@@ -2824,6 +2846,8 @@ document.addEventListener('DOMContentLoaded', async ()=>{
     setTimeCrunchValue(state.timeCrunchValue);
   }
   initTimeCrunchCollector();
+
+  renderAchievements();
 
   initializeSettingsTab();
 });

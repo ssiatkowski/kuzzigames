@@ -846,9 +846,7 @@ function startBattleLoop() {
       if (state.battle.currentEnemy.currentHp <= 0) {
         defeatEnemy();
         return;
-      }
-
-      // Each card attacks
+      }      // Each card attacks
       state.battle.slots.forEach((card, index) => {
         if (!card) return;
 
@@ -857,13 +855,13 @@ function startBattleLoop() {
 
         // Show damage number
         showDamageNumber(damage, 'enemy');
-
-        // Check if enemy is defeated
-        if (state.battle.currentEnemy.currentHp <= 0) {
-          defeatEnemy();
-          return;
-        }
       });
+
+      // Check for enemy defeat after all attacks
+      if (state.battle.currentEnemy.currentHp <= 0) {
+        defeatEnemy();
+        return;
+      }
 
       // Top card takes damage only if enemy still alive
       if (!state.battle.paused && state.battle.currentEnemy && state.battle.slots[0]) {
@@ -965,11 +963,12 @@ function showRarityFilterMenu(btn) {
 }
 
 function showFilterMenu(btn, menu, onSelect) {
-  // Position menu below button
+  // Position menu below button using fixed positioning
   const rect = btn.getBoundingClientRect();
-  menu.style.position = 'absolute';
+  menu.style.position = 'fixed';
   menu.style.top = `${rect.bottom + 4}px`;
   menu.style.left = `${rect.left}px`;
+  menu.style.zIndex = '1000'; // Ensure menu appears above other content
   
   // Add click handlers
   menu.querySelectorAll('.filter-option').forEach(option => {
@@ -1022,6 +1021,7 @@ function showBattleHelp() {
         <li>Use multiple cards to increase your total damage output.</li>
         <li>Consider the lockout timer when choosing cards to sacrifice.</li>
         <li>Check the enemy's stats to plan your strategy.</li>
+        <li>Enemies do not heal between battles, so don't hesitate to launch smaller attacks to chip at their HP.</li>
       </ul>
     </div>
   `;
