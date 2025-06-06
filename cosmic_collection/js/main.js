@@ -43,6 +43,7 @@ window.state = {
   unlockedCurrencies: [],
   stats: {
     totalPokes: 0,
+    totalCardsDrawn: 0,
     merchantPurchases: 0,
   },
   achievementsUnlocked: new Set(),
@@ -50,6 +51,8 @@ window.state = {
     maxCardsMultiplier: 1.0, // Default multiplier for max cards
     minCardsMultiplier: 1.0, // Default multiplier for min cards
     merchantPriceDivider: 1.0, // Default price divider for merchant
+    minCardsPerPoke: 0, // Default minimum cards per poke
+    maxCardsPerPoke: 0, // Default maximum cards per poke
   },
   effects: {
     minCardsPerPoke: 1,
@@ -173,6 +176,7 @@ function loadState() {
       }
     });
     state.stats.totalPokes = obj.stats.totalPokes || 0;
+    state.stats.totalCardsDrawn = obj.stats.totalCardsDrawn || 0;
     state.stats.merchantPurchases = obj.stats.merchantPurchases || 0;
     state.remainingCooldown = obj.remainingCooldown || 0;
     state.lastSaveTime = obj.lastSaveTime || null;
@@ -248,7 +252,7 @@ function saveState() {
     unlockedCurrencies: state.unlockedCurrencies,
     achievementsUnlocked: Array.from(state.achievementsUnlocked),
     ownedCards:      {},
-    stats:           { totalPokes: state.stats.totalPokes, merchantPurchases: state.stats.merchantPurchases },
+    stats:           { totalPokes: state.stats.totalPokes, merchantPurchases: state.stats.merchantPurchases, totalCardsDrawn: state.stats.totalCardsDrawn },
     harvesterValue: state.harvesterValue,
     absorberValue: state.absorberValue,
     interceptorValue: state.interceptorValue,
@@ -422,6 +426,8 @@ function showTab(tab) {
 
 // --- POKE & REVEAL ---
 
+const ramsSet = new Set([1,4,7,9]);
+
 function performPoke() {
   if (!drawArea.classList.contains('hole-draw-area')) return;
 
@@ -448,14 +454,19 @@ function performPoke() {
   const e     = state.effects;
   const r = (Math.random() + Math.random()) / 2; // center-biased
   const draws = Math.floor(Math.floor(
-    ((r * (e.maxCardsPerPoke * (state.achievementRewards.maxCardsMultiplier) * (state.supporterCheckboxClicked ? 1.25 : 1) - (e.minCardsPerPoke * state.achievementRewards.minCardsMultiplier)  + 1)
-  ) + e.minCardsPerPoke))
+    ((r * ((e.maxCardsPerPoke + state.achievementRewards.maxCardsPerPoke) * (state.achievementRewards.maxCardsMultiplier) * (state.supporterCheckboxClicked ? 1.25 : 1) 
+          - ((e.minCardsPerPoke + state.achievementRewards.minCardsPerPoke) * state.achievementRewards.minCardsMultiplier)  + 1)
+          ) + e.minCardsPerPoke + state.achievementRewards.minCardsPerPoke))
   * absorberMultiplier);
 
   // Create and animate floating number
   const floatingNumber = document.createElement('div');
   floatingNumber.className = 'floating-number';
   floatingNumber.textContent = formatNumber(draws);
+
+  state.stats.totalCardsDrawn += draws;
+  checkAchievements('massivePoke', draws);
+  checkAchievements('inItForTheLongHaul');
   
   // Position it at the center of the black hole, accounting for scroll
   const holeRect = holeBtn.getBoundingClientRect();
@@ -475,6 +486,13 @@ function performPoke() {
     const r = realmMap[rid];
     if (r.unlocked) realmWeights[rid] = r.pokeWeight;
   });
+
+  if (state.selectedRealms.length === 1 && state.selectedRealms[0] === 4) {
+    unlockAchievement('secret3');
+  }
+  if (state.selectedRealms.length === 4 && [...state.selectedRealms].every(value => ramsSet.has(value))) {
+    unlockAchievement('secret5');
+  }
 
   // ————— BULK SAMPLING —————
   const picksCounts = {};
@@ -1329,7 +1347,7 @@ function openModal(cardId) {
       let valueHtml;
       switch (def.type) {
         case "merchantPriceDivider":
-          valueHtml = `x${formatNumber(def.value )}`;
+          valueHtml = `×${formatNumber(def.value )}`;
           break;
         case "flatCurrencyPerPoke":
         case "flatCurrencyPerSecond": {
@@ -2008,7 +2026,7 @@ function giveCard(cardId, amount = 1) {
     checkForNewCards();
     processNewCardDiscovered();
     checkAchievements('cosmicCollector', c.realm);
-    checkAchievements('ageOfDiscovery');
+    checkAchievements('thrillOfDiscovery');
     updatePokeFilterStats();
   }
 }

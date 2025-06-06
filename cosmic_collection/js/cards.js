@@ -366,6 +366,17 @@ window.cards = [
         "realm": 1,
         "rarity": "basic"
       }
+    ],
+    "specialEffects": [
+      {
+        "type": "flatCurrencyPerPoke",
+        "requirement": {
+          "type": "level",
+          "amount": 20
+        },
+        "currency": "rune",
+        "value": 1.0
+      }
     ]
   },
   {

@@ -1,110 +1,110 @@
 // Achievement definitions and stats tracking
 const achievements = {
 
-    ageOfDiscovery: {
-        id: 'ageOfDiscovery',
-        name: 'Age of Discovery',
-        type: 'ageOfDiscovery',
+    thrillOfDiscovery: {
+        id: 'thrillOfDiscovery',
+        name: 'Thrill of Discovery',
+        type: 'thrillOfDiscovery',
         condition: 'Discover 5 cards',
         icon: '🔍',
         rewardType: 'Max Cards Multiplier',
         reward: 1.01,
         threshold: 5,
     },
-    ageOfDiscovery2: {
-        id: 'ageOfDiscovery2',
-        name: 'Age of Discovery II',
-        type: 'ageOfDiscovery',
+    thrillOfDiscovery2: {
+        id: 'thrillOfDiscovery2',
+        name: 'Thrill of Discovery II',
+        type: 'thrillOfDiscovery',
         condition: 'Discover 10 cards',
         icon: '🔍',
         rewardType: 'Max Cards Multiplier',
         reward: 1.01,
         threshold: 10,
     },
-    ageOfDiscovery3: {
-        id: 'ageOfDiscovery3',
-        name: 'Age of Discovery III',
-        type: 'ageOfDiscovery',
+    thrillOfDiscovery3: {
+        id: 'thrillOfDiscovery3',
+        name: 'Thrill of Discovery III',
+        type: 'thrillOfDiscovery',
         condition: 'Discover 15 cards',
         icon: '🔍',
         rewardType: 'Max Cards Multiplier',
         reward: 1.01,
         threshold: 15,
     },
-    ageOfDiscovery4: {
-        id: 'ageOfDiscovery4',
-        name: 'Age of Discovery IV',
-        type: 'ageOfDiscovery',
+    thrillOfDiscovery4: {
+        id: 'thrillOfDiscovery4',
+        name: 'Thrill of Discovery IV',
+        type: 'thrillOfDiscovery',
         condition: 'Discover 20 cards',
         icon: '🔍',
         rewardType: 'Max Cards Multiplier',
         reward: 1.01,
         threshold: 20,
     },
-    ageOfDiscovery5: {
-        id: 'ageOfDiscovery5',
-        name: 'Age of Discovery V',
-        type: 'ageOfDiscovery',
+    thrillOfDiscovery5: {
+        id: 'thrillOfDiscovery5',
+        name: 'Thrill of Discovery V',
+        type: 'thrillOfDiscovery',
         condition: 'Discover 25 cards',
         icon: '🔍',
         rewardType: 'Max Cards Multiplier',
         reward: 1.01,
         threshold: 25,
     },
-    ageOfDiscovery6: {
-        id: 'ageOfDiscovery6',
-        name: 'Age of Discovery VI',
-        type: 'ageOfDiscovery',
+    thrillOfDiscovery6: {
+        id: 'thrillOfDiscovery6',
+        name: 'Thrill of Discovery VI',
+        type: 'thrillOfDiscovery',
         condition: 'Discover 50 cards',
         icon: '🔍',
         rewardType: 'Max Cards Multiplier',
         reward: 1.01,
         threshold: 50,
     },
-    ageOfDiscovery7: {
-        id: 'ageOfDiscovery7',
-        name: 'Age of Discovery VII',
-        type: 'ageOfDiscovery',
+    thrillOfDiscovery7: {
+        id: 'thrillOfDiscovery7',
+        name: 'Thrill of Discovery VII',
+        type: 'thrillOfDiscovery',
         condition: 'Discover 100 cards',
         icon: '🔍',
         rewardType: 'Max Cards Multiplier',
         reward: 1.01,
         threshold: 100,
     },
-    ageOfDiscovery8: {
-        id: 'ageOfDiscovery8',
-        name: 'Age of Discovery VIII',
-        type: 'ageOfDiscovery',
+    thrillOfDiscovery8: {
+        id: 'thrillOfDiscovery8',
+        name: 'Thrill of Discovery VIII',
+        type: 'thrillOfDiscovery',
         condition: 'Discover 150 cards',
         icon: '🔍',
         rewardType: 'Max Cards Multiplier',
         reward: 1.01,
         threshold: 150,
     },
-    ageOfDiscovery9: {
-        id: 'ageOfDiscovery9',
-        name: 'Age of Discovery IX',
-        type: 'ageOfDiscovery',
+    thrillOfDiscovery9: {
+        id: 'thrillOfDiscovery9',
+        name: 'Thrill of Discovery IX',
+        type: 'thrillOfDiscovery',
         condition: 'Discover 200 cards',
         icon: '🔍',
         rewardType: 'Max Cards Multiplier',
         reward: 1.01,
         threshold: 200,
     },
-    ageOfDiscovery10: {
-        id: 'ageOfDiscovery10',
-        name: 'Age of Discovery X',
-        type: 'ageOfDiscovery',
+    thrillOfDiscovery10: {
+        id: 'thrillOfDiscovery10',
+        name: 'Thrill of Discovery X',
+        type: 'thrillOfDiscovery',
         condition: 'Discover 250 cards',
         icon: '🔍',
         rewardType: 'Max Cards Multiplier',
         reward: 1.01,
         threshold: 250,
     },
-    ageOfDiscovery11: {
-        id: 'ageOfDiscovery11',
-        name: 'Age of Discovery XI',
-        type: 'ageOfDiscovery',
+    thrillOfDiscovery11: {
+        id: 'thrillOfDiscovery11',
+        name: 'Thrill of Discovery XI',
+        type: 'thrillOfDiscovery',
         condition: 'Discover 300 cards',
         icon: '🔍',
         rewardType: 'Max Cards Multiplier',
@@ -246,7 +246,7 @@ const achievements = {
         id: 'holePoker2',
         name: 'Hole Poker II',
         type: 'holePoker',
-        condition: 'Poke the Black Hole 1000 times',
+        condition: 'Poke the Black Hole 1K times',
         icon: '🕳️',
         rewardType: 'Min Cards Multiplier',
         reward: 1.02,
@@ -256,7 +256,7 @@ const achievements = {
         id: 'holePoker3',
         name: 'Hole Poker III',
         type: 'holePoker',
-        condition: 'Poke the Black Hole 10000 times',
+        condition: 'Poke the Black Hole 10K times',
         icon: '🕳️',
         rewardType: 'Min Cards Multiplier',
         reward: 1.03,
@@ -266,7 +266,7 @@ const achievements = {
         id: 'holePoker4',
         name: 'Hole Poker IV',
         type: 'holePoker',
-        condition: 'Poke the Black Hole 100000 times',
+        condition: 'Poke the Black Hole 100K times',
         icon: '🕳️',
         rewardType: 'Min Cards Multiplier',
         reward: 1.04,
@@ -276,7 +276,7 @@ const achievements = {
         id: 'holePoker5',
         name: 'Hole Poker V',
         type: 'holePoker',
-        condition: 'Poke the Black Hole 1000000 times',
+        condition: 'Poke the Black Hole 1M times',
         icon: '🕳️',
         rewardType: 'Min Cards Multiplier',
         reward: 1.05,
@@ -306,7 +306,7 @@ const achievements = {
         id: 'merchantTrader3',
         name: 'Merchant Trader III',
         type: 'merchantTrader',
-        condition: 'Purchase 1000 cards from Merchants',
+        condition: 'Purchase 1K cards from Merchants',
         icon: '🛒',
         rewardType: 'Merchant Price Divider',
         reward: 1.03,
@@ -316,7 +316,7 @@ const achievements = {
         id: 'merchantTrader4',
         name: 'Merchant Trader IV',
         type: 'merchantTrader',
-        condition: 'Purchase 10000 cards from Merchants',
+        condition: 'Purchase 10K cards from Merchants',
         icon: '🛒',
         rewardType: 'Merchant Price Divider',
         reward: 1.04,
@@ -331,6 +331,237 @@ const achievements = {
         rewardType: 'Merchant Price Divider',
         reward: 1.05,
         threshold: 100000,
+    },
+    massivePoke: {
+        id: 'massivePoke',
+        name: 'Massive Poke',
+        type: 'massivePoke',
+        condition: 'Get 100 cards from a single poke',
+        icon: '💥',
+        rewardType: 'Min Cards Per Poke',
+        reward: 1,
+        threshold: 100,
+    },
+    massivePoke2: {
+        id: 'massivePoke2',
+        name: 'Massive Poke II',
+        type: 'massivePoke',
+        condition: 'Get 1K cards from a single poke',
+        icon: '💥',
+        rewardType: 'Min Cards Per Poke',
+        reward: 5,
+        threshold: 1000,
+    },
+    massivePoke3: {
+        id: 'massivePoke3',
+        name: 'Massive Poke III',
+        type: 'massivePoke',
+        condition: 'Get 10K cards from a single poke',
+        icon: '💥',
+        rewardType: 'Min Cards Per Poke',
+        reward: 10,
+        threshold: 10000,
+    },
+    massivePoke4: {
+        id: 'massivePoke4',
+        name: 'Massive Poke IV',
+        type: 'massivePoke',
+        condition: 'Get 100K cards from a single poke',
+        icon: '💥',
+        rewardType: 'Min Cards Per Poke',
+        reward: 50,
+        threshold: 100000,
+    },
+    massivePoke5: {
+        id: 'massivePoke5',
+        name: 'Massive Poke V',
+        type: 'massivePoke',
+        condition: 'Get 1M cards from a single poke',
+        icon: '💥',
+        rewardType: 'Min Cards Per Poke',
+        reward: 100,
+        threshold: 1000000,
+    },
+    massivePoke6: {
+        id: 'massivePoke6',
+        name: 'Massive Poke VI',
+        type: 'massivePoke',
+        condition: 'Get 10M cards from a single poke',
+        icon: '💥',
+        rewardType: 'Min Cards Per Poke',
+        reward: 1000,
+        threshold: 10000000,
+    },
+    massivePoke7: {
+        id: 'massivePoke7',
+        name: 'Massive Poke VII',
+        type: 'massivePoke',
+        condition: 'Get 100M cards from a single poke',
+        icon: '💥',
+        rewardType: 'Min Cards Per Poke',
+        reward: 10000,
+        threshold: 100000000,
+    },
+    massivePoke8: {
+        id: 'massivePoke8',
+        name: 'Massive Poke VIII',
+        type: 'massivePoke',
+        condition: 'Get 1B cards from a single poke',
+        icon: '💥',
+        rewardType: 'Min Cards Per Poke',
+        reward: 100000,
+        threshold: 1000000000,
+    },
+    massivePoke9: {
+        id: 'massivePoke9',
+        name: 'Massive Poke IX',
+        type: 'massivePoke',
+        condition: 'Get 10B cards from a single poke',
+        icon: '💥',
+        rewardType: 'Min Cards Per Poke',
+        reward: 1000000,
+        threshold: 10000000000,
+    },
+    massivePoke10: {
+        id: 'massivePoke10',
+        name: 'Massive Poke X',
+        type: 'massivePoke',
+        condition: 'Get 100B cards from a single poke',
+        icon: '💥',
+        rewardType: 'Min Cards Per Poke',
+        reward: 10000000,
+        threshold: 100000000000,
+    },
+    
+    inItForTheLongHaul: {
+        id: 'inItForTheLongHaul',
+        name: 'In It For The Long Haul',
+        type: 'inItForTheLongHaul',
+        condition: 'Total 10K cards drawn from the Black Hole',
+        icon: '⏳',
+        rewardType: 'Max Cards Per Poke',
+        reward: 1,
+        threshold: 10000,
+    },
+    inItForTheLongHaul2: {
+        id: 'inItForTheLongHaul2',
+        name: 'In It For The Long Haul II',
+        type: 'inItForTheLongHaul',
+        condition: 'Total 100K cards drawn from the Black Hole',
+        icon: '⏳',
+        rewardType: 'Max Cards Per Poke',
+        reward: 5,
+        threshold: 100000,
+    },
+    inItForTheLongHaul3: {
+        id: 'inItForTheLongHaul3',
+        name: 'In It For The Long Haul III',
+        type: 'inItForTheLongHaul',
+        condition: 'Total 1M cards drawn from the Black Hole',
+        icon: '⏳',
+        rewardType: 'Max Cards Per Poke',
+        reward: 25,
+        threshold: 1000000,
+    },
+    inItForTheLongHaul4: {
+        id: 'inItForTheLongHaul4',
+        name: 'In It For The Long Haul IV',
+        type: 'inItForTheLongHaul',
+        condition: 'Total 10M cards drawn from the Black Hole',
+        icon: '⏳',
+        rewardType: 'Max Cards Per Poke',
+        reward: 125,
+        threshold: 10000000,
+    },
+    inItForTheLongHaul5: {
+        id: 'inItForTheLongHaul5',
+        name: 'In It For The Long Haul V',
+        type: 'inItForTheLongHaul',
+        condition: 'Total 100M cards drawn from the Black Hole',
+        icon: '⏳',
+        rewardType: 'Max Cards Per Poke',
+        reward: 600,
+        threshold: 100000000,
+    },
+    inItForTheLongHaul6: {
+        id: 'inItForTheLongHaul6',
+        name: 'In It For The Long Haul VI',
+        type: 'inItForTheLongHaul',
+        condition: 'Total 1B cards drawn from the Black Hole',
+        icon: '⏳',
+        rewardType: 'Max Cards Per Poke',
+        reward: 3000,
+        threshold: 1000000000,
+    },
+    inItForTheLongHaul7: {
+        id: 'inItForTheLongHaul7',
+        name: 'In It For The Long Haul VII',
+        type: 'inItForTheLongHaul',
+        condition: 'Total 10B cards drawn from the Black Hole',
+        icon: '⏳',
+        rewardType: 'Max Cards Per Poke',
+        reward: 15000,
+        threshold: 10000000000,
+    },
+    inItForTheLongHaul8: {
+        id: 'inItForTheLongHaul8',
+        name: 'In It For The Long Haul VIII',
+        type: 'inItForTheLongHaul',
+        condition: 'Total 100B cards drawn from the Black Hole',
+        icon: '⏳',
+        rewardType: 'Max Cards Per Poke',
+        reward: 7.5e4,
+        threshold: 1e11,
+    },
+    inItForTheLongHaul9: {
+        id: 'inItForTheLongHaul9',
+        name: 'In It For The Long Haul IX',
+        type: 'inItForTheLongHaul',
+        condition: 'Total 1T cards drawn from the Black Hole',
+        icon: '⏳',
+        rewardType: 'Max Cards Per Poke',
+        reward: 3e5,
+        threshold: 1e12,
+    },    
+    inItForTheLongHaul10: {
+        id: 'inItForTheLongHaul10',
+        name: 'In It For The Long Haul X',
+        type: 'inItForTheLongHaul',
+        condition: 'Total 10T cards drawn from the Black Hole',
+        icon: '⏳',
+        rewardType: 'Max Cards Per Poke',
+        reward: 1.5e6,
+        threshold: 1e13,
+    },
+    inItForTheLongHaul11: {
+        id: 'inItForTheLongHaul11',
+        name: 'In It For The Long Haul XI',
+        type: 'inItForTheLongHaul',
+        condition: 'Total 100T cards drawn from the Black Hole',
+        icon: '⏳',
+        rewardType: 'Max Cards Per Poke',
+        reward: 7.5e6,
+        threshold: 1e14,
+    },
+    inItForTheLongHaul12: {
+        id: 'inItForTheLongHaul12',
+        name: 'In It For The Long Haul XII',
+        type: 'inItForTheLongHaul',
+        condition: 'Total 1Q cards drawn from the Black Hole',
+        icon: '⏳',
+        rewardType: 'Max Cards Per Poke',
+        reward: 3e7,
+        threshold: 1e15,
+    },
+    inItForTheLongHaul13: {
+        id: 'inItForTheLongHaul13',
+        name: 'In It For The Long Haul XIII',
+        type: 'inItForTheLongHaul',
+        condition: 'Total 10Q cards drawn from the Black Hole',
+        icon: '⏳',
+        rewardType: 'Max Cards Per Poke',
+        reward: 1.5e8,
+        threshold: 1e16,
     },
     secret: {
         id: 'secret',
@@ -347,6 +578,33 @@ const achievements = {
         type: 'secret',
         condition: 'Find the Easter Egg',
         icon: '🥚',
+        rewardType: 'Min Cards Multiplier',
+        reward: 1.02,
+    },
+    secret3: {
+        id: 'secret3',
+        name: 'Secret III',
+        type: 'secret',
+        condition: 'Birds Fly Solo',
+        icon: '🐦',
+        rewardType: 'Min Cards Multiplier',
+        reward: 1.02,
+    },
+    secret4: {
+        id: 'secret4',
+        name: 'Secret IV',
+        type: 'secret',
+        condition: '3 x 3',
+        icon: `🧲`,
+        rewardType: 'Min Cards Multiplier',
+        reward: 1.02,
+    },
+    secret5: {
+        id: 'secret5',
+        name: 'Secret V',
+        type: 'secret',
+        condition: 'Rams is not a Realm',
+        icon: '🐏',
         rewardType: 'Min Cards Multiplier',
         reward: 1.02,
     },
@@ -488,8 +746,11 @@ function checkAchievements(type, param1, param2) {
         // Check based on achievement type
         let shouldUnlock = false;
         switch(type) {
-            case 'ageOfDiscovery':
+            case 'thrillOfDiscovery':
                 shouldUnlock = cardsDiscovered >= achievement.threshold;
+                if (!shouldUnlock) {
+                    return; // Stop checking further achievements of this type
+                }
                 break;
 
             case 'cosmicCollector':
@@ -498,10 +759,34 @@ function checkAchievements(type, param1, param2) {
             
             case 'holePoker':
                 shouldUnlock = state.stats.totalPokes >= achievement.threshold;
+                if (!shouldUnlock) {
+                    return; // Stop checking further achievements of this type
+                }
                 break;
                 
             case 'merchantTrader':
                 shouldUnlock = state.stats.merchantPurchases >= achievement.threshold;
+                if (!shouldUnlock) {
+                    return; // Stop checking further achievements of this type
+                }
+                break;
+
+            case 'massivePoke':
+                shouldUnlock = param1 >= achievement.threshold;
+                if (!shouldUnlock) {
+                    return; // Stop checking further achievements of this type
+                }
+                break;
+
+            case 'inItForTheLongHaul':
+                shouldUnlock = state.stats.totalCardsDrawn >= achievement.threshold;
+                if (!shouldUnlock) {
+                    return; // Stop checking further achievements of this type
+                }
+                break;
+                
+            case 'tierFanatic':
+                shouldUnlock = param1 === achievement.rarity && cards.filter(c => c.rarity === achievement.rarity && c.tier === 20).length >= achievement.threshold;
                 break;
                 
             case 'tierFanatic':
@@ -517,6 +802,13 @@ function checkAchievements(type, param1, param2) {
 
 // Unlock an achievement and show notification
 function unlockAchievement(achievementId, duringLoad = false) {
+
+    if (duringLoad && !achievementsMap[achievementId]) {
+        console.error(`Achievement ${achievementId} not found in achievementsMap`);
+        state.achievementsUnlocked.delete(achievementId);
+        return;
+    }
+
     if (!state.achievementsUnlocked.has(achievementId) || duringLoad) {
         // Process rewards based on type
         switch(achievementsMap[achievementId].rewardType) {
@@ -530,6 +822,14 @@ function unlockAchievement(achievementId, duringLoad = false) {
 
             case 'Merchant Price Divider':
                 state.achievementRewards.merchantPriceDivider *= achievementsMap[achievementId].reward;
+                break;
+
+            case 'Min Cards Per Poke':
+                state.achievementRewards.minCardsPerPoke += achievementsMap[achievementId].reward;
+                break;
+
+            case 'Max Cards Per Poke':
+                state.achievementRewards.maxCardsPerPoke += achievementsMap[achievementId].reward;
                 break;
         }
 
@@ -552,7 +852,6 @@ function showAchievementNotification(achievement) {
             <div class="achievement-info">
                 <div class="achievement-title">Achievement Unlocked!</div>
                 <div class="achievement-name">${achievement.name}</div>
-                <div class="achievement-reward">+${achievement.reward} coins</div>
             </div>
         </div>
     `;
@@ -575,15 +874,30 @@ function renderAchievements() {
     // Group achievements by type and calculate multipliers
     const achievementsByType = Object.values(achievements).reduce((acc, achievement) => {
         if (!acc[achievement.type]) {
-            acc[achievement.type] = {
-                achievements: [],
-                multiplier: 1
-            };
+            if (achievement.rewardType === 'Min Cards Per Poke' || achievement.rewardType === 'Max Cards Per Poke') {
+                // Initialize with adder for min cards per poke
+                acc[achievement.type] = {
+                    achievements: [],
+                    adder: 0,
+                };
+            }
+            else {
+                // Initialize with multiplier for other types
+                acc[achievement.type] = {
+                    achievements: [],
+                    multiplier: 1,
+                };
+            }
         }
         acc[achievement.type].achievements.push(achievement);
         // If achievement is unlocked, multiply the type's multiplier
         if (state.achievementsUnlocked.has(achievement.id)) {
-            acc[achievement.type].multiplier *= achievement.reward;
+            if (achievement.rewardType === 'Min Cards Per Poke' || achievement.rewardType === 'Max Cards Per Poke') {
+                acc[achievement.type].adder += achievement.reward; // Add to min cards per poke
+            }
+            else {
+                acc[achievement.type].multiplier *= achievement.reward; // Multiply for other types
+            }
         }
         return acc;
     }, {});
@@ -601,9 +915,13 @@ function renderAchievements() {
                 <div class="achievement-section">
                     <h3 class="achievement-type-header">
                         ${type.replace(/([A-Z])/g, ' $1').trim().replace(/^./, c => c.toUpperCase())}
-                        ${data.multiplier !== 1 ? 
-                            `<span class="achievement-type-multiplier">(${rewardType}: ×${data.multiplier.toFixed(3)})</span>` : 
-                            `<span class="achievement-type-multiplier">(${rewardType})</span>`}
+                        ${data.hasOwnProperty('multiplier') ? 
+                            (data.multiplier !== 1 ? 
+                                `<span class="achievement-type-multiplier">(${rewardType}: ×${data.multiplier.toFixed(3)})</span>` : 
+                                `<span class="achievement-type-multiplier">(${rewardType})</span>`) :
+                            (data.adder > 0 ? 
+                                `<span class="achievement-type-multiplier">(${rewardType}: +${formatNumber(data.adder)})</span>` : 
+                                `<span class="achievement-type-multiplier">(${rewardType})</span>`)}
                     </h3>
                     <div class="achievements-grid">
                         ${data.achievements.map(achievement => {
@@ -615,7 +933,7 @@ function renderAchievements() {
                                     <div class="achievement-description">${achievement.condition}</div>
                                     <div class="achievement-reward">
                                         <span class="reward-type">${achievement.rewardType}:</span>
-                                        <span class="reward-value">×${achievement.reward.toFixed(2)}</span>
+                                        <span class="reward-value">${data.hasOwnProperty('multiplier') ? `×${achievement.reward.toFixed(2)}`: `+${formatNumber(achievement.reward)}`}</span>
                                     </div>
                                     ${isUnlocked ? '<div class="achievement-completed">✓ Completed</div>' : ''}
                                 </div>
