@@ -378,7 +378,7 @@
 
 .damage-number {
   position: absolute;
-  color: #ff4444;
+  color: #a12626;
   font-weight: bold;
   font-size: 1.2em;
   text-shadow: 0 0 2px black;
@@ -386,6 +386,11 @@
   pointer-events: none;
   transform: translate(-50%, -50%);
   animation: damageNumber 0.8s ease-out forwards;
+}
+
+.damage-number.crit {
+  color: #ff4444;
+  font-size: 2em;
 }
 
 /* Card remove animation */
@@ -768,12 +773,18 @@
   margin-bottom: 16px;
 }
 
-.battle-help-btn {
+.battle-header-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.battle-help-btn,
+.battle-reset-btn {
   padding: 8px 16px;
   background: var(--dark);
   border: none;
   border-radius: 4px;
-  color: white;  /* Make text white */
+  color: white;
   cursor: pointer;
   transition: all 0.2s;
   display: flex;
@@ -782,7 +793,51 @@
   font-size: 0.9em;
 }
 
-.battle-help-btn:hover {
+.battle-reset-btn {
+  background: rgb(150, 0, 0);
+}
+
+.battle-help-btn:hover{
+  background: var(--accent);
+}
+
+.battle-reset-btn:hover {
+  background: rgb(50, 0, 0);
+}
+
+/* Reset buttons in dialog */
+.reset-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+  justify-content: center;
+}
+
+.reset-confirm-btn,
+.reset-cancel-btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.reset-confirm-btn {
+  background: #ff4444;
+  color: white;
+}
+
+.reset-confirm-btn:hover {
+  background: #ff2222;
+}
+
+.reset-cancel-btn {
+  background: var(--dark);
+  color: white;
+}
+
+.reset-cancel-btn:hover {
   background: var(--accent);
 }
 

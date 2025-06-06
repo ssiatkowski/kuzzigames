@@ -1977,10 +1977,66 @@ window.skills = [
     {
       id: 25001,
       name: "Card Leveler",
-      description: "Unlocks a button on Collection screen that levels all cards in current realm (left to right).",
+      description: "Unlocks a button on Collection screen that levels all cards in current realm/filter (left to right).",
       cost: { realmId: 10, currencyId: "pearl", amount: 1e11 },
       purchased: false
-    }
+    },
+    {
+      id: 26001,
+      name: "Crit Chance",
+      description: "Unlock battle Critical Hit Chance and set it to 5%.",
+      cost: { realmId: 11, currencyId: "zeal", amount: 3e7 },
+      purchased: false
+    },
+    {
+      id: 26002,
+      name: "Crit Chance",
+      description: "+5% Critical Hit Chance.",
+      cost: { realmId: 11, currencyId: "zeal", amount: 8e9 },
+      purchased: false
+    },
+    {
+      id: 26003,
+      name: "Crit Damage",
+      description: "+5% Critical Hit Damage.",
+      cost: { realmId: 11, currencyId: "zeal", amount: 2e11 },
+      purchased: false
+    },
+    {
+      id: 26101,
+      name: "Crit Damage",
+      description: "+10% Critical Hit Damage.",
+      cost: { realmId: 11, currencyId: "zeal", amount: 1e8 },
+      purchased: false
+    },
+    {
+      id: 26102,
+      name: "Crit Damage",
+      description: "+10% Critical Hit Damage.",
+      cost: { realmId: 11, currencyId: "zeal", amount: 9e8 },
+      purchased: false
+    },
+    {
+      id: 26103,
+      name: "Crit Damage",
+      description: "+10% Critical Hit Damage.",
+      cost: { realmId: 11, currencyId: "zeal", amount: 5e9 },
+      purchased: false
+    },
+    {
+      id: 26104,
+      name: "Crit Damage",
+      description: "+10% Critical Hit Damage.",
+      cost: { realmId: 11, currencyId: "zeal", amount: 4e10 },
+      purchased: false
+    },
+    {
+      id: 26105,
+      name: "Crit Damage",
+      description: "+10% Critical Hit Damage.",
+      cost: { realmId: 11, currencyId: "zeal", amount: 5e11 },
+      purchased: false
+    },
   ];
 
   // --- PURCHASE LOGIC ---
@@ -2766,6 +2822,19 @@ function applySkill(id, skipCost = false) {
         break;
       case 25001: // Card Leveler
         break;
+      case 26001: // Crit Chance
+      case 26002:
+      case 26003:
+        state.battle.critChance += 0.05;
+        break;
+      case 26101: // Crit Damage
+      case 26102:
+      case 26103:
+      case 26104:
+      case 26105:
+        state.battle.critDamage += 0.1;
+        break;
+
     }
 
     // Remove purchased skill from sortedSkillsByCurrency

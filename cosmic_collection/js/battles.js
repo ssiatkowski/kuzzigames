@@ -56,14 +56,15 @@ function getNextEnemy() {
   if (enemy) {
     // Initialize enemy properties
     enemy.attack = enemy.power * 10;
-    enemy.maxHp = enemy.defense * 10000;
+    enemy.maxHp = enemy.defense * 20000;
     enemy.currentHp = enemy.maxHp;
+    enemy.stunTurns = 0;
   }
   return enemy;
 }
 
 // Show damage number animation
-function showDamageNumber(damage, target = 'enemy') {
+function showDamageNumber(damage, target = 'enemy', isCrit = false) {
   const targetEl = target === 'enemy' ? 
     document.querySelector('.enemy-card .battle-card-face') : // Changed from card-outer
     document.querySelector('.battle-slot[data-slot="0"] .battle-card-face');
@@ -71,6 +72,9 @@ function showDamageNumber(damage, target = 'enemy') {
   
   const damageEl = document.createElement('div');
   damageEl.className = 'damage-number';
+  if (isCrit) {
+    damageEl.className += ' crit';
+  }
   damageEl.textContent = formatNumber(damage);
   
   const bounds = targetEl.getBoundingClientRect();
@@ -334,10 +338,16 @@ function updateBattleUI() {
           </button>
         </div>
       </div>
-      <button class="battle-help-btn">
-        <i class="fas fa-question-circle"></i>
-        How do Battles work?
-      </button>
+      <div class="battle-header-buttons">
+        <button class="battle-help-btn">
+          <i class="fas fa-question-circle"></i>
+          How do Battles work?
+        </button>
+        <button class="battle-reset-btn">
+          <i class="fas fa-redo"></i>
+          Reset Battles
+        </button>
+      </div>
     </div>
     <div class="battle-card-grid"></div>
   `;
@@ -394,6 +404,12 @@ function updateBattleUI() {
   const helpBtn = document.querySelector('.battle-help-btn');
   if (helpBtn) {
     helpBtn.addEventListener('click', showBattleHelp);
+  }
+
+  // Add reset battles button handler
+  const resetBtn = document.querySelector('.battle-reset-btn');
+  if (resetBtn) {
+    resetBtn.addEventListener('click', showResetBattlesDialog);
   }
 
   // Update card grid after filters are set
@@ -711,6 +727,12 @@ function showSacrificeDialog(cardId) {
       // Place battle copy in slot
       state.battle.slots[availableSlot] = battleCard;
 
+      
+      // Check for and apply battle tricks synchronously
+      if (state.battle.currentEnemy) {
+        checkBattleTrick(cardId, state.battle.currentEnemy);
+      }
+
       // Lock the card
       lockCard(cardId);
 
@@ -746,53 +768,6 @@ function renderSpecialEffects(effects, card) {
   return effects.map(def => {
     // ...special effect rendering logic from main.js...
   }).join('');
-}
-
-// Sacrifice card for battle
-function sacrificeCard(cardId, slotIndex) {
-  const card = cardMap[cardId];
-  if (!card) return;
-
-  // Calculate attack and HP before resetting stats
-  const attack = calculateAttackPower(card);
-  const maxHp = calculateHP(card);
-  const originalQuantity = card.quantity;
-
-  // Remove card effects
-  if (card.lastAppliedEffects) {
-    applyEffectsDelta(card.lastAppliedEffects, -1);
-  }
-  if (card.lastAppliedSpecialEffects) {
-    applyEffectsDelta(card.lastAppliedSpecialEffects, -1);
-  }
-
-  // Reset card stats
-  card.level = 1;
-  card.tier = 0;
-  card.quantity = 0;
-  card.lastAppliedEffects = null;
-  card.lastAppliedSpecialEffects = null;
-
-  // Create a battle slot version of the card
-  const battleCard = {
-    ...card,
-    attack,
-    currentHp: maxHp,
-    maxHp,
-    quantity: originalQuantity,
-    originalQuantity
-  };
-
-  // Add card to battle slot
-  state.battle.slots[slotIndex] = battleCard;
-
-  // Lock the card
-  lockCard(cardId);
-
-  // Save state and update UI
-  saveState();
-  updateBattleUI();
-  renderCardsCollection(); // Update collection view
 }
 
 // Add function to check and clear expired lockouts
@@ -850,11 +825,18 @@ function startBattleLoop() {
       state.battle.slots.forEach((card, index) => {
         if (!card) return;
 
-        const damage = card.attack;
+        let isCrit = false;
+
+        if (Math.random() < state.battle.critChance) {
+          isCrit = true;
+          damage = card.attack * state.battle.critDamage;
+        } else {
+          damage = card.attack;
+        }
         state.battle.currentEnemy.currentHp -= damage;
 
         // Show damage number
-        showDamageNumber(damage, 'enemy');
+        showDamageNumber(damage, 'enemy', isCrit);
       });
 
       // Check for enemy defeat after all attacks
@@ -865,15 +847,19 @@ function startBattleLoop() {
 
       // Top card takes damage only if enemy still alive
       if (!state.battle.paused && state.battle.currentEnemy && state.battle.slots[0]) {
-        const damage = state.battle.currentEnemy.attack;
-        state.battle.slots[0].currentHp -= damage;
+        if (state.battle.currentEnemy.stunTurns > 0) {
+          state.battle.currentEnemy.stunTurns--;
+        } else {
+          const damage = state.battle.currentEnemy.attack;
+          state.battle.slots[0].currentHp -= damage;
 
-        // Show damage number on slot 0
-        showDamageNumber(damage, 'slot0');
+          // Show damage number on slot 0
+          showDamageNumber(damage, 'slot0');
 
-        // Check if top card is defeated
-        if (state.battle.slots[0].currentHp <= 0) {
-          removeTopCard();
+          // Check if top card is defeated
+          if (state.battle.slots[0].currentHp <= 0) {
+            removeTopCard();
+          }
         }
       }
 
@@ -1025,6 +1011,68 @@ function showBattleHelp() {
       </ul>
     </div>
   `;
+
+  // Handle click outside to close
+  dialog.addEventListener('click', (e) => {
+    if (e.target === dialog) {
+      dialog.remove();
+    }
+  });
+
+  document.body.appendChild(dialog);
+}
+
+// Add reset battles dialog function
+function showResetBattlesDialog() {
+  const dialog = document.createElement('div');
+  dialog.className = 'sacrifice-dialog';
+  dialog.innerHTML = `
+    <div class="sacrifice-content battle-help-modal">
+      <h2>Reset Battles</h2>
+      <p>This will reset all your Greek Gods enemies to fight all of them again. You will still keep your current quantities of Greek Gods cards you have unlocked.</p>
+      <p>The main (and only?) purpose for this would be achievement hunting.</p>
+      <div class="reset-buttons">
+        <button class="reset-confirm-btn">Reset Battles</button>
+        <button class="reset-cancel-btn">Cancel</button>
+      </div>
+    </div>
+  `;
+
+  // Add click handlers
+  const confirmBtn = dialog.querySelector('.reset-confirm-btn');
+  const cancelBtn = dialog.querySelector('.reset-cancel-btn');
+
+  confirmBtn.addEventListener('click', () => {
+    const bossCards = cards.filter(c => c.realm === 11);
+    
+    bossCards.forEach(card => {
+      card.locked = true;
+      delete state.battle.lockoutTimers[card.id];
+    });
+    
+    const firstBossRealm = realms.find(r => r.unlocked && r.id === 11);
+    if (firstBossRealm) {
+      const firstBoss = cards.find(c => c.realm === firstBossRealm.id && !c.cantBeEnemy);
+      if (firstBoss) {
+        state.battle.currentEnemy = {
+          ...firstBoss,
+          currentHp: firstBoss.defense * 20000,
+          maxHp: firstBoss.defense * 20000
+        };
+      }
+    }
+    
+    state.battle.slots = [null, null, null];
+    state.battle.paused = true;
+    
+    saveState();
+    updateBattleUI();
+    dialog.remove();
+  });
+
+  cancelBtn.addEventListener('click', () => {
+    dialog.remove();
+  });
 
   // Handle click outside to close
   dialog.addEventListener('click', (e) => {

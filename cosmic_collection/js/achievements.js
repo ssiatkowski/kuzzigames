@@ -286,7 +286,7 @@ const achievements = {
         id: 'merchantTrader',
         name: 'Merchant Trader',
         type: 'merchantTrader',
-        condition: 'Purchase 10 cards from Merchants',
+        condition: 'Purchase 10 offers from Merchants',
         icon: '🛒',
         rewardType: 'Merchant Price Divider',
         reward: 1.01,
@@ -296,7 +296,7 @@ const achievements = {
         id: 'merchantTrader2',
         name: 'Merchant Trader II',
         type: 'merchantTrader',
-        condition: 'Purchase 100 cards from Merchants',
+        condition: 'Purchase 100 offers from Merchants',
         icon: '🛒',
         rewardType: 'Merchant Price Divider',
         reward: 1.02,
@@ -306,7 +306,7 @@ const achievements = {
         id: 'merchantTrader3',
         name: 'Merchant Trader III',
         type: 'merchantTrader',
-        condition: 'Purchase 1K cards from Merchants',
+        condition: 'Purchase 1K offers from Merchants',
         icon: '🛒',
         rewardType: 'Merchant Price Divider',
         reward: 1.03,
@@ -316,7 +316,7 @@ const achievements = {
         id: 'merchantTrader4',
         name: 'Merchant Trader IV',
         type: 'merchantTrader',
-        condition: 'Purchase 10K cards from Merchants',
+        condition: 'Purchase 10K offers from Merchants',
         icon: '🛒',
         rewardType: 'Merchant Price Divider',
         reward: 1.04,
@@ -326,7 +326,7 @@ const achievements = {
         id: 'merchantTrader5',
         name: 'Merchant Trader V',
         type: 'merchantTrader',
-        condition: 'Purchase 100000 cards from Merchants',
+        condition: 'Purchase 100000 offers from Merchants',
         icon: '🛒',
         rewardType: 'Merchant Price Divider',
         reward: 1.05,
@@ -617,6 +617,105 @@ const achievements = {
     //     rewardType: 'Min Cards Multiplier',
     //     reward: 1.05,
     // },
+    greekGodBattleTricks: {
+        id: 'greekGodBattleTricks',
+        name: 'Greek God Battle Tricks',
+        type: 'greekGodBattleTricks',
+        condition: 'Mnemosyne',
+        icon: '⚔️',
+        rewardType: 'Battle Crit Chance',
+        reward: 0.01,
+    },
+    greekGodBattleTricks2: {
+        id: 'greekGodBattleTricks2',
+        name: 'Greek God Battle Tricks II',
+        type: 'greekGodBattleTricks',
+        condition: 'Prometheus',
+        icon: '⚔️',
+        rewardType: 'Battle Crit Chance',
+        reward: 0.01,
+    },
+    greekGodBattleTricks3: {
+        id: 'greekGodBattleTricks3',
+        name: 'Greek God Battle Tricks III',
+        type: 'greekGodBattleTricks',
+        condition: 'Atlas',
+        icon: '⚔️',
+        rewardType: 'Battle Crit Chance',
+        reward: 0.01,
+    },
+    greekGodBattleTricks4: {
+        id: 'greekGodBattleTricks4',
+        name: 'Greek God Battle Tricks IV',
+        type: 'greekGodBattleTricks',
+        condition: 'Hephaestus',
+        icon: '⚔️',
+        rewardType: 'Battle Crit Chance',
+        reward: 0.01,
+    },
+    greekGodBattleTricks5: {
+        id: 'greekGodBattleTricks5',
+        name: 'Greek God Battle Tricks V',
+        type: 'greekGodBattleTricks',
+        condition: 'Ares',
+        icon: '⚔️',
+        rewardType: 'Battle Crit Chance',
+        reward: 0.01,
+    },
+    greekGodBattleTricks6: {
+        id: 'greekGodBattleTricks6',
+        name: 'Greek God Battle Tricks VI',
+        type: 'greekGodBattleTricks',
+        condition: 'Apollo',
+        icon: '⚔️',
+        rewardType: 'Battle Crit Chance',
+        reward: 0.01,
+    },
+    greekGodBattleTricks7: {
+        id: 'greekGodBattleTricks7',
+        name: 'Greek God Battle Tricks VII',
+        type: 'greekGodBattleTricks',
+        condition: 'Hades',
+        icon: '⚔️',
+        rewardType: 'Battle Crit Chance',
+        reward: 0.01,
+    },
+    greekGodBattleTricks8: {
+        id: 'greekGodBattleTricks8',
+        name: 'Greek God Battle Tricks VIII',
+        type: 'greekGodBattleTricks',
+        condition: 'Poseidon',
+        icon: '⚔️',
+        rewardType: 'Battle Crit Chance',
+        reward: 0.01,
+    },
+    greekGodBattleTricks9: {
+        id: 'greekGodBattleTricks9',
+        name: 'Greek God Battle Tricks IX',
+        type: 'greekGodBattleTricks',
+        condition: 'Tartarus',
+        icon: '⚔️',
+        rewardType: 'Battle Crit Chance',
+        reward: 0.01,
+    },
+    greekGodBattleTricks10: {
+        id: 'greekGodBattleTricks10',
+        name: 'Greek God Battle Tricks X',
+        type: 'greekGodBattleTricks',
+        condition: 'Typhon',
+        icon: '⚔️',
+        rewardType: 'Battle Crit Chance',
+        reward: 0.01,
+    },
+    greekGodBattleTricks11: {
+        id: 'greekGodBattleTricks11',
+        name: 'Greek God Battle Tricks XI',
+        type: 'greekGodBattleTricks',
+        condition: 'Nyx',
+        icon: '⚔️',
+        rewardType: 'Battle Crit Chance',
+        reward: 0.01,  
+    },
     tierFanatic: {
         id: 'tierFanatic',
         name: 'Tier Fanatic',
@@ -788,10 +887,6 @@ function checkAchievements(type, param1, param2) {
             case 'tierFanatic':
                 shouldUnlock = param1 === achievement.rarity && cards.filter(c => c.rarity === achievement.rarity && c.tier === 20).length >= achievement.threshold;
                 break;
-                
-            case 'tierFanatic':
-                shouldUnlock = param1 === achievement.rarity && cards.filter(c => c.rarity === achievement.rarity && c.tier === 20).length >= achievement.threshold;
-                break;
         }
 
         if (shouldUnlock) {
@@ -830,6 +925,10 @@ function unlockAchievement(achievementId, duringLoad = false) {
 
             case 'Max Cards Per Poke':
                 state.achievementRewards.maxCardsPerPoke += achievementsMap[achievementId].reward;
+                break;
+
+            case 'Battle Crit Chance':
+                state.battle.critChance += achievementsMap[achievementId].reward;
                 break;
         }
 
@@ -874,7 +973,7 @@ function renderAchievements() {
     // Group achievements by type and calculate multipliers
     const achievementsByType = Object.values(achievements).reduce((acc, achievement) => {
         if (!acc[achievement.type]) {
-            if (achievement.rewardType === 'Min Cards Per Poke' || achievement.rewardType === 'Max Cards Per Poke') {
+            if (achievement.rewardType === 'Min Cards Per Poke' || achievement.rewardType === 'Max Cards Per Poke' || achievement.rewardType === 'Battle Crit Chance') {
                 // Initialize with adder for min cards per poke
                 acc[achievement.type] = {
                     achievements: [],
@@ -892,7 +991,7 @@ function renderAchievements() {
         acc[achievement.type].achievements.push(achievement);
         // If achievement is unlocked, multiply the type's multiplier
         if (state.achievementsUnlocked.has(achievement.id)) {
-            if (achievement.rewardType === 'Min Cards Per Poke' || achievement.rewardType === 'Max Cards Per Poke') {
+            if (achievement.rewardType === 'Min Cards Per Poke' || achievement.rewardType === 'Max Cards Per Poke' || achievement.rewardType === 'Battle Crit Chance') {
                 acc[achievement.type].adder += achievement.reward; // Add to min cards per poke
             }
             else {

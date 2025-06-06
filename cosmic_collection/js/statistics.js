@@ -63,8 +63,41 @@ function updateStatsUI() {
       <p><strong>Black Hole Pokes:</strong> ${s.totalPokes}</p>
       <p><strong>Total Cards Drawn:</strong> ${s.totalCardsDrawn}</p>
       <p><strong>Merchant Purchases:</strong> ${s.merchantPurchases || 0}</p>
-    `;
+    `;    
     generalSection.appendChild(tblR);
+
+    const battleStatsSection = document.createElement('section');
+    // --- Battle Stats Section (if crit unlocked) ---
+    if (state.battle.critChance > 0) {
+      
+        battleStatsSection.className = 'stats-section';
+        
+        const battleTable = document.createElement('table');
+        battleTable.className = 'rarity-table';
+        battleTable.innerHTML = `
+            <thead>
+                <tr>
+                    <th>Battle Effect</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Critical Hit Chance</td>
+                    <td>${(state.battle.critChance * 100).toFixed(0)}%</td>
+                </tr>
+                <tr>
+                    <td>Critical Hit Damage</td>
+                    <td>×${formatNumber(state.battle.critDamage)}</td>
+                </tr>
+            </tbody>
+        `;
+        
+        battleStatsSection.innerHTML = `
+            <h3 style="border-bottom:2px solid var(--dark); padding-bottom:4px;">Battle Stats</h3>
+        `;
+        battleStatsSection.appendChild(battleTable);
+    }
 
     // --- Global Gains & Effects Section ---
     // Currency gain table
@@ -330,7 +363,12 @@ function updateStatsUI() {
     // Second row: General Stats | Merchants
     const topRow2 = document.createElement('div');
     topRow2.className = 'stats-top-row';
-    topRow2.append(generalSection, merchantsSection);
+    topRow2.append(generalSection)
+    if (state.battle.critChance > 0) {
+      topRow2.className = 'stats-top-row-with-battles';
+      topRow2.append(battleStatsSection);
+    }
+    topRow2.append(merchantsSection);
     // Container for both rows
     const topContainer = document.createElement('div');
     topContainer.className = 'stats-top-container';

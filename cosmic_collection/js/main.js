@@ -101,6 +101,8 @@ window.state = {
   battle: {
     slots: [null, null, null], // 3 slots for cards in battle
     currentEnemy: null,
+    critChance: 0,
+    critDamage: 1.5,
     lockoutTimers: {}, // Keep this for temporary lockouts
     initialized: false,
     sortBy: 'power',
@@ -213,6 +215,7 @@ function loadState() {
         state.battle.currentEnemy.currentHp = obj.battle.currentEnemy.currentHp;
         state.battle.currentEnemy.maxHp = obj.battle.currentEnemy.maxHp;
         state.battle.currentEnemy.attack = obj.battle.currentEnemy.attack;
+        state.battle.currentEnemy.stunTurns = 0;
       }
       state.battle.lockoutTimers = obj.battle.lockoutTimers;
       state.battle.sortBy = obj.battle.sortBy || 'power';
@@ -1618,38 +1621,8 @@ function renderCardsCollection() {
   const list = document.getElementById('cards-list');
   list.innerHTML = '';
 
-  // Add Level All button if skill 25001 is purchased
-  if (skillMap[25001].purchased && currentCollectionRealm !== null) {
-    const levelAllBtn = document.createElement('button');
-    levelAllBtn.className = 'level-all-btn';
-    levelAllBtn.textContent = 'Level All';
-    levelAllBtn.addEventListener('click', () => {
-      // Get all visible cards in current realm with quantity > 0
-      const cardsToLevel = cards
-        .filter(c => c.realm === currentCollectionRealm && c.quantity > 0);
-
-      // Level up each card to its max affordable level
-      cardsToLevel.forEach(card => {
-        const result = calculateMaxAffordableLevel(card.id);
-        const increment = result.maxLevel - card.level;
-        
-        if (increment > 0 && result.totalCost.greaterThan(0)) {
-          // Subtract cost and level up
-          state.currencies[card.levelCost.currency] = 
-            (state.currencies[card.levelCost.currency] || new Decimal(0))
-              .minus(result.totalCost);
-          levelUp(card.id, increment);
-        }
-      });
-      
-      updateCurrencyBar();
-      renderCardsCollection();
-    });
-
-    list.appendChild(levelAllBtn);
-  }
-
-  cards
+  // Get filtered cards first
+  const filteredCards = cards
     .filter(c => c.realm === currentCollectionRealm)
     .filter(c => {
       // If no effect filters are active, show all cards
@@ -1697,177 +1670,209 @@ function renderCardsCollection() {
           return effectTypes.some(type => hasEffect(c, type));
         }
       });
-    })
-    .forEach(c => {
-      const cardEl = document.createElement('div');
-      cardEl.className = 'card-outer';
-      if (c.quantity === 0) cardEl.classList.add('unfound');
+    });
 
-      const inner = document.createElement('div');
-      inner.className = 'card-inner revealed';
-      inner.dataset.id = c.id;
+  // Add Level All button if skill 25001 is purchased
+  if (skillMap[25001].purchased && currentCollectionRealm !== null) {
+    const levelAllBtn = document.createElement('button');
+    levelAllBtn.className = 'level-all-btn';
+    levelAllBtn.textContent = 'Level All';
+    levelAllBtn.addEventListener('click', () => {
+      // Get all visible cards in current realm with quantity > 0
+      const cardsToLevel = filteredCards.filter(c => c.quantity > 0);
 
-      const front = document.createElement('div');
-      front.className = 'card-face front';
-      front.style.borderColor = realmColors[c.realm];
-
-      // frame & artwork
-      const frameImg = document.createElement('img');
-      frameImg.className = 'card-frame';
-      const framePath = `assets/images/frames/${c.rarity}_frame.jpg`;
-      imageCache.getImage('frames', framePath).then(img => {
-          if (img) frameImg.src = img.src;
+      // Level up each card to its max affordable level
+      cardsToLevel.forEach(card => {
+        const result = calculateMaxAffordableLevel(card.id);
+        const increment = result.maxLevel - card.level;
+        
+        if (increment > 0 && result.totalCost.greaterThan(0)) {
+          // Subtract cost and level up
+          state.currencies[card.levelCost.currency] = 
+            (state.currencies[card.levelCost.currency] || new Decimal(0))
+              .minus(result.totalCost);
+          levelUp(card.id, increment);
+        }
       });
+      
+      updateCurrencyBar();
+      renderCardsCollection();
+    });
 
-      const contentImg = document.createElement('img');
-      contentImg.className = 'card-image';
-      const cardPath = `assets/images/cards/${c.realm}/${slugify(c.name)}.jpg`;
-      imageCache.getImage('cards', cardPath).then(img => {
-          if (img) contentImg.src = img.src;
+    list.appendChild(levelAllBtn);
+  }
+
+  // Render the filtered cards
+  filteredCards.forEach(c => {
+    const cardEl = document.createElement('div');
+    cardEl.className = 'card-outer';
+    if (c.quantity === 0) cardEl.classList.add('unfound');
+
+    const inner = document.createElement('div');
+    inner.className = 'card-inner revealed';
+    inner.dataset.id = c.id;
+
+    const front = document.createElement('div');
+    front.className = 'card-face front';
+    front.style.borderColor = realmColors[c.realm];
+
+    // frame & artwork
+    const frameImg = document.createElement('img');
+    frameImg.className = 'card-frame';
+    const framePath = `assets/images/frames/${c.rarity}_frame.jpg`;
+    imageCache.getImage('frames', framePath).then(img => {
+        if (img) frameImg.src = img.src;
+    });
+
+    const contentImg = document.createElement('img');
+    contentImg.className = 'card-image';
+    const cardPath = `assets/images/cards/${c.realm}/${slugify(c.name)}.jpg`;
+    imageCache.getImage('cards', cardPath).then(img => {
+        if (img) contentImg.src = img.src;
+    });
+
+    // Special Effects S indicator
+    if (Array.isArray(c.specialEffects) && c.specialEffects.length > 0) {
+      // Check if all requirements are met
+      const allMet = c.specialEffects.every(def => isSpecialEffectRequirementMet(c, def.requirement));
+      const sSpan = document.createElement('span');
+      sSpan.className = 'special-s-indicator' + (allMet ? ' special-s-glow' : ' special-s-dull');
+      sSpan.textContent = 'S';
+      front.appendChild(sSpan);
+    }
+
+    front.append(frameImg, contentImg);
+
+    // tier icon + level label
+    if (c.tier > 0) {
+      const tierIcon = document.createElement('img');
+      tierIcon.className = 'tier-icon';
+      const tierPath = `assets/images/tiers/tier_${c.tier}.png`;
+      imageCache.getImage('tiers', tierPath).then(img => {
+          if (img) tierIcon.src = img.src;
       });
+      tierIcon.alt = `Tier ${c.tier}`;
+      front.appendChild(tierIcon);
 
-      // Special Effects S indicator
-      if (Array.isArray(c.specialEffects) && c.specialEffects.length > 0) {
-        // Check if all requirements are met
-        const allMet = c.specialEffects.every(def => isSpecialEffectRequirementMet(c, def.requirement));
-        const sSpan = document.createElement('span');
-        sSpan.className = 'special-s-indicator' + (allMet ? ' special-s-glow' : ' special-s-dull');
-        sSpan.textContent = 'S';
-        front.appendChild(sSpan);
-      }
+      const lvlLabel = document.createElement('div');
+      lvlLabel.className = 'level-label';
+      lvlLabel.textContent = `Lvl: ${formatNumber(c.level)}`;
+      front.appendChild(lvlLabel);
+    }
 
-      front.append(frameImg, contentImg);
+    const btn = document.createElement('button');
+    btn.className = 'card-level-up-btn';
 
-      // tier icon + level label
-      if (c.tier > 0) {
-        const tierIcon = document.createElement('img');
-        tierIcon.className = 'tier-icon';
-        const tierPath = `assets/images/tiers/tier_${c.tier}.png`;
-        imageCache.getImage('tiers', tierPath).then(img => {
-            if (img) tierIcon.src = img.src;
+    if (c.quantity > 0) {
+      const baseCost  = new Decimal(c.levelCost.amount);
+      const rawCost   = baseCost.times(Decimal.pow(c.levelScaling, c.level - 1));
+      const cost      = floorTo3SigDigits(rawCost);
+      const curAmt    = state.currencies[c.levelCost.currency] || new Decimal(0);
+      const canAfford = curAmt.greaterThanOrEqualTo(cost);
+
+      btn.classList.add(canAfford ? 'affordable' : 'unaffordable');
+      btn.disabled = !canAfford;
+
+      btn.innerHTML = `
+        Level Up<br>
+        <span class="level-cost">
+          ${formatNumber(cost)}
+          <img class="icon" alt="${c.levelCost.currency}"/>
+        </span>
+      `;
+
+      const iconEl = btn.querySelector('img.icon');
+      const currencyPath = `assets/images/currencies/${c.levelCost.currency}.png`;
+      iconEl.src = currencyPath;                 // fallback immediately
+      imageCache
+        .getImage('currencies', currencyPath)
+        .then(cachedImg => {
+          if (cachedImg) iconEl.src = cachedImg.src;
         });
-        tierIcon.alt = `Tier ${c.tier}`;
-        front.appendChild(tierIcon);
 
-        const lvlLabel = document.createElement('div');
-        lvlLabel.className = 'level-label';
-        lvlLabel.textContent = `Lvl: ${formatNumber(c.level)}`;
-        front.appendChild(lvlLabel);
-      }
+      btn.addEventListener('click', e => {
+        e.stopPropagation();
+        const freshAmt  = state.currencies[c.levelCost.currency] || new Decimal(0);
+        const freshCost = floorTo3SigDigits(
+          new Decimal(c.levelCost.amount)
+            .times(Decimal.pow(c.levelScaling, c.level - 1))
+        );
+        if (freshAmt.lessThan(freshCost)) return;
+        state.currencies[c.levelCost.currency] = freshAmt.minus(freshCost);
+        levelUp(c.id);
+        updateCurrencyBar();
+        renderCardsCollection();  // re-render to update costs & button states
+      });
+    }
+    else {
+      btn.disabled = true;
+      btn.textContent = 'Level Up';
+    }
 
-      const btn = document.createElement('button');
-      btn.className = 'card-level-up-btn';
+    front.appendChild(btn);
 
-      if (c.quantity > 0) {
-        const baseCost  = new Decimal(c.levelCost.amount);
-        const rawCost   = baseCost.times(Decimal.pow(c.levelScaling, c.level - 1));
-        const cost      = floorTo3SigDigits(rawCost);
-        const curAmt    = state.currencies[c.levelCost.currency] || new Decimal(0);
-        const canAfford = curAmt.greaterThanOrEqualTo(cost);
+    // quantity badge
+    if (c.quantity >= 1) {
+      const badge = document.createElement('div');
+      badge.className = 'count-badge';
+      badge.innerHTML = formatQuantity(c.quantity);
+      front.appendChild(badge);
+    }
 
-        btn.classList.add(canAfford ? 'affordable' : 'unaffordable');
-        btn.disabled = !canAfford;
+    // NEW banner persists until opened
+    if (c.isNew) {
+      const badge = document.createElement('div');
+      badge.className = 'reveal-badge new-badge';
+      badge.textContent = 'NEW';
+      front.appendChild(badge);
+    } else if (c.hasTierUp) {
+      const badge = document.createElement('div');
+      badge.className = 'reveal-badge tierup-badge';
+      badge.textContent = 'TIER UP';
+      front.appendChild(badge);
+    }
 
-        btn.innerHTML = `
-          Level Up<br>
-          <span class="level-cost">
-            ${formatNumber(cost)}
-            <img class="icon" alt="${c.levelCost.currency}"/>
-          </span>
-        `;
+    // Update locked overlay logic
+    if (c.locked) {
+      if (state.battle.currentEnemy && c.id === state.battle.currentEnemy.id) {
+        // Show battle overlay for current enemy
+        const battleOverlay = document.createElement('div');
+        battleOverlay.className = 'card-battle-overlay';
+        const battleImg = document.createElement('img');
+        battleImg.src = 'assets/images/card_battle.png';
+        battleOverlay.appendChild(battleImg);
+        front.appendChild(battleOverlay);
+      } else {
+        // Show locked overlay for other locked cards
+        const lockedOverlay = document.createElement('div');
+        lockedOverlay.className = 'card-locked-overlay';
+        const lockedImg = document.createElement('img');
+        lockedImg.src = 'assets/images/card_locked.png';
+        lockedOverlay.appendChild(lockedImg);
+        front.appendChild(lockedOverlay);
 
-        const iconEl = btn.querySelector('img.icon');
-        const currencyPath = `assets/images/currencies/${c.levelCost.currency}.png`;
-        iconEl.src = currencyPath;                 // fallback immediately
-        imageCache
-          .getImage('currencies', currencyPath)
-          .then(cachedImg => {
-            if (cachedImg) iconEl.src = cachedImg.src;
-          });
-
-        btn.addEventListener('click', e => {
-          e.stopPropagation();
-          const freshAmt  = state.currencies[c.levelCost.currency] || new Decimal(0);
-          const freshCost = floorTo3SigDigits(
-            new Decimal(c.levelCost.amount)
-              .times(Decimal.pow(c.levelScaling, c.level - 1))
-          );
-          if (freshAmt.lessThan(freshCost)) return;
-          state.currencies[c.levelCost.currency] = freshAmt.minus(freshCost);
-          levelUp(c.id);
-          updateCurrencyBar();
-          renderCardsCollection();  // re-render to update costs & button states
-        });
-      }
-      else {
-        btn.disabled = true;
-        btn.textContent = 'Level Up';
-      }
-
-      front.appendChild(btn);
-
-      // quantity badge
-      if (c.quantity >= 1) {
-        const badge = document.createElement('div');
-        badge.className = 'count-badge';
-        badge.innerHTML = formatQuantity(c.quantity);
-        front.appendChild(badge);
-      }
-
-      // NEW banner persists until opened
-      if (c.isNew) {
-        const badge = document.createElement('div');
-        badge.className = 'reveal-badge new-badge';
-        badge.textContent = 'NEW';
-        front.appendChild(badge);
-      } else if (c.hasTierUp) {
-        const badge = document.createElement('div');
-        badge.className = 'reveal-badge tierup-badge';
-        badge.textContent = 'TIER UP';
-        front.appendChild(badge);
-      }
-
-      // Update locked overlay logic
-      if (c.locked) {
-        if (state.battle.currentEnemy && c.id === state.battle.currentEnemy.id) {
-          // Show battle overlay for current enemy
-          const battleOverlay = document.createElement('div');
-          battleOverlay.className = 'card-battle-overlay';
-          const battleImg = document.createElement('img');
-          battleImg.src = 'assets/images/card_battle.png';
-          battleOverlay.appendChild(battleImg);
-          front.appendChild(battleOverlay);
-        } else {
-          // Show locked overlay for other locked cards
-          const lockedOverlay = document.createElement('div');
-          lockedOverlay.className = 'card-locked-overlay';
-          const lockedImg = document.createElement('img');
-          lockedImg.src = 'assets/images/card_locked.png';
-          lockedOverlay.appendChild(lockedImg);
-          front.appendChild(lockedOverlay);
-
-          
-          // Add countdown if card is in lockoutTimers
-          if (state.battle.lockoutTimers[c.id]) {
-            const countdownEl = document.createElement('div');
-            countdownEl.className = 'lock-countdown';
-            const remainingTime = state.battle.lockoutTimers[c.id] - Date.now();
-            countdownEl.innerHTML = `Locked for<br>${formatDuration(remainingTime / 1000)}`;
-            front.append(countdownEl);
-          }
+        
+        // Add countdown if card is in lockoutTimers
+        if (state.battle.lockoutTimers[c.id]) {
+          const countdownEl = document.createElement('div');
+          countdownEl.className = 'lock-countdown';
+          const remainingTime = state.battle.lockoutTimers[c.id] - Date.now();
+          countdownEl.innerHTML = `Locked for<br>${formatDuration(remainingTime / 1000)}`;
+          front.append(countdownEl);
         }
       }
+    }
 
-      inner.append(front);
-      cardEl.append(inner);
+    inner.append(front);
+    cardEl.append(inner);
 
-      // open modal on click
-      if (c.quantity >= 1) {
-        cardEl.addEventListener('click', () => openModal(c.id));
-      }
+    // open modal on click
+    if (c.quantity >= 1) {
+      cardEl.addEventListener('click', () => openModal(c.id));
+    }
 
-      list.appendChild(cardEl);
-    });
+    list.appendChild(cardEl);
+  });
 }
 
 
