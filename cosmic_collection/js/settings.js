@@ -61,7 +61,7 @@ function initializeSettingsTab() {
             <div class="tips-section">
                 <h3>To be continued...</h3>
                 <p>If you are struggling with a particular aspect of the game, hop in Discord - there is a great community there to help you!</p>
-                <p>On the other hand, if you have any other tips or suggestions, please drop also drop them in Discord and @Kuzzi to get them included in here!</p>
+                <p>On the other hand, if you have any other tips or suggestions, please also drop them in Discord and @Kuzzi to get them included in here!</p>
             </div> 
             <div class="modal-buttons">
                 <button id="closeTipsBtn" class="settings-button safe-button">Got it!</button>
