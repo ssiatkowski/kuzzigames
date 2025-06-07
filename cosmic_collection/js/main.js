@@ -103,6 +103,7 @@ window.state = {
     currentEnemy: null,
     critChance: 0,
     critDamage: 1.5,
+    slotLimit: 3,
     lockoutTimers: {}, // Keep this for temporary lockouts
     initialized: false,
     sortBy: 'power',
@@ -791,6 +792,10 @@ function performPoke() {
 
           if (revealedCount === currentPackCount - skippedCards) {
             state.flipsDone = true;
+            console.log(currentPackCount - skippedCards);
+            if ((currentPackCount - skippedCards) >= 250) {
+              unlockAchievement('secret9');
+            }
             tryEnableHole();
           }
         }
@@ -1408,6 +1413,17 @@ function openModal(cardId) {
   mc.append(left, right);
   ov.append(mc);
   document.body.append(ov);
+
+  if(cardId === '1001') {
+    //i want to use the current code, but just check the visibility of cardImg
+    setTimeout(() => {
+      if (ov.isConnected) {
+        cardImg.style.display = 'none';
+        desc.textContent = 'There is no spoon.';
+        unlockAchievement('secret6');
+      }
+    }, 10000);
+  }
 }
 
 
@@ -1680,6 +1696,10 @@ function renderCardsCollection() {
     levelAllBtn.addEventListener('click', () => {
       // Get all visible cards in current realm with quantity > 0
       const cardsToLevel = filteredCards.filter(c => c.quantity > 0);
+
+      if (skillMap[25002]?.purchased) {
+        cardsToLevel.reverse();
+      }
 
       // Level up each card to its max affordable level
       cardsToLevel.forEach(card => {
@@ -2726,7 +2746,6 @@ document.addEventListener('DOMContentLoaded', async ()=>{
   showTab('hole');
   updateCurrencyBar();
   initSkillsFilters();
-  renderSkillsTab();
   updateStatsUI();
   checkForNewCards();
   updatePokeFilterStats();
@@ -2803,7 +2822,6 @@ document.addEventListener('DOMContentLoaded', async ()=>{
 
   updateCurrencyBar();
   initSkillsFilters();
-  renderSkillsTab();
   updateStatsUI();
   checkForNewCards();
   updatePokeFilterStats();

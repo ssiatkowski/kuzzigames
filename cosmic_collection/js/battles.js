@@ -108,9 +108,8 @@ function removeTopCard() {
   const willHaveRemainingCards = state.battle.slots[1] !== null;
 
   // Update the slots
-  state.battle.slots[0] = state.battle.slots[1];
-  state.battle.slots[1] = state.battle.slots[2];
-  state.battle.slots[2] = null;
+  state.battle.slots.shift();
+  state.battle.slots.push(null);
 
   // Only pause if no cards will remain
   if (!willHaveRemainingCards) {
@@ -170,7 +169,7 @@ function processVictory() {
   }
   
   // Clear battle slots
-  state.battle.slots = [null, null, null];
+  state.battle.slots = Array(state.battle.slotLimit).fill(null);
 
   // Get next enemy
   state.battle.currentEnemy = getNextEnemy();
@@ -247,33 +246,79 @@ function updateBattleUI() {
     <div class="battle-arena">
       <div class="battle-slots-container">
         <div class="battle-slots">
-          ${Array(3).fill(null).map((_, i) => `
-            <div class="battle-slot" data-slot="${2-i}">
-              ${state.battle.slots[2-i] ? `
-                <div class="card-outer">
-                  <div class="battle-card-face">
-                    <img class="card-frame" src="assets/images/frames/${state.battle.slots[2-i].rarity}_frame.jpg" />
-                    <img class="card-image" src="assets/images/cards/${state.battle.slots[2-i].realm}/${slugify(state.battle.slots[2-i].name)}.jpg" />
-                    ${state.battle.slots[2-i].tier > 0 ? `
-                      <img class="tier-badge" src="assets/images/tiers/tier_${state.battle.slots[2-i].tier}.png" alt="Tier ${state.battle.slots[2-i].tier}" />
-                    ` : ''}
-                    <div class="hp-container">
-                      <div class="hp-bar" style="width: ${(state.battle.slots[2-i].currentHp / state.battle.slots[2-i].maxHp) * 100}%"></div>
-                      <div class="hp-text">${formatNumber(state.battle.slots[2-i].currentHp)}</div>
-                    </div>
-                    <div class="battle-combat-stats">
-                      <div class="battle-combat-stat">
-                        <i class="fas fa-gavel"></i> ${formatNumber(state.battle.slots[2-i].attack)}
+          ${(() => {
+            const limit = state.battle.slotLimit;
+
+            // exactly your existing slot markup
+            const renderSlot = idx => {
+              const c = state.battle.slots[idx];
+              return `
+                <div class="battle-slot" data-slot="${idx}">
+                  ${c ? `
+                    <div class="card-outer">
+                      <div class="battle-card-face">
+                        <img class="card-frame"
+                            src="assets/images/frames/${c.rarity}_frame.jpg" />
+                        <img class="card-image"
+                            src="assets/images/cards/${c.realm}/${slugify(c.name)}.jpg" />
+                        ${c.tier > 0 ? `
+                          <img class="tier-badge"
+                              src="assets/images/tiers/tier_${c.tier}.png"
+                              alt="Tier ${c.tier}" />` : ''}
+                        <div class="hp-container">
+                          <div class="hp-bar"
+                              style="width:${(c.currentHp/c.maxHp)*100}%"></div>
+                          <div class="hp-text">${formatNumber(c.currentHp)}</div>
+                        </div>
+                        <div class="battle-combat-stats">
+                          <div class="battle-combat-stat">
+                            <i class="fas fa-gavel"></i> ${formatNumber(c.attack)}
+                          </div>
+                          <div class="battle-combat-stat">
+                            ${formatNumber(c.maxHp)} <i class="fas fa-heart"></i>
+                          </div>
+                        </div>
                       </div>
-                      <div class="battle-combat-stat">
-                        ${formatNumber(state.battle.slots[2-i].maxHp)} <i class="fas fa-heart"></i>
-                      </div>
                     </div>
-                  </div>
-                </div>
-              ` : '<div class="empty-slot">Empty Slot</div>'}
-            </div>
-          `).join('')}
+                  ` : '<div class="empty-slot">Empty Slot</div>'}
+                </div>`;
+            };
+
+            // 1) First row: slots 2→1→0
+            const baseRow = [2, 1, 0].slice(0, limit);
+            const firstRow = baseRow
+              .map((idx, i) =>
+                renderSlot(idx) +
+                (i < baseRow.length - 1 ? '<div class="slot-arrow">➡️</div>' : '')
+              ).join('');
+
+            // 2) Middle row: an ↑ under slot 2
+            let arrowUpRow = '';
+            if (limit > 3) {
+              arrowUpRow = baseRow
+                .map((_, i) =>
+                  i === 0
+                    ? `<div class="arrow-cell"><div class="slot-arrow arrow-up">⬆️</div></div>`
+                    : `<div class="arrow-cell"></div>`
+                ).join('');
+            }
+
+            // 3) Bottom row: slots 3←4←5…
+            let secondRow = '';
+            if (limit > 3) {
+              secondRow = Array.from({ length: limit - 3 }, (_, k) => 3 + k)
+                .map((idx, k) =>
+                  (k > 0 ? '<div class="slot-arrow arrow-left">⬅️</div>' : '') +
+                  renderSlot(idx)
+                ).join('');
+            }
+
+            return `
+              <div class="slots-row">${firstRow}</div>
+              ${arrowUpRow ? `<div class="slots-row arrow-up-row">${arrowUpRow}</div>` : ''}
+              ${secondRow  ? `<div class="slots-row bottom-row">${secondRow}</div>` : ''}
+            `;
+          })()}
         </div>
         <div class="battle-controls">
           <button class="battle-pause-btn ${state.battle.paused ? 'paused' : ''}"
@@ -694,8 +739,13 @@ function showSacrificeDialog(cardId) {
   if (sacrificeBtn) {
     sacrificeBtn.addEventListener('click', () => {
       // Find first available slot
-      const availableSlot = state.battle.slots.findIndex(slot => slot === null);
+      const limit = state.battle.slotLimit;
+      // grow the slots array up to the current limit
+      while (state.battle.slots.length < limit) {
+        state.battle.slots.push(null);
+      }
       
+      const availableSlot = state.battle.slots.findIndex(slot => slot === null);
       if (availableSlot === -1) {
         alert('No available battle slots!');
         return;
@@ -731,6 +781,12 @@ function showSacrificeDialog(cardId) {
       // Check for and apply battle tricks synchronously
       if (state.battle.currentEnemy) {
         checkBattleTrick(cardId, state.battle.currentEnemy);
+
+        if(cardId === 833){
+          triggerQuickGlitch();
+          setTimeout(() => showMatrixRain(), 2000);
+          setTimeout(() => unlockAchievement('secret8'), 10100);
+        }
       }
 
       // Lock the card
@@ -872,19 +928,6 @@ function startBattleLoop() {
   }
 }
 
-// Update card placement logic to auto-start battle when 3 cards are placed
-function placeBattleCard(cardId, slotIndex) {
-  // ...existing placement code...
-
-  // After placing card, check if all slots are filled
-  if (state.battle.slots.every(slot => slot !== null)) {
-    state.battle.paused = false;
-    startBattleLoop();
-  }
-  
-  updateBattleUI();
-}
-
 // Add filter menu functions
 function showRealmFilterMenu(btn) {
   const menu = document.createElement('div');
@@ -999,6 +1042,7 @@ function showBattleHelp() {
         <li>Sacrificing resets the card's level, tier, and quantity to 0.</li>
         <li>The sacrificed card is locked for 24 hours (can be reduced) after the battle. This prevents you from getting it from pokes and merchants.</li>
         <li>All effects from the sacrificed card are removed on sacrifice.</li>
+        <li>When enemy is defeated, all sacrificed cards are removed - so choose carefully.</li>
       </ul>
 
       <h3>Strategy Tips</h3>
@@ -1008,6 +1052,14 @@ function showBattleHelp() {
         <li>Consider the lockout timer when choosing cards to sacrifice.</li>
         <li>Check the enemy's stats to plan your strategy.</li>
         <li>Enemies do not heal between battles, so don't hesitate to launch smaller attacks to chip at their HP.</li>
+      </ul>
+
+      <h3>Battle Tricks & Achievements</h3>
+      <ul>
+        <li>Be sure to check out <strong>Greek God Battle Tricks</strong> on the Achievements tab. It shows which bosses have special achievements.</li>
+        <li>These tricks activate when you sacrifice the correct card for the achievement—usually themed around Greek myth lore—and grant a bonus to that encounter.</li>
+        <li>The achievement itself only needs to be unlocked once, but you can reuse the effect multiple times (even within the same fight once the card’s lockout timer has expired).</li>
+        <li>If you missed unlocking any achievements, you can hit the <strong>Reset Battles</strong> button to try again.</li>
       </ul>
     </div>
   `;
@@ -1062,7 +1114,7 @@ function showResetBattlesDialog() {
       }
     }
     
-    state.battle.slots = [null, null, null];
+    state.battle.slots = Array(state.battle.slotLimit).fill(null);
     state.battle.paused = true;
     
     saveState();

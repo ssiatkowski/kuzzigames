@@ -1880,14 +1880,14 @@ window.skills = [
       id: 24001,
       name: "Shorter Sacrifice",
       description: "Reduce sacrifice lockout time by 2 hours.",
-      cost: { realmId: 11, currencyId: "stone", amount: 1e18 },
+      cost: { realmId: 11, currencyId: "stone", amount: 1e16 },
       purchased: false
     },
     {
       id: 24002,
       name: "Shorter Sacrifice 2",
       description: "Reduce sacrifice lockout time by 2 hours.",
-      cost: { realmId: 11, currencyId: "coral", amount: 2e18 },
+      cost: { realmId: 11, currencyId: "coral", amount: 2e17 },
       purchased: false
     },
     {
@@ -1982,6 +1982,13 @@ window.skills = [
       purchased: false
     },
     {
+      id: 25002,
+      name: "Card Leveler 2",
+      description: "Changes Level All button to work right to left.",
+      cost: { realmId: 10, currencyId: "royal_jelly", amount: 8e11 },
+      purchased: false
+    },
+    {
       id: 26001,
       name: "Crit Chance",
       description: "Unlock battle Critical Hit Chance and set it to 5%.",
@@ -2035,6 +2042,20 @@ window.skills = [
       name: "Crit Damage",
       description: "+10% Critical Hit Damage.",
       cost: { realmId: 11, currencyId: "zeal", amount: 5e11 },
+      purchased: false
+    },
+    {
+      id: 26201,
+      name: "So Many Cards, So Few Slots",
+      description: "Increase battle slot limit by +1.",
+      cost: { realmId: 11, currencyId: "rune", amount: 1e18 },
+      purchased: false
+    },
+    {
+      id: 26202,
+      name: "So Many Cards, So Few Slots 2",
+      description: "Increase battle slot limit by +1.",
+      cost: { realmId: 11, currencyId: "pearl", amount: 1e18 },
       purchased: false
     },
   ];
@@ -2834,6 +2855,12 @@ function applySkill(id, skipCost = false) {
       case 26105:
         state.battle.critDamage += 0.1;
         break;
+      case 26201:
+        state.battle.slotLimit += 1;
+        break;
+      case 26202:
+        state.battle.slotLimit += 1;
+        break;
 
     }
 
@@ -2848,6 +2875,8 @@ function applySkill(id, skipCost = false) {
     }
   
     // 4) refresh UI
-    renderSkillsTab();
-    updateCurrencyBar();
+    if(loadFinished) {
+      renderSkillsTab();
+      updateCurrencyBar();
+    }
 }

@@ -37,9 +37,7 @@
 }
 
 .battle-slots {
-  display: grid;
-  grid-template-columns: repeat(3, 180px);
-  gap: 12px;
+  display: block;
 }
 
 /* Battle pause button styling */
@@ -892,12 +890,59 @@
   margin-top: 0;
 }
 
+/* each row now flex-boxes the slots+arrows */
+.slots-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 8px; /* space between rows */
+}
+
+/* stack arrow+slot vertically */
+.slot-with-arrow-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px; /* space between arrow and slot */
+}
+
+
+.slots-row .battle-slot {
+  flex: none;
+  width: 160px;           /* same as your grid-template-columns */
+}
+
+.slots-row.bottom-row {
+  justify-content: flex-start;
+}
+
+/* arrow-up row: each cell same width as a slot */
+.arrow-up-row .arrow-cell {
+  flex: none;
+  width: 155px;
+  display: flex;
+  justify-content: left;
+}
+
+@media (max-height:800px) {
+  .arrow-up-row .arrow-cell { width: 180px; }
+}
+@media (max-height:500px) {
+  .arrow-up-row .arrow-cell { width: 105px; }
+}
+
+/* arrow styling */
+.slot-arrow {
+  font-size: 1.8em;      /* larger */
+  font-weight: bold;     /* thicker strokes */
+  color: var(--accent);
+  line-height: 1;
+}
+
 /* Responsive queries */
-@media (max-width: 1200px) {
-  .battle-slots {
-    grid-template-columns: repeat(3, 120px);
-  }
-  .battle-slot {
+@media (max-height: 800px) {
+  .slots-row .battle-slot {
     width: 120px;
   }
   .enemy-card {
@@ -905,12 +950,9 @@
   }
 }
 
-@media (max-width: 900px) {
-  .battle-slots {
-    grid-template-columns: repeat(3, 80px);
-  }
-  .battle-slot {
-    width: 80px;
+@media (max-height: 500px) {
+  .slots-row .battle-slot {
+    width: 90px;
   }
   .enemy-card {
     width: 180px;

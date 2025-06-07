@@ -18,7 +18,7 @@ const achievements = {
         condition: 'Discover 10 cards',
         icon: '🔍',
         rewardType: 'Max Cards Multiplier',
-        reward: 1.01,
+        reward: 1.02,
         threshold: 10,
     },
     thrillOfDiscovery3: {
@@ -68,7 +68,7 @@ const achievements = {
         condition: 'Discover 100 cards',
         icon: '🔍',
         rewardType: 'Max Cards Multiplier',
-        reward: 1.01,
+        reward: 1.02,
         threshold: 100,
     },
     thrillOfDiscovery8: {
@@ -108,7 +108,7 @@ const achievements = {
         condition: 'Discover 300 cards',
         icon: '🔍',
         rewardType: 'Max Cards Multiplier',
-        reward: 1.01,
+        reward: 1.02,
         threshold: 300,
     },
 
@@ -119,7 +119,7 @@ const achievements = {
         condition: 'Collect all Rocks cards',
         icon: '🃏',
         rewardType: 'Max Cards Multiplier',
-        reward: 1.01,
+        reward: 1.02,
         realm: 1,
     },
     cosmicCollector2: {
@@ -129,7 +129,7 @@ const achievements = {
         condition: 'Collect all Sea World cards',
         icon: '🃏',
         rewardType: 'Max Cards Multiplier',
-        reward: 1.01,
+        reward: 1.02,
         realm: 2,
     },
     cosmicCollector3: {
@@ -139,7 +139,7 @@ const achievements = {
         condition: 'Collect all Bugdom cards',
         icon: '🃏',
         rewardType: 'Max Cards Multiplier',
-        reward: 1.01,
+        reward: 1.02,
         realm: 3,
     },
     cosmicCollector4: {
@@ -149,7 +149,7 @@ const achievements = {
         condition: 'Collect all Aviary cards',
         icon: '🃏',
         rewardType: 'Max Cards Multiplier',
-        reward: 1.01,
+        reward: 1.02,
         realm: 4,
     },
     cosmicCollector5: {
@@ -159,7 +159,7 @@ const achievements = {
         condition: 'Collect all Ancient Relics cards',
         icon: '🃏',
         rewardType: 'Max Cards Multiplier',
-        reward: 1.01,
+        reward: 1.02,
         realm: 5,
     },
     cosmicCollector6: {
@@ -169,7 +169,7 @@ const achievements = {
         condition: 'Collect all Celestial Bodies cards',
         icon: '🃏',
         rewardType: 'Max Cards Multiplier',
-        reward: 1.01,
+        reward: 1.02,
         realm: 6,
     },
     cosmicCollector7: {
@@ -179,7 +179,7 @@ const achievements = {
         condition: 'Collect all Mythical Beasts cards',
         icon: '🃏',
         rewardType: 'Max Cards Multiplier',
-        reward: 1.02,
+        reward: 1.03,
         realm: 7,
     },
     cosmicCollector8: {
@@ -189,7 +189,7 @@ const achievements = {
         condition: 'Collect all Incremental Games cards',
         icon: '🃏',
         rewardType: 'Max Cards Multiplier',
-        reward: 1.03,
+        reward: 1.04,
         realm: 8,
     },
     cosmicCollector9: {
@@ -199,7 +199,7 @@ const achievements = {
         condition: 'Collect all Spirit Familiars cards',
         icon: '🃏',
         rewardType: 'Max Cards Multiplier',
-        reward: 1.03,
+        reward: 1.04,
         realm: 9,
     },
     cosmicCollector10: {
@@ -209,7 +209,7 @@ const achievements = {
         condition: 'Collect all Weapons cards',
         icon: '🃏',
         rewardType: 'Max Cards Multiplier',
-        reward: 1.04,
+        reward: 1.05,
         realm: 10,
     },
     cosmicCollector11: {
@@ -219,7 +219,7 @@ const achievements = {
         condition: 'Collect all Greek Gods cards',
         icon: '🃏',
         rewardType: 'Max Cards Multiplier',
-        reward: 1.05,
+        reward: 1.1,
         realm: 11,
     },
     // cosmicCollector12: {
@@ -570,7 +570,7 @@ const achievements = {
         condition: 'Number 69',
         icon: '🚨',
         rewardType: 'Min Cards Multiplier',
-        reward: 1.02,
+        reward: 1.03,
     },
     secret2: {
         id: 'secret2',
@@ -579,7 +579,7 @@ const achievements = {
         condition: 'Find the Easter Egg',
         icon: '🥚',
         rewardType: 'Min Cards Multiplier',
-        reward: 1.02,
+        reward: 1.03,
     },
     secret3: {
         id: 'secret3',
@@ -588,7 +588,7 @@ const achievements = {
         condition: 'Birds Fly Solo',
         icon: '🐦',
         rewardType: 'Min Cards Multiplier',
-        reward: 1.02,
+        reward: 1.03,
     },
     secret4: {
         id: 'secret4',
@@ -597,26 +597,53 @@ const achievements = {
         condition: '3 x 3',
         icon: `🧲`,
         rewardType: 'Min Cards Multiplier',
-        reward: 1.02,
+        reward: 1.03,
+    },
+    secret7: {
+        id: 'secret7',
+        name: 'Secret V',
+        type: 'secret',
+        condition: 'No Skills Left?',
+        icon: '🧠',
+        rewardType: 'Min Cards Multiplier',
+        reward: 1.03,
     },
     secret5: {
         id: 'secret5',
-        name: 'Secret V',
+        name: 'Secret VI',
         type: 'secret',
         condition: 'Rams is not a Realm',
         icon: '🐏',
         rewardType: 'Min Cards Multiplier',
-        reward: 1.02,
+        reward: 1.03,
     },
-    // secret8: {
-    //     id: 'secret8',
-    //     name: 'Secret VIII',
-    //     type: 'secret',
-    //     condition: 'Divine Sacrifice',
-    //     icon: '👑',
-    //     rewardType: 'Min Cards Multiplier',
-    //     reward: 1.05,
-    // },
+    secret6: {
+        id: 'secret6',
+        name: 'Secret VII',
+        type: 'secret',
+        condition: 'There is no spoon',
+        icon: '🥄',
+        rewardType: 'Min Cards Multiplier',
+        reward: 1.03,
+    },
+    secret8: {
+        id: 'secret8',
+        name: 'Secret VIII',
+        type: 'secret',
+        condition: 'Delete the game',
+        icon: '💀',
+        rewardType: 'Min Cards Multiplier',
+        reward: 1.03,
+    },
+    secret9: {
+        id: 'secret9',
+        name: 'Secret IX',
+        type: 'secret',
+        condition: 'Big Flipper',
+        icon: '🔄',
+        rewardType: 'Min Cards Multiplier',
+        reward: 1.03,
+    },
     greekGodBattleTricks: {
         id: 'greekGodBattleTricks',
         name: 'Greek God Battle Tricks',
@@ -1034,7 +1061,6 @@ function renderAchievements() {
                                         <span class="reward-type">${achievement.rewardType}:</span>
                                         <span class="reward-value">${data.hasOwnProperty('multiplier') ? `×${achievement.reward.toFixed(2)}`: `+${formatNumber(achievement.reward)}`}</span>
                                     </div>
-                                    ${isUnlocked ? '<div class="achievement-completed">✓ Completed</div>' : ''}
                                 </div>
                             `;
                         }).join('')}
