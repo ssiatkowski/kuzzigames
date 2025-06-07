@@ -264,8 +264,8 @@ const merchants = [
       const greeting = pickRandom(window.merchantGreetings);
       const pitch = pickRandom(window.merchantPitches);
       state.currentMerchantMessage = `
-        <div class="merchant-greeting">${greeting}</div>
-        <div class="merchant-pitch">${pitch}</div>
+        <div class="merchant-pitch">Merchant says:</div>
+        <div class="merchant-greeting">${greeting}<br>${pitch}</div>
       `;
 
       renderMerchantTab();
@@ -520,13 +520,38 @@ const merchants = [
         }
     });
 
+    // Remove any existing merchant info section
+    const existingInfo = document.querySelector('.merchant-info');
+    if (existingInfo) {
+      existingInfo.remove();
+    }
+
+    // Add merchant info section
+    const infoEl = document.createElement('div');
+    infoEl.className = 'merchant-info';
+    
+    const nameEl = document.createElement('div');
+    nameEl.className = 'merchant-name';
+    nameEl.textContent = state.currentMerchant.name;
+    
+    const descEl = document.createElement('div');
+    descEl.className = 'merchant-description';
+    descEl.textContent = state.currentMerchant.description;
+    
+    infoEl.append(nameEl, descEl);
+    
+    // Insert info section after image
+    if (imgEl.parentNode) {
+      imgEl.parentNode.insertBefore(infoEl, imgEl.nextSibling);
+    }
+
     // Generate new message if undefined
     if (!state.currentMerchantMessage) {
       const greeting = pickRandom(window.merchantGreetings);
       const pitch = pickRandom(window.merchantPitches);
       state.currentMerchantMessage = `
-        <div class="merchant-greeting">${greeting}</div>
-        <div class="merchant-pitch">${pitch}</div>
+        <div class="merchant-pitch">Merchant says:</div>
+        <div class="merchant-greeting">${greeting}<br>${pitch}</div>
       `;
     }
 
@@ -615,7 +640,11 @@ const merchants = [
       bar.style.width = pct + '%';
       const thresholdLab = document.createElement('div');
       thresholdLab.className = 'tier-threshold';
-      thresholdLab.textContent = `${formatNumber(card.quantity)} / ${formatNumber(nextThresh)} for Tier ${card.tier+1}`;
+      if (card.tier === 20) {
+        thresholdLab.textContent = 'Max Tier';
+      } else {
+        thresholdLab.textContent = `${formatNumber(card.quantity)} / ${formatNumber(nextThresh)} for T${card.tier+1}`;
+      }
       barContainer.append(bar, thresholdLab);
       front.appendChild(barContainer);
   
@@ -623,7 +652,7 @@ const merchants = [
       if (o.quantity > 1) {
         const qtyBadge = document.createElement('div');
         qtyBadge.className = 'count-badge';
-        qtyBadge.textContent = o.quantity;
+        qtyBadge.textContent = `${formatNumber(o.quantity)}`;
         front.appendChild(qtyBadge);
       }
   

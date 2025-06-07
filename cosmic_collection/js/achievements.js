@@ -326,7 +326,7 @@ const achievements = {
         id: 'merchantTrader5',
         name: 'Merchant Trader V',
         type: 'merchantTrader',
-        condition: 'Purchase 100000 offers from Merchants',
+        condition: 'Purchase 100K offers from Merchants',
         icon: '🛒',
         rewardType: 'Merchant Price Divider',
         reward: 1.05,
@@ -571,6 +571,7 @@ const achievements = {
         icon: '🚨',
         rewardType: 'Min Cards Multiplier',
         reward: 1.03,
+        reqRealm: '3'
     },
     secret2: {
         id: 'secret2',
@@ -580,6 +581,7 @@ const achievements = {
         icon: '🥚',
         rewardType: 'Min Cards Multiplier',
         reward: 1.03,
+        reqRealm: '1'
     },
     secret3: {
         id: 'secret3',
@@ -589,6 +591,7 @@ const achievements = {
         icon: '🐦',
         rewardType: 'Min Cards Multiplier',
         reward: 1.03,
+        reqRealm: '4'
     },
     secret4: {
         id: 'secret4',
@@ -598,6 +601,7 @@ const achievements = {
         icon: `🧲`,
         rewardType: 'Min Cards Multiplier',
         reward: 1.03,
+        reqRealm: '3'
     },
     secret7: {
         id: 'secret7',
@@ -607,6 +611,7 @@ const achievements = {
         icon: '🧠',
         rewardType: 'Min Cards Multiplier',
         reward: 1.03,
+        reqRealm: '1'
     },
     secret5: {
         id: 'secret5',
@@ -616,6 +621,7 @@ const achievements = {
         icon: '🐏',
         rewardType: 'Min Cards Multiplier',
         reward: 1.03,
+        reqRealm: '9'
     },
     secret6: {
         id: 'secret6',
@@ -625,6 +631,7 @@ const achievements = {
         icon: '🥄',
         rewardType: 'Min Cards Multiplier',
         reward: 1.03,
+        reqRealm: '10'
     },
     secret8: {
         id: 'secret8',
@@ -634,6 +641,7 @@ const achievements = {
         icon: '💀',
         rewardType: 'Min Cards Multiplier',
         reward: 1.03,
+        reqRealm: '11'
     },
     secret9: {
         id: 'secret9',
@@ -643,6 +651,7 @@ const achievements = {
         icon: '🔄',
         rewardType: 'Min Cards Multiplier',
         reward: 1.03,
+        reqRealm: '11'
     },
     greekGodBattleTricks: {
         id: 'greekGodBattleTricks',
@@ -1057,6 +1066,7 @@ function renderAchievements() {
                                     <div class="achievement-icon${achievement.id === 'secret2' ? ' easter-egg' : ''}">${achievement.icon}</div>
                                     <div class="achievement-title">${achievement.name}</div>
                                     <div class="achievement-description">${achievement.condition}</div>
+                                    ${(achievement.reqRealm && !isUnlocked) ? `<div class="achievement-description">(Req: Realm ${achievement.reqRealm})</div>` : ''}
                                     <div class="achievement-reward">
                                         <span class="reward-type">${achievement.rewardType}:</span>
                                         <span class="reward-value">${data.hasOwnProperty('multiplier') ? `×${achievement.reward.toFixed(2)}`: `+${formatNumber(achievement.reward)}`}</span>

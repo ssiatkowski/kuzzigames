@@ -41,6 +41,7 @@ function initializeSettingsTab() {
                         </ul>
                     </li>
                     <li><strong>Odds Reduction Effects:</strong> These may seem small at first, but they scale linearly with card level and exponentially with card tier. They also stack multiplicatively with other cards having the same effect!</li>
+                    <li><strong>Merchant Refresh:</strong> Purchasing all merchant cards reduces time until the merchant leaves.</li>
                 </ul>
             </div>
             <div class="tips-section">

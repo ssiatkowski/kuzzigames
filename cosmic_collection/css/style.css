@@ -1432,14 +1432,14 @@ nav#tabs { margin-bottom: 15px; }
 
 /* Merchant message styling */
 .merchant-greeting {
-  font-size: 1.2em;
-  font-weight: bold;
+  font-size: 1em;
+  font-weight: italic;
   color: var(--font-color);
   margin-bottom: 0.5em;
 }
 
 .merchant-pitch {
-  font-size: 1em;
+  font-size: 0.7em;
   color: var(--font-color);
   line-height: 1.4;
 }

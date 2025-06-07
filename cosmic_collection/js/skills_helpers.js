@@ -1485,6 +1485,13 @@ window.skills = [
       purchased: false
     },
     {
+      id: 19003,
+      name: "More Bulk Offers Please 3",
+      description: "Increase chance that merchants sell multiple copies of cards from 75% to 100%.",
+      cost: { realmId: 11, currencyId: "coin", amount: 1e18},
+      purchased: false
+    },
+    {
       id: 19101,
       name: "Negotiation Tactics",
       description: "Unlock ability to offer merchant to buy all their cards for 5% discount.",
@@ -1985,7 +1992,7 @@ window.skills = [
       id: 25002,
       name: "Card Leveler 2",
       description: "Changes Level All button to work right to left.",
-      cost: { realmId: 10, currencyId: "royal_jelly", amount: 8e11 },
+      cost: { realmId: 10, currencyId: "royal_jelly", amount: 2e13 },
       purchased: false
     },
     {
@@ -2690,9 +2697,8 @@ function applySkill(id, skipCost = false) {
         if (loadFinished) updatePokeFilterStats();
         break;
       case 19001: // More Bulk Offers Please
-        state.merchantBulkChance += 0.25;
-        break;
       case 19002: // More Bulk Offers Please 2
+      case 19003: // More Bulk Offers Please 3
         state.merchantBulkChance += 0.25;
         break;
       case 19101: // Negotiation Tactics

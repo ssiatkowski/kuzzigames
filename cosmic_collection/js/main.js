@@ -792,7 +792,6 @@ function performPoke() {
 
           if (revealedCount === currentPackCount - skippedCards) {
             state.flipsDone = true;
-            console.log(currentPackCount - skippedCards);
             if ((currentPackCount - skippedCards) >= 250) {
               unlockAchievement('secret9');
             }
@@ -870,6 +869,9 @@ document.addEventListener('touchmove', (e) => {
 
       if (revealedCount === currentPackCount - skippedCards) {
         state.flipsDone = true;
+        if ((currentPackCount - skippedCards) >= 250) {
+          unlockAchievement('secret9');
+        }
         tryEnableHole();
       }
     }
@@ -1105,7 +1107,11 @@ function openModal(cardId) {
   bar.style.width = pct + '%';
   const thresholdLab = document.createElement('div');
   thresholdLab.className = 'threshold';
-  thresholdLab.textContent = `Next Tier at Qty ${formatNumber(nextThresh)}`;
+  if (c.tier === 20) {
+    thresholdLab.textContent = 'Max Tier';
+  } else {
+    thresholdLab.textContent = `Next Tier at Qty ${formatNumber(nextThresh)}`;
+  }
   barContainer.append(bar, thresholdLab);
   right.append(barContainer);
 

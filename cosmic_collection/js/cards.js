@@ -731,7 +731,7 @@ window.cards = [
         "type": "flatCurrencyPerPoke",
         "requirement": {
           "type": "level",
-          "amount": 8
+          "amount": 7
         },
         "currency": "rune",
         "value": 100.0
@@ -11433,7 +11433,7 @@ window.cards = [
         "type": "currencyPerSecMultiplier",
         "requirement": {
           "type": "level",
-          "amount": 22
+          "amount": 20
         },
         "currency": "coral",
         "value": 2.0
@@ -11546,10 +11546,10 @@ window.cards = [
         "type": "flatCurrencyPerSecond",
         "requirement": {
           "type": "level",
-          "amount": 22
+          "amount": 20
         },
         "currency": "egg",
-        "value": 1500.0
+        "value": 20000.0
       }
     ]
   },
@@ -11606,10 +11606,10 @@ window.cards = [
         "type": "flatCurrencyPerSecond",
         "requirement": {
           "type": "level",
-          "amount": 33
+          "amount": 30
         },
         "currency": "pollen",
-        "value": 330000.0
+        "value": 300000.0
       }
     ]
   },
@@ -11737,10 +11737,10 @@ window.cards = [
         "type": "flatCurrencyPerPoke",
         "requirement": {
           "type": "level",
-          "amount": 22
+          "amount": 20
         },
         "currency": "royal_jelly",
-        "value": 1000.0
+        "value": 500000.0
       }
     ]
   },
@@ -11806,9 +11806,9 @@ window.cards = [
         "type": "flatMaxCardsPerPoke",
         "requirement": {
           "type": "level",
-          "amount": 44
+          "amount": 40
         },
-        "value": 10000.0
+        "value": 40000.0
       }
     ]
   },
@@ -11872,7 +11872,7 @@ window.cards = [
         "type": "flatCooldownDivider",
         "requirement": {
           "type": "level",
-          "amount": 22
+          "amount": 20
         },
         "value": 2.0
       }
@@ -12097,7 +12097,7 @@ window.cards = [
         "type": "currencyPerSecMultiplier",
         "requirement": {
           "type": "level",
-          "amount": 33
+          "amount": 30
         },
         "currency": "stone",
         "value": 3.0
@@ -12251,7 +12251,7 @@ window.cards = [
         "type": "currencyPerPokeMultiplier",
         "requirement": {
           "type": "level",
-          "amount": 22
+          "amount": 20
         },
         "currency": "royal_jelly",
         "value": 3.0
@@ -12329,7 +12329,7 @@ window.cards = [
         "type": "currencyPerPokeMultiplier",
         "requirement": {
           "type": "level",
-          "amount": 33
+          "amount": 30
         },
         "currency": "pearl",
         "value": 3.0
@@ -12400,7 +12400,7 @@ window.cards = [
         "type": "currencyPerPokeMultiplier",
         "requirement": {
           "type": "level",
-          "amount": 22
+          "amount": 20
         },
         "currency": "feather",
         "value": 3.0
@@ -12480,7 +12480,7 @@ window.cards = [
         "type": "currencyPerPokeMultiplier",
         "requirement": {
           "type": "level",
-          "amount": 55
+          "amount": 50
         },
         "currency": "cosmic_ray",
         "value": 3.0
@@ -12566,7 +12566,7 @@ window.cards = [
         "type": "currencyPerPokeMultiplier",
         "requirement": {
           "type": "level",
-          "amount": 33
+          "amount": 30
         },
         "currency": "coin",
         "value": 100.0
