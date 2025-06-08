@@ -31,27 +31,27 @@ const BATTLE_TRICKS = {    // Philosopher's Stone → Mnemosyne
     "519": {
         targetEnemy: "Hephaestus",
         effect: (enemy) => {
-            enemy.stunTurns = 4;
+            enemy.stunTurns += 6;
         },
-        tidbit: "Hephaestus marvels at the craftsmanship of the legendary hammer.<br><br>[Stunned for 4 turns]",
+        tidbit: "Hephaestus marvels at the craftsmanship of the legendary hammer.<br><br>[Stunned for 6 turns]",
         achievement: "greekGodBattleTricks4",
     },
       // Mars → Ares
     "605": {
         targetEnemy: "Ares",
         effect: (enemy) => {
-            enemy.stunTurns = 3;
+            enemy.stunTurns += 5;
         },
-        tidbit: "Ares recognizes his Roman counterpart, momentarily confused by the duality and saddened by the wrong name being chosen to name a planet.<br><br>[Stunned for 3 turns]",
+        tidbit: "Ares recognizes his Roman counterpart, momentarily confused by the duality and saddened by the wrong name being chosen to name a planet.<br><br>[Stunned for 5 turns]",
         achievement: "greekGodBattleTricks5",
     },
       // Enchanted Mirror → Apollo
     "512": {
         targetEnemy: "Apollo",
         effect: (enemy) => {
-            enemy.stunTurns = 5;
+            enemy.stunTurns = 7;
         },
-        tidbit: "Apollo catches his own reflection and becomes entranced by his beauty.<br><br>[Stunned for 5 turns]",
+        tidbit: "Apollo catches his own reflection and becomes entranced by his beauty.<br><br>[Stunned for 7 turns]",
         achievement: "greekGodBattleTricks6",
     },
       // Cerberus → Hades

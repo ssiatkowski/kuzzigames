@@ -1467,7 +1467,7 @@ window.skills = [
       id: 18101,
       name: "Don't Show Me Locked Cards",
       description: "Locked cards no longer show up after poke.",
-      cost: { realmId: 6, currencyId: "zeal", amount: 1e11},
+      cost: { realmId: 6, currencyId: "zeal", amount: 2.5e10},
       purchased: false
     },
     {
@@ -1718,70 +1718,70 @@ window.skills = [
     { 
       id: 22001,
       name: "Rare Income",
-      description: "Increase global rune per second multiplier by 1.5x.",
+      description: "Increase global rune per second multiplier by 3x.",
       cost: { realmId: 10, currencyId: "stone", amount: 5e13 },
       purchased: false
     },
     {
       id: 22002,
       name: "Rare Income 2",
-      description: "Increase global pearl per second multiplier by 1.5x.",
+      description: "Increase global pearl per second multiplier by 3x.",
       cost: { realmId: 10, currencyId: "coral", amount: 5e13 },
       purchased: false
     },
     {
       id: 22003,
       name: "Rare Income 3",
-      description: "Increase global royal jelly per second multiplier by 1.5x.",
+      description: "Increase global royal jelly per second multiplier by 3x.",
       cost: { realmId: 10, currencyId: "pollen", amount: 5e13 },
       purchased: false
     },
     {
       id: 22004,
       name: "Rare Income 4",
-      description: "Increase global feather per second multiplier by 1.5x.",
+      description: "Increase global feather per second multiplier by 3x.",
       cost: { realmId: 10, currencyId: "egg", amount: 5e13 },
       purchased: false
     },
     {
       id: 22005,
       name: "Rare Income 5",
-      description: "Increase global cosmic ray per second multiplier by 1.5x.",
+      description: "Increase global cosmic ray per second multiplier by 3x.",
       cost: { realmId: 10, currencyId: "crystal", amount: 5e13 },
       purchased: false
     },
     {
       id: 22006,
       name: "Rare Income 6",
-      description: "Increase global rune per second multiplier by 1.5x.",
+      description: "Increase global rune per second multiplier by 3x.",
       cost: { realmId: 11, currencyId: "stone", amount: 1.5e19 },
       purchased: false
     },
     {
       id: 22007,
       name: "Rare Income 7",
-      description: "Increase global pearl per second multiplier by 1.5x.",
+      description: "Increase global pearl per second multiplier by 3x.",
       cost: { realmId: 11, currencyId: "tooth", amount: 1.5e19 },
       purchased: false
     },
     {
       id: 22008,
       name: "Rare Income 8",
-      description: "Increase global royal jelly per second multiplier by 1.5x.",
+      description: "Increase global royal jelly per second multiplier by 3x.",
       cost: { realmId: 11, currencyId: "coin", amount: 1.5e19 },
       purchased: false
     },
     {
       id: 22009,
       name: "Rare Income 9",
-      description: "Increase global feather per second multiplier by 1.5x.",
+      description: "Increase global feather per second multiplier by 3x.",
       cost: { realmId: 11, currencyId: "spirit", amount: 1.5e19 },
       purchased: false
     },
     {
       id: 22010,
       name: "Rare Income 10",
-      description: "Increase global cosmic ray per second multiplier by 1.5x.",
+      description: "Increase global cosmic ray per second multiplier by 3x.",
       cost: { realmId: 11, currencyId: "zeal", amount: 1.5e19 },
       purchased: false
     },
@@ -1901,56 +1901,56 @@ window.skills = [
       id: 24003,
       name: "Shorter Sacrifice 3",
       description: "Reduce sacrifice lockout time by 2 hours.",
-      cost: { realmId: 11, currencyId: "pollen", amount: 4e18 },
+      cost: { realmId: 11, currencyId: "pollen", amount: 4e17 },
       purchased: false
     },
     {
       id: 24004,
       name: "Shorter Sacrifice 4",
       description: "Reduce sacrifice lockout time by 2 hours.",
-      cost: { realmId: 11, currencyId: "egg", amount: 8e18 },
+      cost: { realmId: 11, currencyId: "egg", amount: 8e17 },
       purchased: false
     },
     {
       id: 24005,
       name: "Shorter Sacrifice 5",
       description: "Reduce sacrifice lockout time by 2 hours.",
-      cost: { realmId: 11, currencyId: "crystal", amount: 1.5e19 },
+      cost: { realmId: 11, currencyId: "crystal", amount: 1.5e18 },
       purchased: false
     },
     {
       id: 24006,
       name: "Shorter Sacrifice 6",
       description: "Reduce sacrifice lockout time by 1 hour.",
-      cost: { realmId: 11, currencyId: "rune", amount: 3e19 },
+      cost: { realmId: 11, currencyId: "rune", amount: 3e18 },
       purchased: false
     },
     {
       id: 24007,
       name: "Shorter Sacrifice 7",
       description: "Reduce sacrifice lockout time by 1 hour.",
-      cost: { realmId: 11, currencyId: "pearl", amount: 6e19 },
+      cost: { realmId: 11, currencyId: "pearl", amount: 6e18 },
       purchased: false
     },
     {
       id: 24008,
       name: "Shorter Sacrifice 8",
       description: "Reduce sacrifice lockout time by 1 hour.",
-      cost: { realmId: 11, currencyId: "royal_jelly", amount: 1e20 },
+      cost: { realmId: 11, currencyId: "royal_jelly", amount: 1e19 },
       purchased: false
     },
     {
       id: 24009,
       name: "Shorter Sacrifice 9",
       description: "Reduce sacrifice lockout time by 1 hour.",
-      cost: { realmId: 11, currencyId: "feather", amount: 2e20 },
+      cost: { realmId: 11, currencyId: "feather", amount: 2e19 },
       purchased: false
     },
     {
       id: 24010,
       name: "Shorter Sacrifice 10",
       description: "Reduce sacrifice lockout time by 1 hour.",
-      cost: { realmId: 11, currencyId: "cosmic_ray", amount: 4e20 },
+      cost: { realmId: 11, currencyId: "cosmic_ray", amount: 4e19 },
       purchased: false
     },
     {
@@ -2004,15 +2004,15 @@ window.skills = [
     },
     {
       id: 26002,
-      name: "Crit Chance",
+      name: "Crit Chance 2",
       description: "+5% Critical Hit Chance.",
       cost: { realmId: 11, currencyId: "zeal", amount: 8e9 },
       purchased: false
     },
     {
       id: 26003,
-      name: "Crit Damage",
-      description: "+5% Critical Hit Damage.",
+      name: "Crit Chance 3",
+      description: "+5% Critical Hit Chance.",
       cost: { realmId: 11, currencyId: "zeal", amount: 2e11 },
       purchased: false
     },
@@ -2025,30 +2025,100 @@ window.skills = [
     },
     {
       id: 26102,
-      name: "Crit Damage",
+      name: "Crit Damage 2",
       description: "+10% Critical Hit Damage.",
-      cost: { realmId: 11, currencyId: "zeal", amount: 9e8 },
+      cost: { realmId: 11, currencyId: "zeal", amount: 2e8 },
       purchased: false
     },
     {
       id: 26103,
-      name: "Crit Damage",
+      name: "Crit Damage 3",
       description: "+10% Critical Hit Damage.",
-      cost: { realmId: 11, currencyId: "zeal", amount: 5e9 },
+      cost: { realmId: 11, currencyId: "zeal", amount: 4e8 },
       purchased: false
     },
     {
       id: 26104,
-      name: "Crit Damage",
+      name: "Crit Damage 4",
       description: "+10% Critical Hit Damage.",
-      cost: { realmId: 11, currencyId: "zeal", amount: 4e10 },
+      cost: { realmId: 11, currencyId: "zeal", amount: 8e8 },
       purchased: false
     },
     {
       id: 26105,
-      name: "Crit Damage",
+      name: "Crit Damage 5",
       description: "+10% Critical Hit Damage.",
-      cost: { realmId: 11, currencyId: "zeal", amount: 5e11 },
+      cost: { realmId: 11, currencyId: "zeal", amount: 1.6e9 },
+      purchased: false
+    },
+    {
+      id: 26106,
+      name: "Crit Damage 6",
+      description: "+10% Critical Hit Damage.",
+      cost: { realmId: 11, currencyId: "zeal", amount: 3.2e9 },
+      purchased: false
+    },
+    {
+      id: 26107,
+      name: "Crit Damage 7",
+      description: "+10% Critical Hit Damage.",
+      cost: { realmId: 11, currencyId: "zeal", amount: 6.4e9 },
+      purchased: false
+    },
+    {
+      id: 26108,
+      name: "Crit Damage 5",
+      description: "+10% Critical Hit Damage.",
+      cost: { realmId: 11, currencyId: "zeal", amount: 1.25e10 },
+      purchased: false
+    },
+    {
+      id: 26109,
+      name: "Crit Damage 9",
+      description: "+10% Critical Hit Damage.",
+      cost: { realmId: 11, currencyId: "zeal", amount: 2.5e10 },
+      purchased: false
+    },
+    {
+      id: 26110,
+      name: "Crit Damage 10",
+      description: "+10% Critical Hit Damage.",
+      cost: { realmId: 11, currencyId: "zeal", amount: 5e10 },
+      purchased: false
+    },
+    {
+      id: 26111,
+      name: "Crit Damage 11",
+      description: "+10% Critical Hit Damage.",
+      cost: { realmId: 11, currencyId: "zeal", amount: 1e11 },
+      purchased: false
+    },
+    {
+      id: 26112,
+      name: "Crit Damage 12",
+      description: "+10% Critical Hit Damage.",
+      cost: { realmId: 11, currencyId: "zeal", amount: 2e11 },
+      purchased: false
+    },
+    {
+      id: 26113,
+      name: "Crit Damage 13",
+      description: "+10% Critical Hit Damage.",
+      cost: { realmId: 11, currencyId: "zeal", amount: 4e11 },
+      purchased: false
+    },
+    {
+      id: 26114,
+      name: "Crit Damage 14",
+      description: "+10% Critical Hit Damage.",
+      cost: { realmId: 11, currencyId: "zeal", amount: 8e11 },
+      purchased: false
+    },
+    {
+      id: 26115,
+      name: "Crit Damage 15",
+      description: "+10% Critical Hit Damage.",
+      cost: { realmId: 11, currencyId: "zeal", amount: 1.6e12 },
       purchased: false
     },
     {
@@ -2065,6 +2135,83 @@ window.skills = [
       cost: { realmId: 11, currencyId: "pearl", amount: 1e18 },
       purchased: false
     },
+    {
+      id: 26301,
+      name: "Spiritual Dodge",
+      description: "Unlock battle dodge mechanic and set dodge chance to 0.5%.",
+      cost: { realmId: 11, currencyId: "spirit", amount: 3e15 },
+      purchased: false
+    },
+    {
+      id: 26302,
+      name: "Spiritual Dodge 2",
+      description: "Increase dodge chance by +0.5%.",
+      cost: { realmId: 11, currencyId: "spirit", amount: 9e15 },
+      purchased: false
+    },
+    {
+      id: 26303,
+      name: "Spiritual Dodge 3",
+      description: "Increase dodge chance by +0.5%.",
+      cost: { realmId: 11, currencyId: "spirit", amount: 2.7e16 },
+      purchased: false
+    },
+    {
+      id: 26304,
+      name: "Spiritual Dodge 4",
+      description: "Increase dodge chance by +0.5%.",
+      cost: { realmId: 11, currencyId: "spirit", amount: 8.1e16 },
+      purchased: false
+    },
+    {
+      id: 26305,
+      name: "Spiritual Dodge 5",
+      description: "Increase dodge chance by +0.5%.",
+      cost: { realmId: 11, currencyId: "spirit", amount: 2.4e17 },
+      purchased: false
+    },
+    {
+      id: 26306,
+      name: "Spiritual Dodge 6",
+      description: "Increase dodge chance by +0.5%.",
+      cost: { realmId: 11, currencyId: "spirit", amount: 7.3e17 },
+      purchased: false
+    },
+    {
+      id: 26401,
+      name: "Cosmic Stun",
+      description: "Unlock battle stun mechanic and set stun chance to 0.2%.",
+      cost: { realmId: 11, currencyId: "cosmic_ray", amount: 1e15 },
+      purchased: false
+    },
+    {
+      id: 26402,
+      name: "Cosmic Stun 2",
+      description: "Increase stun chance by +0.2%.",
+      cost: { realmId: 11, currencyId: "cosmic_ray", amount: 5e15 },
+      purchased: false
+    },
+    {
+      id: 26403,
+      name: "Cosmic Stun 3",
+      description: "Increase stun chance by +0.2%.",
+      cost: { realmId: 11, currencyId: "cosmic_ray", amount: 2.5e16 },
+      purchased: false
+    },
+    {
+      id: 26404,
+      name: "Cosmic Stun 4",
+      description: "Increase stun chance by +0.2%.",
+      cost: { realmId: 11, currencyId: "cosmic_ray", amount: 1.25e17 },
+      purchased: false
+    },
+    {
+      id: 26405,
+      name: "Cosmic Stun 5",
+      description: "Increase stun chance by +0.2%.",
+      cost: { realmId: 11, currencyId: "cosmic_ray", amount: 6.25e17 },
+      purchased: false
+    }
   ];
 
   // --- PURCHASE LOGIC ---
@@ -2795,23 +2942,23 @@ function applySkill(id, skipCost = false) {
         break;
       case 22001: // Rare Income
       case 22006: // Rare Income 6
-        state.effects.currencyPerSecMultiplier['rune'] *= 1.5;
+        state.effects.currencyPerSecMultiplier['rune'] *= 3;
         break;
       case 22002: // Rare Income 2
       case 22007: // Rare Income 7
-        state.effects.currencyPerSecMultiplier['pearl'] *= 1.5;
+        state.effects.currencyPerSecMultiplier['pearl'] *= 3;
         break;
       case 22003: // Rare Income 3
       case 22008: // Rare Income 8
-        state.effects.currencyPerSecMultiplier['royal_jelly'] *= 1.5;
+        state.effects.currencyPerSecMultiplier['royal_jelly'] *= 3;
         break;
       case 22004: // Rare Income 4
       case 22009: // Rare Income 9
-        state.effects.currencyPerSecMultiplier['feather'] *= 1.5;
+        state.effects.currencyPerSecMultiplier['feather'] *= 3;
         break;
       case 22005: // Rare Income 5
       case 22010: // Rare Income 10
-        state.effects.currencyPerSecMultiplier['cosmic_ray'] *= 1.5;
+        state.effects.currencyPerSecMultiplier['cosmic_ray'] *= 3;
         break;
       case 23001: // Casual Gamer
       case 23002: // Casual Gamer 2
@@ -2859,6 +3006,16 @@ function applySkill(id, skipCost = false) {
       case 26103:
       case 26104:
       case 26105:
+      case 26106:
+      case 26107:
+      case 26108:
+      case 26109:
+      case 26110:      
+      case 26111:
+      case 26112:
+      case 26113:
+      case 26114:
+      case 26115:
         state.battle.critDamage += 0.1;
         break;
       case 26201:
@@ -2867,6 +3024,22 @@ function applySkill(id, skipCost = false) {
       case 26202:
         state.battle.slotLimit += 1;
         break;
+      case 26301: // Spiritual Dodge
+      case 26302:
+      case 26303:
+      case 26304:
+      case 26305:
+      case 26306:
+        state.battle.dodgeChance += 0.005;
+        break;
+      case 26401: // Stun Chance
+      case 26402:
+      case 26403:
+      case 26404:
+      case 26405:
+        state.battle.stunChance += 0.002;
+        break;
+
 
     }
 

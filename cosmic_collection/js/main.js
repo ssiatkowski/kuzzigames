@@ -103,6 +103,8 @@ window.state = {
     currentEnemy: null,
     critChance: 0,
     critDamage: 1.5,
+    dodgeChance: 0,
+    stunChance: 0,
     slotLimit: 3,
     lockoutTimers: {}, // Keep this for temporary lockouts
     initialized: false,

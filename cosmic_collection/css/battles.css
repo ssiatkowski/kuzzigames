@@ -391,6 +391,17 @@
   font-size: 2em;
 }
 
+.damage-number.dodge {
+  color: #a45ec7;
+  font-size: 1.8em;
+}
+
+
+.damage-number.stun {
+  color: #060e0a;
+  font-size: 1.8em;
+}
+
 /* Card remove animation */
 @keyframes cardRemove {
   0% {

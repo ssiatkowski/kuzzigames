@@ -90,6 +90,14 @@ function updateStatsUI() {
                     <td>Critical Hit Damage</td>
                     <td>×${formatNumber(state.battle.critDamage)}</td>
                 </tr>
+                <tr>
+                    <td>Dodge Change</td>
+                    <td>${(state.battle.dodgeChance * 100).toFixed(0)}%</td>
+                </tr>
+                <tr>
+                    <td>Stun Chance (per card)</td>
+                    <td>${(state.battle.stunChance * 100).toFixed(0)}%</td>
+                </tr>
             </tbody>
         `;
         

@@ -64,7 +64,7 @@ function getNextEnemy() {
 }
 
 // Show damage number animation
-function showDamageNumber(damage, target = 'enemy', isCrit = false) {
+function showDamageNumber(damage, target = 'enemy', specialType = null) {
   const targetEl = target === 'enemy' ? 
     document.querySelector('.enemy-card .battle-card-face') : // Changed from card-outer
     document.querySelector('.battle-slot[data-slot="0"] .battle-card-face');
@@ -72,21 +72,22 @@ function showDamageNumber(damage, target = 'enemy', isCrit = false) {
   
   const damageEl = document.createElement('div');
   damageEl.className = 'damage-number';
-  if (isCrit) {
-    damageEl.className += ' crit';
+  if (specialType) {
+    damageEl.className += ' ' + specialType;
   }
   damageEl.textContent = formatNumber(damage);
+
+  if (specialType === 'dodge'){
+    damageEl.textContent = 'Dodge';
+  } else if (specialType === 'stun'){
+    damageEl.textContent = 'Stun';
+  }
   
   const bounds = targetEl.getBoundingClientRect();
   let offsetX, offsetY;
   
-  if (target === 'enemy') {
-    offsetX = bounds.width * (0.3 + Math.random() * 0.4); // 30-70% from left
-    offsetY = bounds.height * (0.2 + Math.random() * 0.3); // 20-50% from top
-  } else {
-    offsetX = bounds.width * 0.5; // Center horizontally
-    offsetY = bounds.height * 0.3; // 30% from top
-  }
+  offsetX = bounds.width * (0.15 + Math.random() * 0.35); // from left
+  offsetY = bounds.height * (0.3 + Math.random() * 0.35); // from top
   
   damageEl.style.left = `${offsetX}px`;
   damageEl.style.top = `${offsetY}px`;
@@ -892,7 +893,12 @@ function startBattleLoop() {
         state.battle.currentEnemy.currentHp -= damage;
 
         // Show damage number
-        showDamageNumber(damage, 'enemy', isCrit);
+        showDamageNumber(damage, 'enemy', isCrit ? 'crit' : null);
+
+        if (Math.random() < state.battle.stunChance) {
+          state.battle.currentEnemy.stunTurns += 1;
+          showDamageNumber(0, 'enemy', 'stun');
+        }
       });
 
       // Check for enemy defeat after all attacks
@@ -906,15 +912,19 @@ function startBattleLoop() {
         if (state.battle.currentEnemy.stunTurns > 0) {
           state.battle.currentEnemy.stunTurns--;
         } else {
-          const damage = state.battle.currentEnemy.attack;
-          state.battle.slots[0].currentHp -= damage;
+          if (Math.random() < state.battle.dodgeChance) {
+            showDamageNumber(0, 'slot0', 'dodge');
+          } else {
+            const damage = state.battle.currentEnemy.attack;
+            state.battle.slots[0].currentHp -= damage;
 
-          // Show damage number on slot 0
-          showDamageNumber(damage, 'slot0');
+            // Show damage number on slot 0
+            showDamageNumber(damage, 'slot0');
 
-          // Check if top card is defeated
-          if (state.battle.slots[0].currentHp <= 0) {
-            removeTopCard();
+            // Check if top card is defeated
+            if (state.battle.slots[0].currentHp <= 0) {
+              removeTopCard();
+            }
           }
         }
       }
