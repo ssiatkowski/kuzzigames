@@ -136,6 +136,49 @@ body {
   box-shadow: 0 8px 16px var(--card-shadow);
 }
 
+/* Progress Bar Styles */
+/* Label before the bar */
+.progress-label {
+  font-size: var(--fz-sm);
+  font-weight: 600;
+  color: #bbb;
+  margin-right: var(--sp-sm);
+  white-space: nowrap;
+}
+
+/* adjust wrapper to accommodate label */
+.progress-wrapper {
+  margin-top: var(--sp-md);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-sm);
+}
+
+.progress-bar {
+  flex: 1;
+  background: #3a3a3a;
+  border-radius: 4px;
+  overflow: hidden;
+  height: 8px;
+  position: relative;
+}
+
+.progress-fill {
+  background: var(--accent-color);
+  height: 100%;
+  width: 0;            /* we'll animate this */
+  transition: width 1s ease-out;
+}
+
+.progress-text {
+  font-size: var(--fz-sm);
+  font-weight: 600;
+  color: var(--accent-color);
+  min-width: 2.5ch;
+  text-align: right;
+}
+
+
 /*─────────────────────────────────────────────────────────────────────
   Footer
 ─────────────────────────────────────────────────────────────────────*/
