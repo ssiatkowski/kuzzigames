@@ -889,17 +889,34 @@ function startBattleLoop() {
 
         for (let i = 0; i < numAttacks; i++) {
           let isCrit = false;
+          
+          let specialDamageType = null;
 
           if (Math.random() < state.battle.critChance) {
             isCrit = true;
-            damage = card.attack * state.battle.critDamage;
+            damage = Math.ceil(card.attack * state.battle.critDamage);
+            if (state.battle.weakPointRealms.has(card.realm) && Math.random() < state.battle.weakPointChance) {
+              const weakPointDamage = Math.floor(state.battle.currentEnemy.currentHp * 0.01);
+              state.battle.currentEnemy.currentHp -= weakPointDamage;
+              showDamageNumber(weakPointDamage, 'enemy', 'weakPoint');
+            }
+            if (state.battle.dismemberRealms.has(card.realm) && Math.random() < state.battle.dismemberChance) {
+              state.battle.currentEnemy.attack = Math.floor(state.battle.currentEnemy.attack * 0.99);
+              updateBattleUI();
+            }
           } else {
             damage = card.attack;
           }
+
+          if (index != 0 && state.battle.empowermentRealms.has(state.battle.slots[index-1].realm) && state.battle.empowerment > 0) {
+            damage = Math.ceil(damage * (1 + state.battle.empowerment));
+            specialDamageType = 'empowerment';
+          }
+
           state.battle.currentEnemy.currentHp -= damage;
 
           // Show damage number
-          showDamageNumber(damage, 'enemy', isCrit ? 'crit' : null);
+          showDamageNumber(damage, 'enemy', isCrit ? 'crit' : specialDamageType);
 
           if (state.battle.stunRealms.has(card.realm) && Math.random() < state.battle.stunChance) {
             state.battle.currentEnemy.stunTurns += 1;

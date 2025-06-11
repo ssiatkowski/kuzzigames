@@ -91,20 +91,48 @@ function updateStatsUI() {
                     <td>×${formatNumber(state.battle.critDamage)}</td>
                 </tr>
                 <tr>
-                    <td>Damage Absorption (Rocks)</td>
+                    <td>Damage Absorption</td>
                     <td>${(state.battle.damageAbsorption * 100).toFixed(0)}%</td>
                 </tr>
                 <tr>
-                    <td>Bubble Protection (Sea World)</td>
+                    <td>Protection Chance</td>
                     <td>${(state.battle.protectionChance * 100).toFixed(0)}%</td>
                 </tr>
                 <tr>
-                    <td>Dodge Chance (Spirit Familiars)</td>
+                    <td>Evolution Chance</td>
+                    <td>${(state.battle.evolutionChance * 100).toFixed(0)}%</td>
+                </tr>
+                <tr>
+                    <td>Evolution Damage Growth</td>
+                    <td>${(state.battle.evolutionChance / 2 * 100).toFixed(0)}%</td>
+                </tr>
+                <tr>
+                    <td>Extra Attack Chance</td>
+                    <td>${(state.battle.extraAttackChance * 100).toFixed(0)}%</td>
+                </tr>
+                <tr>
+                    <td>Empowerment</td>
+                    <td>×${(state.battle.empowerment * 100).toFixed(0)}%</td>
+                </tr>
+                <tr>
+                    <td>Stun Chance</td>
+                    <td>${(state.battle.stunChance * 100).toFixed(0)}%</td>
+                </tr>
+                <tr>
+                    <td>Weak Point Chance</td>
+                    <td>${(state.battle.weakPointChance * 100).toFixed(0)}%</td>
+                </tr>
+                <tr>
+                    <td>Dodge Chance</td>
                     <td>${(state.battle.dodgeChance * 100).toFixed(0)}%</td>
                 </tr>
                 <tr>
-                    <td>Stun Chance (Celestial Bodies)</td>
-                    <td>${(state.battle.stunChance * 100).toFixed(0)}%</td>
+                    <td>Resourceful Attack</td>
+                    <td>${formatNumber(state.battle.resourcefulAttack)} Pokes</td>
+                </tr>
+                <tr>
+                    <td>Dismember Chance</td>
+                    <td>${(state.battle.dismemberChance * 100).toFixed(0)}%</td>
                 </tr>
             </tbody>
         `;
