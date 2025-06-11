@@ -99,10 +99,6 @@ function updateStatsUI() {
                     <td>${(state.battle.protectionChance * 100).toFixed(0)}%</td>
                 </tr>
                 <tr>
-                    <td>Dodge Chance (Rocks)</td>
-                    <td>${(state.battle.dodgeChance * 100).toFixed(0)}%</td>
-                </tr>
-                <tr>
                     <td>Dodge Chance (Spirit Familiars)</td>
                     <td>${(state.battle.dodgeChance * 100).toFixed(0)}%</td>
                 </tr>
