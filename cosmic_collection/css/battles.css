@@ -396,6 +396,16 @@
   font-size: 1.8em;
 }
 
+.damage-number.absorb {
+  color: #370d0d;
+  font-size: 1.8em;
+}
+
+.damage-number.protect {
+  color: #21217b;
+  font-size: 1.8em;
+}
+
 
 .damage-number.stun {
   color: #060e0a;

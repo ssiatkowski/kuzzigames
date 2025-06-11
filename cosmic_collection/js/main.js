@@ -103,8 +103,20 @@ window.state = {
     currentEnemy: null,
     critChance: 0,
     critDamage: 1.5,
-    dodgeChance: 0,
+    damageAbsorption: 0,
+    damageAbsorptionRealms: new Set([1]),
+    protectionChance: 0,
+    protectionRealms: new Set([2]),
+    evolutionChance: 0,
+    evolutionRealms: new Set([3]),
+    extraAttackChance: 0,
+    extraAttackRealms: new Set([4]),
     stunChance: 0,
+    stunRealms: new Set([6]),
+    resourcefulAttack: 0,
+    resourcefulAttackRealms: new Set([8]),
+    dodgeChance: 0,
+    dodgeRealms: new Set([9]),
     slotLimit: 3,
     lockoutTimers: {}, // Keep this for temporary lockouts
     initialized: false,
@@ -1233,7 +1245,7 @@ function openModal(cardId) {
       <div class="stat-column">
         <div class="base-stat">Power: <span>${formatNumber(c.power)}</span></div>
         <div class="combat-stat">
-          <i class="fas fa-gavel"></i> Attack: <span>${formatNumber(attack)}</span>
+          <i class="fas fa-fist-raised"></i> Attack: <span>${formatNumber(attack)}</span>
           <div class="combat-calc">(${formatNumber(c.power)} × ${c.tier} × √${c.level})</div>
         </div>
       </div>
@@ -1244,6 +1256,44 @@ function openModal(cardId) {
           <div class="combat-calc">(${formatNumber(c.defense)} × √${formatNumber(c.quantity)})</div>
         </div>
       </div>
+      ${(state.battle.damageAbsorption > 0 && state.battle.damageAbsorptionRealms.has(c.realm)) ||
+        (state.battle.protectionChance > 0 && state.battle.protectionRealms.has(c.realm)) ||
+        (state.battle.evolutionChance > 0 && state.battle.evolutionRealms.has(c.realm)) ||
+        (state.battle.extraAttackChance > 0 && state.battle.extraAttackRealms.has(c.realm)) ||
+        (state.battle.stunChance > 0 && state.battle.stunRealms.has(c.realm)) || 
+        (state.battle.dodgeChance > 0 &&state.battle.dodgeRealms.has(c.realm)) ||
+        (state.battle.resourcefulAttack > 0 && state.battle.resourcefulAttackRealms.has(c.realm)) ? `
+      <div class="stat-column">
+        <div class="base-stat">Special Stats:</span></div>
+        ${state.battle.damageAbsorption > 0 && state.battle.damageAbsorptionRealms.has(c.realm) ? `
+        <div class="combat-stat">
+          <i class="fas fa-shield-alt"></i> Absorb: <span>${formatNumber(state.battle.damageAbsorption) * 100}%</span>
+        </div>` : ''}
+        ${state.battle.protectionChance > 0 && state.battle.protectionRealms.has(c.realm) ? `
+        <div class="combat-stat">
+          <i class="fas fa-shield-virus"></i> Protect: <span>${formatNumber(state.battle.protectionChance) * 100}%</span>
+        </div>` : ''}
+        ${state.battle.extraAttackChance > 0 && state.battle.extraAttackRealms.has(c.realm) ? `
+        <div class="combat-stat">
+          <i class="fas fa-bolt"></i> Extra Attack: <span>${formatNumber(state.battle.extraAttackChance) * 100}%</span>
+        </div>` : ''}
+        ${state.battle.evolutionChance > 0 && state.battle.evolutionRealms.has(c.realm) ? `
+        <div class="combat-stat">
+          <i class="fas fa-dna"></i> Evolve: <span>${formatNumber(state.battle.evolutionChance) * 100}%</span>
+        </div>` : ''}
+        ${state.battle.stunChance > 0 && state.battle.stunRealms.has(c.realm) ? `
+        <div class="combat-stat">
+          <i class="fas fa-hammer"></i> Stun: <span>${formatNumber(state.battle.stunChance) * 100}%</span>
+        </div>` : ''}
+        ${state.battle.dodgeChance > 0 && state.battle.dodgeRealms.has(c.realm) ? `
+        <div class="combat-stat">
+          <i class="fas fa-cat"></i> Dodge: <span>${formatNumber(state.battle.dodgeChance) * 100}%</span>
+        </div>` : ''}
+        ${state.battle.resourcefulAttack > 0 && state.battle.resourcefulAttackRealms.has(c.realm) ? `
+        <div class="combat-stat">
+          <i class="fas fa-coins"></i><span>${formatNumber(state.battle.resourcefulAttack)} Pokes / Attack</span>
+        </div>` : ''}
+      </div>` : ''}
     `;
     right.appendChild(statsContainer);
   }

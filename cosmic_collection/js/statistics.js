@@ -91,11 +91,15 @@ function updateStatsUI() {
                     <td>×${formatNumber(state.battle.critDamage)}</td>
                 </tr>
                 <tr>
-                    <td>Dodge Change</td>
+                    <td>Damage Reduction (Rocks)</td>
+                    <td>${(state.battle.damageReduction * 100).toFixed(0)}%</td>
+                </tr>
+                <tr>
+                    <td>Dodge Chance (Spirit Familiars)</td>
                     <td>${(state.battle.dodgeChance * 100).toFixed(0)}%</td>
                 </tr>
                 <tr>
-                    <td>Stun Chance (per card)</td>
+                    <td>Stun Chance (Celestial Bodies)</td>
                     <td>${(state.battle.stunChance * 100).toFixed(0)}%</td>
                 </tr>
             </tbody>
