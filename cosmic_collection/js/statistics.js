@@ -91,8 +91,16 @@ function updateStatsUI() {
                     <td>×${formatNumber(state.battle.critDamage)}</td>
                 </tr>
                 <tr>
-                    <td>Damage Reduction (Rocks)</td>
-                    <td>${(state.battle.damageReduction * 100).toFixed(0)}%</td>
+                    <td>Damage Absorption (Rocks)</td>
+                    <td>${(state.battle.damageAbsorption * 100).toFixed(0)}%</td>
+                </tr>
+                <tr>
+                    <td>Bubble Protection (Sea World)</td>
+                    <td>${(state.battle.protectionChance * 100).toFixed(0)}%</td>
+                </tr>
+                <tr>
+                    <td>Dodge Chance (Rocks)</td>
+                    <td>${(state.battle.dodgeChance * 100).toFixed(0)}%</td>
                 </tr>
                 <tr>
                     <td>Dodge Chance (Spirit Familiars)</td>
