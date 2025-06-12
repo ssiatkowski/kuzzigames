@@ -2005,15 +2005,36 @@ window.skills = [
     {
       id: 26002,
       name: "Crit Chance 2",
-      description: "+5% Critical Hit Chance.",
-      cost: { realmId: 11, currencyId: "zeal", amount: 8e9 },
+      description: "+2% Critical Hit Chance.",
+      cost: { realmId: 11, currencyId: "zeal", amount: 2.3e10 },
       purchased: false
     },
     {
       id: 26003,
       name: "Crit Chance 3",
-      description: "+5% Critical Hit Chance.",
-      cost: { realmId: 11, currencyId: "zeal", amount: 2e11 },
+      description: "+2% Critical Hit Chance.",
+      cost: { realmId: 11, currencyId: "zeal", amount: 1.7e13 },
+      purchased: false
+    },
+    {
+      id: 26004,
+      name: "Crit Chance 4",
+      description: "+2% Critical Hit Chance.",
+      cost: { realmId: 11, currencyId: "zeal", amount: 1.3e16 },
+      purchased: false
+    },
+    {
+      id: 26005,
+      name: "Crit Chance 5",
+      description: "+2% Critical Hit Chance.",
+      cost: { realmId: 11, currencyId: "zeal", amount: 9.5e18 },
+      purchased: false
+    },
+    {
+      id: 26006,
+      name: "Crit Chance 6",
+      description: "+2% Critical Hit Chance.",
+      cost: { realmId: 11, currencyId: "zeal", amount: 7.1e21 },
       purchased: false
     },
     {
@@ -3685,9 +3706,14 @@ function applySkill(id, skipCost = false) {
       case 25002: // Card Leveler 2
         break;
       case 26001: // Crit Chance
-      case 26002:
-      case 26003:
         state.battle.critChance += 0.05;
+        break;
+      case 26002: // Crit Chance 2
+      case 26003:
+      case 26004:
+      case 26005:
+      case 26006:
+        state.battle.critChance += 0.02;
         break;
       case 26101: // Crit Damage
       case 26102:

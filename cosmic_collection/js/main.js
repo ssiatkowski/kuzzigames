@@ -1811,8 +1811,28 @@ function renderCardsCollection() {
       updateCurrencyBar();
       renderCardsCollection();
     });
+    
+    const clearNewandTierBtn = document.createElement('button');
+    clearNewandTierBtn.className = 'level-all-btn';
+    clearNewandTierBtn.textContent = 'Clear Badges';
+    clearNewandTierBtn.addEventListener('click', () => {
 
-    list.appendChild(levelAllBtn);
+      // Level up each card to its max affordable level
+      filteredCards.forEach(card => {
+        card.isNew = false;
+        card.hasTierUp = false;
+      });
+      
+      checkForNewCards();
+      initCardsFilters();
+      renderCardsCollection();
+    });
+
+    const btnGroup = document.createElement('div');
+    btnGroup.className = 'btn-group';
+    btnGroup.appendChild(levelAllBtn);
+    btnGroup.appendChild(clearNewandTierBtn);
+    list.appendChild(btnGroup);
   }
 
   // Render the filtered cards
