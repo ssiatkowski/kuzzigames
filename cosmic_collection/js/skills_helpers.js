@@ -1607,21 +1607,21 @@ window.skills = [
       id: 20006,
       name: "Resourceful Pokes 6",
       description: "2x tooth gained from pokes.",
-      cost: { realmId: 12, currencyId: "rune", amount: 2e16},
+      cost: { realmId: 11, currencyId: "rune", amount: 2e16},
       purchased: false
     },
     {
       id: 20007,
       name: "Resourceful Pokes 7",
       description: "2x coin gained from pokes.",
-      cost: { realmId: 13, currencyId: "pearl", amount: 2e16},
+      cost: { realmId: 11, currencyId: "pearl", amount: 2e16},
       purchased: false
     },
     {
       id: 20008,
       name: "Resourceful Pokes 8",
       description: "2x spirit gained from pokes.",
-      cost: { realmId: 14, currencyId: "royal_jelly", amount: 2e16},
+      cost: { realmId: 11, currencyId: "royal_jelly", amount: 2e16},
       purchased: false
     },
     {

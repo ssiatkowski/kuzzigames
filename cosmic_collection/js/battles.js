@@ -271,13 +271,18 @@ function updateBattleUI() {
                               style="width:${(c.currentHp/c.maxHp)*100}%"></div>
                           <div class="hp-text">${formatNumber(c.currentHp)}</div>
                         </div>
-                        <div class="battle-combat-stats">
-                          <div class="battle-combat-stat">
-                            <i class="fas fa-gavel"></i> ${formatNumber(c.attack)}
+                           <div class="battle-combat-stats">
+                          <div class="stats-row">
+                            <div class="battle-combat-stat">
+                              <i class="fas fa-gavel"></i> ${formatNumber(floorTo3SigDigits(c.attack))}
+                            </div>
+                            <div class="battle-combat-stat">
+                              <i class="fas fa-heart"></i> ${formatNumber(floorTo3SigDigits(c.maxHp))}
+                            </div>
                           </div>
-                          <div class="battle-combat-stat">
-                            ${formatNumber(c.maxHp)} <i class="fas fa-heart"></i>
-                          </div>
+                          ${renderBattleCardSpecialEffects(c)
+                            ? `<div class="effects-row">${renderBattleCardSpecialEffects(c)}</div>`
+                            : ``}
                         </div>
                       </div>
                     </div>
@@ -338,11 +343,13 @@ function updateBattleUI() {
               <div class="hp-text">${formatNumber(currentEnemy.currentHp)}</div>
             </div>
             <div class="battle-combat-stats">
-              <div class="battle-combat-stat">
-                <i class="fas fa-gavel"></i> ${formatNumber(currentEnemy.attack)}
-              </div>
-              <div class="battle-combat-stat">
-                ${formatNumber(currentEnemy.maxHp)} <i class="fas fa-heart"></i>
+              <div class="stats-row">
+                <div class="battle-combat-stat">
+                  <i class="fas fa-gavel"></i> ${formatNumber(floorTo3SigDigits(currentEnemy.attack))}
+                </div>
+                <div class="battle-combat-stat">
+                  <i class="fas fa-heart"></i> ${formatNumber(floorTo3SigDigits(currentEnemy.maxHp))}
+                </div>
               </div>
             </div>
           </div>
@@ -463,6 +470,24 @@ function updateBattleUI() {
   if (cardGrid) {
     updateBattleCardGrid(cardGrid);
   }
+
+  // document.querySelectorAll('.battle-combat-stats').forEach(statsEl => {
+  //   const statsRow = statsEl.querySelector('.stats-row');
+  //   if (!statsRow) return;
+
+  //   // total width of both stat pills
+  //   const contentWidth = Array.from(statsRow.children)
+  //     .reduce((sum, child) => sum + child.scrollWidth, 0);
+
+  //   // available width (subtract a bit of padding if you like)
+  //   const available = statsEl.clientWidth - 8;
+
+  //   const scale = Math.min(1, available / contentWidth);
+
+  //   // apply a single transform to shrink the entire row
+  //   statsRow.style.transform = `scale(${scale})`;
+  //   statsRow.style.transformOrigin = 'left center';
+  // });
 }
 
 // Separate function to update card grid
@@ -513,12 +538,17 @@ function updateBattleCardGrid(cardGrid) {
           ` : ''}
           <div class="battle-card-name">${card.name}</div>
           <div class="battle-combat-stats">
-            <div class="battle-combat-stat">
-              <i class="fas fa-gavel"></i> ${formatNumber(attack)}
+            <div class="stats-row">
+              <div class="battle-combat-stat">
+                <i class="fas fa-gavel"></i> ${formatNumber(floorTo3SigDigits(attack))}
+              </div>
+              <div class="battle-combat-stat">
+                <i class="fas fa-heart"></i> ${formatNumber(floorTo3SigDigits(maxHp))}
+              </div>
             </div>
-            <div class="battle-combat-stat">
-              <i class="fas fa-heart"></i> ${formatNumber(maxHp)}
-            </div>
+            ${renderBattleCardSpecialEffects(card)
+              ? `<div class="effects-row">${renderBattleCardSpecialEffects(card)}</div>`
+              : ``}
           </div>
         </div>
       </div>
@@ -689,12 +719,17 @@ function showSacrificeDialog(cardId) {
           <div class="battle-card-name">${c.name}</div>
           <img class="modal-image" src="assets/images/cards/${c.realm}/${slugify(c.name)}.jpg" />
           <div class="battle-combat-stats">
-            <div class="battle-combat-stat">
-              <i class="fas fa-gavel"></i> ${formatNumber(attack)}
+            <div class="stats-row">
+              <div class="battle-combat-stat">
+                <i class="fas fa-gavel"></i> ${formatNumber(floorTo3SigDigits(attack))}
+              </div>
+              <div class="battle-combat-stat">
+                <i class="fas fa-heart"></i> ${formatNumber(floorTo3SigDigits(maxHp))}
+              </div>
             </div>
-            <div class="battle-combat-stat">
-              ${formatNumber(maxHp)} <i class="fas fa-heart"></i>
-            </div>
+            ${renderBattleCardSpecialEffects(c)
+              ? `<div class="effects-row">${renderBattleCardSpecialEffects(c)}</div>`
+              : ``}
           </div>
         </div>
         <button class="sacrifice-btn">Sacrifice Card</button>
@@ -812,22 +847,96 @@ function showSacrificeDialog(cardId) {
   document.body.appendChild(dialog);
 }
 
-// Helper function to render effects
-function renderEffects(effects, card) {
-  return effects.map(def => {
-    const scale = EFFECT_SCALES[def.type] ?? 2;
-    const tierMult = Math.pow(scale, card.tier - 1);
-    // ...rest of effect rendering logic from main.js...
-  }).join('');
+// Helper function to render special battle effects for a card
+function renderBattleCardSpecialEffects(card) {
+  if (!card || !card.realm) return '';
+
+  const battleState = state.battle;
+  const effects = [];
+
+  // helper to push one effect
+  const add = (iconClass, text, color) =>
+    effects.push(
+      `<span style="color:${color}; display:inline-flex; align-items:center; gap:4px;">
+         <i class="fas ${iconClass}"></i>
+         ${text}
+       </span>`
+    );
+
+  if (battleState.damageAbsorption > 0 && battleState.damageAbsorptionRealms.has(card.realm)) {
+    add(
+      'fa-shield-alt',
+      `${formatNumber(battleState.damageAbsorption * 100)}%`,
+      '#CCCCCC'               // light gray
+    );
+  }
+  if (battleState.protectionChance > 0 && battleState.protectionRealms.has(card.realm)) {
+    add(
+      'fa-shield-virus',
+      `${formatNumber(battleState.protectionChance * 100)}%`,
+      '#BDE8F6'               // light blue
+    );
+  }
+  if (battleState.extraAttackChance > 0 && battleState.extraAttackRealms.has(card.realm)) {
+    add(
+      'fa-bolt',
+      `${formatNumber(battleState.extraAttackChance * 100)}%`,
+      '#FFCC99'               // light orange
+    );
+  }
+  if (battleState.empowerment > 0 && battleState.empowermentRealms.has(card.realm)) {
+    add(
+      'fa-fire',
+      `${formatNumber(battleState.empowerment * 100)}%`,
+      '#DDA0DD'               // light purple
+    );
+  }
+  if (battleState.evolutionChance > 0 && battleState.evolutionRealms.has(card.realm)) {
+    add(
+      'fa-dna',
+      `${formatNumber(battleState.evolutionChance * 100)}%`,
+      '#FFFF99'               // light yellow
+    );
+  }
+  if (battleState.stunChance > 0 && battleState.stunRealms.has(card.realm)) {
+    add(
+      'fa-hammer',
+      `${formatNumber(battleState.stunChance * 100)}%`,
+      '#A0C4FF'               // light gray-blue
+    );
+  }
+  if (battleState.weakPointChance > 0 && battleState.weakPointRealms.has(card.realm)) {
+    add(
+      'fa-bullseye',
+      `${formatNumber(battleState.weakPointChance * 100)}%`,
+      '#FFAFAF'               // light red
+    );
+  }
+  if (battleState.resourcefulAttack > 0 && battleState.resourcefulAttackRealms.has(card.realm)) {
+    add(
+      'fa-coins',
+      `${formatNumber(battleState.resourcefulAttack)}`,
+      '#3ACDB1'               // lightened #1abc9c
+    );
+  }
+  if (battleState.dodgeChance > 0 && battleState.dodgeRealms.has(card.realm)) {
+    add(
+      'fa-cat',
+      `${formatNumber(battleState.dodgeChance * 100)}%`,
+      '#FFB6C1'               // light pink
+    );
+  }
+  if (battleState.dismemberChance > 0 && battleState.dismemberRealms.has(card.realm)) {
+    add(
+      'fa-skull-crossbones',
+      `${formatNumber(battleState.dismemberChance * 100)}%`,
+      '#6AA48F'               // lightened #0e4b37
+    );
+  }
+
+  return effects.length ? effects.join(' ') : '';
 }
 
-function renderSpecialEffects(effects, card) {
-  return effects.map(def => {
-    // ...special effect rendering logic from main.js...
-  }).join('');
-}
-
-// Add function to check and clear expired lockouts
 
 function clearExpiredLockouts() {
   const now = Date.now();
@@ -1120,6 +1229,60 @@ function showBattleHelp() {
         <li>These tricks activate when you sacrifice the correct card for the achievement—usually themed around Greek myth lore—and grant a bonus to that encounter.</li>
         <li>The achievement itself only needs to be unlocked once, but you can reuse the effect multiple times (even within the same fight once the card’s lockout timer has expired).</li>
         <li>If you missed unlocking any achievements, you can hit the <strong>Reset Battles</strong> button to try again.</li>
+      </ul>
+
+      <h3>Special Battle Stats</h3>
+      <ul style="list-style:none; padding:0; display:flex; flex-wrap:wrap; gap:8px;">
+        <li>
+          <span style="color:#CCCCCC; display:inline-flex; align-items:center; gap:4px;">
+            <i class="fas fa-shield-alt"></i> Damage Absorption - Reduces damage taken by that percentage
+          </span>
+        </li>
+        <li>
+          <span style="color:#BDE8F6; display:inline-flex; align-items:center; gap:4px;">
+            <i class="fas fa-shield-virus"></i> Protection - Chance to protect the card in front of this card, absorbing 50% damage
+          </span>
+        </li>
+        <li>
+          <span style="color:#FFCC99; display:inline-flex; align-items:center; gap:4px;">
+            <i class="fas fa-bolt"></i> Extra Attack Chance - Change to attack again (can proc multiple times)
+          </span>
+        </li>
+        <li>
+          <span style="color:#DDA0DD; display:inline-flex; align-items:center; gap:4px;">
+            <i class="fas fa-fire"></i> Empowerment - Increase damage of card behind this card by that percentage
+          </span>
+        </li>
+        <li>
+          <span style="color:#FFFF99; display:inline-flex; align-items:center; gap:4px;">
+            <i class="fas fa-dna"></i> Evolution Chance - On each attack, that percentage represents chance to gain attack equal to half that percentage (stackining multiplicatively)
+          </span>
+        </li>
+        <li>
+          <span style="color:#A0C4FF; display:inline-flex; align-items:center; gap:4px;">
+            <i class="fas fa-hammer"></i> Stun Chance - Chance to stun the enemy card - forcing it to miss its attack that turn. Multiple stuns (from multiple cards with this effect) will stack and persist to the next turn
+          </span>
+        </li>
+        <li>
+          <span style="color:#FFAFAF; display:inline-flex; align-items:center; gap:4px;">
+            <i class="fas fa-bullseye"></i> Weak Point Chance - Can only trigger on Critical Hit. This is % chance to do additional damage equal to 1% of enemy current health
+          </span>
+        </li>
+        <li>
+          <span style="color:#3ACDB1; display:inline-flex; align-items:center; gap:4px;">
+            <i class="fas fa-coins"></i> Resourceful Attack - Each attack gain all resources equal to this many pokes (stacks with other cards with this effect)
+          </span>
+        </li>
+        <li>
+          <span style="color:#FFB6C1; display:inline-flex; align-items:center; gap:4px;">
+            <i class="fas fa-cat"></i> Dodge Chance - Chance to dodge the enemy attack
+          </span>
+        </li>
+        <li>
+          <span style="color:#6AA48F; display:inline-flex; align-items:center; gap:4px;">
+            <i class="fas fa-skull-crossbones"></i> Dismember Chance - Can only trigger on Critical Hit. This is % chance to reduce enemy attack by 1% (stacks multiplicatively)
+          </span>
+        </li>
       </ul>
     </div>
   `;

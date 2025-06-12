@@ -1338,6 +1338,8 @@ function openModal(cardId) {
     const effContainer = document.createElement('div');
     effContainer.className = 'modal-effects';
 
+    let includesSoftcapped = false;
+
     effectsList.forEach(def => {
       const scale = EFFECT_SCALES[def.type] ?? 2;
       const tierMult = Math.pow(scale, c.tier - 1);
@@ -1395,6 +1397,11 @@ function openModal(cardId) {
           `<span style="color:${realmColor};font-weight:bold;">${realmObj.name}</span>`,
           `<span style="color:${rarityColor};font-weight:bold;">${def.rarity.toUpperCase()}</span> odds divider`
         ].join(' ');
+
+        if (realmObj.rarityWeights[def.rarity] !== realmObj.uncappedRarityWeights[def.rarity]) {
+          label = '* ' + label;
+          includesSoftcapped = true;
+        }
       }
       else {
         label = EFFECT_NAMES[def.type] || def.type;
@@ -1409,6 +1416,13 @@ function openModal(cardId) {
       effContainer.appendChild(li);
     });
     
+    if (includesSoftcapped) {
+      const li = document.createElement('p');
+      li.className = 'effect-line';
+      li.innerHTML = '<span class="eff-breakdown">* indicates odds divider Softcapped by higher rarity</span>';
+      effContainer.appendChild(li);
+    }
+
     right.appendChild(effContainer);
   }
 
