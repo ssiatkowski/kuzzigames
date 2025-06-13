@@ -653,18 +653,19 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
-.filter-option {
-  padding: 6px 12px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  border-radius: 2px;
+.filter-menu .filter-option {
+  display: flex;            /* or “block” if you don’t care about centering */
+  align-items: center;      /* only applies if you use flex */
+  width: 100%;              /* span the full menu width */
+  padding: 6px 12px;        /* same as before */
+  gap: 8px;                 /* space between the box and label text */
 }
 
-.filter-option:hover {
+.filter-menu .filter-option:hover {
   background: var(--tab-hover);
 }
 
-.filter-option.active {
+.filter-menu .filter-option.active {
   background: var(--accent);
   color: white !important;
 }

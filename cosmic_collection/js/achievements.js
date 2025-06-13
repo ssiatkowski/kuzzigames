@@ -720,7 +720,7 @@ const achievements = {
         id: 'greekGodBattleTricks8',
         name: 'Greek God Battle Tricks VIII',
         type: 'greekGodBattleTricks',
-        condition: 'Helios',
+        condition: 'Artemis',
         icon: '⚔️',
         rewardType: 'Battle Crit Chance',
         reward: 0.01,

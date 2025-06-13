@@ -1152,7 +1152,7 @@ window.skills = [
       id: 12001,
       name: "Hawking Radiation Harvester",
       description: "Unlocks a device that can passively harvest Hawking radiation from the black hole to reduce its cooldown. (10x slower offline)",
-      cost: { realmId: 2, currencyId: "coral", amount: 25000 },
+      cost: { realmId: 2, currencyId: "coral", amount: 20000 },
       purchased: false
     },
     {
@@ -1180,7 +1180,7 @@ window.skills = [
       id: 12101,
       name: "Gravitational Wave Absorber",
       description: "Unlocks a device that absorbs gravitational waves each time black hole is poked. Can be activated to multiply card count for next poke. (Max 5x)",
-      cost: { realmId: 3, currencyId: "pollen", amount: 500000 },
+      cost: { realmId: 3, currencyId: "pollen", amount: 400000 },
       purchased: false
     },
     {
@@ -1222,7 +1222,7 @@ window.skills = [
       id: 12201,
       name: "Space Bending Interceptor",
       description: "Unlocks a device that intercepts space bending (both passivly and when you flip over cards), which can be activated automate flipping over cards.",
-      cost: { realmId: 5, currencyId: "egg", amount: 1e7 },
+      cost: { realmId: 5, currencyId: "egg", amount: 8e6 },
       purchased: false
     },
     {
@@ -1257,7 +1257,7 @@ window.skills = [
       id: 12301,
       name: "Time Crunch Collector",
       description: "Unlocks a device that can passively collect time particles to release 25x pokes worth of currency when used.",
-      cost: { realmId: 7, currencyId: "tooth", amount: 1e8 },
+      cost: { realmId: 7, currencyId: "tooth", amount: 9e7 },
       purchased: false
     },
     {

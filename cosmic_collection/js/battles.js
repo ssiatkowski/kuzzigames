@@ -50,7 +50,7 @@ function lockCard(cardId) {
 
 // Get next available enemy
 function getNextEnemy() {
-  const greekGodsCards = cards.filter(c => c.realm === 11);
+  const greekGodsCards = cards.filter(c => c.realm === state.battle.currentBattleRealm);
   // Find the first card that hasn't been battled yet
   const enemy = greekGodsCards.find(c => c.locked && !state.battle.lockoutTimers[c.id]);
   if (enemy) {
@@ -221,7 +221,7 @@ function updateBattleUI() {
   if (!battleContent) return;
 
   // Check if Greek Gods realm is unlocked
-  const greekGodsRealm = realms.find(r => r.id === 11);
+  const greekGodsRealm = realms.find(r => r.id === state.battle.currentBattleRealm);
   if (!greekGodsRealm?.unlocked) {
     battleContent.innerHTML = `
       <div class="battle-locked-message">
@@ -242,8 +242,22 @@ function updateBattleUI() {
     return;
   }
 
+  const switcher = realms.find(r => r.id === 12)?.unlocked
+  ? `
+    <div class="battle-realm-switch">
+      <button class="realm-btn ${state.battle.currentBattleRealm === 11 ? 'active' : ''}" data-realm="11">
+        Greek Gods
+      </button>
+      <button class="realm-btn ${state.battle.currentBattleRealm === 12 ? 'active' : ''}" data-realm="12">
+        Bosses
+      </button>
+    </div>
+  `
+  : '';
+
   // Update battle arena
   battleContent.innerHTML = `
+    ${switcher}
     <div class="battle-arena">
       <div class="battle-slots-container">
         <div class="battle-slots">
@@ -377,17 +391,33 @@ function updateBattleUI() {
           </button>
         </div>
         <div class="battle-filter-group">
-          <button class="battle-filter-btn ${state.battle.filterRealm ? 'active' : ''}" data-filter="realm">
+          <button
+            class="battle-filter-btn ${state.battle.filterRealms.length?'active':''}"
+            data-filter="realm"
+          >
             Realm
-            ${state.battle.filterRealm ? 
-              `<span class="filter-badge">${realmMap[state.battle.filterRealm].name}</span>` : 
-              ''}
+            ${ state.battle.filterRealms.length
+              ? `<span class="filter-badge">
+                    ${state.battle.filterRealms
+                      .map(id => realmMap[id].name)
+                      .join(', ')}
+                  </span>`
+              : ''
+            }
           </button>
-          <button class="battle-filter-btn ${state.battle.filterRarity ? 'active' : ''}" data-filter="rarity">
+          <button
+            class="battle-filter-btn ${state.battle.filterRarities.length?'active':''}"
+            data-filter="rarity"
+          >
             Rarity
-            ${state.battle.filterRarity ? 
-              `<span class="filter-badge">${state.battle.filterRarity.toUpperCase()}</span>` : 
-              ''}
+            ${ state.battle.filterRarities.length
+              ? `<span class="filter-badge">
+                    ${state.battle.filterRarities
+                      .map(r => r.toUpperCase())
+                      .join(', ')}
+                  </span>`
+              : ''
+            }
           </button>
         </div>
       </div>
@@ -404,6 +434,13 @@ function updateBattleUI() {
     </div>
     <div class="battle-card-grid"></div>
   `;
+
+  document.querySelectorAll('.realm-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = Number(btn.dataset.realm);
+      switchBattleRealm(target);
+    });
+  });
 
 
 
@@ -471,38 +508,46 @@ function updateBattleUI() {
     updateBattleCardGrid(cardGrid);
   }
 
-  // document.querySelectorAll('.battle-combat-stats').forEach(statsEl => {
-  //   const statsRow = statsEl.querySelector('.stats-row');
-  //   if (!statsRow) return;
-
-  //   // total width of both stat pills
-  //   const contentWidth = Array.from(statsRow.children)
-  //     .reduce((sum, child) => sum + child.scrollWidth, 0);
-
-  //   // available width (subtract a bit of padding if you like)
-  //   const available = statsEl.clientWidth - 8;
-
-  //   const scale = Math.min(1, available / contentWidth);
-
-  //   // apply a single transform to shrink the entire row
-  //   statsRow.style.transform = `scale(${scale})`;
-  //   statsRow.style.transformOrigin = 'left center';
-  // });
 }
+
+function switchBattleRealm(targetRealm) {
+  // 1) Prevent switching if player has cards in slots
+  if (state.battle.slots.some(s => s !== null)) {
+    return alert('You must empty all battle slots before switching realms.');
+  }
+
+  // 2) Change realm and heal the current enemy
+  state.battle.selectedRealm = targetRealm;
+  if (state.battle.currentEnemy) {
+    state.battle.currentEnemy.currentHp = state.battle.currentEnemy.maxHp;
+  }
+
+  // 3) (Re)load next enemy for the new realm if needed
+  if (!state.battle.currentEnemy || state.battle.currentEnemy.realm !== targetRealm) {
+    state.battle.currentEnemy = getNextEnemy();
+  }
+
+  saveState();
+  updateBattleUI();
+}
+
 
 // Separate function to update card grid
 function updateBattleCardGrid(cardGrid) {
   // Get all owned cards and apply filters
   let filteredCards = cards.filter(c => c.quantity > 0);
 
-  // Apply realm filter
-  if (state.battle.filterRealm) {
-    filteredCards = filteredCards.filter(c => c.realm === state.battle.filterRealm);
+  if (state.battle.filterRealms.length) {
+    filteredCards = filteredCards.filter(c =>
+      state.battle.filterRealms.includes(c.realm)
+    );
   }
 
-  // Apply rarity filter
-  if (state.battle.filterRarity) {
-    filteredCards = filteredCards.filter(c => c.rarity === state.battle.filterRarity);
+  // Apply rarity filter if any are selected
+  if (state.battle.filterRarities.length) {
+    filteredCards = filteredCards.filter(c =>
+      state.battle.filterRarities.includes(c.rarity)
+    );
   }
 
   // Sort cards
@@ -1101,64 +1146,190 @@ function startBattleLoop() {
 function showRealmFilterMenu(btn) {
   const menu = document.createElement('div');
   menu.className = 'filter-menu';
-  
-  // Add "All Realms" option
-  menu.innerHTML = `
-    <div class="filter-option ${!state.battle.filterRealm ? 'active' : ''}" 
-         data-realm="null">
-      All Realms
-    </div>
-  `;
 
-  // Add unlocked realms
-  realms.filter(r => r.unlocked).forEach(realm => {
-    menu.innerHTML += `
-      <div class="filter-option ${state.battle.filterRealm === realm.id ? 'active' : ''}" 
-           data-realm="${realm.id}"
-           style="color: ${realmColors[realm.id]}">
-        ${realm.name}
-      </div>
-    `;
+  // Build the options as <label> so clicks anywhere toggle
+  const parts = [];
+
+  // “All Realms”
+  parts.push(`
+    <label class="filter-option" data-realm="null">
+      <input
+        type="checkbox"
+        id="realm-all"
+        ${state.battle.filterRealms.length === 0 ? 'checked' : ''}
+      />
+      All Realms
+    </label>
+  `);
+
+  // One per unlocked realm
+  realms.filter(r => r.unlocked).forEach(r => {
+    const checked = state.battle.filterRealms.includes(r.id) ? 'checked' : '';
+    parts.push(`
+      <label class="filter-option" data-realm="${r.id}"
+             style="color: ${realmColors[r.id]};">
+        <input
+          type="checkbox"
+          id="realm-${r.id}"
+          ${checked}
+        />
+        ${r.name}
+      </label>
+    `);
   });
 
-  showFilterMenu(btn, menu, (option) => {
-    state.battle.filterRealm = option.dataset.realm === 'null' ? 
-      null : 
-      Number(option.dataset.realm);
+  // Done button
+  parts.push(`<button class="filter-done-btn">Done</button>`);
+
+  menu.innerHTML = parts.join('');
+  document.body.appendChild(menu);
+
+  // Position under the button
+  const { bottom, left } = btn.getBoundingClientRect();
+  Object.assign(menu.style, {
+    position: 'fixed',
+    top:    `${bottom + 4}px`,
+    left:   `${left}px`,
+    zIndex: '1000',
+  });
+
+  // Handle checkbox changes
+  menu.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+    cb.addEventListener('change', () => {
+      const opt = cb.closest('.filter-option');
+      const val = opt.dataset.realm;
+
+      if (val === 'null') {
+        // “All” clears everything
+        state.battle.filterRealms = [];
+        menu.querySelectorAll('input').forEach(other => {
+          if (other !== cb) other.checked = false;
+        });
+      } else {
+        const id = Number(val);
+        if (cb.checked) {
+          state.battle.filterRealms.push(id);
+        } else {
+          state.battle.filterRealms = state.battle.filterRealms.filter(r => r !== id);
+        }
+        // Sync the “All” box
+        menu.querySelector('#realm-all').checked = state.battle.filterRealms.length === 0;
+      }
+    });
+  });
+
+  // Close on Done
+  menu.querySelector('.filter-done-btn').addEventListener('click', () => {
+    menu.remove();
     updateBattleUI();
   });
+
+  // Close & apply on outside click
+  document.addEventListener('click', function onDocClick(e) {
+    if (!menu.contains(e.target) && !btn.contains(e.target)) {
+      menu.remove();
+      document.removeEventListener('click', onDocClick);
+      updateBattleUI();
+    }
+  });
 }
+
 
 function showRarityFilterMenu(btn) {
   const menu = document.createElement('div');
   menu.className = 'filter-menu';
-  
-  // Add "All Rarities" option
-  menu.innerHTML = `
-    <div class="filter-option ${!state.battle.filterRarity ? 'active' : ''}" 
-         data-rarity="null">
-      All Rarities
-    </div>
-  `;
 
-  // Add rarities
+  // Build the options as <label> so the entire row is clickable
+  const parts = [];
+
+  // “All Rarities”
+  parts.push(`
+    <label class="filter-option" data-rarity="null">
+      <input
+        type="checkbox"
+        id="rarity-all"
+        ${state.battle.filterRarities.length === 0 ? 'checked' : ''}
+      />
+      All Rarities
+    </label>
+  `);
+
+  // One per rarity
   window.rarities.forEach(rarity => {
-    menu.innerHTML += `
-      <div class="filter-option ${state.battle.filterRarity === rarity ? 'active' : ''}" 
-           data-rarity="${rarity}"
-           style="color: var(--rarity-${rarity})">
+    const checked = state.battle.filterRarities.includes(rarity) ? 'checked' : '';
+    parts.push(`
+      <label class="filter-option" data-rarity="${rarity}"
+             style="color: var(--rarity-${rarity});">
+        <input
+          type="checkbox"
+          id="rarity-${rarity}"
+          ${checked}
+        />
         ${rarity.toUpperCase()}
-      </div>
-    `;
+      </label>
+    `);
   });
 
-  showFilterMenu(btn, menu, (option) => {
-    state.battle.filterRarity = option.dataset.rarity === 'null' ? 
-      null : 
-      option.dataset.rarity;
+  // Done button
+  parts.push(`<button class="filter-done-btn">Done</button>`);
+
+  menu.innerHTML = parts.join('');
+  document.body.appendChild(menu);
+
+  // Position under the button
+  const { bottom, left } = btn.getBoundingClientRect();
+  Object.assign(menu.style, {
+    position: 'fixed',
+    top:    `${bottom + 4}px`,
+    left:   `${left}px`,
+    zIndex: '1000',
+  });
+
+  // Handle checkbox changes
+  menu.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+    cb.addEventListener('change', () => {
+      const opt = cb.closest('.filter-option');
+      const val = opt.dataset.rarity;
+
+      if (val === 'null') {
+        // “All” clears everything
+        state.battle.filterRarities = [];
+        menu.querySelectorAll('input').forEach(other => {
+          if (other !== cb) other.checked = false;
+        });
+      } else {
+        if (cb.checked) {
+          state.battle.filterRarities.push(val);
+        } else {
+          state.battle.filterRarities =
+            state.battle.filterRarities.filter(r => r !== val);
+        }
+        // Sync the “All” box
+        menu.querySelector('#rarity-all').checked =
+          state.battle.filterRarities.length === 0;
+      }
+    });
+  });
+
+  // Close on Done
+  menu.querySelector('.filter-done-btn').addEventListener('click', () => {
+    menu.remove();
     updateBattleUI();
   });
+
+  // Close & apply on outside click
+  document.addEventListener('click', function onDocClick(e) {
+    if (!menu.contains(e.target) && !btn.contains(e.target)) {
+      menu.remove();
+      document.removeEventListener('click', onDocClick);
+      updateBattleUI();
+    }
+  });
 }
+
+
+
+
 
 function showFilterMenu(btn, menu, onSelect) {
   // Position menu below button using fixed positioning
@@ -1318,14 +1489,14 @@ function showResetBattlesDialog() {
   const cancelBtn = dialog.querySelector('.reset-cancel-btn');
 
   confirmBtn.addEventListener('click', () => {
-    const bossCards = cards.filter(c => c.realm === 11);
+    const bossCards = cards.filter(c => c.realm === state.battle.currentBattleRealm);
     
     bossCards.forEach(card => {
       card.locked = true;
       delete state.battle.lockoutTimers[card.id];
     });
     
-    const firstBossRealm = realms.find(r => r.unlocked && r.id === 11);
+    const firstBossRealm = realms.find(r => r.unlocked && r.id === state.battle.currentBattleRealm);
     if (firstBossRealm) {
       const firstBoss = cards.find(c => c.realm === firstBossRealm.id && !c.cantBeEnemy);
       if (firstBoss) {

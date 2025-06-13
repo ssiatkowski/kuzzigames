@@ -3072,7 +3072,7 @@ window.cards = [
           "amount": 20
         },
         "currency": "royal_jelly",
-        "value": 100000.0
+        "value": 200000.0
       }
     ]
   },
@@ -10134,7 +10134,7 @@ window.cards = [
         "type": "flatMaxCardsPerPoke",
         "requirement": {
           "type": "level",
-          "amount": 25
+          "amount": 28
         },
         "value": 1000000.0
       }
@@ -14063,7 +14063,7 @@ window.cards = [
           "amount": 15
         },
         "currency": "spirit",
-        "value": 50000.0
+        "value": 500000.0
       },
       {
         "type": "currencyPerSecMultiplier",

@@ -66,13 +66,13 @@ const BATTLE_TRICKS = {    // Philosopher's Stone → Mnemosyne
         tidbit: "Ares recognizes his Roman counterpart, momentarily confused by the duality and saddened by the wrong name being chosen to name a planet.<br><br>[Stunned for 5 turns and Reduces current HP by 10%]",
         achievement: "greekGodBattleTricks7",
     },
-      // Sun → Helios
-    "607": {
-        targetEnemy: "Helios",
+      // Wolf → Artemis
+    "706": {
+        targetEnemy: "Artemis",
         effect: (enemy) => {
-            enemy.stunTurns += 1;
+            enemy.attack = Math.floor(enemy.attack * 0.65);
         },
-        tidbit: "You use the Sun to confuse Helios. He glances at it for a moment, but is unphased.<br><br>[Stunned for 1 turn]",
+        tidbit: "Artemis has a soft spot for wolves. She cannot use her full power against them.<br><br>[Reduces attack by 35%]",
         achievement: "greekGodBattleTricks8",
     },
       // Enchanted Mirror → Apollo

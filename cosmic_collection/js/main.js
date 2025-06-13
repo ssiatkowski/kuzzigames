@@ -18,6 +18,8 @@ let lastTouchY = 0;
 let isScrolling = false;
 let lastFlippedCard = null;
 
+let lastCollectionCardIds  = [];
+
 let blackHoleTimer; // Declare timer in a higher scope
 let countdownEl;
 
@@ -99,6 +101,7 @@ window.state = {
     unlockedRarities: new Set() // Track unlocked rarities
   },
   battle: {
+    currentBattleRealm: 11,
     slots: [null, null, null], // 3 slots for cards in battle
     currentEnemy: null,
     critChance: 0,
@@ -130,8 +133,8 @@ window.state = {
     paused: true,
     sortBy: 'power',
     sortDirection: 'desc',
-    filterRealm: null,
-    filterRarity: null
+    filterRealms: [],
+    filterRarities: []
   },
   showTierUps: true,  // Add this line
   autoUseAbsorber: false,  // Add this line
@@ -218,6 +221,7 @@ function loadState() {
 
     // Load battle state
     if (obj.battle) {
+      state.battle.currentBattleRealm = obj.battle.currentBattleRealm || 11;
       state.battle.slots = obj.battle.slots.map(slot => {
         if (!slot) return null;
         const card = cardMap[slot.id];
@@ -299,6 +303,7 @@ function saveState() {
     cardSizeScale: state.cardSizeScale,
     lastUnstuck: state.lastUnstuck,
     battle: {
+      currentBattleRealm: state.battle.currentBattleRealm,
       slots: state.battle.slots.map(slot => slot ? {
         id: slot.id,
         attack: slot.attack,
@@ -969,6 +974,7 @@ function openModal(cardId) {
 
   // OVERLAY
   const ov = document.createElement('div');
+  let handleKey = null;
   ov.className = `modal-overlay modal-${rar}`;
   ov.onclick = () => {
     ov.remove();
@@ -980,50 +986,65 @@ function openModal(cardId) {
 
   // Add navigation arrows if we're in the cards tab
   if (currentTab === 'cards') {
-    // Get all owned cards in this realm
-    const ownedCardsInRealm = cards
-      .filter(c => c.realm === realm && c.quantity > 0)
-      .map(c => c.id);
-    
-    // Find current card's position
-    const currentIndex = ownedCardsInRealm.indexOf(cardId);
-    
-    // Create left arrow
+    const scrollableCardsList = lastCollectionCardIds.filter(id => cardMap[id].quantity > 0);
+    const idx  = scrollableCardsList.indexOf(cardId);
+
+    // helper to tear down this modal's keyboard listener + overlay
+    const closeThisModal = () => {
+      if (ov._handleKey) document.removeEventListener('keydown', ov._handleKey);
+      ov.remove();
+    };
+
+    // left arrow
     const leftArrow = document.createElement('div');
     leftArrow.className = 'modal-nav-arrow modal-nav-left';
-    leftArrow.innerHTML = '←';
-    if (currentIndex > 0) {
+    leftArrow.textContent = '←';
+    if (idx > 0) {
       leftArrow.classList.add('active');
-      leftArrow.onclick = (e) => {
+      leftArrow.addEventListener('click', e => {
         e.stopPropagation();
-        ov.remove();
+        closeThisModal();
         if (wasNew) {
           initCardsFilters();
           renderCardsCollection();
         }
-        openModal(ownedCardsInRealm[currentIndex - 1]);
-      };
+        openModal(scrollableCardsList[idx - 1]);
+      });
     }
-    
-    // Create right arrow
+
+    // right arrow
     const rightArrow = document.createElement('div');
     rightArrow.className = 'modal-nav-arrow modal-nav-right';
-    rightArrow.innerHTML = '→';
-    if (currentIndex < ownedCardsInRealm.length - 1) {
+    rightArrow.textContent = '→';
+    if (idx < scrollableCardsList.length - 1) {
       rightArrow.classList.add('active');
-      rightArrow.onclick = (e) => {
+      rightArrow.addEventListener('click', e => {
         e.stopPropagation();
-        ov.remove();
+        closeThisModal();
         if (wasNew) {
           initCardsFilters();
           renderCardsCollection();
         }
-        openModal(ownedCardsInRealm[currentIndex + 1]);
-      };
+        openModal(scrollableCardsList[idx + 1]);
+      });
     }
-    
-    ov.appendChild(leftArrow);
-    ov.appendChild(rightArrow);
+
+    ov.append(leftArrow, rightArrow);
+
+    // keyboard handler
+    const handleKey = e => {
+      if (e.key === 'ArrowLeft'  && idx > 0)          leftArrow.click();
+      if (e.key === 'ArrowRight' && idx < scrollableCardsList.length - 1) rightArrow.click();
+    };
+    ov._handleKey = handleKey;
+    document.addEventListener('keydown', handleKey);
+
+    // make sure clicking outside also cleans up
+    const originalOvClick = ov.onclick;
+    ov.onclick = e => {
+      closeThisModal();
+      originalOvClick && originalOvClick.call(ov, e);
+    };
   }
 
   // MODAL CONTAINER
@@ -1780,6 +1801,8 @@ function renderCardsCollection() {
         }
       });
     });
+
+  lastCollectionCardIds = filteredCards.map(c => c.id);
 
   // Add Level All button if skill 25001 is purchased
   if (skillMap[25001].purchased && currentCollectionRealm !== null) {
