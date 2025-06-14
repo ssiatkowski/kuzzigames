@@ -71,6 +71,13 @@ window.skills = [
       purchased: false
     },
     {
+      id: 1011,
+      name: "Unlock Bosses Realm",
+      description: "Black Hole pokes and Merchants can now give cards from Bosses realm.",
+      cost: { realmId: 11, currencyId: "zeal", amount: 1e18 },
+      purchased: false
+    },
+    {
       id: 2001,
       name: "More Cards",
       description: "+4 to max cards per poke.",
@@ -809,7 +816,7 @@ window.skills = [
       id: 7010,
       name: "Unlock New Merchant 10",
       description: "Elias Pantheos is added to pool of traveling merchants.",
-      cost: { realmId: 11, currencyId: "zeal", amount: 1e12 },
+      cost: { realmId: 11, currencyId: "zeal", amount: 2e10 },
       purchased: false
     },
     {
@@ -2153,7 +2160,14 @@ window.skills = [
       id: 26202,
       name: "So Many Cards, So Few Slots 2",
       description: "Increase battle slot limit by +1.",
-      cost: { realmId: 11, currencyId: "pearl", amount: 1e18 },
+      cost: { realmId: 12, currencyId: "pearl", amount: 1e20 },
+      purchased: false
+    },
+    {
+      id: 26203,
+      name: "So Many Cards, So Few Slots 3",
+      description: "Increase battle slot limit by +1.",
+      cost: { realmId: 12, currencyId: "feather", amount: 1e22 },
       purchased: false
     },
     {
@@ -2942,64 +2956,92 @@ function applySkill(id, skipCost = false) {
     switch (s.id) {
       case 1001: // Unlock Sea World Realm
         realms[1].unlocked = true;
-        initCardsFilters();
-        renderRealmFilters();
-        initializeSortedSkills();
+        if (loadFinished) {
+          initCardsFilters();
+          renderRealmFilters();
+          initializeSortedSkills();
+        }
         break;
       case 1002: // Unlock Bugdom Realm
         realms[2].unlocked = true;
-        initCardsFilters();
-        renderRealmFilters();
-        initializeSortedSkills();
+        if (loadFinished) {
+          initCardsFilters();
+          renderRealmFilters();
+          initializeSortedSkills();
+        }
         break;
       case 1003: // Unlock Aviary Realm
         realms[3].unlocked = true;
-        initCardsFilters();
-        renderRealmFilters();
-        initializeSortedSkills();
+        if (loadFinished) {
+          initCardsFilters();
+          renderRealmFilters();
+          initializeSortedSkills();
+        }
         break;
       case 1004: // Unlock Ancient Relics Realm
         realms[4].unlocked = true;
-        initCardsFilters();
-        renderRealmFilters();
-        initializeSortedSkills();
+        if (loadFinished) {
+          initCardsFilters();
+          renderRealmFilters();
+          initializeSortedSkills();
+        }
         break;
       case 1005: // Unlock Celestial Bodies Realm
         realms[5].unlocked = true;
-        initCardsFilters();
-        renderRealmFilters();
-        initializeSortedSkills();
+        if (loadFinished) {
+          initCardsFilters();
+          renderRealmFilters();
+          initializeSortedSkills();
+        }
         break;
       case 1006: // Unlock Mythical Beasts Realm
         realms[6].unlocked = true;
-        initCardsFilters();
-        renderRealmFilters();
-        initializeSortedSkills();
+        if (loadFinished) {
+          initCardsFilters();
+          renderRealmFilters();
+          initializeSortedSkills();
+        }
         break;
       case 1007: // Unlock Incremental Games Realm
         realms[7].unlocked = true;
-        initCardsFilters();
-        renderRealmFilters();
-        initializeSortedSkills();
+        if (loadFinished) {
+          initCardsFilters();
+          renderRealmFilters();
+          initializeSortedSkills();
+        }
         break;
       case 1008: // Unlock Spirit Familiars Realm
         realms[8].unlocked = true;
-        initCardsFilters();
-        renderRealmFilters();
-        initializeSortedSkills();
+        if (loadFinished) {
+          initCardsFilters();
+          renderRealmFilters();
+          initializeSortedSkills();
+        }
         break;
       case 1009: // Unlock Weapons Realm
         realms[9].unlocked = true;
-        initCardsFilters();
-        renderRealmFilters();
-        initializeSortedSkills();
+        if (loadFinished) {
+          initCardsFilters();
+          renderRealmFilters();
+          initializeSortedSkills();
+        }
         break;
       case 1010: // Unlock Greek Gods Realm
         realms[10].unlocked = true;
-        initCardsFilters();
-        renderRealmFilters();
-        initializeSortedSkills();
+        if (loadFinished) {
+          initCardsFilters();
+          renderRealmFilters();
+          initializeSortedSkills();
+        }
         initBattleSystem();
+        break;
+      case 1011: // Unlock Bosses Realm
+        realms[11].unlocked = true;
+        if (loadFinished) {
+          initCardsFilters();
+          renderRealmFilters();
+          initializeSortedSkills();
+        }
         break;
       case 2001: // More Cards
         state.effects.maxCardsPerPoke += 4;
@@ -3093,103 +3135,143 @@ function applySkill(id, skipCost = false) {
         break;
       case 3001: // Faster Poke
         realms[s.cost.realmId - 1].cooldown -= 0.5;
-        updatePokeFilterStats();
-        renderRealmFilters();
+        if (loadFinished) {
+          updatePokeFilterStats();
+          renderRealmFilters();
+        }
         break;
       case 3002:
         realms[s.cost.realmId - 1].cooldown -= 2;
-        updatePokeFilterStats();
-        renderRealmFilters();
+        if (loadFinished) {
+          updatePokeFilterStats();
+          renderRealmFilters();
+        }
         break;
       case 3003:
         realms[s.cost.realmId - 1].cooldown -= 5;
-        updatePokeFilterStats();
-        renderRealmFilters();
+        if (loadFinished) {
+          updatePokeFilterStats();
+          renderRealmFilters();
+        }
         break;
       case 3004:
         realms[s.cost.realmId - 1].cooldown -= 10;
-        updatePokeFilterStats();
-        renderRealmFilters();
+        if (loadFinished) {
+          updatePokeFilterStats();
+          renderRealmFilters();
+        }
         break;
       case 3005:
         realms[s.cost.realmId - 1].cooldown -= 15;
-        updatePokeFilterStats();
-        renderRealmFilters();
+        if (loadFinished) {
+          updatePokeFilterStats();
+          renderRealmFilters();
+        }
         break;
       case 3006:
         realms[s.cost.realmId - 1].cooldown -= 20;
-        updatePokeFilterStats();
-        renderRealmFilters();
+        if (loadFinished) {
+          updatePokeFilterStats();
+          renderRealmFilters();
+        }
         break;
       case 3007:
         realms[s.cost.realmId - 1].cooldown -= 30;
-        updatePokeFilterStats();
-        renderRealmFilters();
+        if (loadFinished) {
+          updatePokeFilterStats();
+          renderRealmFilters();
+        }
         break;
       case 3008:
         realms[s.cost.realmId - 1].cooldown -= 40;
-        updatePokeFilterStats();
-        renderRealmFilters();
+        if (loadFinished) {
+          updatePokeFilterStats();
+          renderRealmFilters();
+        }
         break;
       case 3009:
         realms[s.cost.realmId - 1].cooldown -= 50;
-        updatePokeFilterStats();
-        renderRealmFilters();
+        if (loadFinished) {
+          updatePokeFilterStats();
+          renderRealmFilters();
+        }
         break;
       case 3010:
         realms[s.cost.realmId - 1].cooldown -= 90;
-        updatePokeFilterStats();
-        renderRealmFilters();
+        if (loadFinished) {
+          updatePokeFilterStats();
+          renderRealmFilters();
+        }
         break;
       case 3011:
         realms[s.cost.realmId - 1].cooldown -= 600;
-        updatePokeFilterStats();
-        renderRealmFilters();
+        if (loadFinished) {
+          updatePokeFilterStats();
+          renderRealmFilters();
+        }
         break;
       case 3101: // Even Faster Poke
         realms[s.cost.realmId - 3].cooldown -= 0.5;
-        updatePokeFilterStats();
-        renderRealmFilters();
+        if (loadFinished) {
+          updatePokeFilterStats();
+          renderRealmFilters();
+        }
         break;
       case 3102:
         realms[s.cost.realmId - 3].cooldown -= 2;
-        updatePokeFilterStats();
-        renderRealmFilters();
+        if (loadFinished) {
+          updatePokeFilterStats();
+          renderRealmFilters();
+        }
         break;
       case 3103:
         realms[s.cost.realmId - 3].cooldown -= 5;
-        updatePokeFilterStats();
-        renderRealmFilters();
+        if (loadFinished) {
+          updatePokeFilterStats();
+          renderRealmFilters();
+        }
         break;
       case 3104:
         realms[s.cost.realmId - 3].cooldown -= 10;
-        updatePokeFilterStats();
-        renderRealmFilters();
+        if (loadFinished) {
+          updatePokeFilterStats();
+          renderRealmFilters();
+        }
         break;
       case 3105:
         realms[s.cost.realmId - 3].cooldown -= 15;
-        updatePokeFilterStats();
-        renderRealmFilters();
+        if (loadFinished) {
+          updatePokeFilterStats();
+          renderRealmFilters();
+        }
         break;
       case 3106:
         realms[s.cost.realmId - 3].cooldown -= 20;
-        updatePokeFilterStats();
-        renderRealmFilters();
+        if (loadFinished) {
+          updatePokeFilterStats();
+          renderRealmFilters();
+        }
         break;
       case 3107:
         realms[s.cost.realmId - 3].cooldown -= 30;
-        updatePokeFilterStats();
-        renderRealmFilters();
+        if (loadFinished) {
+          updatePokeFilterStats();
+          renderRealmFilters();
+        }
         break;  
       case 3108:
         realms[s.cost.realmId - 3].cooldown -= 40;
-        updatePokeFilterStats();
-        renderRealmFilters();
+        if (loadFinished) {
+          updatePokeFilterStats();
+          renderRealmFilters();
+        }
         break;
       case 3109:
         realms[s.cost.realmId - 3].cooldown -= 50;
-        updatePokeFilterStats();
-        renderRealmFilters();
+        if (loadFinished) {
+          updatePokeFilterStats();
+          renderRealmFilters();
+        }
         break;
       case 4001: // Not Less Cards
         state.effects.minCardsPerPoke += 2;
@@ -3733,9 +3815,8 @@ function applySkill(id, skipCost = false) {
         state.battle.critDamage += 0.1;
         break;
       case 26201:
-        state.battle.slotLimit += 1;
-        break;
       case 26202:
+      case 26203:
         state.battle.slotLimit += 1;
         break;
       case 26301: // Spiritual Dodge

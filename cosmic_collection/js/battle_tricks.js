@@ -126,10 +126,10 @@ const BATTLE_TRICKS = {    // Philosopher's Stone → Mnemosyne
     "731": {
         targetEnemy: "Typhon",
         effect: (enemy) => {
-            enemy.attack = Math.floor(enemy.attack * 1.5);
+            enemy.attack = Math.floor(enemy.attack * 1.3);
             enemy.currentHp -= enemy.currentHp * 0.3;
         },
-        tidbit: "Typhon recognizes a fellow monster of the deep, and switches to a more aggressive stance.[Increases attack by 50% but reduces current HP by 30%]",    
+        tidbit: "Typhon recognizes a fellow monster of the deep, and switches to a more aggressive stance.<br><br>[Increases attack by 30% but reduces current HP by 30%]",    
         achievement: "greekGodBattleTricks14",
     },
     

@@ -134,7 +134,11 @@ window.state = {
     sortBy: 'power',
     sortDirection: 'desc',
     filterRealms: [],
-    filterRarities: []
+    filterRarities: [],
+    globalAttackMult: 1,
+    globalHPMult: 1,
+    globalMaxCardsMult: 1,
+    vegetaEvolutions: 0,
   },
   showTierUps: true,  // Add this line
   autoUseAbsorber: false,  // Add this line
@@ -244,6 +248,10 @@ function loadState() {
       }
       state.battle.lockoutTimers = obj.battle.lockoutTimers;
       state.battle.sortBy = obj.battle.sortBy || 'power';
+      state.battle.globalAttackMult = obj.battle.globalAttackMult || 1;
+      state.battle.globalHPMult = obj.battle.globalHPMult || 1;
+      state.battle.globalMaxCardsMult = obj.battle.globalMaxCardsMult || 1;
+      state.battle.vegetaEvolutions = obj.battle.vegetaEvolutions || 0;
 
       // Update lockout timer checking
       const now = Date.now();
@@ -319,7 +327,11 @@ function saveState() {
         attack: state.battle.currentEnemy.attack
       } : null,
       lockoutTimers: state.battle.lockoutTimers,
-      sortBy: state.battle.sortBy
+      sortBy: state.battle.sortBy,
+      globalAttackMult: state.battle.globalAttackMult,
+      globalHPMult: state.battle.globalHPMult,
+      globalMaxCardsMult: state.battle.globalMaxCardsMult,
+      vegetaEvolutions: state.battle.vegetaEvolutions
     },
   };
   currencies.forEach(c => {
@@ -483,9 +495,9 @@ function performPoke() {
   const e     = state.effects;
   const r = (Math.random() + Math.random()) / 2; // center-biased
   const draws = Math.floor(Math.floor(
-    ((r * ((e.maxCardsPerPoke + state.achievementRewards.maxCardsPerPoke) * (state.achievementRewards.maxCardsMultiplier) * (state.supporterCheckboxClicked ? 1.25 : 1) 
+    ((r * ((e.maxCardsPerPoke + state.achievementRewards.maxCardsPerPoke) * (state.achievementRewards.maxCardsMultiplier) * (state.battle.globalMaxCardsMult) * (state.supporterCheckboxClicked ? 1.25 : 1) 
           - ((e.minCardsPerPoke + state.achievementRewards.minCardsPerPoke) * state.achievementRewards.minCardsMultiplier)  + 1)
-          ) + e.minCardsPerPoke + state.achievementRewards.minCardsPerPoke))
+          ) + (e.minCardsPerPoke + state.achievementRewards.minCardsPerPoke) * state.achievementRewards.minCardsMultiplier))
   * absorberMultiplier);
 
   // Create and animate floating number
@@ -1265,22 +1277,22 @@ function openModal(cardId) {
   if (realms[9].unlocked) {
     // Add power and defense stats along with combat calculations
     const statsContainer = document.createElement('div');
-    const attack = c.power * c.tier * Math.sqrt(c.level);
-    const hp = c.defense * Math.sqrt(c.quantity);
+    const attack = Math.floor(c.power * c.tier * Math.sqrt(c.level) * state.battle.globalAttackMult);
+    const hp = Math.floor(c.defense * Math.sqrt(c.quantity) * state.battle.globalHPMult);
     statsContainer.className = 'modal-stats-container';
     statsContainer.innerHTML = `
       <div class="stat-column">
         <div class="base-stat">Power: <span>${formatNumber(c.power)}</span></div>
         <div class="combat-stat">
           <i class="fas fa-fist-raised"></i> Attack: <span>${formatNumber(attack)}</span>
-          <div class="combat-calc">(${formatNumber(c.power)} × ${c.tier} × √${c.level})</div>
+          <div class="combat-calc">(${formatNumber(c.power)} × ${c.tier} × √${c.level}${state.battle.globalAttackMult > 0 ? ` × ${formatNumber(state.battle.globalAttackMult)}` : ''})</div>
         </div>
       </div>
       <div class="stat-column">
         <div class="base-stat">Defense: <span>${formatNumber(c.defense)}</span></div>
         <div class="combat-stat">
           <i class="fas fa-heart"></i> HP: <span>${formatNumber(hp)}</span>
-          <div class="combat-calc">(${formatNumber(c.defense)} × √${formatNumber(c.quantity)})</div>
+          <div class="combat-calc">(${formatNumber(c.defense)} × √${formatNumber(c.quantity)}${state.battle.globalHPMult > 0 ? ` × ${formatNumber(state.battle.globalHPMult)}` : ''})</div>
         </div>
       </div>
       ${(state.battle.damageAbsorption > 0 && state.battle.damageAbsorptionRealms.has(c.realm)) ||
@@ -1297,31 +1309,31 @@ function openModal(cardId) {
         <div class="base-stat">Special Stats:</span></div>
         ${state.battle.damageAbsorption > 0 && state.battle.damageAbsorptionRealms.has(c.realm) ? `
         <div class="combat-stat">
-          <i class="fas fa-shield-alt"></i> Absorb: <span>${formatNumber(state.battle.damageAbsorption) * 100}%</span>
+          <i class="fas fa-shield-alt"></i> Absorb: <span>${formatNumber(state.battle.damageAbsorption * 100)}%</span>
         </div>` : ''}
         ${state.battle.protectionChance > 0 && state.battle.protectionRealms.has(c.realm) ? `
         <div class="combat-stat">
-          <i class="fas fa-shield-virus"></i> Protect: <span>${formatNumber(state.battle.protectionChance) * 100}%</span>
+          <i class="fas fa-shield-virus"></i> Protect: <span>${formatNumber(state.battle.protectionChance * 100)}%</span>
         </div>` : ''}
         ${state.battle.extraAttackChance > 0 && state.battle.extraAttackRealms.has(c.realm) ? `
         <div class="combat-stat">
-          <i class="fas fa-bolt"></i> Extra Attack: <span>${formatNumber(state.battle.extraAttackChance) * 100}%</span>
+          <i class="fas fa-bolt"></i> Extra Attack: <span>${formatNumber(state.battle.extraAttackChance * 100)}%</span>
         </div>` : ''}
         ${state.battle.empowerment > 0 && state.battle.empowermentRealms.has(c.realm) ? `
         <div class="combat-stat">
-          <i class="fas fa-fire"></i> Empower: <span>${formatNumber(state.battle.empowerment) * 100}%</span>
+          <i class="fas fa-fire"></i> Empower: <span>${formatNumber(state.battle.empowerment * 100)}%</span>
         </div>` : ''}
         ${state.battle.evolutionChance > 0 && state.battle.evolutionRealms.has(c.realm) ? `
         <div class="combat-stat">
-          <i class="fas fa-dna"></i> Evolve: <span>${formatNumber(state.battle.evolutionChance) * 100}%</span>
+          <i class="fas fa-dna"></i> Evolve: <span>${formatNumber(state.battle.evolutionChance * 100)}%</span>
         </div>` : ''}
         ${state.battle.stunChance > 0 && state.battle.stunRealms.has(c.realm) ? `
         <div class="combat-stat">
-          <i class="fas fa-hammer"></i> Stun: <span>${formatNumber(state.battle.stunChance) * 100}%</span>
+          <i class="fas fa-hammer"></i> Stun: <span>${formatNumber(state.battle.stunChance * 100)}%</span>
         </div>` : ''}
         ${state.battle.weakPointChance > 0 && state.battle.weakPointRealms.has(c.realm) ? `
         <div class="combat-stat">
-          <i class="fas fa-bullseye"></i> Weak Point: <span>${formatNumber(state.battle.weakPointChance) * 100}%</span>
+          <i class="fas fa-bullseye"></i> Weak Point: <span>${formatNumber(state.battle.weakPointChance * 100)}%</span>
         </div>` : ''}
         ${state.battle.resourcefulAttack > 0 && state.battle.resourcefulAttackRealms.has(c.realm) ? `
         <div class="combat-stat">
@@ -1333,7 +1345,7 @@ function openModal(cardId) {
         </div>` : ''}
         ${state.battle.dismemberChance > 0 && state.battle.dismemberRealms.has(c.realm) ? `
         <div class="combat-stat">
-          <i class="fas fa-skull-crossbones"></i> Dismember: <span>${formatNumber(state.battle.dismemberChance) * 100}%</span>
+          <i class="fas fa-skull-crossbones"></i> Dismember: <span>${formatNumber(state.battle.dismemberChance * 100)}%</span>
         </div>` : ''}
       </div>` : ''}
     `;

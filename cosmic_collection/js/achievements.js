@@ -771,7 +771,7 @@ const achievements = {
         reward: 0.01,  
     },
     greekGodBattleTricks14: {
-        id: 'greekGodBattleTricks15',
+        id: 'greekGodBattleTricks14',
         name: 'Greek God Battle Tricks XIV',
         type: 'greekGodBattleTricks',
         condition: 'Typhon',

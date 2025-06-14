@@ -134,6 +134,18 @@ function updateStatsUI() {
                     <td>Dismember Chance</td>
                     <td>${(state.battle.dismemberChance * 100).toFixed(0)}%</td>
                 </tr>
+                <tr>
+                    <td>Global Attack Mult</td>
+                    <td>×${formatNumber(state.battle.globalAttackMult)}</td>
+                </tr>
+                <tr>
+                    <td>Global HP Mult</td>
+                    <td>×${formatNumber(state.battle.globalHPMult)}</td>
+                </tr>
+                <tr>
+                    <td>Global Max Cards Mult</td>
+                    <td>×${formatNumber(state.battle.globalMaxCardsMult)}</td>
+                </tr>
             </tbody>
         `;
         
@@ -257,7 +269,7 @@ function updateStatsUI() {
             ${(state.supporterCheckboxClicked || (state.achievementRewards.maxCardsMultiplier > 1)) ?
             `<tr>
                 <td>Max Cards Multiplier</td>
-                <td>x${formatNumber((state.supporterCheckboxClicked ? 1.25 : 1) * state.achievementRewards.maxCardsMultiplier)}</td>
+                <td>x${formatNumber((state.supporterCheckboxClicked ? 1.25 : 1) * state.achievementRewards.maxCardsMultiplier * state.battle.globalMaxCardsMult)}</td>
             </tr>` : ''}
             <tr>
                 <td>${EFFECT_NAMES.cooldownDivider}</td>
