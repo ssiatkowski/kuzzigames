@@ -14147,7 +14147,7 @@ window.cards = [
           "amount": 45
         },
         "currency": "royal_jelly",
-        "value": 3.0
+        "value": 5.0
       }
     ]
   },
@@ -14222,7 +14222,7 @@ window.cards = [
           "amount": 45
         },
         "currency": "rune",
-        "value": 3.0
+        "value": 5.0
       }
     ]
   },
@@ -14308,7 +14308,7 @@ window.cards = [
           "amount": 30
         },
         "currency": "cosmic_ray",
-        "value": 3.0
+        "value": 5.0
       }
     ]
   },
@@ -14398,7 +14398,7 @@ window.cards = [
           "amount": 45
         },
         "currency": "feather",
-        "value": 3.0
+        "value": 5.0
       }
     ]
   },
@@ -14486,7 +14486,7 @@ window.cards = [
           "amount": 35
         },
         "currency": "pearl",
-        "value": 3.0
+        "value": 5.0
       }
     ]
   },
@@ -14660,7 +14660,7 @@ window.cards = [
           "type": "level",
           "amount": 50
         },
-        "value": 100000.0
+        "value": 2500000.0
       }
     ]
   },
@@ -14770,7 +14770,7 @@ window.cards = [
     },
     "description": "Ancient sea Titaness and mother of all rivers and nymphs.",
     "power": 200,
-    "defense": 2,
+    "defense": 1,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -14818,7 +14818,7 @@ window.cards = [
     },
     "description": "Goddess of the hearth whose eternal flame kept Olympus at peace.",
     "power": 200,
-    "defense": 4,
+    "defense": 2,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -14871,7 +14871,7 @@ window.cards = [
     },
     "description": "Hundred-armed giant who hurled rocks faster than Zeus could blink.",
     "power": 300,
-    "defense": 6,
+    "defense": 3,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -14924,7 +14924,7 @@ window.cards = [
     },
     "description": "God of deep darkness and shadow who helped birth daylight.",
     "power": 300,
-    "defense": 7,
+    "defense": 4,
     "baseEffects": [
       {
         "type": "currencyPerSec",
@@ -14977,7 +14977,7 @@ window.cards = [
     },
     "description": "Primordial love god who could make even Zeus fall hopelessly in love.",
     "power": 300,
-    "defense": 8,
+    "defense": 5,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -15035,7 +15035,7 @@ window.cards = [
     },
     "description": "Memory goddess who birthed the nine Muses after sleeping with Zeus.",
     "power": 400,
-    "defense": 10,
+    "defense": 6,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -15093,7 +15093,7 @@ window.cards = [
     },
     "description": "Titan father of Prometheus, Atlas, and other key players in human fate.",
     "power": 400,
-    "defense": 12,
+    "defense": 7,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -15151,7 +15151,7 @@ window.cards = [
     },
     "description": "Titan of light and father of the sun, moon, and dawn.",
     "power": 400,
-    "defense": 15,
+    "defense": 8,
     "baseEffects": [
       {
         "type": "currencyPerSec",
@@ -15209,7 +15209,7 @@ window.cards = [
     },
     "description": "Goddess of divine law who warned Zeus not to marry Thetis.",
     "power": 400,
-    "defense": 18,
+    "defense": 9,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -15275,7 +15275,7 @@ window.cards = [
     },
     "description": "World-river Titan who fathered thousands of water spirits.",
     "power": 500,
-    "defense": 25,
+    "defense": 10,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -15338,7 +15338,7 @@ window.cards = [
     },
     "description": "Mother of Olympians who tricked Cronus by feeding him a rock baby.",
     "power": 500,
-    "defense": 30,
+    "defense": 12,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -15401,7 +15401,7 @@ window.cards = [
     },
     "description": "Titan who gave fire to humans and paid with eternal liver-munching.",
     "power": 500,
-    "defense": 35,
+    "defense": 14,
     "baseEffects": [
       {
         "type": "currencyPerSec",
@@ -15469,7 +15469,7 @@ window.cards = [
     },
     "description": "Titan punished to hold up the sky on his shoulders forever.",
     "power": 500,
-    "defense": 40,
+    "defense": 16,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -15540,7 +15540,7 @@ window.cards = [
     },
     "description": "Queen of the Underworld whose seasonal visits cause spring and winter.",
     "power": 800,
-    "defense": 50,
+    "defense": 24,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -15608,7 +15608,7 @@ window.cards = [
     },
     "description": "Wine god who could drive entire cities mad and once killed a Giant with a stick.",
     "power": 800,
-    "defense": 60,
+    "defense": 28,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -15674,7 +15674,7 @@ window.cards = [
     },
     "description": "Goddess of love whose beauty started the Trojan War.",
     "power": 800,
-    "defense": 80,
+    "defense": 32,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -15740,7 +15740,7 @@ window.cards = [
     },
     "description": "Crippled smith who forged Zeus’s thunderbolts and golden traps.",
     "power": 1000,
-    "defense": 90,
+    "defense": 36,
     "baseEffects": [
       {
         "type": "currencyPerSec",
@@ -15809,7 +15809,7 @@ window.cards = [
     },
     "description": "Trickster and messenger god who once stole Apollo’s cattle as a baby.",
     "power": 1000,
-    "defense": 100,
+    "defense": 40,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -15886,7 +15886,7 @@ window.cards = [
     },
     "description": "God of war who loved bloodshed but kept getting outsmarted by Athena.",
     "power": 1500,
-    "defense": 125,
+    "defense": 60,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -15953,7 +15953,7 @@ window.cards = [
     },
     "description": "Moon goddess and huntress who turned a peeping hunter into a deer.",
     "power": 1500,
-    "defense": 150,
+    "defense": 70,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -16026,7 +16026,7 @@ window.cards = [
     },
     "description": "Titaness of magic and ghosts who was honored by Zeus and killed Giants with fire.",
     "power": 1500,
-    "defense": 175,
+    "defense": 80,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -16094,7 +16094,7 @@ window.cards = [
     },
     "description": "The original sun god who could literally see everything.",
     "power": 1500,
-    "defense": 200,
+    "defense": 90,
     "baseEffects": [
       {
         "type": "currencyPerSec",
@@ -16170,7 +16170,7 @@ window.cards = [
     },
     "description": "Archer god who killed a giant python and ran the best oracle in the world.",
     "power": 1800,
-    "defense": 200,
+    "defense": 100,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -16254,7 +16254,7 @@ window.cards = [
     },
     "description": "Goddess of harvest whose grief once caused global famine.",
     "power": 2000,
-    "defense": 300,
+    "defense": 250,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -16332,7 +16332,7 @@ window.cards = [
     },
     "description": "Warrior goddess who sprang fully armed from Zeus’s head and beat Giants solo.",
     "power": 2000,
-    "defense": 350,
+    "defense": 300,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -16415,7 +16415,7 @@ window.cards = [
     },
     "description": "Queen of the gods who could manipulate Olympus through cunning alone.",
     "power": 2000,
-    "defense": 400,
+    "defense": 350,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -16493,7 +16493,7 @@ window.cards = [
     },
     "description": "Underworld ruler with a helmet of invisibility and all the dead as subjects.",
     "power": 2500,
-    "defense": 450,
+    "defense": 400,
     "baseEffects": [
       {
         "type": "currencyPerSec",

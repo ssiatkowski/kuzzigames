@@ -56,7 +56,7 @@ function getNextEnemy() {
   if (enemy) {
     // Initialize enemy properties
     enemy.attack = enemy.power * 10;
-    enemy.maxHp = enemy.defense * (state.battle.currentBattleRealm === 11 ? 20000 : 400000);
+    enemy.maxHp = enemy.defense * (state.battle.currentBattleRealm === 11 ? 50000 : 400000);
     enemy.currentHp = enemy.maxHp;
     enemy.stunTurns = 0;
   }
@@ -2034,8 +2034,8 @@ function showResetBattlesDialog() {
       if (firstBoss) {
         state.battle.currentEnemy = {
           ...firstBoss,
-          maxHp: firstBoss.defense * (state.battle.currentBattleRealm === 11 ? 20000 : 400000),
-          currentHp: firstBoss.defense * (state.battle.currentBattleRealm === 11 ? 20000 : 400000)
+          maxHp: firstBoss.defense * (state.battle.currentBattleRealm === 11 ? 50000 : 400000),
+          currentHp: firstBoss.defense * (state.battle.currentBattleRealm === 11 ? 50000 : 400000)
         };
       }
     }

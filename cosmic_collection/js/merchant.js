@@ -298,7 +298,7 @@ const merchants = [
     }
   
     const offers = [];
-    const unlockedRealms = realms.filter(r => r.unlocked && r.id !== 11).map(r => r.id);
+    const unlockedRealms = realms.filter(r => r.unlocked && r.id !== 11 && r.id !== 12).map(r => r.id);
   
     // precompute totals per realm
     const totalByRealm = {}, discByRealm = {};

@@ -289,7 +289,7 @@ const achievements = {
         condition: 'Purchase 10 offers from Merchants',
         icon: '🛒',
         rewardType: 'Merchant Price Divider',
-        reward: 1.01,
+        reward: 1.1,
         threshold: 10,
     },
     merchantTrader2: {
@@ -299,7 +299,7 @@ const achievements = {
         condition: 'Purchase 100 offers from Merchants',
         icon: '🛒',
         rewardType: 'Merchant Price Divider',
-        reward: 1.02,
+        reward: 1.2,
         threshold: 100,
     },
     merchantTrader3: {
@@ -309,7 +309,7 @@ const achievements = {
         condition: 'Purchase 1K offers from Merchants',
         icon: '🛒',
         rewardType: 'Merchant Price Divider',
-        reward: 1.03,
+        reward: 1.3,
         threshold: 1000,
     },
     merchantTrader4: {
@@ -319,7 +319,7 @@ const achievements = {
         condition: 'Purchase 10K offers from Merchants',
         icon: '🛒',
         rewardType: 'Merchant Price Divider',
-        reward: 1.04,
+        reward: 1.4,
         threshold: 10000,
     },
     merchantTrader5: {
@@ -329,7 +329,7 @@ const achievements = {
         condition: 'Purchase 100K offers from Merchants',
         icon: '🛒',
         rewardType: 'Merchant Price Divider',
-        reward: 1.05,
+        reward: 1.5,
         threshold: 100000,
     },
     massivePoke: {
