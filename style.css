@@ -180,6 +180,141 @@ body {
 
 
 /*─────────────────────────────────────────────────────────────────────
+  Star Rating Styles
+─────────────────────────────────────────────────────────────────────*/
+.rating-section {
+  margin: var(--sp-md) 0;
+  padding: var(--sp-sm) 0;
+  border-top: 1px solid #3a3a3a;
+}
+
+.rating-display {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-sm);
+  margin-bottom: var(--sp-sm);
+}
+
+.stars {
+  display: flex;
+  gap: 2px;
+}
+
+.star {
+  width: 16px;
+  height: 16px;
+  position: relative;
+  display: inline-block;
+}
+
+.star::before {
+  content: '★';
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #3a3a3a;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.star::after {
+  content: '★';
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #ffd700;
+  font-size: 16px;
+  line-height: 1;
+  width: 0%;
+  overflow: hidden;
+  transition: width 0.3s ease;
+}
+
+.star.full::after {
+  width: 100%;
+}
+
+.star.half::after {
+  width: 50%;
+}
+
+.star.quarter::after {
+  width: 25%;
+}
+
+.star.three-quarter::after {
+  width: 75%;
+}
+
+.rating-text {
+  font-size: var(--fz-sm);
+  color: var(--accent-color);
+  font-weight: 600;
+}
+
+.reviews-section {
+  margin-top: var(--sp-md);
+}
+
+.reviews-header {
+  font-size: var(--fz-sm);
+  color: var(--accent-color);
+  font-weight: 600;
+  margin-bottom: var(--sp-sm);
+  text-align: center;
+  font-style: italic;
+}
+
+.reviews-container {
+  max-height: 300px;
+  overflow-y: auto;
+  padding-right: var(--sp-sm);
+}
+
+.review {
+  background: #1e1e1e;
+  border-left: 3px solid var(--accent-color);
+  padding: var(--sp-sm);
+  margin-bottom: var(--sp-sm);
+  border-radius: 4px;
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
+.review:last-child {
+  margin-bottom: 0;
+}
+
+.review-author {
+  color: var(--accent-color);
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.review-text {
+  color: #ddd;
+}
+
+/* Custom scrollbar for reviews */
+.reviews-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.reviews-container::-webkit-scrollbar-track {
+  background: #2a2a2a;
+  border-radius: 3px;
+}
+
+.reviews-container::-webkit-scrollbar-thumb {
+  background: var(--accent-color);
+  border-radius: 3px;
+}
+
+.reviews-container::-webkit-scrollbar-thumb:hover {
+  background: #45a049;
+}
+
+/*─────────────────────────────────────────────────────────────────────
   Footer
 ─────────────────────────────────────────────────────────────────────*/
 .site-footer {
