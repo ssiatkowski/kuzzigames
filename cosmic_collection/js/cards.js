@@ -17299,7 +17299,7 @@ window.cards = [
       "amount": 5.0
     },
     "description": "The perfect stationary sparring partner that never fights back (or learns from its mistakes).",
-    "power": 0,
+    "power": 1,
     "defense": 25,
     "baseEffects": [
       {
