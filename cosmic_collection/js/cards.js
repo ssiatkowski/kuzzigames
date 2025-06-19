@@ -14818,7 +14818,7 @@ window.cards = [
     },
     "description": "Goddess of the hearth whose eternal flame kept Olympus at peace.",
     "power": 200,
-    "defense": 2,
+    "defense": 1,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -14871,7 +14871,7 @@ window.cards = [
     },
     "description": "Hundred-armed giant who hurled rocks faster than Zeus could blink.",
     "power": 300,
-    "defense": 3,
+    "defense": 2,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -14924,7 +14924,7 @@ window.cards = [
     },
     "description": "God of deep darkness and shadow who helped birth daylight.",
     "power": 300,
-    "defense": 4,
+    "defense": 3,
     "baseEffects": [
       {
         "type": "currencyPerSec",
@@ -14977,7 +14977,7 @@ window.cards = [
     },
     "description": "Primordial love god who could make even Zeus fall hopelessly in love.",
     "power": 300,
-    "defense": 5,
+    "defense": 4,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -15035,7 +15035,7 @@ window.cards = [
     },
     "description": "Memory goddess who birthed the nine Muses after sleeping with Zeus.",
     "power": 400,
-    "defense": 6,
+    "defense": 5,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -15093,7 +15093,7 @@ window.cards = [
     },
     "description": "Titan father of Prometheus, Atlas, and other key players in human fate.",
     "power": 400,
-    "defense": 7,
+    "defense": 6,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -15151,7 +15151,7 @@ window.cards = [
     },
     "description": "Titan of light and father of the sun, moon, and dawn.",
     "power": 400,
-    "defense": 8,
+    "defense": 7,
     "baseEffects": [
       {
         "type": "currencyPerSec",
@@ -15209,7 +15209,7 @@ window.cards = [
     },
     "description": "Goddess of divine law who warned Zeus not to marry Thetis.",
     "power": 400,
-    "defense": 9,
+    "defense": 8,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -15275,7 +15275,7 @@ window.cards = [
     },
     "description": "World-river Titan who fathered thousands of water spirits.",
     "power": 500,
-    "defense": 10,
+    "defense": 9,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -15338,7 +15338,7 @@ window.cards = [
     },
     "description": "Mother of Olympians who tricked Cronus by feeding him a rock baby.",
     "power": 500,
-    "defense": 12,
+    "defense": 10,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -15401,7 +15401,7 @@ window.cards = [
     },
     "description": "Titan who gave fire to humans and paid with eternal liver-munching.",
     "power": 500,
-    "defense": 14,
+    "defense": 11,
     "baseEffects": [
       {
         "type": "currencyPerSec",
@@ -15469,7 +15469,7 @@ window.cards = [
     },
     "description": "Titan punished to hold up the sky on his shoulders forever.",
     "power": 500,
-    "defense": 16,
+    "defense": 12,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -15540,7 +15540,7 @@ window.cards = [
     },
     "description": "Queen of the Underworld whose seasonal visits cause spring and winter.",
     "power": 800,
-    "defense": 24,
+    "defense": 13,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -15608,7 +15608,7 @@ window.cards = [
     },
     "description": "Wine god who could drive entire cities mad and once killed a Giant with a stick.",
     "power": 800,
-    "defense": 28,
+    "defense": 15,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -15674,7 +15674,7 @@ window.cards = [
     },
     "description": "Goddess of love whose beauty started the Trojan War.",
     "power": 800,
-    "defense": 32,
+    "defense": 18,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -15740,7 +15740,7 @@ window.cards = [
     },
     "description": "Crippled smith who forged Zeus’s thunderbolts and golden traps.",
     "power": 1000,
-    "defense": 36,
+    "defense": 20,
     "baseEffects": [
       {
         "type": "currencyPerSec",
@@ -15809,7 +15809,7 @@ window.cards = [
     },
     "description": "Trickster and messenger god who once stole Apollo’s cattle as a baby.",
     "power": 1000,
-    "defense": 40,
+    "defense": 25,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -15886,7 +15886,7 @@ window.cards = [
     },
     "description": "God of war who loved bloodshed but kept getting outsmarted by Athena.",
     "power": 1500,
-    "defense": 60,
+    "defense": 40,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -15953,7 +15953,7 @@ window.cards = [
     },
     "description": "Moon goddess and huntress who turned a peeping hunter into a deer.",
     "power": 1500,
-    "defense": 70,
+    "defense": 50,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -16026,7 +16026,7 @@ window.cards = [
     },
     "description": "Titaness of magic and ghosts who was honored by Zeus and killed Giants with fire.",
     "power": 1500,
-    "defense": 80,
+    "defense": 60,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -16094,7 +16094,7 @@ window.cards = [
     },
     "description": "The original sun god who could literally see everything.",
     "power": 1500,
-    "defense": 90,
+    "defense": 70,
     "baseEffects": [
       {
         "type": "currencyPerSec",
@@ -16170,7 +16170,7 @@ window.cards = [
     },
     "description": "Archer god who killed a giant python and ran the best oracle in the world.",
     "power": 1800,
-    "defense": 100,
+    "defense": 80,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -16254,7 +16254,7 @@ window.cards = [
     },
     "description": "Goddess of harvest whose grief once caused global famine.",
     "power": 2000,
-    "defense": 250,
+    "defense": 150,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -16332,7 +16332,7 @@ window.cards = [
     },
     "description": "Warrior goddess who sprang fully armed from Zeus’s head and beat Giants solo.",
     "power": 2000,
-    "defense": 300,
+    "defense": 175,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -16415,7 +16415,7 @@ window.cards = [
     },
     "description": "Queen of the gods who could manipulate Olympus through cunning alone.",
     "power": 2000,
-    "defense": 350,
+    "defense": 200,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -16493,7 +16493,7 @@ window.cards = [
     },
     "description": "Underworld ruler with a helmet of invisibility and all the dead as subjects.",
     "power": 2500,
-    "defense": 400,
+    "defense": 300,
     "baseEffects": [
       {
         "type": "currencyPerSec",
@@ -16574,7 +16574,7 @@ window.cards = [
     },
     "description": "Earth-shaking sea god who created horses and caused earthquakes with his trident.",
     "power": 2500,
-    "defense": 500,
+    "defense": 400,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -16657,8 +16657,8 @@ window.cards = [
       "amount": 10.0
     },
     "description": "Sky god castrated by his own son, which kicked off a cosmic power struggle.",
-    "power": 5000,
-    "defense": 700,
+    "power": 7000,
+    "defense": 600,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -16735,8 +16735,8 @@ window.cards = [
       "amount": 10.0
     },
     "description": "The living abyss where the worst beings are locked away forever.",
-    "power": 5000,
-    "defense": 800,
+    "power": 8000,
+    "defense": 700,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -16814,7 +16814,7 @@ window.cards = [
     },
     "description": "Titan who ate his kids to avoid being overthrown… and still got overthrown.",
     "power": 6000,
-    "defense": 900,
+    "defense": 800,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -16895,7 +16895,7 @@ window.cards = [
     },
     "description": "A hundred-headed dragon who almost dethroned Zeus and wrecked Olympus.",
     "power": 7000,
-    "defense": 1000,
+    "defense": 900,
     "baseEffects": [
       {
         "type": "currencyPerSec",
@@ -17217,7 +17217,7 @@ window.cards = [
     },
     "description": "King of the gods who once chained the monster Typhon beneath Mount Etna with his thunderbolts.",
     "power": 12000,
-    "defense": 12500,
+    "defense": 10000,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -17655,7 +17655,7 @@ window.cards = [
     },
     "description": "Cartman’s “Cheesy Poofs” shout-out once sold out the entire fictional snack brand in mere hours.",
     "power": 2000,
-    "defense": 65,
+    "defense": 80,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -17705,7 +17705,7 @@ window.cards = [
     },
     "description": "Smith’s self-replicating code turned him into a digital plague that threatened both the Matrix and real world.",
     "power": 2000,
-    "defense": 75,
+    "defense": 100,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -17765,7 +17765,7 @@ window.cards = [
     },
     "description": "One-winged super-soldier whose Masamune blade cuts through reality.",
     "power": 3000,
-    "defense": 80,
+    "defense": 120,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -17809,8 +17809,8 @@ window.cards = [
       "amount": 5.0
     },
     "description": "To sate his hunger, Galactus once consumed thirty planets in one sitting, leaving entire star systems adrift.",
-    "power": 3000,
-    "defense": 125,
+    "power": 2000,
+    "defense": 150,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -17855,7 +17855,7 @@ window.cards = [
     },
     "description": "Despite weighing over six tons, the T-800 can sprint at 45 mph on its hydraulic legs.",
     "power": 3000,
-    "defense": 100,
+    "defense": 125,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -17900,7 +17900,7 @@ window.cards = [
     },
     "description": "Godzilla’s stomps registered on Tokyo seismographs as magnitude-4 tremors—nature’s most unpredictable earthquake source.",
     "power": 3000,
-    "defense": 75,
+    "defense": 100,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -17944,8 +17944,8 @@ window.cards = [
       "amount": 5.0
     },
     "description": "Vader’s armor recycles his own body heat—take it off, and he’d overheat within minutes.",
-    "power": 3500,
-    "defense": 100,
+    "power": 5000,
+    "defense": 125,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -18005,7 +18005,7 @@ window.cards = [
     },
     "description": "Shao Kahn’s arenas once held 30,000 spectators cheering on gladiatorial battles to the death.",
     "power": 3500,
-    "defense": 100,
+    "defense": 175,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -18065,7 +18065,7 @@ window.cards = [
     },
     "description": "HAL went rogue only after learning of the crew’s plan to deactivate him mid-mission.",
     "power": 4000,
-    "defense": 125,
+    "defense": 225,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -18115,7 +18115,7 @@ window.cards = [
     },
     "description": "His mere presence poisoned Mordor’s air so deeply that crops failed for hundreds of miles, turning whole kingdoms to dust.",
     "power": 4000,
-    "defense": 150,
+    "defense": 250,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -18175,7 +18175,7 @@ window.cards = [
     },
     "description": "Legend says nine out of ten heroes hit by Pudge’s Meat Hook never make it back to the fountain—once he lands that hook, death is almost guaranteed.",
     "power": 4500,
-    "defense": 175,
+    "defense": 275,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -18235,7 +18235,7 @@ window.cards = [
     },
     "description": "He assembled an entire island fortress in seconds using nothing but pure atomic manipulation.",
     "power": 4000,
-    "defense": 200,
+    "defense": 300,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -18271,7 +18271,7 @@ window.cards = [
   },
   {
     "id": "1221",
-    "name": "Aizen Sosuke",
+    "name": "Aizen",
     "realm": 12,
     "locked": true,
     "rarity": "legend",
@@ -18284,8 +18284,8 @@ window.cards = [
       "amount": 5.0
     },
     "description": "Aizen spent seventeen months perfecting his Kyōka Suigetsu illusions before toppling Soul Society’s hierarchy.",
-    "power": 5000,
-    "defense": 300,
+    "power": 6000,
+    "defense": 500,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -18340,7 +18340,7 @@ window.cards = [
     },
     "description": "He eliminated half of Titan in one snap, deeming only the “worthy” survivors fit to rebuild.",
     "power": 5000,
-    "defense": 400,
+    "defense": 600,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -18385,7 +18385,7 @@ window.cards = [
     },
     "description": "Isshin once bested the Soul King’s envoy with a single swing, then gave up his powers to save others.",
     "power": 6000,
-    "defense": 450,
+    "defense": 700,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -18475,7 +18475,7 @@ window.cards = [
     },
     "description": "He once ripped the arm off the Titan Gaia and used it as a club, leaving her howls echoing through Olympus.",
     "power": 1000,
-    "defense": 1000,
+    "defense": 1500,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -18519,8 +18519,8 @@ window.cards = [
       "amount": 5.0
     },
     "description": "Said to have hatched from an egg in a silent void, Arceus shaped the Pokémon universe and gave life to all other Pokémon.",
-    "power": 6000,
-    "defense": 1000,
+    "power": 10000,
+    "defense": 2000,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -18580,7 +18580,7 @@ window.cards = [
     },
     "description": "He built a dimension-splitting portal gun in under five minutes, then discarded it for something “more chaotic.”",
     "power": 8000,
-    "defense": 1500,
+    "defense": 5000,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -18625,7 +18625,7 @@ window.cards = [
     },
     "description": "Vegeta once endured 10,000 g’s of gravity training, forging his Saiyan body into a living star-breaker.",
     "power": 1000,
-    "defense": 250,
+    "defense": 500,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -18670,7 +18670,7 @@ window.cards = [
     },
     "description": "Death had a near Chuck Norris experience once.",
     "power": 5000,
-    "defense": 2000,
+    "defense": 10000,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -18715,7 +18715,7 @@ window.cards = [
     },
     "description": "Her Infinite Tsukuyomi trapped the entire world in lifelong dreams for a millennium.",
     "power": 10000,
-    "defense": 4000,
+    "defense": 10000,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -18760,7 +18760,7 @@ window.cards = [
     },
     "description": "He’s been hidden in plain sight as a glowing silhouette on dozens of Marvel covers—watch closely and you’ll spot the creator himself.",
     "power": 10000,
-    "defense": 10000,
+    "defense": 25000,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -18805,7 +18805,7 @@ window.cards = [
     },
     "description": "His “100 push-ups, 100 sit-ups, 100 squats, 10 km run” routine actually unlocked a mutation that defies all biology.",
     "power": 10000,
-    "defense": 20000,
+    "defense": 50000,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -18850,7 +18850,7 @@ window.cards = [
     },
     "description": "Breaking the 4th wall? The dev who wasted hundreds of hours of your life on this game.",
     "power": 15000,
-    "defense": 25000,
+    "defense": 125000,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -18895,7 +18895,7 @@ window.cards = [
     },
     "description": "Your ultimate nemesis.",
     "power": 20000,
-    "defense": 50000,
+    "defense": 250000,
     "baseEffects": [
       {
         "type": "currencyPerPoke",

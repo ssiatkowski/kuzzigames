@@ -23,7 +23,7 @@ const bossMechanicsByName = {
                         },
   'Zeus':               { 
                             specialPowers: 'Attacks 3 times - targeting a random card', 
-                            killReward: '+5% Global Max Cards Mult' 
+                            killReward: '+25% Global Max Cards Mult' 
                         },
   'Training Dummy':     { 
                             specialPowers: 'Heals 0.1% of Current Health', 
@@ -54,7 +54,7 @@ const bossMechanicsByName = {
                             killReward: '+0.5% Global Attack Mult' 
                         },
   'Dracula':            { 
-                            specialPowers: 'Lifesteal', 
+                            specialPowers: '3x Lifesteal', 
                             killReward: '+0.5% Global HP Mult' 
                         },
   'Cartman':            { 
@@ -66,7 +66,7 @@ const bossMechanicsByName = {
                             killReward: '+1% Global HP Mult' 
                         },
   'Sephiroth':          { 
-                            specialPowers: '25% Chance to Dodge all attacks/effects', 
+                            specialPowers: '33% Chance to Dodge all attacks/effects', 
                             killReward: '+1% Global Attack Mult' 
                         },
   'Galactus':           { 
@@ -74,7 +74,7 @@ const bossMechanicsByName = {
                             killReward: '+2% Global Attack Mult' 
                         },
   'T800':               { 
-                            specialPowers: '1% Chance to Heal for 10% of Max HP', 
+                            specialPowers: '2% Chance to Heal for 10% of Max HP', 
                             killReward: '+2% Global HP Mult' 
                         },
   'Godzilla':           { 
@@ -82,7 +82,7 @@ const bossMechanicsByName = {
                             killReward: '+2% to Global Max Cards Mult' 
                         },
   'Darth Vader':        { 
-                            specialPowers: '98% Chance to only take 2% of damage', 
+                            specialPowers: '98% Chance to only take 3% of damage', 
                             killReward: '+3% Global HP Mult' 
                         },
   'Shao Kahn':          { 
@@ -94,7 +94,7 @@ const bossMechanicsByName = {
                             killReward: '+3% to Global Max Cards Mult' 
                         },
   'Sauron':             { 
-                            specialPowers: '5% Chance to Instantly Kill', 
+                            specialPowers: '10% Chance to Instantly Kill', 
                             killReward: '+5% Global HP Mult' 
                         },
   'Pudge':              { 
@@ -105,12 +105,12 @@ const bossMechanicsByName = {
                             specialPowers: 'Drains 40% of a random resource on each attack', 
                             killReward: '+6% to Global Max Cards Mult' 
                         },
-  'Aizen Sosuke':       { 
+  'Aizen':              { 
                             specialPowers: '50% chance for Extra Attack (can proc multiple times)', 
                             killReward: '+8% Global Attack Mult' 
                         },
   'Thanos':             { 
-                            specialPowers: '3% chance to kill half the cards (rounded up)', 
+                            specialPowers: '4% chance to kill half the cards (rounded up)', 
                             killReward: '+8% to Global Max Cards Mult' 
                         },
   'Isshin':             { 
@@ -158,7 +158,7 @@ const bossMechanicsByName = {
                             killReward: '+100% to Global Max Cards Mult' 
                         },
   'Your Ego':           { 
-                            specialPowers: '50% chance to dodge all attacks. 50% chance to deal 5x damage. 50% chance to drain 100% of a random resource. Lifesteal.', 
-                            killReward: '+200% to Global Max Cards Mult' 
+                            specialPowers: '50% chance to dodge all attacks. 50% chance to deal 5x damage. 50% chance to drain 100% of a random resource. 3x Lifesteal.', 
+                            killReward: '+500% to Global Max Cards Mult' 
                         },
 };

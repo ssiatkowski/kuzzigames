@@ -303,6 +303,11 @@ function updateStatsUI() {
                 <td>${EFFECT_NAMES.maxOfflineHours}</td>
                 <td>${state.maxOfflineHours} hours</td>
             </tr>
+            ${(realms[10].unlocked) ?
+            `<tr>
+                <td>Sacrifice Time</td>
+                <td>${state.sacrificeLockoutTime}h${state.achievementRewards.sacrificeTimeDivider > 0 ? ` ÷ ${formatNumber(state.achievementRewards.sacrificeTimeDivider)}` : ''}</td>
+            </tr>` : ''}
     `;
 
     if (skillMap[17001].purchased){

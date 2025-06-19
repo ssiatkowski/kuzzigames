@@ -44,7 +44,7 @@ function lockCard(cardId) {
   if (!card) return;
   
   card.locked = true;
-  state.battle.lockoutTimers[cardId] = Date.now() + (state.sacrificeLockoutTime * 60 * 60 * 1000); // sacrificeLockoutTime is in hours
+  state.battle.lockoutTimers[cardId] = Date.now() + (state.sacrificeLockoutTime * 60 * 60 * 1000 / state.achievementRewards.sacrificeTimeDivider); // sacrificeLockoutTime is in hours
   saveState();
 }
 
@@ -56,7 +56,7 @@ function getNextEnemy() {
   if (enemy) {
     // Initialize enemy properties
     enemy.attack = enemy.power * 10;
-    enemy.maxHp = enemy.defense * (state.battle.currentBattleRealm === 11 ? 50000 : 400000);
+    enemy.maxHp = enemy.defense * (state.battle.currentBattleRealm === 11 ? 100000 : 400000);
     enemy.currentHp = enemy.maxHp;
     enemy.stunTurns = 0;
   }
@@ -208,7 +208,7 @@ function processVictory() {
   } else if (state.battle.currentEnemy.name === 'Chaos') {
     state.battle.globalAttackMult += 0.02;
   } else if (state.battle.currentEnemy.name === 'Zeus') {
-    state.battle.globalMaxCardsMult += 0.05;
+    state.battle.globalMaxCardsMult += 0.25;
   } else if (state.battle.currentEnemy.name === 'Papa Smurf') {
     state.battle.globalAttackMult += 0.001;
   } else if (state.battle.currentEnemy.name === 'Dr Wily') {
@@ -245,7 +245,7 @@ function processVictory() {
     state.battle.globalMaxCardsMult += 0.05;
   } else if (state.battle.currentEnemy.name === 'Doctor Manhattan') {
     state.battle.globalMaxCardsMult += 0.06;
-  } else if (state.battle.currentEnemy.name === 'Aizen Sosuke') {
+  } else if (state.battle.currentEnemy.name === 'Aizen') {
     state.battle.globalAttackMult += 0.08;
   } else if (state.battle.currentEnemy.name === 'Thanos') {
     state.battle.globalMaxCardsMult += 0.08;
@@ -272,8 +272,10 @@ function processVictory() {
   } else if (state.battle.currentEnemy.name === 'Kuzzi') {
     state.battle.globalAttackMult += 1;
   } else if (state.battle.currentEnemy.name === 'Your Ego') {
-    state.battle.globalMaxCardsMult += 2;
+    state.battle.globalMaxCardsMult += 5;
   }
+
+  checkAchievements('battleMilestone', state.battle.currentEnemy.name);
 
   // Get next enemy
   state.battle.currentEnemy = getNextEnemy();
@@ -616,7 +618,11 @@ function updateBattleUI() {
   document.querySelectorAll('.realm-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const target = Number(btn.dataset.realm);
-      switchBattleRealm(target);
+
+      // Check if switching to a different realm
+      if (target !== state.battle.currentBattleRealm) {
+        showRealmSwitchWarning(target);
+      }
     });
   });
 
@@ -688,19 +694,67 @@ function updateBattleUI() {
 
 }
 
-function switchBattleRealm(targetRealm) {
+// Show warning dialog before switching realms
+function showRealmSwitchWarning(targetRealm) {
   // 1) Prevent switching if player has cards in slots
   if (state.battle.slots.some(s => s !== null)) {
     return alert('You must empty all battle slots before switching realms.');
   }
 
-  // 2) Change realm and heal the current enemy
+  const currentRealmName = targetRealm === 11 ? 'Greek Gods' : 'Bosses';
+  const hasCurrentEnemy = state.battle.currentEnemy && state.battle.currentEnemy.currentHp < state.battle.currentEnemy.maxHp;
+
+  // If no current enemy or enemy is at full health, switch directly
+  if (!hasCurrentEnemy) {
+    switchBattleRealm(targetRealm);
+    return;
+  }
+
+  const dialog = document.createElement('div');
+  dialog.className = 'sacrifice-dialog';
+  dialog.innerHTML = `
+    <div class="sacrifice-content battle-help-modal">
+      <h2>Switch to ${currentRealmName}?</h2>
+      <p><strong>Warning:</strong> Switching realms will reset the current enemy's HP to full.</p>
+      <p>Your current enemy will be healed back to maximum health. Are you sure you want to continue?</p>
+      <div class="reset-buttons">
+        <button class="reset-confirm-btn">Switch Realm</button>
+        <button class="reset-cancel-btn">Cancel</button>
+      </div>
+    </div>
+  `;
+
+  // Add click handlers
+  const confirmBtn = dialog.querySelector('.reset-confirm-btn');
+  const cancelBtn = dialog.querySelector('.reset-cancel-btn');
+
+  confirmBtn.addEventListener('click', () => {
+    switchBattleRealm(targetRealm);
+    dialog.remove();
+  });
+
+  cancelBtn.addEventListener('click', () => {
+    dialog.remove();
+  });
+
+  // Handle click outside to close
+  dialog.addEventListener('click', (e) => {
+    if (e.target === dialog) {
+      dialog.remove();
+    }
+  });
+
+  document.body.appendChild(dialog);
+}
+
+function switchBattleRealm(targetRealm) {
+  // Change realm and heal the current enemy
   state.battle.currentBattleRealm = targetRealm;
   if (state.battle.currentEnemy) {
     state.battle.currentEnemy.currentHp = state.battle.currentEnemy.maxHp;
   }
 
-  // 3) (Re)load next enemy for the new realm if needed
+  // (Re)load next enemy for the new realm if needed
   if (!state.battle.currentEnemy || state.battle.currentEnemy.realm !== targetRealm) {
     state.battle.currentEnemy = getNextEnemy();
   }
@@ -919,8 +973,82 @@ function renderCardEffects(c, isSpecial = false) {
   }).filter(Boolean).join('');
 }
 
+// Perform the actual sacrifice action
+function performSacrifice(cardId) {
+  // Find first available slot
+  const limit = state.battle.slotLimit;
+  // grow the slots array up to the current limit
+  while (state.battle.slots.length < limit) {
+    state.battle.slots.push(null);
+  }
+
+  const availableSlot = state.battle.slots.findIndex(slot => slot === null);
+  if (availableSlot === -1) {
+    alert('No available battle slots!');
+    return false;
+  }
+
+  if (!state.battle.currentEnemy) {
+    alert('No enemy to battle!');
+    return false;
+  }
+
+  // Create battle copy of the card
+  const card = cardMap[cardId];
+  const battleCard = {
+    ...card,
+    attack: calculateAttackPower(card),
+    currentHp: calculateHP(card),
+    maxHp: calculateHP(card),
+    quantity: card.quantity,
+    originalQuantity: card.quantity
+  };
+
+  // Reset the original card
+  card.level = 1;
+  card.tier = 0;
+  card.quantity = 0;
+  if (card.lastAppliedEffects) {
+    applyEffectsDelta(card.lastAppliedEffects, -1);
+  }
+  if (card.lastAppliedSpecialEffects) {
+    applyEffectsDelta(card.lastAppliedSpecialEffects, -1);
+  }
+  card.lastAppliedEffects = null;
+  card.lastAppliedSpecialEffects = null;
+
+  // Place battle copy in slot
+  state.battle.slots[availableSlot] = battleCard;
+
+  // Check for and apply battle tricks synchronously
+  if (state.battle.currentEnemy) {
+    checkBattleTrick(cardId, state.battle.currentEnemy);
+
+    if(cardId === 833){
+      triggerQuickGlitch();
+      setTimeout(() => showMatrixRain(), 2000);
+      setTimeout(() => unlockAchievement('secret8'), 10100);
+    }
+  }
+
+  // Lock the card
+  lockCard(cardId);
+
+  processNewCardDiscovered();
+
+  saveState();
+  updateBattleUI();
+  renderCardsCollection(); // Update collection view
+  return true;
+}
+
 // Show sacrifice dialog
 function showSacrificeDialog(cardId) {
+  // Check if skip sacrifice dialog is enabled and realms[10] is unlocked
+  if (state.skipSacrificeDialog && realms[10].unlocked) {
+    performSacrifice(cardId);
+    return;
+  }
   const c = cardMap[cardId];
   if (!c) return;
 
@@ -964,7 +1092,7 @@ function showSacrificeDialog(cardId) {
               <li>Remove it from your collection (${formatQuantity(c.quantity)} → 0) </li>
               <li>Reset its tier (${c.tier} → 0) and level (${c.level} → 1)</li>
               <li>Remove all its effects</li>
-              <li>Lock it for ${state.sacrificeLockoutTime} hours</li>
+              <li>Lock it for ${formatDuration(state.sacrificeLockoutTime * 60 * 60 / state.achievementRewards.sacrificeTimeDivider)}</li>
             </ul>
           </div>
           <div class="sacrifice-stats">
@@ -997,71 +1125,9 @@ function showSacrificeDialog(cardId) {
   const sacrificeBtn = dialog.querySelector('.sacrifice-btn');
   if (sacrificeBtn) {
     sacrificeBtn.addEventListener('click', () => {
-      // Find first available slot
-      const limit = state.battle.slotLimit;
-      // grow the slots array up to the current limit
-      while (state.battle.slots.length < limit) {
-        state.battle.slots.push(null);
+      if (performSacrifice(cardId)) {
+        dialog.remove();
       }
-      
-      const availableSlot = state.battle.slots.findIndex(slot => slot === null);
-      if (availableSlot === -1) {
-        alert('No available battle slots!');
-        return;
-      }
-
-      if (!state.battle.currentEnemy) {
-        alert('No enemy to battle!');
-        return;
-      }
-
-      // Create battle copy of card
-      const card = cardMap[cardId];
-      const battleCard = {
-        ...card,
-        attack: calculateAttackPower(card),
-        currentHp: calculateHP(card),
-        maxHp: calculateHP(card),
-        originalQuantity: card.quantity
-      };
-
-      // Reset the original card
-      card.level = 1;
-      card.tier = 0;
-      card.quantity = 0;
-      if (card.lastAppliedEffects) {
-        applyEffectsDelta(card.lastAppliedEffects, -1);
-      }
-      if (card.lastAppliedSpecialEffects) {
-        applyEffectsDelta(card.lastAppliedSpecialEffects, -1);
-      }
-      card.lastAppliedEffects = null;
-      card.lastAppliedSpecialEffects = null;
-
-      // Place battle copy in slot
-      state.battle.slots[availableSlot] = battleCard;
-
-      
-      // Check for and apply battle tricks synchronously
-      if (state.battle.currentEnemy) {
-        checkBattleTrick(cardId, state.battle.currentEnemy);
-
-        if(cardId === 833){
-          triggerQuickGlitch();
-          setTimeout(() => showMatrixRain(), 2000);
-          setTimeout(() => unlockAchievement('secret8'), 10100);
-        }
-      }
-
-      // Lock the card
-      lockCard(cardId);
-
-      processNewCardDiscovered();
-
-      dialog.remove();
-      saveState();
-      updateBattleUI();
-      renderCardsCollection(); // Update collection view
     });
   }
 
@@ -1223,7 +1289,7 @@ function startBattleLoop() {
         }
       }      
       
-      if (state.battle.currentEnemy.name === 'Sephiroth' && Math.random() < 0.25) {
+      if (state.battle.currentEnemy.name === 'Sephiroth' && Math.random() < 0.33) {
           showDamageNumber(0, 'enemy', 'dodge');
       }
       else {
@@ -1258,7 +1324,7 @@ function startBattleLoop() {
             }
 
             if (state.battle.currentEnemy.name === 'Darth Vader' && Math.random() < 0.98) {
-              damage *= 0.02;
+              damage *= 0.03;
             }
 
             if (state.battle.currentEnemy.name === 'Typhon' && Math.random() < 0.025) {
@@ -1286,6 +1352,11 @@ function startBattleLoop() {
               }
             } else {
               if (!(state.battle.currentEnemy.name === 'Kaguya') || index === 0) {
+
+                if (card.id === '1032' && damage >= state.battle.currentEnemy.maxHp && state.battle.currentEnemy.currentHp === state.battle.currentEnemy.maxHp) {
+                  unlockAchievement('secret10');
+                }
+
                 state.battle.currentEnemy.currentHp -= damage;
                 showDamageNumber(damage, 'enemy', isCrit ? 'crit' : specialDamageType);
               }
@@ -1379,7 +1450,7 @@ function startBattleLoop() {
         numAttacks = 2;
       } else if (state.battle.currentEnemy.name === 'Zeus' || state.battle.currentEnemy.name === 'Isshin') {
         numAttacks = 3;
-      } else if(state.battle.currentEnemy.name === 'Aizen Sosuke') {
+      } else if(state.battle.currentEnemy.name === 'Aizen') {
         while(Math.random() < 0.5) {
           numAttacks += 1;
         }
@@ -1485,7 +1556,7 @@ function startBattleLoop() {
             specialType = 'empowerment';
           }
 
-          if (state.battle.currentEnemy.name === 'Sauron' && Math.random() < 0.05) {
+          if (state.battle.currentEnemy.name === 'Sauron' && Math.random() < 0.1) {
             damage = targetCard.maxHp * 1.01;
             specialType = 'empowerment';
           }
@@ -1540,7 +1611,7 @@ function startBattleLoop() {
             }
           }
 
-          if (state.battle.currentEnemy.name === 'Thanos' && Math.random() < 0.03) {
+          if (state.battle.currentEnemy.name === 'Thanos' && Math.random() < 0.04) {
             const filled = state.battle.slots
               .map((c,i) => c ? i : -1)
               .filter(i => i !== -1);
@@ -1598,7 +1669,7 @@ function startBattleLoop() {
 
           if ((state.battle.currentEnemy.name === 'Dracula' || state.battle.currentEnemy.name === 'Your Ego')
               && state.battle.currentEnemy.maxHp > state.battle.currentEnemy.currentHp) {
-            const healAmount = Math.min(state.battle.currentEnemy.maxHp - state.battle.currentEnemy.currentHp, damage);
+            const healAmount = Math.min(state.battle.currentEnemy.maxHp - state.battle.currentEnemy.currentHp, damage * 3);
             state.battle.currentEnemy.currentHp += healAmount;
             showDamageNumber(healAmount, 'enemy', 'heal');
           }
@@ -1624,11 +1695,11 @@ function startBattleLoop() {
         const healAmount = Math.min(state.battle.currentEnemy.maxHp - state.battle.currentEnemy.currentHp, state.battle.currentEnemy.currentHp * 0.001);
         state.battle.currentEnemy.currentHp += healAmount;
         showDamageNumber(healAmount, 'enemy', 'heal');
-      } else if ((state.battle.currentEnemy.name === 'Gaia' || state.battle.currentEnemy.name === 'Papa Smurf') && state.battle.currentEnemy.currentHp >= state.battle.currentEnemy.maxHp && Math.random() < 0.05) {
+      } else if ((state.battle.currentEnemy.name === 'Gaia' || state.battle.currentEnemy.name === 'Papa Smurf') && state.battle.currentEnemy.currentHp < state.battle.currentEnemy.maxHp && Math.random() < 0.05) {
         const healAmount = Math.min(state.battle.currentEnemy.maxHp - state.battle.currentEnemy.currentHp, state.battle.currentEnemy.maxHp * 0.01);
         state.battle.currentEnemy.currentHp += healAmount;
         showDamageNumber(healAmount, 'enemy', 'heal');
-      } else if (state.battle.currentEnemy.name === 'T800' && state.battle.currentEnemy.currentHp >= state.battle.currentEnemy.maxHp && Math.random() < 0.01) {
+      } else if (state.battle.currentEnemy.name === 'T800' && state.battle.currentEnemy.currentHp >= state.battle.currentEnemy.maxHp && Math.random() < 0.02) {
         const healAmount = Math.min(state.battle.currentEnemy.maxHp - state.battle.currentEnemy.currentHp, state.battle.currentEnemy.maxHp * 0.1);
         state.battle.currentEnemy.currentHp += healAmount;
         showDamageNumber(healAmount, 'enemy', 'heal');
@@ -2008,7 +2079,7 @@ function showResetBattlesDialog() {
     <div class="sacrifice-content battle-help-modal">
       <h2>Reset Battles</h2>
       <p>This will reset all your ${state.battle.currentBattleRealm === 11 ? 'Greek Gods' : 'Bosses'} enemies to fight all of them again. You will still keep your current quantities of ${state.battle.currentBattleRealm === 11 ? 'Greek Gods' : 'Bosses'} cards you have unlocked.</p>
-      <p>Why would you want to do that?</p>
+      <p>Why would you want to do that? (Hint: achievement hunting or farming kill rewards) </p>
       <div class="reset-buttons">
         <button class="reset-confirm-btn">Reset Battles</button>
         <button class="reset-cancel-btn">Cancel</button>
@@ -2034,8 +2105,8 @@ function showResetBattlesDialog() {
       if (firstBoss) {
         state.battle.currentEnemy = {
           ...firstBoss,
-          maxHp: firstBoss.defense * (state.battle.currentBattleRealm === 11 ? 50000 : 400000),
-          currentHp: firstBoss.defense * (state.battle.currentBattleRealm === 11 ? 50000 : 400000)
+          maxHp: firstBoss.defense * (state.battle.currentBattleRealm === 11 ? 100000 : 400000),
+          currentHp: firstBoss.defense * (state.battle.currentBattleRealm === 11 ? 100000 : 400000)
         };
       }
     }
