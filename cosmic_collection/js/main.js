@@ -2211,9 +2211,9 @@ function updateGeneratorRates() {
     const discoveredCount = cards.filter(c => c.realm === 11 && c.quantity > 0).length;
     const newContribution = discoveredCount * discoveredCount * state.effects.allGeneratorMultiplier;
     state.resourceGeneratorContribution.zeal = newContribution;
-    state.resourceGeneratorContribution.royalJelly = newContribution;
+    state.resourceGeneratorContribution.royal_jelly = newContribution;
     state.resourceGeneratorContribution.feather = newContribution;
-    state.resourceGeneratorContribution.cosmicRay = newContribution;
+    state.resourceGeneratorContribution.cosmic_ray = newContribution;
   }
 }
 

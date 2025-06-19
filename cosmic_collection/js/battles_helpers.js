@@ -122,15 +122,15 @@ const bossMechanicsByName = {
                             killReward: '+10% Global HP Mult' 
                         },
   'Kratos':             { 
-                            specialPowers: 'Increase Damage by 5% on each attack', 
+                            specialPowers: 'Increase Damage by 4% on each attack', 
                             killReward: '+10% Global Attack Mult' 
                         },
   'Arceus':             { 
-                            specialPowers: '5% chance to confuse enemy and have them attack a random ally instead (X% damage)', 
+                            specialPowers: '5% chance to confuse each attacking card and have them attack a random ally instead', 
                             killReward: '+10% Global HP Mult' 
                         },
   'Rick':               { 
-                            specialPowers: '10% chance to teleport random card to another dimension (instantly kill)', 
+                            specialPowers: '17% chance to teleport random card to another dimension (instantly kill)', 
                             killReward: '+10% to Global Max Cards Mult' 
                         },
   'Vegeta':             { 
@@ -142,7 +142,7 @@ const bossMechanicsByName = {
                             killReward: '+15% Global HP Mult' 
                         },
   'Kaguya':             { 
-                            specialPowers: 'Only Takes Damage from the Front Card', 
+                            specialPowers: 'Only Takes Damage from the Front Card. 40% chance to also attack the last card.', 
                             killReward: '+50% Global Attack Mult' 
                         },
   'One Above All':      { 
@@ -150,7 +150,7 @@ const bossMechanicsByName = {
                             killReward: '+50% to Global Max Cards Mult' 
                         },
   'Saitama':            { 
-                            specialPowers: 'Increases his Attack by 1%. Reduces Damage of all cards by 10%.', 
+                            specialPowers: 'Increases his Attack by 1%. Reduces Attack of all your cards by 10%.', 
                             killReward: '+50% Global HP Mult' 
                         },
   'Kuzzi':              { 

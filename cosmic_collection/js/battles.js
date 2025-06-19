@@ -1279,14 +1279,8 @@ function startBattleLoop() {
 
       // Check enemy HP first
       if (state.battle.currentEnemy.currentHp <= 0) {
-        if (state.battle.currentEnemy.name === 'Deadpool') {
-          state.battle.currentEnemy.currentHp = state.battle.currentEnemy.maxHp;
-          updateBattleStats();
-          showDamageNumber(0, 'enemy', 'revived');
-        } else {
-          defeatEnemy();
-          return;
-        }
+        defeatEnemy();
+        return;
       }      
       
       if (state.battle.currentEnemy.name === 'Sephiroth' && Math.random() < 0.33) {
@@ -1434,9 +1428,15 @@ function startBattleLoop() {
 
         // Check for enemy defeat after all attacks
         if (state.battle.currentEnemy.currentHp <= 0) {
-          defeatEnemy();
-          return;
-        }
+          if (state.battle.currentEnemy.name === 'Deadpool' && Math.random() < 0.69) {
+            state.battle.currentEnemy.currentHp = state.battle.currentEnemy.maxHp;
+            updateBattleStats();
+            showDamageNumber(0, 'enemy', 'revived');
+          } else {
+            defeatEnemy();
+            return;
+          }
+        }   
       }
 
 
@@ -1565,7 +1565,7 @@ function startBattleLoop() {
           targetCard.currentHp -= damage;
           showDamageNumber(damage, `slot${targetIdx}`, specialType);
 
-          if (state.battle.currentEnemy.name === 'Shao Kahn' && Math.random() < 0.4) {
+          if ((state.battle.currentEnemy.name === 'Shao Kahn' || state.battle.currentEnemy.name === 'Kaguya') && Math.random() < 0.4) {
             const filled = state.battle.slots
               .map((c, idx) => c !== null ? idx : -1)
               .filter(idx => idx !== -1);
@@ -1628,7 +1628,7 @@ function startBattleLoop() {
             }
           }
 
-          if ((state.battle.currentEnemy.name === 'Rick' && Math.random() < 0.1) ||
+          if ((state.battle.currentEnemy.name === 'Rick' && Math.random() < 0.17) ||
               state.battle.currentEnemy.name === 'Kuzzi') {
             const filled = state.battle.slots
               .map((c, i) => c ? i : -1)
@@ -1716,7 +1716,7 @@ function startBattleLoop() {
           removeSlotCard(idx);
         }
       } else if (state.battle.currentEnemy.name === 'Kratos') {
-        state.battle.currentEnemy.attack *= 1.05;
+        state.battle.currentEnemy.attack *= 1.04;
         updateBattleStats();
       } else if (state.battle.currentEnemy.name === 'Vegeta' && state.battle.vegetaEvolutions < 5 && Math.random() < 0.1) {
         state.battle.currentEnemy.attack *= 2;

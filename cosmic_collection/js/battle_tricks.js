@@ -250,7 +250,7 @@ const BATTLE_TRICKS = {
     "1036": {
         targetEnemy: "Chuck Norris",
         effect: (enemy) => {
-            enemy.currentHp *= enemy.currentHp * 2;
+            enemy.currentHp *= 2;
         },
         tidbit: "You quickly write the obvious name Chuck Norris in the Death Note. In classic Chuck Norris fashion, this only stengthens him.<br><br>[Doubles current HP]",
         achievement: "bossesBattleTricks12",

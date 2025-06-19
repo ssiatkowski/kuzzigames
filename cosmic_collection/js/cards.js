@@ -15844,11 +15844,6 @@ window.cards = [
         "type": "rarityOddsDivider",
         "realm": 11,
         "rarity": "fine"
-      },
-      {
-        "type": "rarityOddsDivider",
-        "realm": 11,
-        "rarity": "rare"
       }
     ],
     "specialEffects": [
@@ -16614,11 +16609,6 @@ window.cards = [
         "type": "rarityOddsDivider",
         "realm": 11,
         "rarity": "rare"
-      },
-      {
-        "type": "rarityOddsDivider",
-        "realm": 11,
-        "rarity": "epic"
       }
     ],
     "specialEffects": [
@@ -17791,6 +17781,14 @@ window.cards = [
         },
         "currency": "royal_jelly",
         "value": 20.0
+      },
+      {
+        "type": "flatMaxCardsPerPoke",
+        "requirement": {
+          "type": "level",
+          "amount": 275
+        },
+        "value": 2750000.0
       }
     ]
   },
@@ -17836,6 +17834,14 @@ window.cards = [
         },
         "currency": "feather",
         "value": 20.0
+      },
+      {
+        "type": "flatMaxCardsPerPoke",
+        "requirement": {
+          "type": "level",
+          "amount": 275
+        },
+        "value": 2750000.0
       }
     ]
   },
@@ -17881,6 +17887,14 @@ window.cards = [
         },
         "currency": "cosmic_ray",
         "value": 20.0
+      },
+      {
+        "type": "flatMaxCardsPerPoke",
+        "requirement": {
+          "type": "level",
+          "amount": 275
+        },
+        "value": 2750000.0
       }
     ]
   },
@@ -17926,6 +17940,14 @@ window.cards = [
         },
         "currency": "zeal",
         "value": 20.0
+      },
+      {
+        "type": "flatMaxCardsPerPoke",
+        "requirement": {
+          "type": "level",
+          "amount": 275
+        },
+        "value": 2750000.0
       }
     ]
   },
@@ -17986,6 +18008,14 @@ window.cards = [
         },
         "currency": "stone",
         "value": 250.0
+      },
+      {
+        "type": "flatMaxCardsPerPoke",
+        "requirement": {
+          "type": "level",
+          "amount": 275
+        },
+        "value": 2750000.0
       }
     ]
   },
@@ -18046,6 +18076,14 @@ window.cards = [
         },
         "currency": "coral",
         "value": 250.0
+      },
+      {
+        "type": "flatMaxCardsPerPoke",
+        "requirement": {
+          "type": "level",
+          "amount": 275
+        },
+        "value": 2750000.0
       }
     ]
   },
@@ -18096,6 +18134,14 @@ window.cards = [
         },
         "currency": "pollen",
         "value": 250.0
+      },
+      {
+        "type": "allGeneratorMultiplier",
+        "requirement": {
+          "type": "level",
+          "amount": 300
+        },
+        "value": 3.0
       }
     ]
   },
@@ -18156,6 +18202,14 @@ window.cards = [
         },
         "currency": "egg",
         "value": 250.0
+      },
+      {
+        "type": "allGeneratorMultiplier",
+        "requirement": {
+          "type": "level",
+          "amount": 300
+        },
+        "value": 3.0
       }
     ]
   },
@@ -18216,6 +18270,14 @@ window.cards = [
         },
         "currency": "crystal",
         "value": 250.0
+      },
+      {
+        "type": "allGeneratorMultiplier",
+        "requirement": {
+          "type": "level",
+          "amount": 300
+        },
+        "value": 3.0
       }
     ]
   },
@@ -18266,6 +18328,14 @@ window.cards = [
         },
         "currency": "tooth",
         "value": 250.0
+      },
+      {
+        "type": "allGeneratorMultiplier",
+        "requirement": {
+          "type": "level",
+          "amount": 300
+        },
+        "value": 3.0
       }
     ]
   },
@@ -18321,6 +18391,14 @@ window.cards = [
         },
         "currency": "coin",
         "value": 250.0
+      },
+      {
+        "type": "merchantPriceDivider",
+        "requirement": {
+          "type": "level",
+          "amount": 300
+        },
+        "value": 3.0
       }
     ]
   },
@@ -18366,6 +18444,14 @@ window.cards = [
         },
         "currency": "spirit",
         "value": 250.0
+      },
+      {
+        "type": "merchantPriceDivider",
+        "requirement": {
+          "type": "level",
+          "amount": 300
+        },
+        "value": 3.0
       }
     ]
   },
@@ -18411,6 +18497,14 @@ window.cards = [
         },
         "currency": "rune",
         "value": 250.0
+      },
+      {
+        "type": "merchantPriceDivider",
+        "requirement": {
+          "type": "level",
+          "amount": 300
+        },
+        "value": 3.0
       }
     ]
   },
@@ -18456,6 +18550,14 @@ window.cards = [
         },
         "currency": "pearl",
         "value": 250.0
+      },
+      {
+        "type": "flatMinCardsPerPoke",
+        "requirement": {
+          "type": "level",
+          "amount": 300
+        },
+        "value": 10000000.0
       }
     ]
   },
@@ -18474,7 +18576,7 @@ window.cards = [
       "amount": 5.0
     },
     "description": "He once ripped the arm off the Titan Gaia and used it as a club, leaving her howls echoing through Olympus.",
-    "power": 1000,
+    "power": 400,
     "defense": 1500,
     "baseEffects": [
       {
@@ -18501,6 +18603,14 @@ window.cards = [
         },
         "currency": "royal_jelly",
         "value": 250.0
+      },
+      {
+        "type": "flatMinCardsPerPoke",
+        "requirement": {
+          "type": "level",
+          "amount": 300
+        },
+        "value": 10000000.0
       }
     ]
   },
@@ -18561,6 +18671,14 @@ window.cards = [
         },
         "currency": "feather",
         "value": 250.0
+      },
+      {
+        "type": "flatMinCardsPerPoke",
+        "requirement": {
+          "type": "level",
+          "amount": 300
+        },
+        "value": 10000000.0
       }
     ]
   },
@@ -18669,8 +18787,8 @@ window.cards = [
       "amount": 5.0
     },
     "description": "Death had a near Chuck Norris experience once.",
-    "power": 5000,
-    "defense": 10000,
+    "power": 2000,
+    "defense": 8000,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -18714,7 +18832,7 @@ window.cards = [
       "amount": 5.0
     },
     "description": "Her Infinite Tsukuyomi trapped the entire world in lifelong dreams for a millennium.",
-    "power": 10000,
+    "power": 9000,
     "defense": 10000,
     "baseEffects": [
       {
@@ -18775,6 +18893,21 @@ window.cards = [
       },
       {
         "type": "cooldownDivider"
+      },
+      {
+        "type": "rarityOddsDivider",
+        "realm": 12,
+        "rarity": "junk"
+      },
+      {
+        "type": "rarityOddsDivider",
+        "realm": 12,
+        "rarity": "basic"
+      },
+      {
+        "type": "rarityOddsDivider",
+        "realm": 12,
+        "rarity": "decent"
       }
     ],
     "specialEffects": [
@@ -18804,7 +18937,7 @@ window.cards = [
       "amount": 5.0
     },
     "description": "His “100 push-ups, 100 sit-ups, 100 squats, 10 km run” routine actually unlocked a mutation that defies all biology.",
-    "power": 10000,
+    "power": 100,
     "defense": 50000,
     "baseEffects": [
       {
