@@ -17187,7 +17187,7 @@ window.cards = [
           "type": "level",
           "amount": 48
         },
-        "value": 480.0
+        "value": 1600.0
       }
     ]
   },
@@ -17676,6 +17676,14 @@ window.cards = [
         },
         "currency": "rune",
         "value": 20.0
+      },
+      {
+        "type": "flatCooldownDivider",
+        "requirement": {
+          "type": "level",
+          "amount": 250
+        },
+        "value": 250.0
       }
     ]
   },
@@ -17736,6 +17744,14 @@ window.cards = [
         },
         "currency": "pearl",
         "value": 20.0
+      },
+      {
+        "type": "flatCooldownDivider",
+        "requirement": {
+          "type": "level",
+          "amount": 250
+        },
+        "value": 250.0
       }
     ]
   },
@@ -18724,6 +18740,14 @@ window.cards = [
         },
         "currency": "cosmic_ray",
         "value": 250.0
+      },
+      {
+        "type": "flatCooldownDivider",
+        "requirement": {
+          "type": "level",
+          "amount": 300
+        },
+        "value": 3000.0
       }
     ]
   },
@@ -18769,6 +18793,14 @@ window.cards = [
         },
         "currency": "zeal",
         "value": 250.0
+      },
+      {
+        "type": "flatCooldownDivider",
+        "requirement": {
+          "type": "level",
+          "amount": 300
+        },
+        "value": 3000.0
       }
     ]
   },
@@ -18814,6 +18846,14 @@ window.cards = [
         },
         "currency": "rune",
         "value": 3000.0
+      },
+      {
+        "type": "flatCooldownDivider",
+        "requirement": {
+          "type": "level",
+          "amount": 350
+        },
+        "value": 3500.0
       }
     ]
   },
@@ -18859,6 +18899,14 @@ window.cards = [
         },
         "currency": "pearl",
         "value": 3000.0
+      },
+      {
+        "type": "flatCooldownDivider",
+        "requirement": {
+          "type": "level",
+          "amount": 350
+        },
+        "value": 3500.0
       }
     ]
   },
@@ -18919,6 +18967,14 @@ window.cards = [
         },
         "currency": "royal_jelly",
         "value": 3000.0
+      },
+      {
+        "type": "flatCooldownDivider",
+        "requirement": {
+          "type": "level",
+          "amount": 400
+        },
+        "value": 8000.0
       }
     ]
   },
@@ -18964,6 +19020,14 @@ window.cards = [
         },
         "currency": "feather",
         "value": 3000.0
+      },
+      {
+        "type": "flatCooldownDivider",
+        "requirement": {
+          "type": "level",
+          "amount": 450
+        },
+        "value": 20000.0
       }
     ]
   },
@@ -19009,6 +19073,14 @@ window.cards = [
         },
         "currency": "cosmic_ray",
         "value": 3000.0
+      },
+      {
+        "type": "flatCooldownDivider",
+        "requirement": {
+          "type": "level",
+          "amount": 500
+        },
+        "value": 50000.0
       }
     ]
   },
@@ -19054,6 +19126,14 @@ window.cards = [
         },
         "currency": "zeal",
         "value": 3000.0
+      },
+      {
+        "type": "flatCooldownDivider",
+        "requirement": {
+          "type": "level",
+          "amount": 550
+        },
+        "value": 100000.0
       }
     ]
   }
