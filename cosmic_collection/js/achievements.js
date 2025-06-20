@@ -770,7 +770,7 @@ const achievements = {
         condition: 'Defeat Demeter',
         icon: '💀',
         rewardType: 'Sacrifice Time Divider',
-        reward: 0.1,
+        reward: 0.15,
         enemy: 'Demeter',
     },
     battleMilestone7: {
@@ -780,7 +780,7 @@ const achievements = {
         condition: 'Defeat Uranus',
         icon: '💀',
         rewardType: 'Sacrifice Time Divider',
-        reward: 0.1,
+        reward: 0.2,
         enemy: 'Uranus',
     },
     battleMilestone8: {
@@ -790,7 +790,7 @@ const achievements = {
         condition: 'Defeat Zeus',
         icon: '💀',
         rewardType: 'Sacrifice Time Divider',
-        reward: 0.2,
+        reward: 0.25,
         enemy: 'Zeus',
     },
     battleMilestone9: {
@@ -830,7 +830,7 @@ const achievements = {
         condition: 'Defeat Hal9000',
         icon: '💀',
         rewardType: 'Sacrifice Time Divider',
-        reward: 0.1,
+        reward: 0.2,
         enemy: 'Hal9000',
     },
     battleMilestone13: {
@@ -840,7 +840,7 @@ const achievements = {
         condition: 'Defeat Aizen',
         icon: '💀',
         rewardType: 'Sacrifice Time Divider',
-        reward: 0.1,
+        reward: 0.3,
         enemy: 'Aizen',
     },
     battleMilestone14: {
@@ -850,7 +850,7 @@ const achievements = {
         condition: 'Defeat Deadpool',
         icon: '💀',
         rewardType: 'Sacrifice Time Divider',
-        reward: 0.1,
+        reward: 0.4,
         enemy: 'Deadpool',
     },
     battleMilestone15: {
@@ -860,7 +860,7 @@ const achievements = {
         condition: 'Defeat Rick',
         icon: '💀',
         rewardType: 'Sacrifice Time Divider',
-        reward: 0.1,
+        reward: 0.5,
         enemy: 'Rick',
     },
     battleMilestone16: {
@@ -870,7 +870,7 @@ const achievements = {
         condition: 'Defeat Your Ego',
         icon: '💀',
         rewardType: 'Sacrifice Time Divider',
-        reward: 0.5,
+        reward: 1.2,
         enemy: 'Your Ego',
     },
     greekGodBattleTricks: {

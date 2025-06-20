@@ -57,6 +57,7 @@ window.state = {
     maxCardsPerPoke: 0, // Default maximum cards per poke
     sacrificeTimeDivider: 1,
   },
+  skillAdditionalSacrificeTimeDivider: 0,
   effects: {
     minCardsPerPoke: 1,
     maxCardsPerPoke: 4,

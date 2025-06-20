@@ -2157,6 +2157,20 @@ window.skills = [
       purchased: false
     },
     {
+      id: 24101,
+      name: "Ultimate Sacrifice Time Divider",
+      description: "Increase Sacrifice Time Divider by +0.5.",
+      cost: { realmId: 12, currencyId: "rune", amount: 1e30 },
+      purchased: false
+    },
+    {
+      id: 24102,
+      name: "Ultimate Sacrifice Time Divider 2",
+      description: "Increase Sacrifice Time Divider by +0.5.",
+      cost: { realmId: 12, currencyId: "feather", amount: 1e30 },
+      purchased: false
+    },
+    {
       id: 25001,
       name: "Card Leveler",
       description: "Unlocks a button on Collection screen that levels all cards in current realm/filter (left to right).",
@@ -4135,6 +4149,10 @@ function applySkill(id, skipCost = false) {
       case 24012: // Shorter Sacrifice 12
       case 24013: // Shorter Sacrifice 13
         state.sacrificeLockoutTime -= 1;
+        break;
+      case 24101:
+      case 24102:
+        state.skillAdditionalSacrificeTimeDivider += 0.5;
         break;
       case 25001: // Card Leveler
       case 25002: // Card Leveler 2

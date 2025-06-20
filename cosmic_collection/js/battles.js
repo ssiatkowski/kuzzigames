@@ -44,7 +44,7 @@ function lockCard(cardId) {
   if (!card) return;
   
   card.locked = true;
-  state.battle.lockoutTimers[cardId] = Date.now() + (state.sacrificeLockoutTime * 60 * 60 * 1000 / state.achievementRewards.sacrificeTimeDivider); // sacrificeLockoutTime is in hours
+  state.battle.lockoutTimers[cardId] = Date.now() + (state.sacrificeLockoutTime * 60 * 60 * 1000 / (state.achievementRewards.sacrificeTimeDivider + state.skillAdditionalSacrificeTimeDivider)); // sacrificeLockoutTime is in hours
   saveState();
 }
 
@@ -1151,7 +1151,7 @@ function showSacrificeDialog(cardId) {
               <li>Remove it from your collection (${formatQuantity(c.quantity)} → 0) </li>
               <li>Reset its tier (${c.tier} → 0) and level (${c.level} → 1)</li>
               <li>Remove all its effects</li>
-              <li>Lock it for ${formatDuration(state.sacrificeLockoutTime * 60 * 60 / state.achievementRewards.sacrificeTimeDivider)}</li>
+              <li>Lock it for ${formatDuration(state.sacrificeLockoutTime * 60 * 60 / (state.achievementRewards.sacrificeTimeDivider + state.skillAdditionalSacrificeTimeDivider))}</li>
             </ul>
           </div>
           <div class="sacrifice-stats">
