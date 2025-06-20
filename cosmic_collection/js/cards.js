@@ -987,6 +987,11 @@ window.cards = [
         "value": 2.0
       },
       {
+        "type": "currencyPerSec",
+        "currency": "coral",
+        "value": 1.0
+      },
+      {
         "type": "cooldownDivider"
       }
     ],
@@ -1362,6 +1367,11 @@ window.cards = [
         "value": 400.0
       },
       {
+        "type": "currencyPerSec",
+        "currency": "coral",
+        "value": 15.0
+      },
+      {
         "type": "cooldownDivider"
       },
       {
@@ -1559,6 +1569,11 @@ window.cards = [
         "value": 500.0
       },
       {
+        "type": "currencyPerSec",
+        "currency": "coral",
+        "value": 25.0
+      },
+      {
         "type": "maxCardsPerPoke"
       },
       {
@@ -1675,6 +1690,11 @@ window.cards = [
         "type": "currencyPerPoke",
         "currency": "coral",
         "value": 10000.0
+      },
+      {
+        "type": "currencyPerSec",
+        "currency": "coral",
+        "value": 100.0
       },
       {
         "type": "minCardsPerPoke"
@@ -2144,6 +2164,11 @@ window.cards = [
         "type": "currencyPerPoke",
         "currency": "pollen",
         "value": 25.0
+      },
+      {
+        "type": "currencyPerSec",
+        "currency": "pollen",
+        "value": 3.0
       },
       {
         "type": "maxCardsPerPoke"
@@ -2794,6 +2819,11 @@ window.cards = [
         "value": 5000.0
       },
       {
+        "type": "currencyPerSec",
+        "currency": "pollen",
+        "value": 50.0
+      },
+      {
         "type": "rarityOddsDivider",
         "realm": 3,
         "rarity": "junk"
@@ -3424,6 +3454,11 @@ window.cards = [
         "value": 50.0
       },
       {
+        "type": "currencyPerSec",
+        "currency": "egg",
+        "value": 5.0
+      },
+      {
         "type": "minCardsPerPoke"
       },
       {
@@ -3473,6 +3508,11 @@ window.cards = [
         "type": "currencyPerPoke",
         "currency": "egg",
         "value": 400.0
+      },
+      {
+        "type": "currencyPerSec",
+        "currency": "egg",
+        "value": 12.0
       },
       {
         "type": "cooldownDivider"
@@ -3742,6 +3782,11 @@ window.cards = [
         "type": "currencyPerPoke",
         "currency": "egg",
         "value": 1500.0
+      },
+      {
+        "type": "currencyPerSec",
+        "currency": "egg",
+        "value": 25.0
       },
       {
         "type": "cooldownDivider"
@@ -4699,6 +4744,11 @@ window.cards = [
         "value": 25.0
       },
       {
+        "type": "currencyPerSec",
+        "currency": "crystal",
+        "value": 1.0
+      },
+      {
         "type": "rarityOddsDivider",
         "realm": 5,
         "rarity": "basic"
@@ -4743,6 +4793,11 @@ window.cards = [
         "type": "currencyPerPoke",
         "currency": "crystal",
         "value": 25.0
+      },
+      {
+        "type": "currencyPerSec",
+        "currency": "crystal",
+        "value": 1.0
       },
       {
         "type": "rarityOddsDivider",
@@ -4987,6 +5042,11 @@ window.cards = [
         "type": "currencyPerPoke",
         "currency": "crystal",
         "value": 500.0
+      },
+      {
+        "type": "currencyPerSec",
+        "currency": "crystal",
+        "value": 15.0
       },
       {
         "type": "maxCardsPerPoke"
@@ -5261,6 +5321,11 @@ window.cards = [
         "type": "currencyPerPoke",
         "currency": "crystal",
         "value": 25000.0
+      },
+      {
+        "type": "currencyPerSec",
+        "currency": "crystal",
+        "value": 50.0
       },
       {
         "type": "rarityOddsDivider",
@@ -7151,6 +7216,11 @@ window.cards = [
         "value": 80.0
       },
       {
+        "type": "currencyPerSec",
+        "currency": "tooth",
+        "value": 5.0
+      },
+      {
         "type": "cooldownDivider"
       },
       {
@@ -7732,6 +7802,11 @@ window.cards = [
         "type": "currencyPerPoke",
         "currency": "tooth",
         "value": 5000.0
+      },
+      {
+        "type": "currencyPerSec",
+        "currency": "tooth",
+        "value": 25.0
       },
       {
         "type": "rarityOddsDivider",
@@ -9347,6 +9422,11 @@ window.cards = [
         "value": 20.0
       },
       {
+        "type": "currencyPerSec",
+        "currency": "coin",
+        "value": 2.0
+      },
+      {
         "type": "maxCardsPerPoke"
       },
       {
@@ -9728,6 +9808,11 @@ window.cards = [
         "type": "currencyPerPoke",
         "currency": "coin",
         "value": 80.0
+      },
+      {
+        "type": "currencyPerSec",
+        "currency": "coin",
+        "value": 8.0
       },
       {
         "type": "cooldownDivider"
@@ -10338,6 +10423,11 @@ window.cards = [
         "type": "currencyPerPoke",
         "currency": "coin",
         "value": 2000.0
+      },
+      {
+        "type": "currencyPerSec",
+        "currency": "coin",
+        "value": 25.0
       },
       {
         "type": "maxCardsPerPoke"
@@ -11198,6 +11288,11 @@ window.cards = [
         "type": "currencyPerPoke",
         "currency": "coin",
         "value": 10000000.0
+      },
+      {
+        "type": "currencyPerSec",
+        "currency": "coin",
+        "value": 2000.0
       },
       {
         "type": "minCardsPerPoke"
@@ -12206,6 +12301,11 @@ window.cards = [
         "value": 50000.0
       },
       {
+        "type": "currencyPerSec",
+        "currency": "spirit",
+        "value": 200.0
+      },
+      {
         "type": "minCardsPerPoke"
       },
       {
@@ -12429,6 +12529,11 @@ window.cards = [
         "type": "currencyPerPoke",
         "currency": "spirit",
         "value": 250000.0
+      },
+      {
+        "type": "currencyPerSec",
+        "currency": "spirit",
+        "value": 100.0
       },
       {
         "type": "rarityOddsDivider",
@@ -17288,8 +17393,8 @@ window.cards = [
       "currency": "stone",
       "amount": 5.0
     },
-    "description": "The perfect stationary sparring partner that never fights back (or learns from its mistakes).",
-    "power": 1,
+    "description": "The perfect stationary sparring partner that barely fights back.",
+    "power": 100,
     "defense": 25,
     "baseEffects": [
       {
@@ -17936,6 +18041,11 @@ window.cards = [
         "type": "currencyPerPoke",
         "currency": "zeal",
         "value": 100000.0
+      },
+      {
+        "type": "currencyPerSec",
+        "currency": "zeal",
+        "value": 10.0
       },
       {
         "type": "maxCardsPerPoke"
@@ -18775,6 +18885,11 @@ window.cards = [
         "value": 500000000.0
       },
       {
+        "type": "currencyPerSec",
+        "currency": "zeal",
+        "value": 5000.0
+      },
+      {
         "type": "maxCardsPerPoke"
       },
       {
@@ -19106,6 +19221,11 @@ window.cards = [
         "type": "currencyPerPoke",
         "currency": "zeal",
         "value": 10000000000.0
+      },
+      {
+        "type": "currencyPerSec",
+        "currency": "zeal",
+        "value": 500000.0
       },
       {
         "type": "maxCardsPerPoke"
