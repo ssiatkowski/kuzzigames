@@ -2101,12 +2101,14 @@ function showResetBattlesDialog() {
     
     const firstBossRealm = realms.find(r => r.unlocked && r.id === state.battle.currentBattleRealm);
     if (firstBossRealm) {
-      const firstBoss = cards.find(c => c.realm === firstBossRealm.id && !c.cantBeEnemy);
+      const firstBoss = cards.find(c => c.realm === firstBossRealm.id);
       if (firstBoss) {
         state.battle.currentEnemy = {
           ...firstBoss,
+          attack: firstBoss.power * 10,
           maxHp: firstBoss.defense * (state.battle.currentBattleRealm === 11 ? 100000 : 400000),
-          currentHp: firstBoss.defense * (state.battle.currentBattleRealm === 11 ? 100000 : 400000)
+          currentHp: firstBoss.defense * (state.battle.currentBattleRealm === 11 ? 100000 : 400000),
+          stunTurns: 0
         };
       }
     }

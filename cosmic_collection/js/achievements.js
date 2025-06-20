@@ -119,7 +119,7 @@ const achievements = {
         condition: 'Collect all Rocks cards',
         icon: '🃏',
         rewardType: 'Max Cards Multiplier',
-        reward: 1.02,
+        reward: 1.01,
         realm: 1,
     },
     cosmicCollector2: {
@@ -139,7 +139,7 @@ const achievements = {
         condition: 'Collect all Bugdom cards',
         icon: '🃏',
         rewardType: 'Max Cards Multiplier',
-        reward: 1.02,
+        reward: 1.03,
         realm: 3,
     },
     cosmicCollector4: {
@@ -149,7 +149,7 @@ const achievements = {
         condition: 'Collect all Aviary cards',
         icon: '🃏',
         rewardType: 'Max Cards Multiplier',
-        reward: 1.02,
+        reward: 1.04,
         realm: 4,
     },
     cosmicCollector5: {
@@ -159,7 +159,7 @@ const achievements = {
         condition: 'Collect all Ancient Relics cards',
         icon: '🃏',
         rewardType: 'Max Cards Multiplier',
-        reward: 1.02,
+        reward: 1.05,
         realm: 5,
     },
     cosmicCollector6: {
@@ -169,7 +169,7 @@ const achievements = {
         condition: 'Collect all Celestial Bodies cards',
         icon: '🃏',
         rewardType: 'Max Cards Multiplier',
-        reward: 1.02,
+        reward: 1.06,
         realm: 6,
     },
     cosmicCollector7: {
@@ -179,7 +179,7 @@ const achievements = {
         condition: 'Collect all Mythical Beasts cards',
         icon: '🃏',
         rewardType: 'Max Cards Multiplier',
-        reward: 1.03,
+        reward: 1.07,
         realm: 7,
     },
     cosmicCollector8: {
@@ -189,7 +189,7 @@ const achievements = {
         condition: 'Collect all Incremental Games cards',
         icon: '🃏',
         rewardType: 'Max Cards Multiplier',
-        reward: 1.04,
+        reward: 1.08,
         realm: 8,
     },
     cosmicCollector9: {
@@ -199,7 +199,7 @@ const achievements = {
         condition: 'Collect all Spirit Familiars cards',
         icon: '🃏',
         rewardType: 'Max Cards Multiplier',
-        reward: 1.04,
+        reward: 1.09,
         realm: 9,
     },
     cosmicCollector10: {
@@ -209,7 +209,7 @@ const achievements = {
         condition: 'Collect all Weapons cards',
         icon: '🃏',
         rewardType: 'Max Cards Multiplier',
-        reward: 1.05,
+        reward: 1.1,
         realm: 10,
     },
     cosmicCollector11: {
@@ -219,19 +219,19 @@ const achievements = {
         condition: 'Collect all Greek Gods cards',
         icon: '🃏',
         rewardType: 'Max Cards Multiplier',
-        reward: 1.1,
+        reward: 1.2,
         realm: 11,
     },
-    // cosmicCollector12: {
-    //     id: 'cosmicCollector12',
-    //     name: 'Cosmic Collector XII',
-    //     type: 'cosmicCollector',
-    //     condition: 'Collect all Boss cards',
-    //     icon: '🃏',
-    //     rewardType: 'Max Cards Multiplier',
-    //     reward: 1.1,
-    //     realm: 12,
-    // },
+    cosmicCollector12: {
+        id: 'cosmicCollector12',
+        name: 'Cosmic Collector XII',
+        type: 'cosmicCollector',
+        condition: 'Collect all Boss cards',
+        icon: '🃏',
+        rewardType: 'Max Cards Multiplier',
+        reward: 2,
+        realm: 12,
+    },
     holePoker: {
         id: 'holePoker',
         name: 'Hole Poker',

@@ -433,6 +433,32 @@ function updateCurrencyBar() {
 
     const div = document.createElement('div');
     div.className = 'currency-item';
+
+    // Calculate gains for tooltip
+    const perPokeRate = (state.effects.currencyPerPoke[cid] || 0) * (state.effects.currencyPerPokeMultiplier[cid] || 1);
+    const perSecRate = (state.effects.currencyPerSec[cid] || 0) * (state.effects.currencyPerSecMultiplier[cid] || 1);
+    const generatorContribution = state.resourceGeneratorContribution[cid] || 0;
+    const totalPerSecRate = perSecRate + generatorContribution;
+
+    // Create tooltip content
+    let tooltipContent = `<strong>${meta.name}</strong><br>`;
+    if (perPokeRate > 0) {
+      tooltipContent += `Per Poke: +${formatNumber(perPokeRate)}<br>`;
+    }
+    if (totalPerSecRate > 0) {
+      tooltipContent += `Per Second: +${formatNumber(totalPerSecRate)}`;
+      if (generatorContribution > 0) {
+        tooltipContent += ` (${formatNumber(perSecRate)} + ${formatNumber(generatorContribution)} generator)`;
+      }
+    }
+    if (perPokeRate === 0 && totalPerSecRate === 0) {
+      tooltipContent += `No active generation`;
+    }
+
+    // Store tooltip data for later use
+    div.setAttribute('data-currency-id', cid);
+    div.setAttribute('data-currency-name', meta.name);
+
     const currencyPath = `assets/images/currencies/${meta.icon}`;
     imageCache.getImage('currencies', currencyPath).then(img => {
       if (img) {
@@ -443,6 +469,118 @@ function updateCurrencyBar() {
       }
     });
     bar.appendChild(div);
+  });
+
+  // Setup tooltip event listeners only once
+  setupCurrencyTooltips();
+}
+
+// Global tooltip element to prevent flickering
+let currencyTooltip = null;
+let tooltipTimeout = null;
+
+// Setup tooltip functionality for currency items
+function setupCurrencyTooltips() {
+  const currencyItems = document.querySelectorAll('.currency-item');
+
+  currencyItems.forEach(item => {
+    // Skip if already has tooltip listeners
+    if (item.hasAttribute('data-tooltip-setup')) return;
+    item.setAttribute('data-tooltip-setup', 'true');
+
+    const showTooltip = (e) => {
+      const currencyId = item.getAttribute('data-currency-id');
+      const currencyName = item.getAttribute('data-currency-name');
+
+      if (!currencyId) return;
+
+      // Calculate tooltip content fresh
+      const perPokeRate = (state.effects.currencyPerPoke[currencyId] || 0) * (state.effects.currencyPerPokeMultiplier[currencyId] || 1);
+      const perSecRate = (state.effects.currencyPerSec[currencyId] || 0) * (state.effects.currencyPerSecMultiplier[currencyId] || 1);
+      const generatorContribution = state.resourceGeneratorContribution[currencyId] || 0;
+      const totalPerSecRate = perSecRate + generatorContribution;
+
+      let tooltipContent = `<strong>${currencyName}</strong><br>`;
+      if (perPokeRate > 0) {
+        tooltipContent += `Per Poke: +${formatNumber(perPokeRate)}<br>`;
+      }
+      if (totalPerSecRate > 0) {
+        tooltipContent += `Per Second: +${formatNumber(totalPerSecRate)}`;
+        if (generatorContribution > 0) {
+          tooltipContent += `<br><small>(${formatNumber(perSecRate)} + ${formatNumber(generatorContribution)} generator)</small>`;
+        }
+      }
+      if (perPokeRate === 0 && totalPerSecRate === 0) {
+        tooltipContent += `No active generation`;
+      }
+
+      // Clear any existing timeout
+      if (tooltipTimeout) {
+        clearTimeout(tooltipTimeout);
+        tooltipTimeout = null;
+      }
+
+      // Create or update tooltip
+      if (!currencyTooltip) {
+        currencyTooltip = document.createElement('div');
+        currencyTooltip.className = 'currency-tooltip';
+        document.body.appendChild(currencyTooltip);
+      }
+
+      currencyTooltip.innerHTML = tooltipContent;
+
+      // Position tooltip with smart bounds checking
+      const rect = item.getBoundingClientRect();
+      const tooltipRect = currencyTooltip.getBoundingClientRect();
+
+      let left = rect.left + rect.width / 2 - tooltipRect.width / 2;
+      let top = rect.top - tooltipRect.height - 10;
+
+      // Adjust if tooltip goes off screen
+      if (left < 10) left = 10;
+      if (left + tooltipRect.width > window.innerWidth - 10) {
+        left = window.innerWidth - tooltipRect.width - 10;
+      }
+      if (top < 10) {
+        // Show below if no room above
+        top = rect.bottom + 10;
+        currencyTooltip.classList.add('below');
+      } else {
+        currencyTooltip.classList.remove('below');
+      }
+
+      currencyTooltip.style.left = left + 'px';
+      currencyTooltip.style.top = top + 'px';
+      currencyTooltip.classList.add('visible');
+    };
+
+    const hideTooltip = () => {
+      if (currencyTooltip) {
+        tooltipTimeout = setTimeout(() => {
+          if (currencyTooltip) {
+            currencyTooltip.classList.remove('visible');
+            setTimeout(() => {
+              if (currencyTooltip && !currencyTooltip.classList.contains('visible')) {
+                currencyTooltip.remove();
+                currencyTooltip = null;
+              }
+            }, 200);
+          }
+        }, 100); // Small delay to prevent flickering when moving between currency items
+      }
+    };
+
+    // Add event listeners
+    item.addEventListener('mouseenter', showTooltip);
+    item.addEventListener('mouseleave', hideTooltip);
+
+    // Touch support for mobile
+    item.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      showTooltip(e);
+      // Hide after 3 seconds on touch
+      setTimeout(hideTooltip, 3000);
+    });
   });
 }
 
