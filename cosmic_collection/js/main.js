@@ -147,6 +147,8 @@ window.state = {
   skipSacrificeDialog: false,  // Add this line
   lastUnstuck: null, // Track last unstuck time
   cardSizeScale: 1, // Track card size scale
+  rocksAgainstCronus: new Set(),
+  zeusSacrifices: new Set(),
 };
 
 // init currencies & effects
@@ -191,6 +193,8 @@ function loadState() {
     state.merchantRefreshTime = obj.merchantRefreshTime || 0;
     state.supporterCheckboxClicked = obj.supporterCheckboxClicked || false;
     state.donationButtonClicked = obj.donationButtonClicked || false;
+    state.rocksAgainstCronus = new Set(obj.rocksAgainstCronus || []);
+    state.zeusSacrifices = new Set(obj.zeusSacrifices || []);
         
     // === Determine whether any saved card actually has a `locked` property ===
     const savedOwned = obj.ownedCards || {};
@@ -338,6 +342,8 @@ function saveState() {
       globalMaxCardsMult: state.battle.globalMaxCardsMult,
       vegetaEvolutions: state.battle.vegetaEvolutions
     },
+    rocksAgainstCronus: Array.from(state.rocksAgainstCronus),
+    zeusSacrifices: Array.from(state.zeusSacrifices)
   };
   currencies.forEach(c => {
     obj.currencies[c.id] = state.currencies[c.id].toString();

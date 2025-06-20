@@ -570,7 +570,7 @@ const achievements = {
         condition: 'Number 69',
         icon: '🚨',
         rewardType: 'Min Cards Multiplier',
-        reward: 1.03,
+        reward: 1.01,
         reqRealm: '3'
     },
     secret2: {
@@ -580,7 +580,7 @@ const achievements = {
         condition: 'Find the Easter Egg',
         icon: '🥚',
         rewardType: 'Min Cards Multiplier',
-        reward: 1.03,
+        reward: 1.02,
         reqRealm: '1'
     },
     secret3: {
@@ -600,7 +600,7 @@ const achievements = {
         condition: '3 x 3',
         icon: `🧲`,
         rewardType: 'Min Cards Multiplier',
-        reward: 1.03,
+        reward: 1.04,
         reqRealm: '3'
     },
     secret7: {
@@ -610,7 +610,7 @@ const achievements = {
         condition: 'No Skills Left?',
         icon: '🧠',
         rewardType: 'Min Cards Multiplier',
-        reward: 1.03,
+        reward: 1.05,
         reqRealm: '1'
     },
     secret5: {
@@ -620,7 +620,7 @@ const achievements = {
         condition: 'Rams is not a Realm',
         icon: '🐏',
         rewardType: 'Min Cards Multiplier',
-        reward: 1.03,
+        reward: 1.06,
         reqRealm: '9'
     },
     secret6: {
@@ -630,7 +630,7 @@ const achievements = {
         condition: 'There is no spoon',
         icon: '🥄',
         rewardType: 'Min Cards Multiplier',
-        reward: 1.03,
+        reward: 1.07,
         reqRealm: '10'
     },
     secret8: {
@@ -640,7 +640,7 @@ const achievements = {
         condition: 'Delete the game',
         icon: '💀',
         rewardType: 'Min Cards Multiplier',
-        reward: 1.03,
+        reward: 1.08,
         reqRealm: '11'
     },
     secret9: {
@@ -650,7 +650,7 @@ const achievements = {
         condition: 'Big Flipper',
         icon: '🔄',
         rewardType: 'Min Cards Multiplier',
-        reward: 1.03,
+        reward: 1.09,
         reqRealm: '11'
     },
     secret10: {
@@ -660,8 +660,58 @@ const achievements = {
         condition: 'Golden Shot',
         icon: '✏',
         rewardType: 'Min Cards Multiplier',
-        reward: 1.03,
+        reward: 1.10,
         reqRealm: '11'
+    },
+    secret11: {
+        id: 'secret11',
+        name: 'Secret XI',
+        type: 'secret',
+        condition: 'But Which Rock?',
+        icon: '🪨',
+        rewardType: 'Min Cards Multiplier',
+        reward: 1.11,
+        reqRealm: '11'
+    },
+    secret12: {
+        id: 'secret12',
+        name: 'Secret XII',
+        type: 'secret',
+        condition: 'Sexcapades',
+        icon: '🍆',
+        rewardType: 'Min Cards Multiplier',
+        reward: 1.12,
+        reqRealm: '11'
+    },
+    secret13: {
+        id: 'secret13',
+        name: 'Secret XIII',
+        type: 'secret',
+        condition: 'Ooph this cooldown. What can I play in the meantime?',
+        icon: '🎮',
+        rewardType: 'Min Cards Multiplier',
+        reward: 1.13,
+        reqRealm: '12'
+    },
+    secret14: {
+        id: 'secret14',
+        name: 'Secret XIV',
+        type: 'secret',
+        condition: 'God of War Rematch',
+        icon: '⛰️',
+        rewardType: 'Min Cards Multiplier',
+        reward: 1.14,
+        reqRealm: '12'
+    },
+    secret15: {
+        id: 'secret15',
+        name: 'Secret XV',
+        type: 'secret',
+        condition: 'Drunk God shares Drinks with the Drunk',
+        icon: '🍺',
+        rewardType: 'Min Cards Multiplier',
+        reward: 1.15,
+        reqRealm: '12'
     },
     battleMilestone: {
         id: 'battleMilestone',

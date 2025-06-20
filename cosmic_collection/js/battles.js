@@ -193,11 +193,21 @@ function processVictory() {
     defeatedCard.locked = false;
   }
   
+  if (state.battle.currentEnemy.name === 'Kratos' && state.battle.slots.some(card => card && card.id === '1119')) {
+    unlockAchievement('secret14');
+  }
+
   // Clear battle slots
   state.battle.slots = Array(state.battle.slotLimit).fill(null);
 
   // Give Rewards for Enemies that have rewards
-  if (state.battle.currentEnemy.name === 'Cronus') {
+  if (state.battle.currentEnemy.name === 'Poseidon') {
+    state.battle.globalMaxCardsMult += 0.001;
+  } else if (state.battle.currentEnemy.name === 'Uranus') {
+    state.battle.globalHPMult += 0.001;
+  } else if (state.battle.currentEnemy.name === 'Tartarus') {
+    state.battle.globalAttackMult += 0.001;
+  } else if (state.battle.currentEnemy.name === 'Cronus') {
     state.battle.globalAttackMult += 0.005;
   } else if (state.battle.currentEnemy.name === 'Typhon') {
     state.battle.globalMaxCardsMult += 0.005;
@@ -1031,6 +1041,55 @@ function performSacrifice(cardId) {
     }
   }
 
+  if (state.battle.currentEnemy.name === 'Cronus') {
+    state.rocksAgainstCronus.add(cardId);
+    if (state.rocksAgainstCronus.size === 20) {
+      unlockAchievement('secret11')
+      showTidbit(`Cornus gets tricked AGAIN!<br><br>[Reduces current HP by 99%]`);
+      const damage = state.battle.currentEnemy.currentHp * 0.99;
+      state.battle.currentEnemy.currentHp = Math.max(1, state.battle.currentEnemy.currentHp - damage);
+      showDamageNumber(damage, 'enemy', 'crit');
+      state.rocksAgainstCronus.clear();
+    }
+  }
+
+  if (state.battle.currentEnemy.name === 'Zeus' && (cardId === 1106 || cardId === 1109 || cardId === 1111 || cardId === 1114 || cardId === 1124 || cardId === 1126 || cardId === 1133)) {
+    state.zeusSacrifices.add(cardId);
+    
+    showTidbit(`Zeus has sex with ${card.name}.<br><br>[Increases attack by 6.9%]`);
+    state.battle.currentEnemy.attack = Math.ceil(state.battle.currentEnemy.attack * 1.069);
+    if (state.zeusSacrifices.size === 7) {
+      unlockAchievement('secret12');
+    }
+  }
+
+  if (state.battle.currentEnemy.name === 'Rick' && (cardId === 1115 || cardId === 527 || cardId === 526)) {
+    // check if both all 1115 and 527 and 526 are in current slots
+    if (state.battle.slots.filter(slot => slot && (slot.id === '1115' || slot.id === '527' || slot.id === '526')).length === 3) {
+      unlockAchievement('secret15');
+      showTidbit(`Dionysus hands Rick drink from the cups together. They have a good ol' time! <br><br>[Increases both attacks by 50%]`);
+      state.battle.currentEnemy.attack = Math.ceil(state.battle.currentEnemy.attack * 1.5);
+      //also increase attack of the card in slot that has id 1115
+      const dionysusCard = state.battle.slots.find(slot => slot && slot.id === '1115');
+      if (dionysusCard) {
+        dionysusCard.attack = Math.ceil(dionysusCard.attack * 1.5);
+      }
+      //remove cards 526 and 527 from their slots -- and propagate slots (using splice and push and update battle ui)
+      const idx526 = state.battle.slots.findIndex(slot => slot && slot.id === '526');
+      if (idx526 !== -1) {
+        state.battle.slots.splice(idx526, 1);
+        state.battle.slots.push(null);
+      }
+      const idx527 = state.battle.slots.findIndex(slot => slot && slot.id === '527');
+      if (idx527 !== -1) {
+        state.battle.slots.splice(idx527, 1);
+        state.battle.slots.push(null);
+      }
+      updateBattleUI();
+      
+    }
+  }
+
   // Lock the card
   lockCard(cardId);
 
@@ -1408,7 +1467,7 @@ function startBattleLoop() {
               }
             }
 
-            if (state.battle.stunRealms.has(card.realm) && Math.random() < state.battle.stunChance) {
+            if (state.battle.stunRealms.has(card.realm) && Math.random() < state.battle.stunChance && state.battle.currentEnemy.name !== 'Uranus') {
               state.battle.currentEnemy.stunTurns += 1;
               showDamageNumber(0, 'enemy', 'stun');
             }
@@ -1519,7 +1578,8 @@ function startBattleLoop() {
           // 3) dodge check
           if (
             state.battle.dodgeRealms.has(targetCard.realm) &&
-            Math.random() < state.battle.dodgeChance
+            Math.random() < state.battle.dodgeChance &&
+            state.battle.currentEnemy.name !== 'Tartarus'
           ) {
             showDamageNumber(0, `slot${targetIdx}`, 'dodge');
             continue;
@@ -1543,7 +1603,8 @@ function startBattleLoop() {
           if (
             nextCard &&
             state.battle.protectionRealms.has(nextCard.realm) &&
-            Math.random() < state.battle.protectionChance
+            Math.random() < state.battle.protectionChance &&
+            state.battle.currentEnemy.name !== 'Poseidon'
           ) {
             damage *= 0.5;
             specialType = 'protect';

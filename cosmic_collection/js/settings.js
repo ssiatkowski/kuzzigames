@@ -541,6 +541,9 @@ function initializeSettingsTab() {
     // Initialize Kuzzi Games button
     kuzziGamesButton.addEventListener('click', () => {
         window.open('https://kuzzigames.com/', '_blank');
+        if (realms[11].unlocked) {
+            unlockAchievement('secret13');
+        }
     });
 
     // Initialize Supporter checkbox

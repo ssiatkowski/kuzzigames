@@ -865,7 +865,7 @@ window.skills = [
       id: 7011,
       name: "Unlock New Merchant 12",
       description: "Erevan Dreadveil is added to pool of traveling merchants.",
-      cost: { realmId: 12, currencyId: "coin", amount: 1e27 },
+      cost: { realmId: 12, currencyId: "coin", amount: 1e28 },
       purchased: false
     },
     {
@@ -1314,6 +1314,13 @@ window.skills = [
       name: "Interceptor Manual Appreciation",
       description: "Manual card flips charge interceptor another 2.5x faster.",
       cost: { realmId: 11, currencyId: "egg", amount: 2.5e18 },
+      purchased: false
+    },
+    {
+      id: 12206,
+      name: "Interceptor Space Bending Mastery",
+      description: "Unlock ability to Stop Interceptor - reduces accumulated space bending by remaining cooldown + 1min.",
+      cost: { realmId: 9, currencyId: "spirit", amount: 1e11 },
       purchased: false
     },
     {
@@ -2391,14 +2398,21 @@ window.skills = [
       id: 26309,
       name: "Spiritual Dodge 9",
       description: "Increase Spirit Familiars dodge chance by +2.5%.",
-      cost: { realmId: 12, currencyId: "spirit", amount: 1.9e19 },
+      cost: { realmId: 12, currencyId: "spirit", amount: 5.9e19 },
       purchased: false
     },
     {
       id: 26310,
       name: "Spiritual Dodge 10",
       description: "Increase Spirit Familiars dodge chance by +2.5%.",
-      cost: { realmId: 12, currencyId: "spirit", amount: 5.9e19 },
+      cost: { realmId: 12, currencyId: "spirit", amount: 6.5e23 },
+      purchased: false
+    },
+    { 
+      id: 26311,
+      name: "Ultimate Spiritual Dodge",
+      description: "Increase Spirit Familiars dodge chance by +5%.",
+      cost: { realmId: 12, currencyId: "spirit", amount: 1e31 },
       purchased: false
     },
     {
@@ -2461,14 +2475,21 @@ window.skills = [
       id: 26409,
       name: "Cosmic Stun 9",
       description: "Increase Celestial Bodies stun chance by +1%.",
-      cost: { realmId: 12, currencyId: "cosmic_ray", amount: 1.9e20 },
+      cost: { realmId: 12, currencyId: "cosmic_ray", amount: 1.9e21 },
       purchased: false
     },
     {
       id: 26410,
       name: "Cosmic Stun 10",
       description: "Increase Celestial Bodies stun chance by +1%.",
-      cost: { realmId: 12, currencyId: "cosmic_ray", amount: 1e21 },
+      cost: { realmId: 12, currencyId: "cosmic_ray", amount: 1e23 },
+      purchased: false
+    },
+    { 
+      id: 26411,
+      name: "Ultimate Cosmic Stun",
+      description: "Increase Celestial Bodies stun chance by +2%.",
+      cost: { realmId: 12, currencyId: "cosmic_ray", amount: 1e33 },
       purchased: false
     },
     {
@@ -2503,7 +2524,14 @@ window.skills = [
       id: 26505,
       name: "Rock Hard 5",
       description: "Increase Rocks damage reduction by +10%.",
-      cost: { realmId: 12, currencyId: "stone", amount: 5e24 },
+      cost: { realmId: 12, currencyId: "stone", amount: 5e25 },
+      purchased: false
+    },
+    {
+      id: 26506,
+      name: "Ultimate Rock Hard",
+      description: "Increase Rocks damage reduction by +10%.",
+      cost: { realmId: 12, currencyId: "stone", amount: 1e31 },
       purchased: false
     },
     {
@@ -2559,21 +2587,28 @@ window.skills = [
       id: 26608,
       name: "Protective Bubble 8",
       description: "Increase Protective Bubble chance by 5%.",
-      cost: { realmId: 11, currencyId: "coral", amount: 1e21 },
+      cost: { realmId: 11, currencyId: "coral", amount: 1e22 },
       purchased: false
     },
     {
       id: 26609,
       name: "Protective Bubble 9",
       description: "Increase Protective Bubble chance by 5%.",
-      cost: { realmId: 12, currencyId: "coral", amount: 7.5e21 },
+      cost: { realmId: 12, currencyId: "coral", amount: 7.5e23 },
       purchased: false
     },
     {
       id: 26610,
       name: "Protective Bubble 10",
       description: "Increase Protective Bubble chance by 5%.",
-      cost: { realmId: 12, currencyId: "coral", amount: 5.6e22 },
+      cost: { realmId: 12, currencyId: "coral", amount: 5.6e26 },
+      purchased: false
+    },
+    { 
+      id: 26611,
+      name: "Ultimate Protective Bubble",
+      description: "Increase Protective Bubble chance by 10%.",
+      cost: { realmId: 12, currencyId: "coral", amount: 1e34 },
       purchased: false
     },
     {
@@ -2629,21 +2664,28 @@ window.skills = [
       id: 27708,
       name: "Metamorphing Evolution 8",
       description: "Increase evolution chance by +1% and damage by +0.5%.",
-      cost: { realmId: 11, currencyId: "pollen", amount: 4e22 },
+      cost: { realmId: 11, currencyId: "pollen", amount: 4e23 },
       purchased: false
     },
     {
       id: 27709,
       name: "Metamorphing Evolution 9",
       description: "Increase evolution chance by +1% and damage by +0.5%.",
-      cost: { realmId: 12, currencyId: "pollen", amount: 4e23 },
+      cost: { realmId: 12, currencyId: "pollen", amount: 4e24 },
       purchased: false
     },
     {
       id: 27710,
       name: "Metamorphing Evolution 10",
       description: "Increase evolution chance by +1% and damage by +0.5%.",
-      cost: { realmId: 12, currencyId: "pollen", amount: 4e24 },
+      cost: { realmId: 12, currencyId: "pollen", amount: 4e26 },
+      purchased: false
+    },
+    { 
+      id: 27711,
+      name: "Ultimate Metamorphing Evolution",
+      description: "Increase evolution chance by +2% and damage by +1%.",
+      cost: { realmId: 12, currencyId: "pollen", amount: 1e32 },
       purchased: false
     },
     {
@@ -2706,14 +2748,21 @@ window.skills = [
       id: 27809,
       name: "Extra Attack 9",
       description: "Increase extra attack chance by 4%.",
-      cost: { realmId: 12, currencyId: "egg", amount: 1.3e26 },
+      cost: { realmId: 12, currencyId: "egg", amount: 1.3e27 },
       purchased: false
     },
     {
       id: 27810,
       name: "Extra Attack 10",
       description: "Increase extra attack chance by 4%.",
-      cost: { realmId: 12, currencyId: "egg", amount: 1.4e27 },
+      cost: { realmId: 12, currencyId: "egg", amount: 1.4e28 },
+      purchased: false
+    },
+    { 
+      id: 27811,
+      name: "Ultimate Extra Attack",
+      description: "Increase extra attack chance by 8%.",
+      cost: { realmId: 12, currencyId: "egg", amount: 1e33 },
       purchased: false
     },
     {
@@ -2769,21 +2818,28 @@ window.skills = [
       id: 27908,
       name: "Resourceful Attack 8",
       description: "Increase resourceful attack pokes by 0.5.",
-      cost: { realmId: 11, currencyId: "coin", amount: 7.77e23 },
+      cost: { realmId: 11, currencyId: "coin", amount: 7.77e24 },
       purchased: false
     },
     {
       id: 27909,
       name: "Resourceful Attack 9",
       description: "Increase resourceful attack pokes by 0.5.",
-      cost: { realmId: 12, currencyId: "coin", amount: 7.77e24 },
+      cost: { realmId: 12, currencyId: "coin", amount: 7.77e26 },
       purchased: false
     },
     {
       id: 27910,
       name: "Resourceful Attack 10",
       description: "Increase resourceful attack pokes by 0.5.",
-      cost: { realmId: 12, currencyId: "coin", amount: 7.77e25 },
+      cost: { realmId: 12, currencyId: "coin", amount: 7.77e28 },
+      purchased: false
+    },
+    { 
+      id: 27911,
+      name: "Ultimate Resourceful Attack",
+      description: "Increase resourceful attack pokes by 1.",
+      cost: { realmId: 12, currencyId: "coin", amount: 1e35 },
       purchased: false
     },
     {
@@ -2839,21 +2895,28 @@ window.skills = [
       id: 28008,
       name: "Ancient Empowerment 8",
       description: "Increase empower boost by 2.5%.",
-      cost: { realmId: 11, currencyId: "crystal", amount: 2.5e21 },
+      cost: { realmId: 11, currencyId: "crystal", amount: 2.5e22 },
       purchased: false
     },
     {
       id: 28009,
       name: "Ancient Empowerment 9",
       description: "Increase empower boost by 2.5%.",
-      cost: { realmId: 12, currencyId: "crystal", amount: 2.5e22 },
+      cost: { realmId: 12, currencyId: "crystal", amount: 2.5e24 },
       purchased: false
     },
     {
       id: 28010,
       name: "Ancient Empowerment 10",
       description: "Increase empower boost by 2.5%.",
-      cost: { realmId: 12, currencyId: "crystal", amount: 2.5e23 },
+      cost: { realmId: 12, currencyId: "crystal", amount: 2.5e26 },
+      purchased: false
+    },
+    { 
+      id: 28011,
+      name: "Ultimate Ancient Empowerment",
+      description: "Increase empower boost by 5%.",
+      cost: { realmId: 12, currencyId: "crystal", amount: 1e33 },
       purchased: false
     },
     {
@@ -2923,7 +2986,14 @@ window.skills = [
       id: 28110,
       name: "Weak Point Exploitation 10",
       description: "Increase weak point chance by 1%.",
-      cost: { realmId: 12, currencyId: "tooth", amount: 6e29 },
+      cost: { realmId: 12, currencyId: "tooth", amount: 6e30 },
+      purchased: false
+    },
+    { 
+      id: 28111,
+      name: "Ultimate Weak Point Exploitation",
+      description: "Increase weak point chance by 2%.",
+      cost: { realmId: 12, currencyId: "tooth", amount: 1e34 },
       purchased: false
     },
     {
@@ -2994,6 +3064,13 @@ window.skills = [
       name: "Gruesome Dismemberment 10",
       description: "Increase dismember chance by 1%.",
       cost: { realmId: 12, currencyId: "royal_jelly", amount: 2e30 },
+      purchased: false
+    },
+    { 
+      id: 28211,
+      name: "Ultimate Gruesome Dismemberment",
+      description: "Increase dismember chance by 2%.",
+      cost: { realmId: 12, currencyId: "royal_jelly", amount: 1e35 },
       purchased: false
     },
     {
@@ -3098,7 +3175,7 @@ window.skills = [
       id: 29001,
       name: "Incremental Birds Fusion",
       description: "Aviary cards gain Resourceful Attack. Incremental Games gain Extra Attack.",
-      cost: { realmId: 11, currencyId: "coin", amount: 1e26 },
+      cost: { realmId: 11, currencyId: "coin", amount: 5e26 },
       purchased: false
     },
     {
@@ -3407,7 +3484,7 @@ function applySkill(id, skipCost = false) {
         }
         break;
       case 3012:
-        realms[s.cost.realmId - 1].cooldown -= 3600;
+        realms[s.cost.realmId - 1].cooldown -= 3600 * 6;
         if (loadFinished) {
           updatePokeFilterStats();
           renderRealmFilters();
@@ -3752,6 +3829,7 @@ function applySkill(id, skipCost = false) {
       case 12203: // Interceptor Poker Automation
       case 12204: // Curious Interceptor
       case 12205: // Interceptor Manual Appreciation
+      case 12206: // Interceptor Space Bending Mastery
         break;
       case 12301: // Time Crunch Collector
         window.initTimeCrunchCollector();
@@ -4105,6 +4183,9 @@ function applySkill(id, skipCost = false) {
       case 26310:
         state.battle.dodgeChance += 0.025;
         break;
+      case 26311:
+        state.battle.dodgeChance += 0.05;
+        break;
       case 26401: // Stun Chance
       case 26402:
       case 26403:
@@ -4117,11 +4198,15 @@ function applySkill(id, skipCost = false) {
       case 26410:
         state.battle.stunChance += 0.01;
         break;
+      case 26411:
+        state.battle.stunChance += 0.02;
+        break;
       case 26501: // Rock Hard
       case 26502:
       case 26503:
       case 26504:
       case 26505:
+      case 26506:
         state.battle.damageAbsorption += 0.1;
         break;
       case 26601: // Protective Bubble
@@ -4136,6 +4221,9 @@ function applySkill(id, skipCost = false) {
       case 26610:
         state.battle.protectionChance += 0.05;
         break;
+      case 26611:
+        state.battle.protectionChance += 0.1;
+        break;
       case 27701:
       case 27702:
       case 27703:
@@ -4147,6 +4235,9 @@ function applySkill(id, skipCost = false) {
       case 27709:
       case 27710:
         state.battle.evolutionChance += 0.01;
+        break;
+      case 27711:
+        state.battle.evolutionChance += 0.02;
         break;
       case 27801:
       case 27802:
@@ -4160,6 +4251,9 @@ function applySkill(id, skipCost = false) {
       case 27810:
         state.battle.extraAttackChance += 0.04;
         break;
+      case 27811:
+        state.battle.extraAttackChance += 0.08;
+        break;
       case 27901:
       case 27902:
       case 27903:
@@ -4171,6 +4265,9 @@ function applySkill(id, skipCost = false) {
       case 27909:
       case 27910:
         state.battle.resourcefulAttack += 0.5;
+        break;
+      case 27911:
+        state.battle.resourcefulAttack += 1;
         break;
       case 28001:
       case 28002:
@@ -4184,6 +4281,9 @@ function applySkill(id, skipCost = false) {
       case 28010:
         state.battle.empowerment += 0.025;
         break;
+      case 28011:
+        state.battle.empowerment += 0.05;
+        break;
       case 28101:
       case 28102:
       case 28103:
@@ -4196,6 +4296,9 @@ function applySkill(id, skipCost = false) {
       case 28110:
         state.battle.weakPointChance += 0.01;
         break;
+      case 28111:
+        state.battle.weakPointChance += 0.02;
+        break;
       case 28201:
       case 28202:
       case 28203:
@@ -4207,6 +4310,9 @@ function applySkill(id, skipCost = false) {
       case 28209:
       case 28210:
         state.battle.dismemberChance += 0.01;
+        break;
+      case 28211:
+        state.battle.dismemberChance += 0.02;
         break;
       case 28301:
         state.effects.currencyPerSecMultiplier['stone'] *= 3;
