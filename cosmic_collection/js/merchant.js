@@ -709,6 +709,16 @@ const merchants = [
       });
       buyBtn.addEventListener('click', e => {
         e.stopPropagation();
+        // Hide merchant tooltip when purchasing
+        if (merchantTooltip) {
+          merchantTooltip.classList.remove('visible');
+          setTimeout(() => {
+            if (merchantTooltip && !merchantTooltip.classList.contains('visible')) {
+              merchantTooltip.remove();
+              merchantTooltip = null;
+            }
+          }, 200);
+        }
         buyOffer(originalIdx);  // Use original index for purchase
       });
       front.appendChild(buyBtn);

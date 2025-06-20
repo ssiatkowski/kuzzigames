@@ -271,6 +271,16 @@ function renderSkillsTab() {
 
       if (!locked && !owned && affordable) {
         tile.onclick = () => {
+          // Hide skill tooltip when purchasing
+          if (skillTooltip) {
+            skillTooltip.classList.remove('visible');
+            setTimeout(() => {
+              if (skillTooltip && !skillTooltip.classList.contains('visible')) {
+                skillTooltip.remove();
+                skillTooltip = null;
+              }
+            }, 200);
+          }
           buySkill(s.id);
           renderSkillsTab();
         };
@@ -341,6 +351,16 @@ function renderSkillsTab() {
 
     if (!locked && !owned) {
       tile.onclick = () => {
+        // Hide skill tooltip when purchasing
+        if (skillTooltip) {
+          skillTooltip.classList.remove('visible');
+          setTimeout(() => {
+            if (skillTooltip && !skillTooltip.classList.contains('visible')) {
+              skillTooltip.remove();
+              skillTooltip = null;
+            }
+          }, 200);
+        }
         buySkill(s.id);
         renderSkillsTab();
       };
