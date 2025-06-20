@@ -85,6 +85,51 @@ function initializeSettingsTab() {
                     <ul>
                         <li><strong>Cooldown Formula:</strong> Sum of selected realm cooldowns × deselect multipliers (5x per skipped realm, can be reduced to 2.5x/2x with skills) ÷ cooldown divider effects</li>
                         <li><strong>Tier Thresholds:</strong> Each rarity has 20 tiers with differently increasing requirements. Full table available at bottom of Stats page (unlocks on realm 11)</li>
+                        <li><strong>Merchant Pricing:</strong>
+                        <ul>
+                            <li><strong>Base price</strong>  
+                            <ul>
+                                <li>Currency is selected at random from unlocked currencies.</li>
+                                <li>Base price = (<code>Currency Per Sec </code> × 10) + (<code>Currency Per Poke</code> × 2) * <code>Rarity multiplier</code> </li>
+                                <li>Rarity multipliers:
+                                <ul>
+                                    <li>junk: 1</li>
+                                    <li>basic: 5</li>
+                                    <li>decent: 15</li>
+                                    <li>fine: 50</li>
+                                    <li>rare: 200</li>
+                                    <li>epic: 1000</li>
+                                    <li>legend: 5000</li>
+                                    <li>mythic: 25000</li>
+                                    <li>exotic: 100000</li>
+                                    <li>divine: 500000</li>
+                                </ul>
+                                </li>
+                            </ul>
+                            </li>
+                            <li><strong>Random &amp; global adjustments</strong>  
+                            <ul>
+                                <li>Price is then multiplied by a <code>Random Price Factor</code> between 0.01 (1%) and 1.99 (199%)</li>
+                                <li>And divided by total <code>Merchant Price Divider</code></li>
+                            </ul>
+                            </li>
+                            <li><strong>Bulk quantity (if you own > 9)</strong>  
+                            <ul>
+                                <li>Chance to trigger bulk offer (scaling 25%-100% with skills)
+                                <li><code>Quantity Factor</code> (0-1) is selected and multiplied by <code>Max Bulk Offer</code> (scales up with skills)</li>
+                                <li>Final price ×= <sup>3</sup>√(quantity)</li>
+                            </ul>
+                            </li>
+                            <li><strong>Offer tags</strong> (for Merchant Pricing Intuition)  
+                            <ul>
+                                <li>Bad Offer: <code>Random Price Factor</code> > 1.6</li>
+                                <li>Good Offer: <code>Random Price Factor</code> < 0.2</li>
+                                <li>Great Offer: <code>Random Price Factor</code> < 0.1 AND <code>Quantity Factor</code> > 0.3</li>
+                                <li>MUST BUY: <code>Random Price Factor</code> < 0.05 AND <code>Quantity Factor</code> > 0.6</li>
+                            </ul>
+                            </li>
+                        </ul>
+                        </li>
                         <li><strong>Card Effect Scaling:</strong> Detailed formulas by effect type:
                             <ul>
                                 <li><strong>Currency Per Poke/Second:</strong> base_value × level × (2<sup>(tier-1)</sup>)</li>

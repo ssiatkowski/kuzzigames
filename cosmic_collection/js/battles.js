@@ -1282,6 +1282,8 @@ function startBattleLoop() {
         defeatEnemy();
         return;
       }      
+
+      let resourcesUpdated = false;
       
       if (state.battle.currentEnemy.name === 'Sephiroth' && Math.random() < 0.33) {
           showDamageNumber(0, 'enemy', 'dodge');
@@ -1422,6 +1424,7 @@ function startBattleLoop() {
                   const gain = new Decimal(rate * state.effects.currencyPerPokeMultiplier[curId] * state.battle.resourcefulAttack);
                   state.currencies[curId] = state.currencies[curId].plus(gain);
                 });
+                resourcesUpdated = true;
             }
           }
         });
@@ -1656,6 +1659,7 @@ function startBattleLoop() {
               const drainAmt   = currVal.mul(0.4).floor();
               state.currencies[randKey] = currVal.minus(drainAmt);
             }
+            resourcesUpdated = true;
           }
 
           if (state.battle.currentEnemy.name === 'Your Ego') {
@@ -1665,6 +1669,7 @@ function startBattleLoop() {
               const currVal    = state.currencies[randKey];
               state.currencies[randKey] = currVal.minus(currVal);
             }
+            resourcesUpdated = true;
           }
 
           if ((state.battle.currentEnemy.name === 'Dracula' || state.battle.currentEnemy.name === 'Your Ego')
@@ -1734,6 +1739,10 @@ function startBattleLoop() {
           card.attack = Math.floor(card.attack * 0.9);
         });
         updateBattleStats();
+      }
+
+      if (resourcesUpdated) {
+        updateCurrencyBar();
       }
 
       // Save state and update UI
