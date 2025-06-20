@@ -825,6 +825,14 @@ window.cards = [
           "amount": 20
         },
         "value": 1.25
+      },
+      {
+        "type": "allGeneratorMultiplier",
+        "requirement": {
+          "type": "level",
+          "amount": 40
+        },
+        "value": 2.0
       }
     ]
   },
@@ -1730,7 +1738,7 @@ window.cards = [
           "type": "level",
           "amount": 10
         },
-        "value": 1.25
+        "value": 2.0
       },
       {
         "type": "currencyPerPokeMultiplier",
@@ -1804,7 +1812,7 @@ window.cards = [
           "type": "level",
           "amount": 10
         },
-        "value": 1.25
+        "value": 1.5
       },
       {
         "type": "currencyPerPokeMultiplier",
@@ -2792,6 +2800,16 @@ window.cards = [
         "type": "rarityOddsDivider",
         "realm": 3,
         "rarity": "fine"
+      }
+    ],
+    "specialEffects": [
+      {
+        "type": "allGeneratorMultiplier",
+        "requirement": {
+          "type": "level",
+          "amount": 40
+        },
+        "value": 2.0
       }
     ]
   },
@@ -5109,6 +5127,16 @@ window.cards = [
         "realm": 5,
         "rarity": "decent"
       }
+    ],
+    "specialEffects": [
+      {
+        "type": "allGeneratorMultiplier",
+        "requirement": {
+          "type": "",
+          "amount": 10
+        },
+        "value": 1.5
+      }
     ]
   },
   {
@@ -6567,6 +6595,14 @@ window.cards = [
         },
         "currency": "stone",
         "value": 3.0
+      },
+      {
+        "type": "allGeneratorMultiplier",
+        "requirement": {
+          "type": "level",
+          "amount": 60
+        },
+        "value": 3.0
       }
     ]
   },
@@ -6636,6 +6672,14 @@ window.cards = [
         },
         "currency": "cosmic_ray",
         "value": 500.0
+      },
+      {
+        "type": "allGeneratorMultiplier",
+        "requirement": {
+          "type": "level",
+          "amount": 25
+        },
+        "value": 2.5
       }
     ]
   },
@@ -6702,6 +6746,14 @@ window.cards = [
         },
         "currency": "stone",
         "value": 1000000.0
+      },
+      {
+        "type": "allGeneratorMultiplier",
+        "requirement": {
+          "type": "level",
+          "amount": 60
+        },
+        "value": 3.0
       }
     ]
   },
@@ -8583,6 +8635,14 @@ window.cards = [
         },
         "currency": "feather",
         "value": 2.0
+      },
+      {
+        "type": "allGeneratorMultiplier",
+        "requirement": {
+          "type": "level",
+          "amount": 25
+        },
+        "value": 2.0
       }
     ]
   },
@@ -8661,6 +8721,14 @@ window.cards = [
           "amount": 15
         },
         "currency": "royal_jelly",
+        "value": 2.0
+      },
+      {
+        "type": "allGeneratorMultiplier",
+        "requirement": {
+          "type": "level",
+          "amount": 35
+        },
         "value": 2.0
       }
     ]
@@ -10457,6 +10525,16 @@ window.cards = [
         "realm": 7,
         "rarity": "junk"
       }
+    ],
+    "specialEffects": [
+      {
+        "type": "allGeneratorMultiplier",
+        "requirement": {
+          "type": "level",
+          "amount": 12
+        },
+        "value": 2.0
+      }
     ]
   },
   {
@@ -10504,6 +10582,16 @@ window.cards = [
         "type": "rarityOddsDivider",
         "realm": 9,
         "rarity": "junk"
+      }
+    ],
+    "specialEffects": [
+      {
+        "type": "allGeneratorMultiplier",
+        "requirement": {
+          "type": "level",
+          "amount": 15
+        },
+        "value": 2.0
       }
     ]
   },
@@ -11961,7 +12049,7 @@ window.cards = [
           "type": "level",
           "amount": 11
         },
-        "value": 1.5
+        "value": 2.0
       },
       {
         "type": "flatCooldownDivider",
@@ -12423,16 +12511,16 @@ window.cards = [
           "amount": 11
         },
         "currency": "pearl",
-        "value": 2.0
+        "value": 3.0
       },
       {
         "type": "currencyPerPokeMultiplier",
         "requirement": {
           "type": "level",
-          "amount": 30
+          "amount": 35
         },
         "currency": "pearl",
-        "value": 3.0
+        "value": 5.0
       }
     ]
   },
@@ -13745,6 +13833,14 @@ window.cards = [
         },
         "currency": "pollen",
         "value": 2.0
+      },
+      {
+        "type": "allGeneratorMultiplier",
+        "requirement": {
+          "type": "level",
+          "amount": 30
+        },
+        "value": 5.0
       }
     ]
   },
@@ -14528,7 +14624,7 @@ window.cards = [
       {
         "type": "currencyPerPoke",
         "currency": "pearl",
-        "value": 5000.0
+        "value": 10000.0
       },
       {
         "type": "currencyPerSec",
@@ -14579,7 +14675,7 @@ window.cards = [
         "type": "currencyPerPokeMultiplier",
         "requirement": {
           "type": "level",
-          "amount": 25
+          "amount": 20
         },
         "currency": "pearl",
         "value": 2.0
@@ -14591,7 +14687,7 @@ window.cards = [
           "amount": 35
         },
         "currency": "pearl",
-        "value": 5.0
+        "value": 6.0
       }
     ]
   },
@@ -15966,7 +16062,7 @@ window.cards = [
           "type": "level",
           "amount": 18
         },
-        "value": 5.0
+        "value": 10.0
       }
     ]
   },
@@ -18267,7 +18363,7 @@ window.cards = [
           "type": "level",
           "amount": 300
         },
-        "value": 3.0
+        "value": 5.0
       }
     ]
   },
@@ -18335,7 +18431,7 @@ window.cards = [
           "type": "level",
           "amount": 300
         },
-        "value": 3.0
+        "value": 5.0
       }
     ]
   },
@@ -18403,7 +18499,7 @@ window.cards = [
           "type": "level",
           "amount": 300
         },
-        "value": 3.0
+        "value": 5.0
       }
     ]
   },
@@ -18461,7 +18557,7 @@ window.cards = [
           "type": "level",
           "amount": 300
         },
-        "value": 3.0
+        "value": 5.0
       }
     ]
   },

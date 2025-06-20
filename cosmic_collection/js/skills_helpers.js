@@ -1212,6 +1212,20 @@ window.skills = [
       purchased: false
     },
     {
+      id: 11009,
+      name: "Better Merchants 9",
+      description: "Increase Merchant Rarity Scaling by 0.1.",
+      cost: { realmId: 11, currencyId: "zeal", amount: 5e11 },
+      purchased: false
+    },
+    {
+      id: 11010,
+      name: "Ultimate Better Merchants",
+      description: "Increase Merchant Rarity Scaling by 0.6.",
+      cost: { realmId: 12, currencyId: "zeal", amount: 6e35 },
+      purchased: false
+    },
+    {
       id: 12001,
       name: "Hawking Radiation Harvester",
       description: "Unlocks a device that can passively harvest Hawking radiation from the black hole to reduce its cooldown. (10x slower offline)",
@@ -1382,8 +1396,15 @@ window.skills = [
     {
       id: 13007,
       name: "Anomaly 7",
-      description: "Reduce sacrifice lockout time by 1 hour.",
+      description: "Reduce sacrifice lockout time by ((4+0)/4) hours.",
       cost: { realmId: 12, currencyId: "pearl", amount: 4.04e26 },
+      purchased: false
+    },
+    {
+      id: 13008,
+      name: "Anomaly 8",
+      description: "Increase realm odds for Bosses by 4.04x.",
+      cost: { realmId: 12, currencyId: "pearl", amount: 4.04e30 },
       purchased: false
     },
     {
@@ -1416,9 +1437,9 @@ window.skills = [
     },
     {
       id: 14005,
-      name: "Solicitors are not welcome here.",
-      description: "Lower odds for the first 8 merchants by 1.5x.",
-      cost: { realmId: 12, currencyId: "spirit", amount: 1.5e28 },
+      name: "Solicitors are not welcome here!",
+      description: "Lower odds for the first 11 merchants by 5x.",
+      cost: { realmId: 12, currencyId: "spirit", amount: 5e28 },
       purchased: false
     },
     {
@@ -3812,7 +3833,11 @@ function applySkill(id, skipCost = false) {
       case 11006: // Better Merchants 6
       case 11007: // Better Merchants 7
       case 11008: // Better Merchants 8
+      case 11009: // Better Merchants 9
         state.effects.extraMerchantRarityScaling += 0.1;
+        break;
+      case 11010: // Ultimate Better Merchants
+        state.effects.extraMerchantRarityScaling += 0.6;
         break;
       case 12001: // Hawking Radiation Harvester
         window.initHarvester();
@@ -3876,6 +3901,10 @@ function applySkill(id, skipCost = false) {
       case 13007: // Anomaly 7
         state.sacrificeLockoutTime -= 1;
         break;
+      case 13008: // Anomaly 8
+        realms[11].pokeWeight *= 4.04;
+        if (loadFinished) updatePokeFilterStats();
+        break;
       case 14001: // Go Away Aldric!
         merchants[0].merchantOdds /= 5;
         break;
@@ -3889,8 +3918,8 @@ function applySkill(id, skipCost = false) {
         merchants[3].merchantOdds /= 2;
         break;
       case 14005: // Solicitors are not welcome here.
-        for (let i = 0; i < 8; i++) {
-          merchants[i].merchantOdds /= 1.5;
+        for (let i = 0; i < 11; i++) {
+          merchants[i].merchantOdds /= 5;
         }
         break;
       case 15001: // Fleeting Realm
