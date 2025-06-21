@@ -4430,8 +4430,8 @@ function applySkill(id, skipCost = false) {
         state.battle.damageAbsorptionRealms.add(9);
         break;
       case 29004:
-        state.battle.dismemberChanceRealms.add(6);
-        state.battle.stunChanceRealms.add(10);
+        state.battle.dismemberRealms.add(6);
+        state.battle.stunRealms.add(10);
         break;
       case 29005:
         state.battle.weakPointRealms.add(3);

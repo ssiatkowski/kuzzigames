@@ -782,17 +782,17 @@ function performPoke() {
       return;
     }
 
+    // Check if card is locked using card.locked property
+    if (!c.locked) {
+      giveCard(cid, count);
+    }
+
     if (state.hideCappedCards && skillMap[18102].purchased && c.tier === 20) {
       skippedCards++;
       if (currentPackCount === skippedCards) {
         state.flipsDone = true;
       }
       return;
-    }
-
-    // Check if card is locked using card.locked property
-    if (!c.locked) {
-      giveCard(cid, count);
     }
     
     const newTier = c.locked ? oldTier : c.tier;
