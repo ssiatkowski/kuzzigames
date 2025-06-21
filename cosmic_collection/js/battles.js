@@ -93,6 +93,8 @@ function showDamageNumber(damage, target = 'enemy', specialType = null) {
     damageEl.textContent = 'Stun';
   } else if (specialType === 'snap') {
     damageEl.textContent = 'Snap';
+  } else if (specialType === 'poof') {
+    damageEl.textContent = 'Poof';
   } else if (specialType === 'revived') {
     damageEl.textContent = 'Revived';
   } else {
@@ -116,11 +118,6 @@ function showDamageNumber(damage, target = 'enemy', specialType = null) {
 
 // Remove top card from battle
 function removeSlotCard(slotToRemove = 0) {
-  // 1) Clear any running battle interval
-  if (state.battle.battleInterval) {
-    clearInterval(state.battle.battleInterval);
-    state.battle.battleInterval = null;
-  }
 
   // 2) Don’t do anything if that slot is already empty
   if (state.battle.slots[slotToRemove] === null) return;
@@ -128,6 +125,13 @@ function removeSlotCard(slotToRemove = 0) {
   // 3) Figure out if we’ll still have cards left AFTER removal
   const totalCardsBefore = state.battle.slots.filter(c => c !== null).length;
   const willHaveRemainingCards = (totalCardsBefore - 1) > 0;
+
+  // 3.5) Only clear battle interval if we'll have no cards left
+  const wasRunning = !state.battle.paused && state.battle.battleInterval;
+  if (!willHaveRemainingCards && state.battle.battleInterval) {
+    clearInterval(state.battle.battleInterval);
+    state.battle.battleInterval = null;
+  }
 
   // 4) Remove that slot and shift everything down, then add an empty slot at the end
   state.battle.slots.splice(slotToRemove, 1);
@@ -156,11 +160,23 @@ function removeSlotCard(slotToRemove = 0) {
           pauseBtn.textContent = 'Start Battle';
         }
       }
-      // 9) Otherwise, restart the loop now that slots have shifted
-      else {
+      // 9) If battle was running and we still have cards, restart the loop
+      else if (wasRunning) {
         startBattleLoop();
       }
     }, { once: true });
+  } else {
+    // 10) If no animation element, handle immediately
+    updateBattleUI();
+    if (!willHaveRemainingCards) {
+      const pauseBtn = document.querySelector('.battle-pause-btn');
+      if (pauseBtn) {
+        pauseBtn.classList.add('paused');
+        pauseBtn.textContent = 'Start Battle';
+      }
+    } else if (wasRunning) {
+      startBattleLoop();
+    }
   }
 }
 
@@ -1030,6 +1046,8 @@ function performSacrifice(cardId) {
   // Place battle copy in slot
   state.battle.slots[availableSlot] = battleCard;
 
+
+
   // Check for and apply battle tricks synchronously
   if (state.battle.currentEnemy) {
     checkBattleTrick(cardId, state.battle.currentEnemy);
@@ -1688,7 +1706,8 @@ function startBattleLoop() {
               });
               state.battle.slots = state.battle.slots.filter(c => c !== null)
                                         .concat(Array(state.battle.slotLimit - filled.length).fill(null));
-              updateBattleUI();
+              // Delay UI update to allow damage numbers to show
+              setTimeout(() => updateBattleUI(), 100);
             }
           }
 
@@ -1701,14 +1720,15 @@ function startBattleLoop() {
             if (filled.length) {
               const idx = filled[Math.floor(Math.random() * filled.length)];
 
-              showDamageNumber(0, `slot${idx}`, 'snap');
+              showDamageNumber(0, `slot${idx}`, 'poof');
 
               state.battle.slots[idx] = null;
               state.battle.slots = state.battle.slots
                 .filter(c => c !== null)
                 .concat(Array(state.battle.slotLimit - filled.length).fill(null));
 
-              updateBattleUI();
+              // Delay UI update to allow damage numbers to show
+              setTimeout(() => updateBattleUI(), 100);
             }
           }
 
