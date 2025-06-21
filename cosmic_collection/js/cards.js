@@ -5132,7 +5132,7 @@ window.cards = [
       {
         "type": "allGeneratorMultiplier",
         "requirement": {
-          "type": "",
+          "type": "level",
           "amount": 10
         },
         "value": 1.5
@@ -8958,7 +8958,7 @@ window.cards = [
           "amount": 20
         },
         "currency": "royal_jelly",
-        "value": 10.0
+        "value": 15.0
       },
       {
         "type": "currencyPerSecMultiplier",
@@ -8967,7 +8967,7 @@ window.cards = [
           "amount": 25
         },
         "currency": "royal_jelly",
-        "value": 10.0
+        "value": 15.0
       }
     ]
   },
@@ -12235,7 +12235,7 @@ window.cards = [
       {
         "type": "currencyPerPoke",
         "currency": "royal_jelly",
-        "value": 30.0
+        "value": 40.0
       },
       {
         "type": "cooldownDivider"
@@ -12467,7 +12467,7 @@ window.cards = [
       {
         "type": "currencyPerPoke",
         "currency": "royal_jelly",
-        "value": 30.0
+        "value": 50.0
       },
       {
         "type": "cooldownDivider"
@@ -14348,7 +14348,7 @@ window.cards = [
           "amount": 45
         },
         "currency": "royal_jelly",
-        "value": 5.0
+        "value": 6.0
       }
     ]
   },
