@@ -2402,7 +2402,7 @@ function giveCard(cardId, amount = 1) {
   // --- 2. Update quantity ---
   c.quantity += amount;
 
-  if (cardId === 806 && c.quantity >= 1e12) {
+  if (cardId === '806' && c.quantity >= 1e12) {
     unlockAchievement('secret16');
   }
 
