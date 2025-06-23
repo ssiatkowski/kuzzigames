@@ -690,7 +690,7 @@ window.skills = [
       id: 5110,
       name: "Make Love Not War",
       description: "Weapons realm deselect cooldown multiplier further reduced by 20%.",
-      cost: { realmId: 11, currencyId: "zeal", amount: 2e22 },
+      cost: { realmId: 11, currencyId: "zeal", amount: 2e31 },
       purchased: false
     },
     {
@@ -3240,8 +3240,14 @@ window.skills = [
       description: "Bugdom cards gain Weak Point. Mythical Beasts cards gain Evolve.",
       cost: { realmId: 11, currencyId: "tooth", amount: 3e26 },
       purchased: false
+    },
+    {
+      id: 29101,
+      name: "Battle Card Preserver",
+      description: "Undamaged cards in battle stay for next enemy.",
+      cost: { realmId: 12, currencyId: "coin", amount: 9.9e31 },
+      purchased: false
     }
-
   ];
 
   // --- PURCHASE LOGIC ---

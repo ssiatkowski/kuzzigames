@@ -17407,7 +17407,7 @@ window.cards = [
       "amount": 10.0
     },
     "description": "King of the gods who once chained the monster Typhon beneath Mount Etna with his thunderbolts.",
-    "power": 12000,
+    "power": 12500,
     "defense": 10000,
     "baseEffects": [
       {
@@ -18798,7 +18798,7 @@ window.cards = [
       "amount": 5.0
     },
     "description": "He once ripped the arm off the Titan Gaia and used it as a club, leaving her howls echoing through Olympus.",
-    "power": 400,
+    "power": 500,
     "defense": 1500,
     "baseEffects": [
       {
@@ -18919,7 +18919,7 @@ window.cards = [
       "amount": 5.0
     },
     "description": "He built a dimension-splitting portal gun in under five minutes, then discarded it for something “more chaotic.”",
-    "power": 8000,
+    "power": 10000,
     "defense": 5000,
     "baseEffects": [
       {
@@ -18972,7 +18972,7 @@ window.cards = [
       "amount": 5.0
     },
     "description": "Vegeta once endured 10,000 g’s of gravity training, forging his Saiyan body into a living star-breaker.",
-    "power": 1000,
+    "power": 2813,
     "defense": 500,
     "baseEffects": [
       {

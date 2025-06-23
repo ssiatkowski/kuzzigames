@@ -213,8 +213,23 @@ function processVictory() {
     unlockAchievement('secret14');
   }
 
-  // Clear battle slots
-  state.battle.slots = Array(state.battle.slotLimit).fill(null);
+  // Clear battle slots (or preserve undamaged cards if skill 29101 is purchased)
+  if (skillMap[29101] && skillMap[29101].purchased) {
+    // Skill 29101: "Undamaged cards in battle stay for next enemy"
+    // Collect all undamaged cards (currentHp === maxHp)
+    const undamagedCards = state.battle.slots.filter(card =>
+      card && card.currentHp >= card.maxHp
+    );
+
+    // Create new slots array with undamaged cards at the front
+    state.battle.slots = [
+      ...undamagedCards,
+      ...Array(state.battle.slotLimit - undamagedCards.length).fill(null)
+    ];
+  } else {
+    // Default behavior: clear all battle slots
+    state.battle.slots = Array(state.battle.slotLimit).fill(null);
+  }
 
   // Give Rewards for Enemies that have rewards
   if (state.battle.currentEnemy.name === 'Poseidon') {
@@ -1753,9 +1768,10 @@ function startBattleLoop() {
             resourcesUpdated = true;
           }
 
-          if ((state.battle.currentEnemy.name === 'Dracula' || state.battle.currentEnemy.name === 'Your Ego')
+          if ((state.battle.currentEnemy.name === 'Dracula' || state.battle.currentEnemy.name === 'Your Ego' || state.battle.currentEnemy.name === 'Saitama' || state.battle.currentEnemy.name === 'Doctor Manhattan')
               && state.battle.currentEnemy.maxHp > state.battle.currentEnemy.currentHp) {
-            const healAmount = Math.min(state.battle.currentEnemy.maxHp - state.battle.currentEnemy.currentHp, damage * 3);
+            const lifestealMult = state.battle.currentEnemy.name === 'Saitama' ? 1 : state.battle.currentEnemy.name === 'Doctor Manhattan' ? 2 : 3;
+            const healAmount = Math.min(state.battle.currentEnemy.maxHp - state.battle.currentEnemy.currentHp, damage * lifestealMult, (targetCard.currentHp + damage) * lifestealMult);
             state.battle.currentEnemy.currentHp += healAmount;
             showDamageNumber(healAmount, 'enemy', 'heal');
           }
@@ -1785,7 +1801,7 @@ function startBattleLoop() {
         const healAmount = Math.min(state.battle.currentEnemy.maxHp - state.battle.currentEnemy.currentHp, state.battle.currentEnemy.maxHp * 0.01);
         state.battle.currentEnemy.currentHp += healAmount;
         showDamageNumber(healAmount, 'enemy', 'heal');
-      } else if (state.battle.currentEnemy.name === 'T800' && state.battle.currentEnemy.currentHp >= state.battle.currentEnemy.maxHp && Math.random() < 0.02) {
+      } else if (state.battle.currentEnemy.name === 'T800' && state.battle.currentEnemy.currentHp >= state.battle.currentEnemy.maxHp && Math.random() < 0.03) {
         const healAmount = Math.min(state.battle.currentEnemy.maxHp - state.battle.currentEnemy.currentHp, state.battle.currentEnemy.maxHp * 0.1);
         state.battle.currentEnemy.currentHp += healAmount;
         showDamageNumber(healAmount, 'enemy', 'heal');

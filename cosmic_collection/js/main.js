@@ -2402,6 +2402,10 @@ function giveCard(cardId, amount = 1) {
   // --- 2. Update quantity ---
   c.quantity += amount;
 
+  if (cardId === 806 && c.quantity >= 1e12) {
+    unlockAchievement('secret16');
+  }
+
   // --- 3. Compute new tier & new effects ---
   const thresholds = window.tierThresholds[c.rarity];
   let newTier = 1;
@@ -3073,12 +3077,34 @@ document.addEventListener('DOMContentLoaded', async ()=>{
 
   await preloadGameAssets();
 
+  // Session variable to track if user dismissed the landscape overlay
+  let landscapeOverlayDismissed = false;
+  let wasInLandscape = false;
+
   // Check initial orientation
   const checkOrientation = () => {
     const overlay = document.getElementById('landscape-overlay');
     const isPortrait = window.innerHeight > window.innerWidth * 1.1;
-    overlay.style.display = isPortrait ? 'flex' : 'none';
+    const isLandscape = !isPortrait;
+
+    // If user goes to landscape and back to portrait, reset the dismissal
+    if (isLandscape) {
+      wasInLandscape = true;
+    } else if (wasInLandscape && isPortrait) {
+      // User went from landscape back to portrait, reset dismissal
+      landscapeOverlayDismissed = false;
+      wasInLandscape = false;
+    }
+
+    // Show overlay only if in portrait AND not dismissed for this session
+    overlay.style.display = (isPortrait && !landscapeOverlayDismissed) ? 'flex' : 'none';
   };
+
+  // Add dismiss button functionality
+  document.getElementById('dismiss-landscape-btn').addEventListener('click', () => {
+    landscapeOverlayDismissed = true;
+    document.getElementById('landscape-overlay').style.display = 'none';
+  });
 
   // Check orientation on load and resize
   checkOrientation();

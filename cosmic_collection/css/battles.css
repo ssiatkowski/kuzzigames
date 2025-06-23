@@ -1028,7 +1028,7 @@
 }
 
 /* Responsive queries for smaller screens (width-based) */
-@media (max-width: 768px) {
+@media (max-height: 768px) {
   .slot-arrow {
     font-size: 1.4em;     /* smaller arrows on mobile */
   }
@@ -1042,7 +1042,7 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (max-height: 480px) {
   .slot-arrow {
     font-size: 1.2em;     /* even smaller arrows on very small screens */
   }
