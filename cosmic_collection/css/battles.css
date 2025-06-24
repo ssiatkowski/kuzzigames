@@ -1003,13 +1003,6 @@
   line-height: 1.3;
 }
 
-@media (max-height:800px) {
-  .arrow-up-row .arrow-cell { width: 180px; }
-}
-@media (max-height:500px) {
-  .arrow-up-row .arrow-cell { width: 105px; }
-}
-
 /* arrow styling */
 .slot-arrow {
   font-size: 1.8em;      /* larger */
@@ -1018,27 +1011,16 @@
   line-height: 1;
 }
 
-/* Responsive queries */
-@media (max-height: 800px) {
+/* Responsive queries for smaller screens (width-based) */
+@media (max-height: 1180px) {
+  
   .slots-row .battle-slot {
     width: 120px;
   }
   .enemy-card {
     width: 200px;
   }
-}
 
-@media (max-height: 500px) {
-  .slots-row .battle-slot {
-    width: 90px;
-  }
-  .enemy-card {
-    width: 180px;
-  }
-}
-
-/* Responsive queries for smaller screens (width-based) */
-@media (max-height: 768px) {
   .slot-arrow {
     font-size: 1.4em;     /* smaller arrows on mobile */
   }
@@ -1052,7 +1034,14 @@
   }
 }
 
-@media (max-height: 480px) {
+@media (max-height: 768px) {
+  .slots-row .battle-slot {
+    width: 90px;
+  }
+  .enemy-card {
+    width: 180px;
+  }
+
   .slot-arrow {
     font-size: 1.2em;     /* even smaller arrows on very small screens */
   }

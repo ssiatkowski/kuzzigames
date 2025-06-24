@@ -107,7 +107,7 @@ function showDamageNumber(damage, target = 'enemy', specialType = null) {
 
   // 3) Position it randomly within that card face
   const bounds = targetEl.getBoundingClientRect();
-  const offsetX = bounds.width * (0.15 + Math.random() * 0.35);
+  const offsetX = bounds.width * (0.1 + Math.random() * 0.35);
   const offsetY = bounds.height * (0.3 + Math.random() * 0.35);
   damageEl.style.left = `${offsetX}px`;
   damageEl.style.top  = `${offsetY}px`;
