@@ -34,7 +34,7 @@ const bossMechanicsByName = {
                             killReward: '+2% Global Attack Mult' 
                         },
   'Zeus':               { 
-                            specialPowers: 'Attacks 3 times - targeting a random card', 
+                            specialPowers: 'Attacks 3 times - targeting random cards. Also cannot be stunned. ', 
                             killReward: '+25% Global Max Cards Mult' 
                         },
   'Training Dummy':     { 
@@ -150,7 +150,7 @@ const bossMechanicsByName = {
                             killReward: '+15% Global Attack Mult' 
                         },
   'Chuck Norris':       { 
-                            specialPowers: '20% Chance to Increase Attack by 10%', 
+                            specialPowers: '20% Chance to Increase Attack by 10%. Also cannot be Dodged.', 
                             killReward: '+15% Global HP Mult' 
                         },
   'Kaguya':             { 
@@ -166,7 +166,7 @@ const bossMechanicsByName = {
                             killReward: '+50% Global HP Mult' 
                         },
   'Kuzzi':              { 
-                            specialPowers: 'Uses AI to kill 1 random card after every turn', 
+                            specialPowers: 'Uses AI to kill 1 random card after every turn. Also cannot be Dismembered and has no Weak Point.', 
                             killReward: '+100% to Global Max Cards Mult' 
                         },
   'Your Ego':           { 

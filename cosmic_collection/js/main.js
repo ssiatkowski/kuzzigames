@@ -911,6 +911,9 @@ function performPoke() {
         front.append(badge);
         if (wasNew && state.interceptorActive && skillMap[12204].purchased) {
           state.interceptorValue = state.interceptorValue + 15;
+          if (state.interceptorValue > 86400) {
+            unlockAchievement('secret17');
+          }
         }
       } else if (newTier > oldTier) {
         const badge = document.createElement('div');
@@ -2401,10 +2404,6 @@ function giveCard(cardId, amount = 1) {
 
   // --- 2. Update quantity ---
   c.quantity += amount;
-
-  if (cardId === '806' && c.quantity >= 1e12) {
-    unlockAchievement('secret16');
-  }
 
   // --- 3. Compute new tier & new effects ---
   const thresholds = window.tierThresholds[c.rarity];

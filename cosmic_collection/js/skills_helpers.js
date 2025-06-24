@@ -66,14 +66,14 @@ window.skills = [
     {
       id: 1010,
       name: "Unlock Greek Gods Realm",
-      description: "Black Hole pokes and Merchants can now give cards from Greek Gods realm.",
+      description: "Black Hole pokes can now give cards from Greek Gods realm.",
       cost: { realmId: 10, currencyId: "cosmic_ray", amount: 1e10 },
       purchased: false
     },
     {
       id: 1011,
       name: "Unlock Bosses Realm",
-      description: "Black Hole pokes and Merchants can now give cards from Bosses realm.",
+      description: "Black Hole pokes can now give cards from Bosses realm.",
       cost: { realmId: 11, currencyId: "zeal", amount: 1e18 },
       purchased: false
     },
@@ -3247,6 +3247,13 @@ window.skills = [
       description: "Undamaged cards in battle stay for next enemy.",
       cost: { realmId: 12, currencyId: "coin", amount: 9.9e31 },
       purchased: false
+    },
+    {
+      id: 29102,
+      name: "Battle Card Preserver 2",
+      description: "Cards in battle stay for next enemy if they have at least 90% HP.",
+      cost: { realmId: 12, currencyId: "coin", amount: 9.99e35 },
+      purchased: false
     }
   ];
 
@@ -4442,6 +4449,9 @@ function applySkill(id, skipCost = false) {
       case 29005:
         state.battle.weakPointRealms.add(3);
         state.battle.evolutionRealms.add(7);
+        break;
+      case 29101:
+      case 29102:
         break;
 
       default:

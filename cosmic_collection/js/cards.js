@@ -18799,7 +18799,7 @@ window.cards = [
     },
     "description": "He once ripped the arm off the Titan Gaia and used it as a club, leaving her howls echoing through Olympus.",
     "power": 500,
-    "defense": 1500,
+    "defense": 1875,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -18852,7 +18852,7 @@ window.cards = [
     },
     "description": "Said to have hatched from an egg in a silent void, Arceus shaped the Pokémon universe and gave life to all other Pokémon.",
     "power": 10000,
-    "defense": 2000,
+    "defense": 2500,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -18973,7 +18973,7 @@ window.cards = [
     },
     "description": "Vegeta once endured 10,000 g’s of gravity training, forging his Saiyan body into a living star-breaker.",
     "power": 2813,
-    "defense": 500,
+    "defense": 1000,
     "baseEffects": [
       {
         "type": "currencyPerPoke",
@@ -19031,7 +19031,7 @@ window.cards = [
     },
     "description": "Death had a near Chuck Norris experience once.",
     "power": 2000,
-    "defense": 8000,
+    "defense": 9000,
     "baseEffects": [
       {
         "type": "currencyPerPoke",

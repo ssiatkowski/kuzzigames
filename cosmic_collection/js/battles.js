@@ -97,6 +97,10 @@ function showDamageNumber(damage, target = 'enemy', specialType = null) {
     damageEl.textContent = 'Poof';
   } else if (specialType === 'revived') {
     damageEl.textContent = 'Revived';
+  } else if (specialType === 'evolve') {
+    damageEl.textContent = 'Evolve';
+  } else if (specialType === 'dismember') {
+    damageEl.textContent = 'Dismember';
   } else {
     damageEl.textContent = formatNumber(damage);
   }
@@ -214,11 +218,12 @@ function processVictory() {
   }
 
   // Clear battle slots (or preserve undamaged cards if skill 29101 is purchased)
-  if (skillMap[29101] && skillMap[29101].purchased) {
+  if (skillMap[29101].purchased) {
     // Skill 29101: "Undamaged cards in battle stay for next enemy"
     // Collect all undamaged cards (currentHp === maxHp)
+    const hpThreshold = skillMap[29102].purchased ? 0.9 : 1;
     const undamagedCards = state.battle.slots.filter(card =>
-      card && card.currentHp >= card.maxHp
+      card && card.currentHp >= (card.maxHp * hpThreshold)
     );
 
     // Create new slots array with undamaged cards at the front
@@ -1121,6 +1126,12 @@ function performSacrifice(cardId) {
       updateBattleUI();
       
     }
+
+  }
+
+  if (cardId === 806 && battleCard.originalQuantity >= 1e12) {
+    unlockAchievement('secret16');
+    console.log('Bitcoin Trillionaire');
   }
 
   // Lock the card
@@ -1450,7 +1461,7 @@ function startBattleLoop() {
               }
             }
 
-            if (isCrit || !isDodge) {
+            if ((isCrit || !isDodge) && state.battle.currentEnemy.name !== 'Kuzzi') {
               if (state.battle.weakPointRealms.has(card.realm) && Math.random() < state.battle.weakPointChance) {
                 const weakPointDamage = Math.floor(state.battle.currentEnemy.currentHp * 0.01);
                 state.battle.currentEnemy.currentHp -= weakPointDamage;
@@ -1459,6 +1470,7 @@ function startBattleLoop() {
               if (state.battle.dismemberRealms.has(card.realm) && Math.random() < state.battle.dismemberChance) {
                 state.battle.currentEnemy.attack = Math.floor(state.battle.currentEnemy.attack * 0.99);
                 updateBattleStats();
+                showDamageNumber(0, 'enemy', 'dismember');
               }
             }
 
@@ -1500,7 +1512,7 @@ function startBattleLoop() {
               }
             }
 
-            if (state.battle.stunRealms.has(card.realm) && Math.random() < state.battle.stunChance && state.battle.currentEnemy.name !== 'Uranus') {
+            if (state.battle.stunRealms.has(card.realm) && Math.random() < state.battle.stunChance && state.battle.currentEnemy.name !== 'Uranus' && state.battle.currentEnemy.name !== 'Zeus') {
               state.battle.currentEnemy.stunTurns += 1;
               showDamageNumber(0, 'enemy', 'stun');
             }
@@ -1508,6 +1520,7 @@ function startBattleLoop() {
             if (state.battle.evolutionRealms.has(card.realm) && Math.random() < state.battle.evolutionChance) {
               card.attack = Math.ceil(card.attack * (1 + (state.battle.evolutionChance / 2)));
               updateBattleStats();
+              showDamageNumber(0, `slot${index}`, 'evolve');
             }
 
             if (state.battle.resourcefulAttackRealms.has(card.realm) && state.battle.resourcefulAttack > 0) {
@@ -1612,7 +1625,8 @@ function startBattleLoop() {
           if (
             state.battle.dodgeRealms.has(targetCard.realm) &&
             Math.random() < state.battle.dodgeChance &&
-            state.battle.currentEnemy.name !== 'Tartarus'
+            state.battle.currentEnemy.name !== 'Tartarus' &&
+            state.battle.currentEnemy.name !== 'Chuck Norris'
           ) {
             showDamageNumber(0, `slot${targetIdx}`, 'dodge');
             continue;
@@ -1822,9 +1836,10 @@ function startBattleLoop() {
         updateBattleStats();
       } else if (state.battle.currentEnemy.name === 'Vegeta' && state.battle.vegetaEvolutions < 5 && Math.random() < 0.1) {
         state.battle.currentEnemy.attack *= 2;
-        state.battle.currentEnemy.currentHp *= 2;
         state.battle.currentEnemy.maxHp *= 2;
+        state.battle.currentEnemy.currentHp = state.battle.currentEnemy.maxHp;
         state.battle.vegetaEvolutions += 1;
+        showDamageNumber(0, 'enemy', 'evolve');
         updateBattleStats();
       } else if (state.battle.currentEnemy.name === 'Chuck Norris' && Math.random() < 0.2) {
         state.battle.currentEnemy.attack *= 1.1;

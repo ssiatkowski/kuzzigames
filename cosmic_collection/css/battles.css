@@ -443,6 +443,16 @@
   font-size: 1.5em;
 }
 
+.damage-number.evolve {
+  color: #ff9900;
+  font-size: 1.6em;
+}
+
+.damage-number.dismember {
+  color: #0e4b37;
+  font-size: 1.6em;
+}
+
 /* Card remove animation */
 @keyframes cardRemove {
   0% {
