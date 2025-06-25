@@ -242,7 +242,7 @@ function processVictory() {
   }
 
   // Clear battle slots (or preserve undamaged cards if skill 29101 is purchased)
-  if (skillMap[29101].purchased) {
+  if (skillMap[29101].purchased && state.battle.currentEnemy.name !== 'Kuzzi') {
     // Skill 29101: "Undamaged cards in battle stay for next enemy"
     // Collect all undamaged cards (currentHp === maxHp)
     const hpThreshold = skillMap[29102].purchased ? 0.9 : 1;

@@ -167,7 +167,7 @@ function getBossMechanicsByName() {
                             killReward: '+50% Global HP Mult' 
                         },
   'Kuzzi':              { 
-                            specialPowers: 'Uses AI to kill 1 random card after every turn. Also cannot be Dismembered and has no Weak Point.', 
+                            specialPowers: 'Uses AI to kill 1 random card after every turn. Also cannot be Dismembered and has no Weak Point. Kills all cards on death.', 
                             killReward: skillMap[30002].purchased ? '+1000% to Global Max Cards Mult' : '+100% to Global Max Cards Mult' 
                         },
   'Your Ego':           { 
