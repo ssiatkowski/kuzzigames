@@ -192,6 +192,11 @@
   transition: width 0.3s ease;
 }
 
+/* Disable health bar transitions during card removal animations */
+.card-outer.removing .hp-bar {
+  transition: none;
+}
+
 .hp-text {
   position: absolute;
   top: 50%;

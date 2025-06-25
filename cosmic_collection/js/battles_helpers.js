@@ -146,7 +146,7 @@ const bossMechanicsByName = {
                             killReward: '+10% to Global Max Cards Mult' 
                         },
   'Vegeta':             { 
-                            specialPowers: '10% chance to evolve - doubling attack, max hp, and fully healing (max 5 evolutions)', 
+                            specialPowers: '9% chance to evolve - doubling attack, max hp, and fully healing (max 5 evolutions)', 
                             killReward: '+15% Global Attack Mult' 
                         },
   'Chuck Norris':       { 
@@ -170,7 +170,7 @@ const bossMechanicsByName = {
                             killReward: '+100% to Global Max Cards Mult' 
                         },
   'Your Ego':           { 
-                            specialPowers: '50% chance to dodge all attacks. 50% chance to deal 5x damage. 50% chance to drain 100% of a random resource. 3x Lifesteal.', 
+                            specialPowers: '50% chance to dodge all attacks. 50% chance to deal 5x damage. 50% chance to drain 100% of a random resource. 3x Lifesteal. Has no Weak Point.', 
                             killReward: '+500% to Global Max Cards Mult' 
                         },
 };

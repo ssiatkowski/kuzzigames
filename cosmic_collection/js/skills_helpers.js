@@ -449,6 +449,13 @@ window.skills = [
       purchased: false
     },
     {
+      id: 3112,
+      name: "Even Faster Poke 12",
+      description: "Decrease base cooldown for Bosses by 60hrs.",
+      cost: { realmId: 12, currencyId: "zeal", amount: 6e31 },
+      purchased: false
+    },
+    {
       id: 4001,
       name: "Not Less Cards",
       description: "+2 to min cards per poke.",
@@ -3610,6 +3617,13 @@ function applySkill(id, skipCost = false) {
         break;
       case 3111:
         realms[10].cooldown -= 600;
+        if (loadFinished) {
+          updatePokeFilterStats();
+          renderRealmFilters();
+        }
+        break;
+      case 3112:
+        realms[11].cooldown -= 3600 * 60;
         if (loadFinished) {
           updatePokeFilterStats();
           renderRealmFilters();

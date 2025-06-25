@@ -17431,8 +17431,8 @@ window.cards = [
       },
       {
         "type": "rarityOddsDivider",
-        "realm": 11,
-        "rarity": "decent"
+        "realm": 12,
+        "rarity": "junk"
       },
       {
         "type": "rarityOddsDivider",
@@ -18973,7 +18973,7 @@ window.cards = [
     },
     "description": "Vegeta once endured 10,000 g’s of gravity training, forging his Saiyan body into a living star-breaker.",
     "power": 2813,
-    "defense": 1000,
+    "defense": 704,
     "baseEffects": [
       {
         "type": "currencyPerPoke",

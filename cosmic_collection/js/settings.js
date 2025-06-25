@@ -483,9 +483,17 @@ function initializeSettingsTab() {
         '<i class="fas fa-check"></i> Skip Sacrifice Dialog' :
         '<i class="fas fa-times"></i> Skip Sacrifice Dialog';
 
+    // Initialize skip remove from battle dialog toggle
+    const skipRemoveFromBattleDialogToggle = document.getElementById('skipRemoveFromBattleDialogToggle');
+    skipRemoveFromBattleDialogToggle.classList.toggle('active', state.skipRemoveFromBattleDialog);
+    skipRemoveFromBattleDialogToggle.innerHTML = state.skipRemoveFromBattleDialog ?
+        '<i class="fas fa-check"></i> Skip Battle Remove Confirm' :
+        '<i class="fas fa-times"></i> Skip Battle Remove Confirm';
+
     // Show skip sacrifice dialog toggle only if realms[10] is unlocked (Weapons realm)
     if (realms[10].unlocked) {
         skipSacrificeDialogToggle.style.display = 'flex';
+        skipRemoveFromBattleDialogToggle.style.display = 'flex';
     }
 
     // Add click handler
@@ -505,6 +513,16 @@ function initializeSettingsTab() {
         this.innerHTML = state.skipSacrificeDialog ?
             '<i class="fas fa-check"></i> Skip Sacrifice Dialog' :
             '<i class="fas fa-times"></i> Skip Sacrifice Dialog';
+        saveState();
+    });
+
+    // Add click handler for skip remove from battle dialog toggle
+    skipRemoveFromBattleDialogToggle.addEventListener('click', function() {
+        state.skipRemoveFromBattleDialog = !state.skipRemoveFromBattleDialog;
+        this.classList.toggle('active');
+        this.innerHTML = state.skipRemoveFromBattleDialog ?
+            '<i class="fas fa-check"></i> Skip Battle Remove Confirm' :
+            '<i class="fas fa-times"></i> Skip Battle Remove Confirm';
         saveState();
     });
 

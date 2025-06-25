@@ -763,6 +763,7 @@ const achievements = {
         reward: 1.17,
         reqRealm: '12'
     },
+    // last one will be Ego Death - sacrifice Ego to Ego
     battleMilestone: {
         id: 'battleMilestone',
         name: 'Battle Milestone',
@@ -1256,12 +1257,12 @@ const achievements = {
         id: 'tierFanatic8',
         name: 'Tier Fanatic VIII',
         type: 'tierFanatic',
-        condition: 'Reach Tier 20 for 10 different Mythic cards',
+        condition: 'Reach Tier 20 for 13 different Mythic cards',
         icon: '🏅',
         rewardType: 'Max Cards Multiplier',
         reward: 1.4,
         rarity: 'mythic',
-        threshold: 10,
+        threshold: 13,
     },
     tierFanatic9: {
         id: 'tierFanatic9',
@@ -1278,12 +1279,12 @@ const achievements = {
         id: 'tierFanatic10',
         name: 'Tier Fanatic X',
         type: 'tierFanatic',
-        condition: 'Reach Tier 20 for 5 different Divine cards',
+        condition: 'Reach Tier 20 for 4 different Divine cards',
         icon: '🏅',
         rewardType: 'Max Cards Multiplier',
         reward: 1.5,
         rarity: 'divine',
-        threshold: 5,
+        threshold: 4,
     },
 };
 

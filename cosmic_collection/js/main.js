@@ -107,6 +107,8 @@ window.state = {
     currentBattleRealm: 11,
     slots: [null, null, null], // 3 slots for cards in battle
     currentEnemy: null,
+    battleInterval: null,
+    startTimeout: null,
     critChance: 0,
     critDamage: 1.5,
     damageAbsorption: 0,
@@ -146,6 +148,7 @@ window.state = {
   showTierUps: true,  // Add this line
   autoUseAbsorber: false,  // Add this line
   skipSacrificeDialog: false,  // Add this line
+  skipRemoveFromBattleDialog: false,  // Add this line
   lastUnstuck: null, // Track last unstuck time
   cardSizeScale: 1, // Track card size scale
   rocksAgainstCronus: new Set(),
@@ -282,6 +285,7 @@ function loadState() {
     state.showTierUps = obj.showTierUps ?? true; // Add this line with default true
     state.autoUseAbsorber = obj.autoUseAbsorber ?? false; // Add this line with default false
     state.skipSacrificeDialog = obj.skipSacrificeDialog ?? false; // Add this line with default false
+    state.skipRemoveFromBattleDialog = obj.skipRemoveFromBattleDialog ?? false; // Add this line with default false
     state.cardSizeScale = obj.cardSizeScale || 1;
     state.lastUnstuck = obj.lastUnstuck ? new Date(obj.lastUnstuck) : null;
   } catch(e){
@@ -318,6 +322,7 @@ function saveState() {
     showTierUps: state.showTierUps,  // Add this line
     autoUseAbsorber: state.autoUseAbsorber,
     skipSacrificeDialog: state.skipSacrificeDialog,
+    skipRemoveFromBattleDialog: state.skipRemoveFromBattleDialog,
     cardSizeScale: state.cardSizeScale,
     lastUnstuck: state.lastUnstuck,
     battle: {
