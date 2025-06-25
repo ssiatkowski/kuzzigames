@@ -19310,7 +19310,7 @@ window.cards = [
       "amount": 5.0
     },
     "description": "Your ultimate nemesis.",
-    "power": 50000,
+    "power": 500000,
     "defense": 250000,
     "baseEffects": [
       {
