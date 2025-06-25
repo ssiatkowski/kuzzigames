@@ -3261,6 +3261,13 @@ window.skills = [
       description: "Cards in battle stay for next enemy if they have at least 90% HP.",
       cost: { realmId: 12, currencyId: "coin", amount: 9.99e35 },
       purchased: false
+    },
+    {
+      id: 30001,
+      name: "Spiritual Boss Poke",
+      description: "Pokes that have Spirit Familiars and Bosses realms selected (other realms can be selected as well) yield 13x cards.",
+      cost: { realmId: 12, currencyId: "spirit", amount: 1.3e32 },
+      purchased: false
     }
   ];
 
@@ -4466,6 +4473,7 @@ function applySkill(id, skipCost = false) {
         break;
       case 29101:
       case 29102:
+      case 30001:
         break;
 
       default:

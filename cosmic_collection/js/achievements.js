@@ -452,7 +452,16 @@ const achievements = {
         reward: 100000000,
         threshold: 10000000000000,
     },
-    
+    massivePoke13: {
+        id: 'massivePoke13',
+        name: 'Massive Poke XIII',
+        type: 'massivePoke',
+        condition: 'Get 100T cards from a single poke',
+        icon: '💥',
+        rewardType: 'Min Cards Per Poke',
+        reward: 130000000,
+        threshold: 100000000000000,
+    },
     inItForTheLongHaul: {
         id: 'inItForTheLongHaul',
         name: 'In It For The Long Haul',
@@ -761,6 +770,26 @@ const achievements = {
         icon: '♾️',
         rewardType: 'Min Cards Multiplier',
         reward: 1.17,
+        reqRealm: '12'
+    },
+    secret18: {
+        id: 'secret18',
+        name: 'Secret XVIII',
+        type: 'secret',
+        condition: 'Harmless',
+        icon: '🔪',
+        rewardType: 'Min Cards Multiplier',
+        reward: 1.18,
+        reqRealm: '12'
+    },
+    secret19: {
+        id: 'secret19',
+        name: 'Secret XIX',
+        type: 'secret',
+        condition: 'No Super Saiyan For You',
+        icon: '🦸',
+        rewardType: 'Min Cards Multiplier',
+        reward: 1.19,
         reqRealm: '12'
     },
     // last one will be Ego Death - sacrifice Ego to Ego

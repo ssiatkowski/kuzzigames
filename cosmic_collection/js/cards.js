@@ -18655,6 +18655,11 @@ window.cards = [
       },
       {
         "type": "cooldownDivider"
+      },
+      {
+        "type": "rarityOddsDivider",
+        "realm": 12,
+        "rarity": "basic"
       }
     ],
     "specialEffects": [
@@ -18779,7 +18784,7 @@ window.cards = [
           "type": "level",
           "amount": 300
         },
-        "value": 10000000.0
+        "value": 25000000.0
       }
     ]
   },
@@ -18832,7 +18837,7 @@ window.cards = [
           "type": "level",
           "amount": 300
         },
-        "value": 10000000.0
+        "value": 25000000.0
       }
     ]
   },
@@ -18900,7 +18905,7 @@ window.cards = [
           "type": "level",
           "amount": 300
         },
-        "value": 10000000.0
+        "value": 25000000.0
       }
     ]
   },
@@ -18935,6 +18940,11 @@ window.cards = [
       },
       {
         "type": "cooldownDivider"
+      },
+      {
+        "type": "rarityOddsDivider",
+        "realm": 12,
+        "rarity": "decent"
       }
     ],
     "specialEffects": [
@@ -19273,6 +19283,26 @@ window.cards = [
       },
       {
         "type": "cooldownDivider"
+      },
+      {
+        "type": "rarityOddsDivider",
+        "realm": 12,
+        "rarity": "junk"
+      },
+      {
+        "type": "rarityOddsDivider",
+        "realm": 12,
+        "rarity": "basic"
+      },
+      {
+        "type": "rarityOddsDivider",
+        "realm": 12,
+        "rarity": "decent"
+      },
+      {
+        "type": "rarityOddsDivider",
+        "realm": 12,
+        "rarity": "fine"
       }
     ],
     "specialEffects": [

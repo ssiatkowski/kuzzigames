@@ -86,7 +86,7 @@ function showDamageNumber(damage, target = 'enemy', specialType = null) {
   // 2) Create the number
   const damageEl = document.createElement('div');
   damageEl.className = 'damage-number' + (specialType ? ` ${specialType}` : '');
-  
+
   if (specialType === 'dodge') {
     damageEl.textContent = 'Dodge';
   } else if (specialType === 'stun') {
@@ -235,6 +235,10 @@ function processVictory() {
   
   if (state.battle.currentEnemy.name === 'Kratos' && state.battle.slots.some(card => card && card.id === '1119')) {
     unlockAchievement('secret14');
+  }
+
+  if (state.battle.currentEnemy.name === 'Vegeta' && state.battle.vegetaEvolutions === 0) {
+    unlockAchievement('secret19');
   }
 
   // Clear battle slots (or preserve undamaged cards if skill 29101 is purchased)
@@ -1489,6 +1493,10 @@ function battleLoop() {
           }
           if (state.battle.dismemberRealms.has(card.realm) && Math.random() < state.battle.dismemberChance) {
             state.battle.currentEnemy.attack = Math.floor(state.battle.currentEnemy.attack * 0.99);
+            if (state.battle.currentEnemy.attack <= 1) {
+              state.battle.currentEnemy.attack = 1;
+              unlockAchievement('secret18');
+            }
             updateBattleStats();
             showDamageNumber(0, 'enemy', 'dismember');
           }

@@ -649,11 +649,15 @@ function performPoke() {
   // how many cards to draw this poke
   const e     = state.effects;
   const r = (Math.random() + Math.random()) / 2; // center-biased
-  const draws = Math.floor(Math.floor(
+  let draws = Math.floor(Math.floor(
     ((r * ((e.maxCardsPerPoke + state.achievementRewards.maxCardsPerPoke) * (state.achievementRewards.maxCardsMultiplier) * (state.battle.globalMaxCardsMult) * (state.supporterCheckboxClicked ? 1.25 : 1) 
           - ((e.minCardsPerPoke + state.achievementRewards.minCardsPerPoke) * state.achievementRewards.minCardsMultiplier)  + 1)
           ) + (e.minCardsPerPoke + state.achievementRewards.minCardsPerPoke) * state.achievementRewards.minCardsMultiplier))
   * absorberMultiplier);
+
+  if (skillMap[30001].purchased && state.selectedRealms.includes(9) && state.selectedRealms.includes(12)) {
+    draws *= 13;
+  }
 
   // Create and animate floating number
   const floatingNumber = document.createElement('div');
