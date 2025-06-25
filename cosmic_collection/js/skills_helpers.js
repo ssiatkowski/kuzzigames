@@ -3268,7 +3268,60 @@ window.skills = [
       description: "Pokes that have Spirit Familiars and Bosses realms selected (other realms can be selected as well) yield 13x cards.",
       cost: { realmId: 12, currencyId: "spirit", amount: 1.3e32 },
       purchased: false
-    }
+    },
+    {
+      id: 30002,
+      name: "Solid Max Card Kill Rewards",
+      description: "10x enemy Global Max Cards kill rewards (not retroactive).",
+      cost: { realmId: 12, currencyId: "stone", amount: 1e33 },
+      purchased: false
+    },
+    {
+      id: 30003,
+      name: "Faded Boss Realm",
+      description: "Decrease base cooldown for Bosses by 180hrs.",
+      cost: { realmId: 12, currencyId: "rune", amount: 4.2e32 },
+      purchased: false
+    },
+    {
+      id: 30004,
+      name: "Boss Prayer",
+      description: "Increase realm odds for Bosses by 2x.",
+      cost: { realmId: 12, currencyId: "spirit", amount: 2e33 },
+      purchased: false
+    },
+    {
+      id: 30005,
+      name: "Oooh Shiny!",
+      description: "+1B Max Cards per Poke.",
+      cost: { realmId: 12, currencyId: "pearl", amount: 1e33 },
+      purchased: false
+    },
+    {
+      id: 30006,
+      name: "That's Enough Pollen",
+      description: "Remove Bugdom deselect cooldown multiplier.",
+      cost: { realmId: 12, currencyId: "pollen", amount: 5e33 },
+      purchased: false
+    },
+    {
+      id: 30007,
+      name: "It's Always Just About The Birds",
+      description: "Aviary deselect cooldown multiplier becomes 0.5x (reduces cooldown!).",
+      cost: { realmId: 12, currencyId: "feather", amount: 1e33 },
+      purchased: false
+    },
+    {
+      id: 30008,
+      name: "Nothing But Love",
+      description: "Pokes generate 33x worth of pokes of all currencies.",
+      cost: { realmId: 12, currencyId: "zeal", amount: 1e36 },
+      purchased: false
+    },
+
+
+
+
   ];
 
   // --- PURCHASE LOGIC ---
@@ -4474,6 +4527,35 @@ function applySkill(id, skipCost = false) {
       case 29101:
       case 29102:
       case 30001:
+        break;
+      case 30002:
+        if (loadFinished) {
+          bossMechanicsByName = getBossMechanicsByName();
+        }
+        break;
+      case 30003:
+        realms[11].cooldown -= 3600 * 180;
+        if (loadFinished) {
+          updatePokeFilterStats();
+          renderRealmFilters();
+        }
+        break;
+      case 30004:
+        realms[11].pokeWeight *= 2;
+        if (loadFinished) updatePokeFilterStats();
+        break;
+      case 30005:
+        state.effects.maxCardsPerPoke += 1e9;
+        break;
+      case 30006:
+        realms[2].deselectMultiplier /= 2;
+        if (loadFinished) updatePokeFilterStats();
+        break;
+      case 30007:
+        realms[3].deselectMultiplier /= 4;
+        if (loadFinished) updatePokeFilterStats();
+        break;
+      case 30008:
         break;
 
       default:

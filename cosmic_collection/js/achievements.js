@@ -1315,6 +1315,53 @@ const achievements = {
         rarity: 'divine',
         threshold: 4,
     },
+    // endgameChecklist: {
+    //     id: 'endgameChecklist',
+    //     name: 'Endgame Checklist',
+    //     type: 'endgameChecklist',
+    //     condition: 'Get 1Qa of a single card',
+    //     icon: '📜',
+    //     rewardType: 'Max Cards Multiplier',
+    //     reward: 2,
+    // },
+    // endgameChecklist2: {
+    //     id: 'endgameChecklist2',
+    //     name: 'Endgame Checklist II',
+    //     type: 'endgameChecklist',
+    //     condition: 'Purchase all XXX skills',
+    //     icon: '📜',
+    //     rewardType: 'Max Cards Multiplier',
+    //     reward: 2,
+    // },
+    // endgameChecklist3: {
+    //     id: 'endgameChecklist3',
+    //     name: 'Endgame Checklist III',
+    //     type: 'endgameChecklist',
+    //     condition: 'Have all XXX cards in collection',
+    //     icon: '📜',
+    //     rewardType: 'Max Cards Multiplier',
+    //     reward: 2,
+    // },
+    // endgameChecklist4: {
+    //     id: 'endgameChecklist4',
+    //     name: 'Endgame Checklist IV',
+    //     type: 'endgameChecklist',
+    //     condition: 'Reach Inf of X Currency',
+    //     icon: '📜',
+    //     rewardType: 'Max Cards Multiplier',
+    //     reward: 2,
+    // },
+    // endgameChecklist5: {
+    //     id: 'endgameChecklist5',
+    //     name: 'Endgame Checklist V',
+    //     type: 'endgameChecklist',
+    //     condition: 'Unlock all XXX other achievements',
+    //     icon: '📜',
+    //     rewardType: 'Max Cards Multiplier',
+    //     reward: 2,
+    // },
+
+
 };
 
 // add an achievementsMap for accessing achievements by ID

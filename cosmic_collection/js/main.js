@@ -655,13 +655,18 @@ function performPoke() {
           ) + (e.minCardsPerPoke + state.achievementRewards.minCardsPerPoke) * state.achievementRewards.minCardsMultiplier))
   * absorberMultiplier);
 
-  if (skillMap[30001].purchased && state.selectedRealms.includes(9) && state.selectedRealms.includes(12)) {
+  const isSpecialCondition = skillMap[30001].purchased && state.selectedRealms.includes(9) && state.selectedRealms.includes(12);
+
+  if (isSpecialCondition) {
     draws *= 13;
   }
 
   // Create and animate floating number
   const floatingNumber = document.createElement('div');
   floatingNumber.className = 'floating-number';
+  if (isSpecialCondition) {
+    floatingNumber.classList.add('floating-number-pink');
+  }
   floatingNumber.textContent = formatNumber(draws);
 
   state.stats.totalCardsDrawn += draws;
@@ -767,7 +772,7 @@ function performPoke() {
   Object.entries(state.effects.currencyPerPoke).forEach(([curId, rate]) => {
     if (!rate || state.currencies[curId] == null) return;
     state.currencies[curId] =
-      state.currencies[curId].plus(new Decimal(rate * state.effects.currencyPerPokeMultiplier[curId]));
+      state.currencies[curId].plus(new Decimal(rate * state.effects.currencyPerPokeMultiplier[curId] * skillMap[30008].purchased ? 33 : 1 ));
   });
 
   // Check for affordable skills after currency update

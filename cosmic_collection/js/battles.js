@@ -262,7 +262,7 @@ function processVictory() {
 
   // Give Rewards for Enemies that have rewards
   if (state.battle.currentEnemy.name === 'Poseidon') {
-    state.battle.globalMaxCardsMult += 0.001;
+    state.battle.globalMaxCardsMult += skillMap[30002].purchased ? 0.01 : 0.001;
   } else if (state.battle.currentEnemy.name === 'Uranus') {
     state.battle.globalHPMult += 0.001;
   } else if (state.battle.currentEnemy.name === 'Tartarus') {
@@ -270,7 +270,7 @@ function processVictory() {
   } else if (state.battle.currentEnemy.name === 'Cronus') {
     state.battle.globalAttackMult += 0.005;
   } else if (state.battle.currentEnemy.name === 'Typhon') {
-    state.battle.globalMaxCardsMult += 0.005;
+    state.battle.globalMaxCardsMult += skillMap[30002].purchased ? 0.05 : 0.005;
   } else if (state.battle.currentEnemy.name === 'Gaia') {
     state.battle.globalHPMult += 0.005;
   } else if (state.battle.currentEnemy.name === 'Nyx') {
@@ -278,7 +278,7 @@ function processVictory() {
   } else if (state.battle.currentEnemy.name === 'Chaos') {
     state.battle.globalAttackMult += 0.02;
   } else if (state.battle.currentEnemy.name === 'Zeus') {
-    state.battle.globalMaxCardsMult += 0.25;
+    state.battle.globalMaxCardsMult += skillMap[30002].purchased ? 2.5 : 0.25;
   } else if (state.battle.currentEnemy.name === 'Papa Smurf') {
     state.battle.globalAttackMult += 0.001;
   } else if (state.battle.currentEnemy.name === 'Dr Wily') {
@@ -292,7 +292,7 @@ function processVictory() {
   } else if (state.battle.currentEnemy.name === 'Dracula') {
     state.battle.globalHPMult += 0.005;
   } else if (state.battle.currentEnemy.name === 'Cartman') {
-    state.battle.globalMaxCardsMult += 0.01;
+    state.battle.globalMaxCardsMult += skillMap[30002].purchased ? 0.1 : 0.01;
   } else if (state.battle.currentEnemy.name === 'Agent Smith') {
     state.battle.globalHPMult += 0.01;
   } else if (state.battle.currentEnemy.name === 'Sephiroth') {
@@ -302,23 +302,23 @@ function processVictory() {
   } else if (state.battle.currentEnemy.name === 'T800') {
     state.battle.globalHPMult += 0.02;
   } else if (state.battle.currentEnemy.name === 'Godzilla') {
-    state.battle.globalMaxCardsMult += 0.02;
+    state.battle.globalMaxCardsMult += skillMap[30002].purchased ? 0.2 : 0.02;
   } else if (state.battle.currentEnemy.name === 'Darth Vader') {
     state.battle.globalHPMult += 0.03;
   } else if (state.battle.currentEnemy.name === 'Shao Kahn') {
     state.battle.globalAttackMult += 0.03;
   } else if (state.battle.currentEnemy.name === 'Hal9000') {
-    state.battle.globalMaxCardsMult += 0.03;
+    state.battle.globalMaxCardsMult += skillMap[30002].purchased ? 0.3 : 0.03;
   } else if (state.battle.currentEnemy.name === 'Sauron') {
     state.battle.globalHPMult += 0.05;
   } else if (state.battle.currentEnemy.name === 'Pudge') {
-    state.battle.globalMaxCardsMult += 0.05;
+    state.battle.globalMaxCardsMult += skillMap[30002].purchased ? 0.5 : 0.05;
   } else if (state.battle.currentEnemy.name === 'Doctor Manhattan') {
-    state.battle.globalMaxCardsMult += 0.06;
+    state.battle.globalMaxCardsMult += skillMap[30002].purchased ? 0.6 : 0.06;
   } else if (state.battle.currentEnemy.name === 'Aizen') {
     state.battle.globalAttackMult += 0.08;
   } else if (state.battle.currentEnemy.name === 'Thanos') {
-    state.battle.globalMaxCardsMult += 0.08;
+    state.battle.globalMaxCardsMult += skillMap[30002].purchased ? 0.8 : 0.08;
   } else if (state.battle.currentEnemy.name === 'Isshin') {
     state.battle.globalAttackMult += 0.1;
   } else if (state.battle.currentEnemy.name === 'Deadpool') {
@@ -328,7 +328,7 @@ function processVictory() {
   } else if (state.battle.currentEnemy.name === 'Arceus') {
     state.battle.globalHPMult += 0.1;
   } else if (state.battle.currentEnemy.name === 'Rick') {
-    state.battle.globalMaxCardsMult += 0.1;
+    state.battle.globalMaxCardsMult += skillMap[30002].purchased ? 1 : 0.1;
   } else if (state.battle.currentEnemy.name === 'Vegeta') {
     state.battle.globalAttackMult += 0.15;
   } else if (state.battle.currentEnemy.name === 'Chuck Norris') {
@@ -336,13 +336,13 @@ function processVictory() {
   } else if (state.battle.currentEnemy.name === 'Kaguya') {
     state.battle.globalAttackMult += 0.5;
   } else if (state.battle.currentEnemy.name === 'One Above All') {
-    state.battle.globalMaxCardsMult += 0.5;
+    state.battle.globalMaxCardsMult += skillMap[30002].purchased ? 5 : 0.5;
   } else if (state.battle.currentEnemy.name === 'Saitama') {
     state.battle.globalHPMult += 0.5;
   } else if (state.battle.currentEnemy.name === 'Kuzzi') {
-    state.battle.globalAttackMult += 1;
+    state.battle.globalMaxCardsMult += skillMap[30002].purchased ? 10 : 1;
   } else if (state.battle.currentEnemy.name === 'Your Ego') {
-    state.battle.globalMaxCardsMult += 5;
+    state.battle.globalMaxCardsMult += skillMap[30002].purchased ? 50 : 5;
   }
 
   checkAchievements('battleMilestone', state.battle.currentEnemy.name);

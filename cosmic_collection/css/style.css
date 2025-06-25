@@ -1299,6 +1299,12 @@ nav#tabs { margin-bottom: 15px; }
   }
 }
 
+/* Pink floating number variant for special condition */
+.floating-number-pink {
+  color: #ff69b4 !important;
+  text-shadow: 0 0 10px rgba(255, 105, 180, 0.8) !important;
+}
+
 .skip-text {
   position: absolute;
   top: 50%;

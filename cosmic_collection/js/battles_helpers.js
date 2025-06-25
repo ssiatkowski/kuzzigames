@@ -1,9 +1,10 @@
 // battles.js
 // — boss-specific mechanics (fill in the strings later) —
-const bossMechanicsByName = {
+function getBossMechanicsByName() {
+  return {
   'Poseidon':           { 
                             specialPowers: 'Prevents Sea World Protection', 
-                            killReward: '+0.1% Global Max Cards Mult' 
+                            killReward: skillMap[30002].purchased ? '+1% Global Max Cards Mult' : '+0.1% Global Max Cards Mult' 
                         },
   'Uranus':             { 
                             specialPowers: 'Cannot be Stunned', 
@@ -19,7 +20,7 @@ const bossMechanicsByName = {
                         },
   'Typhon':             { 
                             specialPowers: '2.5% chance to absorb attack and heal for that amount instead', 
-                            killReward: '+0.5% Global Max Cards Mult' 
+                            killReward: skillMap[30002].purchased ? '+5% Global Max Cards Mult' : '+0.5% Global Max Cards Mult' 
                         },
   'Gaia':               { 
                             specialPowers: '5% Chance to Heal 1% of Max Health', 
@@ -35,7 +36,7 @@ const bossMechanicsByName = {
                         },
   'Zeus':               { 
                             specialPowers: 'Attacks 3 times - targeting random cards. Also cannot be stunned. ', 
-                            killReward: '+25% Global Max Cards Mult' 
+                            killReward: skillMap[30002].purchased ? '+250% Global Max Cards Mult' : '+25% Global Max Cards Mult' 
                         },
   'Training Dummy':     { 
                             specialPowers: 'Heals 0.1% of Current Health', 
@@ -71,7 +72,7 @@ const bossMechanicsByName = {
                         },
   'Cartman':            { 
                             specialPowers: '10% to Fart each time he is hit - Deals 5% of Max Health to front 2 cards', 
-                            killReward: '+1% to Global Max Cards Mult' 
+                            killReward: skillMap[30002].purchased ? '+10% to Global Max Cards Mult' : '+1% to Global Max Cards Mult' 
                         },
   'Agent Smith':        { 
                             specialPowers: '75% Dodge Chance', 
@@ -91,7 +92,7 @@ const bossMechanicsByName = {
                         },
   'Godzilla':           { 
                             specialPowers: 'Reflects 15% Damage to Attackers', 
-                            killReward: '+2% to Global Max Cards Mult' 
+                            killReward: skillMap[30002].purchased ? '+20% to Global Max Cards Mult' : '+2% to Global Max Cards Mult' 
                         },
   'Darth Vader':        { 
                             specialPowers: '98% Chance to only take 3% of damage', 
@@ -103,7 +104,7 @@ const bossMechanicsByName = {
                         },
   'Hal9000':            { 
                             specialPowers: 'Each card takes 50% damage of the one in front of it', 
-                            killReward: '+3% to Global Max Cards Mult' 
+                            killReward: skillMap[30002].purchased ? '+30% to Global Max Cards Mult' : '+3% to Global Max Cards Mult' 
                         },
   'Sauron':             { 
                             specialPowers: '10% Chance to Instantly Kill', 
@@ -111,11 +112,11 @@ const bossMechanicsByName = {
                         },
   'Pudge':              { 
                             specialPowers: '25% chance to pull the last card to the front and deal 50% of its Current Health as damage', 
-                            killReward: '+5% to Global Max Cards Mult' 
+                            killReward: skillMap[30002].purchased ? '+50% to Global Max Cards Mult' : '+5% to Global Max Cards Mult' 
                         },
   'Doctor Manhattan':   { 
                             specialPowers: 'Drains 40% of a random resource on each attack. 2x Lifesteal.', 
-                            killReward: '+6% to Global Max Cards Mult' 
+                            killReward: skillMap[30002].purchased ? '+60% to Global Max Cards Mult' : '+6% to Global Max Cards Mult'
                         },
   'Aizen':              { 
                             specialPowers: '50% chance for Extra Attack (can proc multiple times)', 
@@ -123,7 +124,7 @@ const bossMechanicsByName = {
                         },
   'Thanos':             { 
                             specialPowers: '4% chance to kill half the cards (rounded up)', 
-                            killReward: '+8% to Global Max Cards Mult' 
+                            killReward: skillMap[30002].purchased ? '+80% to Global Max Cards Mult' : '+8% to Global Max Cards Mult' 
                         },
   'Isshin':             { 
                             specialPowers: 'Attacks 3 Times (2nd and 3rd attacks hit random targets)', 
@@ -143,7 +144,7 @@ const bossMechanicsByName = {
                         },
   'Rick':               { 
                             specialPowers: '17% chance to teleport random card to another dimension (instantly kill)', 
-                            killReward: '+10% to Global Max Cards Mult' 
+                            killReward: skillMap[30002].purchased ? '+100% to Global Max Cards Mult' : '+10% to Global Max Cards Mult' 
                         },
   'Vegeta':             { 
                             specialPowers: '9% chance to evolve - doubling attack, max hp, and fully healing (max 5 evolutions)', 
@@ -159,7 +160,7 @@ const bossMechanicsByName = {
                         },
   'One Above All':      { 
                             specialPowers: 'Attacks all Cards', 
-                            killReward: '+50% to Global Max Cards Mult' 
+                            killReward: skillMap[30002].purchased ? '+500% to Global Max Cards Mult' : '+50% to Global Max Cards Mult' 
                         },
   'Saitama':            { 
                             specialPowers: 'Increases his Attack by 1%. Reduces Attack of all your cards by 10%. 1x Lifesteal.', 
@@ -167,10 +168,14 @@ const bossMechanicsByName = {
                         },
   'Kuzzi':              { 
                             specialPowers: 'Uses AI to kill 1 random card after every turn. Also cannot be Dismembered and has no Weak Point.', 
-                            killReward: '+100% to Global Max Cards Mult' 
+                            killReward: skillMap[30002].purchased ? '+1000% to Global Max Cards Mult' : '+100% to Global Max Cards Mult' 
                         },
   'Your Ego':           { 
                             specialPowers: '50% chance to dodge all attacks. 50% chance to deal 5x damage. 50% chance to drain 100% of a random resource. 3x Lifesteal. Has no Weak Point.', 
-                            killReward: '+500% to Global Max Cards Mult' 
+                            killReward: skillMap[30002].purchased ? '+5000% to Global Max Cards Mult' : '+500% to Global Max Cards Mult' 
                         },
-};
+  };
+}
+
+
+let bossMechanicsByName = getBossMechanicsByName();
