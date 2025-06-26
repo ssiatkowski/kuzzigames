@@ -1299,14 +1299,15 @@ function updateHarvesterTooltipContent() {
     content += `<div>Used to reduce Black Hole cooldown</div>`;
   }
 
-  content += `<div>Harvesting Rate: ${formatDuration(onlineRate, 2)}/sec</div>`;
+  // make the harvesting rate gray color
+  content += `<div style="color:gray">Harvesting Rate: ${formatDuration(onlineRate, 2)}/sec</div>`;
 
   if (!skillMap[12003].purchased) {
-    content += `<div>Offline Rate: ${formatDuration(offlineRate, 2)}/sec</div>`;
+    content += `<div style="color:gray">Offline Rate: ${formatDuration(offlineRate, 2)}/sec</div>`;
   }
 
   if (skillMap[12004].purchased) {
-    content += `<div>Poke Bonus: +1% of cooldown time</div>`;
+    content += `<div style="color:gray">Poke Bonus: +1% of cooldown time</div>`;
   }
 
   tooltip.innerHTML = content;
@@ -1334,7 +1335,7 @@ function updateAbsorberTooltipContent() {
   tooltip.innerHTML = `
     <div><strong>Gravitational Wave <em>Absorber</em></strong></div>
     <div>Click for next poke to give ${formatNumber(state.absorberValue)}x cards</div>
-    <div>Absorption Rate: ${absorptionRateText}</div>
+    <div style="color:gray">Absorption Rate: ${absorptionRateText}</div>
   `;
 }
 
@@ -1356,15 +1357,15 @@ function updateInterceptorTooltipContent() {
     }
 
     if (skillMap[12204].purchased) {
-      content += `<div>Bonus Charge: +15s / new, +2s / tier up</div>`;
+      content += `<div style="color:gray">Bonus Charge: +15s / new, +2s / tier up</div>`;
     }
   } else {
     const actionText = skillMap[12203].purchased ? "poking and card flipping" : "card flipping";
     content += `<div>Click to activate automatic ${actionText} for ${formatDuration(state.interceptorValue)}</div>`;
-    content += `<div>Pasive Charge: ${formatDuration(passiveRate, 2)}/sec</div>`;
+    content += `<div style="color:gray">Pasive Charge: ${formatDuration(passiveRate, 2)}/sec</div>`;
 
     const activeRate = passiveRate * (skillMap[12205].purchased ? 2.5 : 1);
-    content += `<div>Manual Charge: ${formatDuration(activeRate, 2)} / card flip</div>`;
+    content += `<div style="color:gray">Manual Charge: ${formatDuration(activeRate, 2)} / card flip</div>`;
   }
 
   tooltip.innerHTML = content;
