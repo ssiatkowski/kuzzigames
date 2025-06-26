@@ -146,6 +146,7 @@ window.state = {
     globalMaxCardsMult: 1,
     vegetaEvolutions: 0,
   },
+  showDeviceHoverInfo: true,
   showTierUps: true,  // Add this line
   autoUseAbsorber: false,  // Add this line
   skipSacrificeDialog: false,  // Add this line
@@ -285,6 +286,7 @@ function loadState() {
       });
     }
     state.showTierUps = obj.showTierUps ?? true; // Add this line with default true
+    state.showDeviceHoverInfo = obj.showDeviceHoverInfo ?? true; // Add this line with default true
     state.autoUseAbsorber = obj.autoUseAbsorber ?? false; // Add this line with default false
     state.skipSacrificeDialog = obj.skipSacrificeDialog ?? false; // Add this line with default false
     state.skipRemoveFromBattleDialog = obj.skipRemoveFromBattleDialog ?? false; // Add this line with default false
@@ -332,6 +334,7 @@ function saveState() {
     lastSaveTime: Date.now(),
     remainingCooldown: state.remainingCooldown,
     showTierUps: state.showTierUps,  // Add this line
+    showDeviceHoverInfo: state.showDeviceHoverInfo,
     autoUseAbsorber: state.autoUseAbsorber,
     skipSacrificeDialog: state.skipSacrificeDialog,
     skipRemoveFromBattleDialog: state.skipRemoveFromBattleDialog,
@@ -1211,7 +1214,7 @@ function updateHoleTooltipContent() {
   // Get cooldown info and color
   const cooldownSum = calculateCooldown();
   const cooldownTxt = formatDuration(cooldownSum);
-  const cooldownColor = getCooldownColor(cooldownSum);
+  const cooldownColor = getCooldownColor(cooldownSum, forTooltip = true);
   const skipChance = Math.round((state.effects.cooldownSkipChance || 0) * 100);
 
   holeTooltip.innerHTML = `
@@ -1293,7 +1296,7 @@ function updateHarvesterTooltipContent() {
   let content = `<div><strong>Hawking Radiation <em>Harvester</em></strong></div>`;
 
   if (isAvailable) {
-    const reductionAmount = Math.max(state.harvesterValue, state.remainingCooldown);
+    const reductionAmount = Math.min(state.harvesterValue, state.remainingCooldown);
     content += `<div>Click to reduce Black Hole cooldown by ${formatDuration(reductionAmount)}</div>`;
   } else {
     content += `<div>Used to reduce Black Hole cooldown</div>`;
@@ -1539,8 +1542,14 @@ function initDeviceTooltips() {
   // Harvester tooltips
   const harvesterButton = document.getElementById('harvester-button');
   if (harvesterButton) {
+    // Prevent default drag/context menu behavior
+    harvesterButton.addEventListener('dragstart', (e) => e.preventDefault());
+    harvesterButton.addEventListener('contextmenu', (e) => e.preventDefault());
+
     harvesterButton.addEventListener('mouseenter', () => {
-      showDeviceTooltip('harvester', harvesterButton);
+      if (state.showDeviceHoverInfo) {
+        showDeviceTooltip('harvester', harvesterButton);
+      }
     });
     harvesterButton.addEventListener('mouseleave', () => hideDeviceTooltip('harvester'));
     harvesterButton.addEventListener('click', () => hideDeviceTooltip('harvester'));
@@ -1553,7 +1562,9 @@ function initDeviceTooltips() {
       harvesterIsLongPressing = false;
       harvesterLongPressTimer = setTimeout(() => {
         harvesterIsLongPressing = true;
-        showDeviceTooltip('harvester', harvesterButton);
+        if (state.showDeviceHoverInfo) {
+          showDeviceTooltip('harvester', harvesterButton);
+        }
       }, 500);
     });
 
@@ -1572,9 +1583,13 @@ function initDeviceTooltips() {
   // Absorber tooltips
   const absorberButton = document.getElementById('absorber-button');
   if (absorberButton) {
+    // Prevent default drag/context menu behavior
+    absorberButton.addEventListener('dragstart', (e) => e.preventDefault());
+    absorberButton.addEventListener('contextmenu', (e) => e.preventDefault());
+
     absorberButton.addEventListener('mouseenter', () => {
       const isAbsorberActive = absorberButton.classList.contains('active');
-      if (state.absorberValue > 1 && !isAbsorberActive) {
+      if (state.showDeviceHoverInfo && state.absorberValue > 1 && !isAbsorberActive) {
         showDeviceTooltip('absorber', absorberButton);
       }
     });
@@ -1592,7 +1607,9 @@ function initDeviceTooltips() {
       absorberIsLongPressing = false;
       absorberLongPressTimer = setTimeout(() => {
         absorberIsLongPressing = true;
-        showDeviceTooltip('absorber', absorberButton);
+        if (state.showDeviceHoverInfo) {
+          showDeviceTooltip('absorber', absorberButton);
+        }
       }, 500);
     });
 
@@ -1611,8 +1628,14 @@ function initDeviceTooltips() {
   // Interceptor tooltips
   const interceptorButton = document.getElementById('interceptor-button');
   if (interceptorButton) {
+    // Prevent default drag/context menu behavior
+    interceptorButton.addEventListener('dragstart', (e) => e.preventDefault());
+    interceptorButton.addEventListener('contextmenu', (e) => e.preventDefault());
+
     interceptorButton.addEventListener('mouseenter', () => {
-      showDeviceTooltip('interceptor', interceptorButton);
+      if (state.showDeviceHoverInfo) {
+        showDeviceTooltip('interceptor', interceptorButton);
+      }
     });
     interceptorButton.addEventListener('mouseleave', () => hideDeviceTooltip('interceptor'));
     interceptorButton.addEventListener('click', () => hideDeviceTooltip('interceptor'));
@@ -1625,7 +1648,9 @@ function initDeviceTooltips() {
       interceptorIsLongPressing = false;
       interceptorLongPressTimer = setTimeout(() => {
         interceptorIsLongPressing = true;
-        showDeviceTooltip('interceptor', interceptorButton);
+        if (state.showDeviceHoverInfo) {
+          showDeviceTooltip('interceptor', interceptorButton);
+        }
       }, 500);
     });
 
@@ -1645,8 +1670,16 @@ function initDeviceTooltips() {
   const timeCrunchContainer = document.getElementById('time-crunch-container');
   const timeCrunchButton = document.getElementById('time-crunch-button');
   if (timeCrunchContainer && timeCrunchButton) {
+    // Prevent default drag/context menu behavior
+    timeCrunchContainer.addEventListener('dragstart', (e) => e.preventDefault());
+    timeCrunchContainer.addEventListener('contextmenu', (e) => e.preventDefault());
+    timeCrunchButton.addEventListener('dragstart', (e) => e.preventDefault());
+    timeCrunchButton.addEventListener('contextmenu', (e) => e.preventDefault());
+
     timeCrunchContainer.addEventListener('mouseenter', () => {
-      showDeviceTooltip('timeCrunch', timeCrunchButton);
+      if (state.showDeviceHoverInfo) {
+        showDeviceTooltip('timeCrunch', timeCrunchButton);
+      }
     });
     timeCrunchContainer.addEventListener('mouseleave', () => hideDeviceTooltip('timeCrunch'));
     timeCrunchContainer.addEventListener('click', () => hideDeviceTooltip('timeCrunch'));
@@ -1659,7 +1692,9 @@ function initDeviceTooltips() {
       timeCrunchIsLongPressing = false;
       timeCrunchLongPressTimer = setTimeout(() => {
         timeCrunchIsLongPressing = true;
-        showDeviceTooltip('timeCrunch', timeCrunchButton);
+        if (state.showDeviceHoverInfo) {
+          showDeviceTooltip('timeCrunch', timeCrunchButton);
+        }
       }, 500);
     });
 
@@ -3322,9 +3357,9 @@ function calculateCooldown() {
   return Math.max(sum / state.effects.cooldownDivider, 0.5);
 }
 
-function getCooldownColor(cooldown) {
+function getCooldownColor(cooldown, forTooltip = false) {
   if (cooldown <= 0.5) return 'green';
-  if (cooldown < 10 * 60) return 'var(--font-color)';
+  if (cooldown < 10 * 60) return forTooltip ? 'white' : 'var(--font-color)';
   if (cooldown < 60 * 60) return 'orange';
   return 'red';
 }

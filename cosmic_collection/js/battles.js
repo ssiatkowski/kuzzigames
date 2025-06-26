@@ -1485,8 +1485,8 @@ function battleLoop() {
           }
         }
 
-        if ((isCrit || !isDodge) && state.battle.currentEnemy.name !== 'Kuzzi' && state.battle.currentEnemy.name !== 'Your Ego') {
-          if (state.battle.weakPointRealms.has(card.realm) && Math.random() < state.battle.weakPointChance) {
+        if ((isCrit || !isDodge) && state.battle.currentEnemy.name !== 'Kuzzi') {
+          if (state.battle.weakPointRealms.has(card.realm) && Math.random() < state.battle.weakPointChance && state.battle.currentEnemy.name !== 'Your Ego') {
             const weakPointDamage = Math.floor(state.battle.currentEnemy.currentHp * 0.01);
             state.battle.currentEnemy.currentHp -= weakPointDamage;
             showDamageNumber(weakPointDamage, 'enemy', 'weakPoint');
@@ -1578,7 +1578,7 @@ function battleLoop() {
 
   
   let numAttacks = 1;
-  if (state.battle.currentEnemy.name === 'Cronus') {
+  if (state.battle.currentEnemy.name === 'Cronus' || state.battle.currentEnemy.name === 'Your Ego') {
     if (Math.random() < 0.5) {
       numAttacks = 2;
     }
@@ -1630,7 +1630,7 @@ function battleLoop() {
       
       // 1) pick which slot to hit
       let targetIdx = 0;
-      if (state.battle.currentEnemy.name === 'Zeus' || (state.battle.currentEnemy.name === 'Isshin' && i != 0)) {
+      if (state.battle.currentEnemy.name === 'Zeus' || (state.battle.currentEnemy.name === 'Isshin' && i != 0) || (state.battle.currentEnemy.name === 'Your Ego' && i != 0)) {
         // gather filled slots
         const filled = state.battle.slots
           .map((c, idx) => c !== null ? idx : -1)

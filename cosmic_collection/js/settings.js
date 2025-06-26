@@ -190,9 +190,9 @@ function initializeSettingsTab() {
                                 <li>Mythical Beasts: 8e9</li>
                                 <li>Incremental Games: 6e9</li>
                                 <li>Spirit Familiars: 4e9</li>
-                                <li>Weapons: 2e9</li>
-                                <li>Greek Gods: 1e9</li>
-                                <li>Bosses: 5e8</li>
+                                <li>Weapons: 1e9</li>
+                                <li>Greek Gods: 2e8</li>
+                                <li>Bosses: 1e7</li>
                             </ul>
                         <li><strong>Realm Weight Reduction:</strong> "Fleeting Realm" and "Forsaken Realm" skills reduce these weights by ÷5 each, making higher realms more likely</li>
                     </ul>
@@ -469,6 +469,13 @@ function initializeSettingsTab() {
         saveState();
     });
 
+    // Initialize the show device hover info toggle
+    const showDeviceHoverInfoToggle = document.getElementById('showDeviceHoverInfoToggle');
+    showDeviceHoverInfoToggle.classList.toggle('active', state.showDeviceHoverInfo);
+    showDeviceHoverInfoToggle.innerHTML = state.showDeviceHoverInfo ?
+        '<i class="fas fa-check"></i> Show Device Hover Info' :
+        '<i class="fas fa-times"></i> Show Device Hover Info';
+
     // Initialize auto absorber toggle
     const autoAbsorberToggle = document.getElementById('autoAbsorberToggle');
     autoAbsorberToggle.classList.toggle('active', state.autoUseAbsorber);
@@ -512,6 +519,17 @@ function initializeSettingsTab() {
     currencySpendingValue.textContent = displayPercent < 10
                                     ? `${displayPercent.toFixed(2)}%`
                                     : `${Math.round(displayPercent)}%`;
+
+
+    // Add click handler
+    showDeviceHoverInfoToggle.addEventListener('click', function() {
+        state.showDeviceHoverInfo = !state.showDeviceHoverInfo;
+        this.classList.toggle('active');
+        this.innerHTML = state.showDeviceHoverInfo ?
+            '<i class="fas fa-check"></i> Show Device Hover Info' :
+            '<i class="fas fa-times"></i> Show Device Hover Info';
+        saveState();
+    });
 
     // Add click handler
     autoAbsorberToggle.addEventListener('click', function() {

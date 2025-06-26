@@ -171,7 +171,7 @@ function getBossMechanicsByName() {
                             killReward: skillMap[30002].purchased ? '+1000% to Global Max Cards Mult' : '+100% to Global Max Cards Mult' 
                         },
   'Your Ego':           { 
-                            specialPowers: '50% chance to dodge all attacks. 50% chance to deal 5x damage. 50% chance to drain 100% of a random resource. 3x Lifesteal. Has no Weak Point.', 
+                            specialPowers: '50% chance to dodge all attacks. 50% chance to deal 5x damage. 50% chance to attack 2nd time, hitting a random target. 50% chance to drain 100% of a random resource. 3x Lifesteal. Has no Weak Point.', 
                             killReward: skillMap[30002].purchased ? '+5000% to Global Max Cards Mult' : '+500% to Global Max Cards Mult' 
                         },
   };

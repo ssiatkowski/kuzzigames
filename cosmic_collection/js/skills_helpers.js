@@ -3935,6 +3935,8 @@ function applySkill(id, skipCost = false) {
         break;
       case 12001: // Hawking Radiation Harvester
         window.initHarvester();
+        const showDeviceHoverInfoToggle = document.getElementById('showDeviceHoverInfoToggle');
+        showDeviceHoverInfoToggle.style.display = 'flex';
         break;
       case 12002: // Harvester Upgrade
         break;

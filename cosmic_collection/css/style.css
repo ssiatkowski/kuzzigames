@@ -410,17 +410,23 @@ nav#tabs { margin-bottom: 15px; }
   min-width: 120px;
 }
 
-/* Prevent context menu on device buttons for mobile */
+/* Prevent context menu and image dragging on device buttons for mobile */
 .harvester-button,
 .absorber-button,
 .interceptor-button,
-.time-crunch-button {
+.time-crunch-button,
+.time-crunch-image {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  pointer-events: auto;
 }
 .hole-button:hover {
   animation: holePulse 1.5s infinite;
