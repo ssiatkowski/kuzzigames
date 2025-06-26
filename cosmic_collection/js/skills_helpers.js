@@ -2213,6 +2213,13 @@ window.skills = [
       purchased: false
     },
     {
+      id: 25003,
+      name: "Card Leveler 3",
+      description: "Adds Setting for max currency % to spend per card when using Level All button.",
+      cost: { realmId: 11, currencyId: "feather", amount: 3e17 },
+      purchased: false
+    },
+    {
       id: 26001,
       name: "Crit Chance",
       description: "Unlock battle Critical Hit Chance for all cards and set it to 5%.",
@@ -4272,6 +4279,12 @@ function applySkill(id, skipCost = false) {
         break;
       case 25001: // Card Leveler
       case 25002: // Card Leveler 2
+        break;
+      case 25003: // Card Leveler 3
+        // Show currency spending control in settings
+        if (loadFinished && typeof updateCurrencySpendingControlVisibility === 'function') {
+          updateCurrencySpendingControlVisibility();
+        }
         break;
       case 26001: // Crit Chance
         state.battle.critChance += 0.05;

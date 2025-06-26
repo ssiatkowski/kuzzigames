@@ -360,6 +360,7 @@ const EFFECT_FILTER_GROUPS = {
   '+Cards': ['minCardsPerPoke', 'maxCardsPerPoke', 'flatMaxCardsPerPoke', 'flatMinCardsPerPoke'],
   Cooldown: ['cooldownDivider', 'flatCooldownDivider'],
   Merchant: ['merchantCooldownReduction', 'flatExtraMerchantRarityScaling', 'merchantPriceDivider'],
+  'Special Effects': ['specialEffects'], // Special handling for cards with special effects
 };
 
 // Track available effects from unlocked cards

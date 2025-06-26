@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H7T7HJ1VSM"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-H7T7HJ1VSM');
+  </script>
   <meta charset="UTF-8" />
   <meta name="viewport"
       content="width=device-width,
@@ -206,6 +215,10 @@
           <button id ="skipRemoveFromBattleDialogToggle" class="settings-button toggle-button" style="display: none;">
             <i class="fas fa-times"></i> Skip Battle Remove Dialog
           </button>
+          <div id="currencySpendingControl" class="currency-spending-control" style="display: none;">
+            <label for="currencySpendingSlider">Max $ Level All: <span id="currencySpendingValue">100%</span></label>
+            <input type="range" id="currencySpendingSlider" min="1" max="100" value="100" step="1">
+          </div>
         </div>      </div>
       <div class="settings-section">
         <h2>Community & Support</h2>

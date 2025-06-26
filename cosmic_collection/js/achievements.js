@@ -18,7 +18,7 @@ const achievements = {
         condition: 'Discover 10 cards',
         icon: '🔍',
         rewardType: 'Max Cards Multiplier',
-        reward: 1.02,
+        reward: 1.015,
         threshold: 10,
     },
     thrillOfDiscovery3: {
@@ -28,7 +28,7 @@ const achievements = {
         condition: 'Discover 15 cards',
         icon: '🔍',
         rewardType: 'Max Cards Multiplier',
-        reward: 1.01,
+        reward: 1.02,
         threshold: 15,
     },
     thrillOfDiscovery4: {
@@ -38,7 +38,7 @@ const achievements = {
         condition: 'Discover 20 cards',
         icon: '🔍',
         rewardType: 'Max Cards Multiplier',
-        reward: 1.01,
+        reward: 1.025,
         threshold: 20,
     },
     thrillOfDiscovery5: {
@@ -48,7 +48,7 @@ const achievements = {
         condition: 'Discover 25 cards',
         icon: '🔍',
         rewardType: 'Max Cards Multiplier',
-        reward: 1.01,
+        reward: 1.03,
         threshold: 25,
     },
     thrillOfDiscovery6: {
@@ -58,7 +58,7 @@ const achievements = {
         condition: 'Discover 50 cards',
         icon: '🔍',
         rewardType: 'Max Cards Multiplier',
-        reward: 1.01,
+        reward: 1.035,
         threshold: 50,
     },
     thrillOfDiscovery7: {
@@ -68,7 +68,7 @@ const achievements = {
         condition: 'Discover 100 cards',
         icon: '🔍',
         rewardType: 'Max Cards Multiplier',
-        reward: 1.02,
+        reward: 1.04,
         threshold: 100,
     },
     thrillOfDiscovery8: {
@@ -78,7 +78,7 @@ const achievements = {
         condition: 'Discover 150 cards',
         icon: '🔍',
         rewardType: 'Max Cards Multiplier',
-        reward: 1.01,
+        reward: 1.045,
         threshold: 150,
     },
     thrillOfDiscovery9: {
@@ -88,7 +88,7 @@ const achievements = {
         condition: 'Discover 200 cards',
         icon: '🔍',
         rewardType: 'Max Cards Multiplier',
-        reward: 1.01,
+        reward: 1.05,
         threshold: 200,
     },
     thrillOfDiscovery10: {
@@ -98,7 +98,7 @@ const achievements = {
         condition: 'Discover 250 cards',
         icon: '🔍',
         rewardType: 'Max Cards Multiplier',
-        reward: 1.01,
+        reward: 1.055,
         threshold: 250,
     },
     thrillOfDiscovery11: {
@@ -108,9 +108,41 @@ const achievements = {
         condition: 'Discover 300 cards',
         icon: '🔍',
         rewardType: 'Max Cards Multiplier',
-        reward: 1.02,
+        reward: 1.06,
         threshold: 300,
     },
+    thrillOfDiscovery12: {
+        id: 'thrillOfDiscovery12',
+        name: 'Thrill of Discovery XII',
+        type: 'thrillOfDiscovery',
+        condition: 'Discover 315 cards',
+        icon: '🔍',
+        rewardType: 'Max Cards Multiplier',
+        reward: 1.065,
+        threshold: 315,
+    },
+    thrillOfDiscovery13: {
+        id: 'thrillOfDiscovery13',
+        name: 'Thrill of Discovery XIII',
+        type: 'thrillOfDiscovery',
+        condition: 'Discover 330 cards',
+        icon: '🔍',
+        rewardType: 'Max Cards Multiplier',
+        reward: 1.07,
+        threshold: 330,
+    },
+    thrillOfDiscovery14: {
+        id: 'thrillOfDiscovery14',
+        name: 'Thrill of Discovery XIV',
+        type: 'thrillOfDiscovery',
+        condition: 'Discover 345 cards',
+        icon: '🔍',
+        rewardType: 'Max Cards Multiplier',
+        reward: 1.075,
+        threshold: 345,
+    },
+
+
 
     cosmicCollector: {
         id: 'cosmicCollector',

@@ -496,6 +496,20 @@ function initializeSettingsTab() {
         skipRemoveFromBattleDialogToggle.style.display = 'flex';
     }
 
+    // Initialize currency spending control
+    const currencySpendingControl = document.getElementById('currencySpendingControl');
+    const currencySpendingSlider = document.getElementById('currencySpendingSlider');
+    const currencySpendingValue = document.getElementById('currencySpendingValue');
+
+    // Show currency spending control only if skill 25003 is purchased
+    if (skillMap[25003] && skillMap[25003].purchased) {
+        currencySpendingControl.style.display = 'flex';
+    }
+
+    // Initialize slider value
+    currencySpendingSlider.value = Math.round(state.currencySpendingPercentage * 100);
+    currencySpendingValue.textContent = `${Math.round(state.currencySpendingPercentage * 100)}%`;
+
     // Add click handler
     autoAbsorberToggle.addEventListener('click', function() {
         state.autoUseAbsorber = !state.autoUseAbsorber;
@@ -523,6 +537,14 @@ function initializeSettingsTab() {
         this.innerHTML = state.skipRemoveFromBattleDialog ?
             '<i class="fas fa-check"></i> Skip Battle Remove Confirm' :
             '<i class="fas fa-times"></i> Skip Battle Remove Confirm';
+        saveState();
+    });
+
+    // Add event handler for currency spending slider
+    currencySpendingSlider.addEventListener('input', function() {
+        const percentage = parseInt(this.value);
+        state.currencySpendingPercentage = percentage / 100;
+        currencySpendingValue.textContent = `${percentage}%`;
         saveState();
     });
 
@@ -574,6 +596,14 @@ function initializeSettingsTab() {
     if (state.donationButtonClicked) {
         supporterCheckboxContainer.style.display = 'block';
         supporterCheckbox.checked = state.supporterCheckboxClicked;
+    }
+}
+
+// Function to update currency spending control visibility
+function updateCurrencySpendingControlVisibility() {
+    const currencySpendingControl = document.getElementById('currencySpendingControl');
+    if (currencySpendingControl && skillMap[25003] && skillMap[25003].purchased) {
+        currencySpendingControl.style.display = 'flex';
     }
 }
 
