@@ -1162,6 +1162,7 @@ function createHoleTooltip() {
   holeTooltip.className = 'hole-tooltip';
   holeTooltip.style.cssText = `
     position: absolute;
+    transform: translateX(-50%);
     background: rgba(0, 0, 0, 0.85);
     color: white;
     padding: 8px 12px;
@@ -1226,10 +1227,12 @@ function showHoleTooltip(e) {
   updateHoleTooltipContent();
 
   const rect = holeBtn.getBoundingClientRect();
-  tooltip.style.left = (rect.left + rect.width / 2) + 'px';
-  tooltip.style.top = (rect.top - 10) + 'px';
-  tooltip.style.transform = 'translate(-50%, -100%)';
-  tooltip.style.opacity = '1';
+  const left = rect.left + rect.width / 2 + window.scrollX;
+  const top = rect.top + window.scrollY - 10;
+
+  tooltip.style.left = `${left}px`;
+  tooltip.style.top = `${top}px`;
+  tooltip.style.opacity = '0.9';
 }
 
 function hideHoleTooltip() {
