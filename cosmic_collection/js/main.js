@@ -1245,6 +1245,223 @@ function hideHoleTooltip() {
 holeBtn.addEventListener('mouseenter', showHoleTooltip);
 holeBtn.addEventListener('mouseleave', hideHoleTooltip);
 
+// Device tooltips
+let deviceTooltips = {};
+
+function createDeviceTooltip(deviceName) {
+  if (deviceTooltips[deviceName]) return deviceTooltips[deviceName];
+
+  const tooltip = document.createElement('div');
+  tooltip.className = 'device-tooltip';
+  tooltip.style.cssText = `
+    position: absolute;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.85);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.9em;
+    font-family: var(--ui-font);
+    white-space: nowrap;
+    z-index: 1000;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    max-width: 300px;
+    white-space: normal;
+    line-height: 1.3;
+  `;
+  document.body.appendChild(tooltip);
+  deviceTooltips[deviceName] = tooltip;
+  return tooltip;
+}
+
+function updateHarvesterTooltipContent() {
+  const tooltip = deviceTooltips['harvester'];
+  if (!tooltip) return;
+
+  const isAvailable = state.harvesterValue > 1 && state.remainingCooldown > 0;
+
+  // Base online rate: 0.01, skill 12002 doubles it
+  const onlineRate = 0.01 * (skillMap[12002].purchased ? 2 : 1);
+  // Offline rate: 10x slower unless skill 12003 is purchased
+  const offlineRate = skillMap[12003].purchased ? onlineRate : onlineRate / 10;
+
+  let content = `<div><strong>Hawking Radiation <em>Harvester</em></strong></div>`;
+
+  if (isAvailable) {
+    const reductionAmount = Math.max(state.harvesterValue, state.remainingCooldown);
+    content += `<div>Click to reduce Black Hole cooldown by ${formatDuration(reductionAmount)}</div>`;
+  } else {
+    content += `<div>Used to reduce Black Hole cooldown</div>`;
+  }
+
+  content += `<div>Harvesting Rate: ${formatDuration(onlineRate, 2)}/sec</div>`;
+
+  if (!skillMap[12003].purchased) {
+    content += `<div>Offline Rate: ${formatDuration(offlineRate, 2)}/sec</div>`;
+  }
+
+  if (skillMap[12004].purchased) {
+    content += `<div>Poke Bonus: +1% of cooldown time</div>`;
+  }
+
+  tooltip.innerHTML = content;
+}
+
+function updateAbsorberTooltipContent() {
+  const tooltip = deviceTooltips['absorber'];
+  if (!tooltip) return;
+
+  // Check if absorber is active by looking at the button class
+  const absorberButton = document.getElementById('absorber-button');
+  const isAbsorberActive = absorberButton && absorberButton.classList.contains('active');
+  const isAvailable = state.absorberValue > 1 && !isAbsorberActive;
+  if (!isAvailable) return;
+
+  // Calculate absorption rate display
+  let absorptionRateText;
+  if (skillMap[12104].purchased) {
+    absorptionRateText = `${state.selectedRealms.length}(realms) * ${skillMap[12102].purchased ? '0.1' : '0.05'} / poke`;
+  } else {
+    const absorptionRate = 0.05 * (skillMap[12102].purchased ? 2 : 1);
+    absorptionRateText = `${formatNumber(absorptionRate)}/poke`;
+  }
+
+  tooltip.innerHTML = `
+    <div><strong>Gravitational Wave <em>Absorber</em></strong></div>
+    <div>Click for next poke to give ${formatNumber(state.absorberValue)}x cards</div>
+    <div>Absorption Rate: ${absorptionRateText}</div>
+  `;
+}
+
+function updateInterceptorTooltipContent() {
+  const tooltip = deviceTooltips['interceptor'];
+  if (!tooltip) return;
+
+  // Passive rate: base 0.01, skill 12202 doubles it (only affects passive charging)
+  const passiveRate = 0.01 * (skillMap[12202].purchased ? 2 : 1);
+
+  let content = `<div><strong>Space Bending <em>Interceptor</em></strong></div>`;
+
+  if (state.interceptorActive) {
+    if (!skillMap[12206].purchased) {
+      content += `<div>Cannot be turned off (until a certain skill is purchased)</div>`;
+    } else {
+      const reductionAmount = state.remainingCooldown + 60;
+      content += `<div>Click to turn off - will lose ${formatDuration(reductionAmount)}</div>`;
+    }
+
+    if (skillMap[12204].purchased) {
+      content += `<div>Bonus Charge: +15s / new, +2s / tier up</div>`;
+    }
+  } else {
+    const actionText = skillMap[12203].purchased ? "poking and card flipping" : "card flipping";
+    content += `<div>Click to activate automatic ${actionText} for ${formatDuration(state.interceptorValue)}</div>`;
+    content += `<div>Pasive Charge: ${formatDuration(passiveRate, 2)}/sec</div>`;
+
+    const activeRate = passiveRate * (skillMap[12205].purchased ? 2.5 : 1);
+    content += `<div>Manual Charge: ${formatDuration(activeRate, 2)} / card flip</div>`;
+  }
+
+  tooltip.innerHTML = content;
+}
+
+function updateTimeCrunchTooltipContent() {
+  const tooltip = deviceTooltips['timeCrunch'];
+  if (!tooltip) return;
+
+  const timeUntilCharged = Math.max(0, state.timeCrunchMaxChargeTime - state.timeCrunchValue);
+  const pokeMultiplier = skillMap[12302].purchased ? 100 : 25;
+
+  // Calculate total currency gain
+  let totalGain = 0;
+  Object.entries(state.effects.currencyPerPoke).forEach(([curId, rate]) => {
+    if (rate && state.currencies[curId] != null) {
+      totalGain += rate * pokeMultiplier * state.effects.currencyPerPokeMultiplier[curId];
+    }
+  });
+
+  tooltip.innerHTML = `
+    <div><strong>Time Crunch <em>Collector</em></strong></div>
+    <div>Time until charged: ${formatDuration(timeUntilCharged)}</div>
+    <div>Click to gain currency equal to ${pokeMultiplier} pokes</div>
+  `;
+}
+
+function showDeviceTooltip(deviceName, element) {
+  const tooltip = createDeviceTooltip(deviceName);
+
+  // Update content based on device type
+  switch(deviceName) {
+    case 'harvester':
+      updateHarvesterTooltipContent();
+      break;
+    case 'absorber':
+      updateAbsorberTooltipContent();
+      break;
+    case 'interceptor':
+      updateInterceptorTooltipContent();
+      break;
+    case 'timeCrunch':
+      updateTimeCrunchTooltipContent();
+      break;
+  }
+
+  // Position the tooltip
+  const rect = element.getBoundingClientRect();
+  const viewportWidth = window.innerWidth;
+
+  // Temporarily make tooltip visible to measure it
+  tooltip.style.opacity = '0';
+  tooltip.style.visibility = 'visible';
+  const tooltipRect = tooltip.getBoundingClientRect();
+  tooltip.style.visibility = 'hidden';
+
+  // Calculate initial centered position
+  let left = rect.left + rect.width / 2 + window.scrollX;
+  const top = rect.top + window.scrollY - 10;
+
+  // Check if tooltip would go off the left edge
+  const tooltipHalfWidth = tooltipRect.width / 2;
+  if (left - tooltipHalfWidth < 10) {
+    // Position tooltip to the right of the left edge with some padding
+    left = tooltipHalfWidth + 10;
+    tooltip.style.transform = 'translateX(-50%)';
+  }
+  // Check if tooltip would go off the right edge
+  else if (left + tooltipHalfWidth > viewportWidth - 10) {
+    // Position tooltip to the left of the right edge with some padding
+    left = viewportWidth - tooltipHalfWidth - 10;
+    tooltip.style.transform = 'translateX(-50%)';
+  }
+  // Normal centered positioning
+  else {
+    tooltip.style.transform = 'translateX(-50%)';
+  }
+
+  tooltip.style.left = `${left}px`;
+  tooltip.style.top = `${top}px`;
+  tooltip.style.visibility = 'visible';
+  tooltip.style.opacity = '0.9';
+}
+
+function hideDeviceTooltip(deviceName) {
+  const tooltip = deviceTooltips[deviceName];
+  if (tooltip) {
+    tooltip.style.opacity = '0';
+    // Hide after transition completes
+    setTimeout(() => {
+      if (tooltip.style.opacity === '0') {
+        tooltip.style.visibility = 'hidden';
+      }
+    }, 200);
+  }
+}
+
 // Add mobile long press support
 let longPressTimer = null;
 let isLongPressing = false;
@@ -1315,6 +1532,144 @@ holeBtn.addEventListener('click', ()=>{
   Promise.all([ pokeAnim.finished, takeAnim.finished ])
     .then(()=> holeBtn.classList.remove('animating'));
 });
+
+// Device button event listeners
+function initDeviceTooltips() {
+  // Harvester tooltips
+  const harvesterButton = document.getElementById('harvester-button');
+  if (harvesterButton) {
+    harvesterButton.addEventListener('mouseenter', () => {
+      showDeviceTooltip('harvester', harvesterButton);
+    });
+    harvesterButton.addEventListener('mouseleave', () => hideDeviceTooltip('harvester'));
+
+    // Mobile long press for harvester
+    let harvesterLongPressTimer = null;
+    let harvesterIsLongPressing = false;
+
+    harvesterButton.addEventListener('touchstart', (e) => {
+      harvesterIsLongPressing = false;
+      harvesterLongPressTimer = setTimeout(() => {
+        harvesterIsLongPressing = true;
+        showDeviceTooltip('harvester', harvesterButton);
+      }, 500);
+    });
+
+    harvesterButton.addEventListener('touchend', () => {
+      if (harvesterLongPressTimer) {
+        clearTimeout(harvesterLongPressTimer);
+        harvesterLongPressTimer = null;
+      }
+      if (harvesterIsLongPressing) {
+        hideDeviceTooltip('harvester');
+        harvesterIsLongPressing = false;
+      }
+    });
+  }
+
+  // Absorber tooltips
+  const absorberButton = document.getElementById('absorber-button');
+  if (absorberButton) {
+    absorberButton.addEventListener('mouseenter', () => {
+      const isAbsorberActive = absorberButton.classList.contains('active');
+      if (state.absorberValue > 1 && !isAbsorberActive) {
+        showDeviceTooltip('absorber', absorberButton);
+      }
+    });
+    absorberButton.addEventListener('mouseleave', () => hideDeviceTooltip('absorber'));
+
+    // Mobile long press for absorber
+    let absorberLongPressTimer = null;
+    let absorberIsLongPressing = false;
+
+    absorberButton.addEventListener('touchstart', (e) => {
+      const isAbsorberActive = absorberButton.classList.contains('active');
+      if (!(state.absorberValue > 1 && !isAbsorberActive)) return;
+
+      absorberIsLongPressing = false;
+      absorberLongPressTimer = setTimeout(() => {
+        absorberIsLongPressing = true;
+        showDeviceTooltip('absorber', absorberButton);
+      }, 500);
+    });
+
+    absorberButton.addEventListener('touchend', () => {
+      if (absorberLongPressTimer) {
+        clearTimeout(absorberLongPressTimer);
+        absorberLongPressTimer = null;
+      }
+      if (absorberIsLongPressing) {
+        hideDeviceTooltip('absorber');
+        absorberIsLongPressing = false;
+      }
+    });
+  }
+
+  // Interceptor tooltips
+  const interceptorButton = document.getElementById('interceptor-button');
+  if (interceptorButton) {
+    interceptorButton.addEventListener('mouseenter', () => {
+      showDeviceTooltip('interceptor', interceptorButton);
+    });
+    interceptorButton.addEventListener('mouseleave', () => hideDeviceTooltip('interceptor'));
+
+    // Mobile long press for interceptor
+    let interceptorLongPressTimer = null;
+    let interceptorIsLongPressing = false;
+
+    interceptorButton.addEventListener('touchstart', (e) => {
+      interceptorIsLongPressing = false;
+      interceptorLongPressTimer = setTimeout(() => {
+        interceptorIsLongPressing = true;
+        showDeviceTooltip('interceptor', interceptorButton);
+      }, 500);
+    });
+
+    interceptorButton.addEventListener('touchend', () => {
+      if (interceptorLongPressTimer) {
+        clearTimeout(interceptorLongPressTimer);
+        interceptorLongPressTimer = null;
+      }
+      if (interceptorIsLongPressing) {
+        hideDeviceTooltip('interceptor');
+        interceptorIsLongPressing = false;
+      }
+    });
+  }
+
+  // Time Crunch tooltips - use container since button has pointer-events: none when disabled
+  const timeCrunchContainer = document.getElementById('time-crunch-container');
+  const timeCrunchButton = document.getElementById('time-crunch-button');
+  if (timeCrunchContainer && timeCrunchButton) {
+    timeCrunchContainer.addEventListener('mouseenter', () => {
+      showDeviceTooltip('timeCrunch', timeCrunchButton);
+    });
+    timeCrunchContainer.addEventListener('mouseleave', () => hideDeviceTooltip('timeCrunch'));
+
+    // Mobile long press for time crunch
+    let timeCrunchLongPressTimer = null;
+    let timeCrunchIsLongPressing = false;
+
+    timeCrunchContainer.addEventListener('touchstart', (e) => {
+      timeCrunchIsLongPressing = false;
+      timeCrunchLongPressTimer = setTimeout(() => {
+        timeCrunchIsLongPressing = true;
+        showDeviceTooltip('timeCrunch', timeCrunchButton);
+      }, 500);
+    });
+
+    timeCrunchContainer.addEventListener('touchend', () => {
+      if (timeCrunchLongPressTimer) {
+        clearTimeout(timeCrunchLongPressTimer);
+        timeCrunchLongPressTimer = null;
+      }
+      if (timeCrunchIsLongPressing) {
+        hideDeviceTooltip('timeCrunch');
+        timeCrunchIsLongPressing = false;
+      }
+    });
+  }
+}
 
 // --- CARD MODAL ---
 function openModal(cardId) {
@@ -3474,6 +3829,10 @@ document.addEventListener('DOMContentLoaded', async ()=>{
   initHarvester();
   initGravitationalWaveAbsorber();
   initSpaceBendingInterceptor();
+  initTimeCrunchCollector();
+
+  // Initialize device tooltips after all devices are initialized
+  initDeviceTooltips();
 
   // Initialize battle system last, after all other systems
   if (realms[10].unlocked) {

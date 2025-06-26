@@ -507,8 +507,11 @@ function initializeSettingsTab() {
     }
 
     // Initialize slider value
-    currencySpendingSlider.value = Math.round(state.currencySpendingPercentage * 100);
-    currencySpendingValue.textContent = `${Math.round(state.currencySpendingPercentage * 100)}%`;
+    const displayPercent = state.currencySpendingPercentage * 100;
+    currencySpendingSlider.value = Math.log(displayPercent) / Math.log(100) * 100;
+    currencySpendingValue.textContent = displayPercent < 10
+                                    ? `${displayPercent.toFixed(2)}%`
+                                    : `${Math.round(displayPercent)}%`;
 
     // Add click handler
     autoAbsorberToggle.addEventListener('click', function() {
@@ -540,11 +543,20 @@ function initializeSettingsTab() {
         saveState();
     });
 
-    // Add event handler for currency spending slider
-    currencySpendingSlider.addEventListener('input', function() {
-        const percentage = parseInt(this.value);
-        state.currencySpendingPercentage = percentage / 100;
-        currencySpendingValue.textContent = `${percentage}%`;
+    currencySpendingSlider.addEventListener('input', function () {
+        const t = parseInt(this.value) / 100; // normalized 0.01–1
+        const min = 0.0001; // 0.01%
+        const max = 1.0;    // 100%
+        
+        // Logarithmic interpolation
+        const percent = min * Math.pow(max / min, t);
+        state.currencySpendingPercentage = percent;
+
+        const displayPercent = percent * 100;
+        currencySpendingValue.textContent = displayPercent < 10
+            ? `${displayPercent.toFixed(2)}%`
+            : `${Math.round(displayPercent)}%`;
+
         saveState();
     });
 
