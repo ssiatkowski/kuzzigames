@@ -1543,6 +1543,7 @@ function initDeviceTooltips() {
       showDeviceTooltip('harvester', harvesterButton);
     });
     harvesterButton.addEventListener('mouseleave', () => hideDeviceTooltip('harvester'));
+    harvesterButton.addEventListener('click', () => hideDeviceTooltip('harvester'));
 
     // Mobile long press for harvester
     let harvesterLongPressTimer = null;
@@ -1578,6 +1579,7 @@ function initDeviceTooltips() {
       }
     });
     absorberButton.addEventListener('mouseleave', () => hideDeviceTooltip('absorber'));
+    absorberButton.addEventListener('click', () => hideDeviceTooltip('absorber'));
 
     // Mobile long press for absorber
     let absorberLongPressTimer = null;
@@ -1613,6 +1615,7 @@ function initDeviceTooltips() {
       showDeviceTooltip('interceptor', interceptorButton);
     });
     interceptorButton.addEventListener('mouseleave', () => hideDeviceTooltip('interceptor'));
+    interceptorButton.addEventListener('click', () => hideDeviceTooltip('interceptor'));
 
     // Mobile long press for interceptor
     let interceptorLongPressTimer = null;
@@ -1646,6 +1649,7 @@ function initDeviceTooltips() {
       showDeviceTooltip('timeCrunch', timeCrunchButton);
     });
     timeCrunchContainer.addEventListener('mouseleave', () => hideDeviceTooltip('timeCrunch'));
+    timeCrunchContainer.addEventListener('click', () => hideDeviceTooltip('timeCrunch'));
 
     // Mobile long press for time crunch
     let timeCrunchLongPressTimer = null;
