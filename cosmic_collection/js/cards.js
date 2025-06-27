@@ -17407,7 +17407,7 @@ window.cards = [
       "amount": 10.0
     },
     "description": "King of the gods who once chained the monster Typhon beneath Mount Etna with his thunderbolts.",
-    "power": 12500,
+    "power": 15000,
     "defense": 10000,
     "baseEffects": [
       {
@@ -18802,7 +18802,7 @@ window.cards = [
       "currency": "royal_jelly",
       "amount": 5.0
     },
-    "description": "He once ripped the arm off the Titan Gaia and used it as a club, leaving her howls echoing through Olympus.",
+    "description": "He once uprooted an entire mountain and crushed a legion beneath its weight.",
     "power": 500,
     "defense": 1875,
     "baseEffects": [
