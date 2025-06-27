@@ -23,7 +23,7 @@ function getBossMechanicsByName() {
                             killReward: skillMap[30002].purchased ? '+5% Global Max Cards Mult' : '+0.5% Global Max Cards Mult' 
                         },
   'Gaia':               { 
-                            specialPowers: '5% Chance to Heal 1% of Max Health', 
+                            specialPowers: '5% Chance to Heal 2% of Max Health', 
                             killReward: '+0.5% Global HP Mult' 
                         },
   'Nyx':                { 
@@ -31,7 +31,7 @@ function getBossMechanicsByName() {
                             killReward: '+2% Global HP Mult' 
                         },
   'Chaos':              { 
-                            specialPowers: 'Attacks Twice', 
+                            specialPowers: 'Attacks Twice. Damage cannot be Absorbed.', 
                             killReward: '+2% Global Attack Mult' 
                         },
   'Zeus':               { 
@@ -47,7 +47,7 @@ function getBossMechanicsByName() {
                             killReward: 'None' 
                         },
   'Papa Smurf':         { 
-                            specialPowers: '5% Chance to Heal 1% of Max Health', 
+                            specialPowers: '5% Chance to Heal 2% of Max Health', 
                             killReward: '+0.1% Global Attack Mult' 
                         },
   'Dr Wily':            { 
@@ -171,7 +171,7 @@ function getBossMechanicsByName() {
                             killReward: skillMap[30002].purchased ? '+1000% to Global Max Cards Mult' : '+100% to Global Max Cards Mult' 
                         },
   'Your Ego':           { 
-                            specialPowers: '50% chance to dodge all attacks. 50% chance to deal 5x damage. 50% chance to attack 2nd time, hitting a random target. 50% chance to drain 100% of a random resource. 3x Lifesteal. Has no Weak Point.', 
+                            specialPowers: '50% chance to dodge all attacks. 50% chance to deal 5x damage. 50% chance to attack 2nd time, hitting a random target. 50% chance to drain 100% of a random resource. 3x Lifesteal. Has no Weak Point. Dismember is 75% less effective.', 
                             killReward: skillMap[30002].purchased ? '+5000% to Global Max Cards Mult' : '+500% to Global Max Cards Mult' 
                         },
   };

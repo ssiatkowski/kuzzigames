@@ -3325,6 +3325,28 @@ window.skills = [
       cost: { realmId: 12, currencyId: "zeal", amount: 1e36 },
       purchased: false
     },
+    {
+      id: 30009,
+      name: "Cooldown Divider Equation Boost",
+      description: "Increase Tier contribution for Cooldown Divider of all cards by 2x. (From T*(T+1)/2 to T*(T+1))",
+      cost: { realmId: 12, currencyId: "rune", amount: 2e27 },
+      purchased: false
+    },
+    {
+      id: 30010,
+      name: "Min/Max Cards Equation Boosts",
+      description: "Increase Tier contribution exponent Base for Min/Max Cards per Poke from 1.5 to 1.8 for Bosses, 1.7 for Greek Gods, and 1.6 for other Realms. (B<sup>T-1</sup>)",
+      cost: { realmId: 12, currencyId: "crystal", amount: 8.88e29 },
+      purchased: false
+    },
+    {
+      id: 30011,
+      name: "Currency Equation Boosts",
+      description: "Increase Tier contribution exponent Base for Currency per Poke and per Second 2 to 2.5 for all cards. (B<sup>T-1</sup>)",
+      cost: { realmId: 12, currencyId: "cosmic_ray", amount: 2.5e30 },
+      purchased: false
+    }
+
 
 
 
@@ -4571,6 +4593,37 @@ function applySkill(id, skipCost = false) {
         if (loadFinished) updatePokeFilterStats();
         break;
       case 30008:
+        break;
+      case 30009: // Increase Tier contribution for Cooldown Divider
+      case 30010: // Increase Tier contribution exponent Base for Min/Max Cards per Poke
+      case 30011: // Increase Tier contribution exponent Base for Currency per Poke and per Second
+        // Need to recalculate all card effects since the formula changed
+        if (loadFinished) {
+          // Remove all existing card effects
+          cards.forEach(c => {
+            if (c.quantity > 0 && c.lastAppliedEffects) {
+              applyEffectsDelta(c.lastAppliedEffects, -1);
+            }
+            if (c.quantity > 0 && c.lastAppliedSpecialEffects) {
+              applyEffectsDelta(c.lastAppliedSpecialEffects, -1);
+            }
+          });
+
+          // Recalculate and reapply all card effects with new formula
+          cards.forEach(c => {
+            if (c.quantity > 0) {
+              const newEffs = computeCardEffects(c);
+              const specialEffs = computeSpecialEffects(c);
+              applyEffectsDelta(newEffs, +1);
+              applyEffectsDelta(specialEffs, +1);
+              c.lastAppliedEffects = newEffs;
+              c.lastAppliedSpecialEffects = specialEffs;
+            }
+          });
+
+          // Update UI elements that depend on cooldown effects
+          updatePokeFilterStats();
+        }
         break;
 
       default:

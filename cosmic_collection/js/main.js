@@ -156,6 +156,7 @@ window.state = {
   cardSizeScale: 1, // Track card size scale
   rocksAgainstCronus: new Set(),
   zeusSacrifices: new Set(),
+  lastSelectedRealmsCheatDetector: false,
 };
 
 // init currencies & effects
@@ -202,6 +203,7 @@ function loadState() {
     state.donationButtonClicked = obj.donationButtonClicked || false;
     state.rocksAgainstCronus = new Set(obj.rocksAgainstCronus || []);
     state.zeusSacrifices = new Set(obj.zeusSacrifices || []);
+    state.lastSelectedRealmsCheatDetector = obj.lastSelectedRealmsCheatDetector || false;
         
     // === Determine whether any saved card actually has a `locked` property ===
     const savedOwned = obj.ownedCards || {};
@@ -292,7 +294,7 @@ function loadState() {
     state.skipRemoveFromBattleDialog = obj.skipRemoveFromBattleDialog ?? false; // Add this line with default false
     state.currencySpendingPercentage = obj.currencySpendingPercentage ?? 1.0; // Add this line with default 1.0
     state.cardSizeScale = obj.cardSizeScale || 1;
-    state.lastUnstuck = obj.lastUnstuck ? new Date(obj.lastUnstuck) : null;
+    state.lastUnstuck = obj.lastUnstuck || null;
 
     // Load effect filters
     if (obj.effectFilters) {
@@ -366,6 +368,7 @@ function saveState() {
     },
     rocksAgainstCronus: Array.from(state.rocksAgainstCronus),
     zeusSacrifices: Array.from(state.zeusSacrifices),
+    lastSelectedRealmsCheatDetector: state.lastSelectedRealmsCheatDetector,
     effectFilters: {
       activeGroups: Array.from(state.effectFilters.activeGroups),
       oddsRealms: Array.from(state.effectFilters.oddsRealms),
@@ -668,6 +671,12 @@ function performPoke() {
   drawArea.innerHTML = '';
   revealedCount = 0;
   state.flipsDone = false;
+
+  if (state.selectedRealms.length === 1 && (state.selectedRealms[0] === 11 || state.selectedRealms[0] === 12)) {
+    state.lastSelectedRealmsCheatDetector = true;
+  } else {
+    state.lastSelectedRealmsCheatDetector = false;
+  }
 
   // how many cards to draw this poke
   const e     = state.effects;
@@ -1221,6 +1230,10 @@ function updateHoleTooltipContent() {
     <div>Poke Cards: <span style="color: ${cardColor}">${formatNumber(minCards)} - ${formatNumber(maxCards)}</span></div>
     <div>Cooldown: <span style="color: ${cooldownColor}">${cooldownTxt}</span> (${skipChance}% skip)</div>
   `;
+
+  if (skillMap[30008].purchased) {
+    holeTooltip.innerHTML += `<div style="color: gray">♥ Get 33 Pokes of Currencies ♥</div>`;
+  }
 }
 
 function showHoleTooltip(e) {
@@ -1379,7 +1392,7 @@ function updateTimeCrunchTooltipContent() {
   if (!tooltip) return;
 
   const timeUntilCharged = Math.max(0, state.timeCrunchMaxChargeTime - state.timeCrunchValue);
-  const pokeMultiplier = skillMap[12302].purchased ? 100 : 25;
+  const pokeMultiplier = skillMap[30008].purchased ? 3300 : (skillMap[12302].purchased ? 100 : 25);
 
   // Calculate total currency gain
   let totalGain = 0;
@@ -1392,7 +1405,7 @@ function updateTimeCrunchTooltipContent() {
   tooltip.innerHTML = `
     <div><strong>Time Crunch <em>Collector</em></strong></div>
     <div>Time until charged: ${formatDuration(timeUntilCharged)}</div>
-    <div>Click to gain currency equal to ${pokeMultiplier} pokes</div>
+    <div>Click to gain currency equal to ${formatNumber(pokeMultiplier)} pokes</div>
   `;
 }
 
@@ -2192,7 +2205,7 @@ function openModal(cardId) {
     let includesSoftcapped = false;
 
     effectsList.forEach(def => {
-      const scale = EFFECT_SCALES[def.type] ?? 2;
+      const scale = EFFECT_SCALES[def.type] ?? (skillMap[30011].purchased ? 2.5 : 2);
       const tierMult = Math.pow(scale, c.tier - 1);
 
       let total, breakdown;
@@ -2212,17 +2225,37 @@ function openModal(cardId) {
         }
       } else if (def.type === "minCardsPerPoke") {
         const baseValue = EFFECTS_RARITY_VALUES[c.rarity]?.minCardsPerPokeBaseValue || 0;
-        total = baseValue * c.level * tierMult;
-        breakdown = `(base: ${formatNumber(baseValue)} × ${formatNumber(c.level)} lvl × ${formatNumber(tierMult)} tier)`;
+        let tierMultiplier = tierMult;
+        if (skillMap[30010].purchased) {
+          if (c.realm === 12) {
+            tierMultiplier = Math.pow(1.8, c.tier - 1);
+          } else if (c.realm === 11) {
+            tierMultiplier = Math.pow(1.7, c.tier - 1);
+          } else {
+            tierMultiplier = Math.pow(1.6, c.tier - 1);
+          }
+        }
+        total = baseValue * c.level * tierMultiplier;
+        breakdown = `(base: ${formatNumber(baseValue)} × ${formatNumber(c.level)} lvl × ${formatNumber(tierMultiplier)} tier)`;
         valueHtml = `+${formatNumber(total)}`;
       } else if (def.type === "maxCardsPerPoke") {
         const baseValue = EFFECTS_RARITY_VALUES[c.rarity]?.maxCardsPerPokeBaseValue || 0;
-        total = baseValue * c.level * tierMult;
+        let tierMultiplier = tierMult;
+        if (skillMap[30010].purchased) {
+          if (c.realm === 12) {
+            tierMultiplier = Math.pow(1.8, c.tier - 1);
+          } else if (c.realm === 11) {
+            tierMultiplier = Math.pow(1.7, c.tier - 1);
+          } else {
+            tierMultiplier = Math.pow(1.6, c.tier - 1);
+          }
+        }
+        total = baseValue * c.level * tierMultiplier;
         breakdown = `(base: ${formatNumber(baseValue)} × ${formatNumber(c.level)} lvl × ${formatNumber(tierMult)} tier)`;
         valueHtml = `+${formatNumber(total)}`;
       } else if (def.type === "cooldownDivider") {
         const baseValue = EFFECTS_RARITY_VALUES[c.rarity]?.cooldownDividerBaseValue || 0;
-        const tierContribution = (c.tier * (c.tier + 1)) / 2;
+        const tierContribution = (c.tier * (c.tier + 1)) / (skillMap[30009].purchased ? 1 : 2);
         total = baseValue * c.level * tierContribution;
         breakdown = `(base: ${formatNumber(baseValue)} × ${formatNumber(c.level)} lvl × ${formatNumber(tierContribution)} tier)`;
         valueHtml = `+${formatNumber(total)}`;

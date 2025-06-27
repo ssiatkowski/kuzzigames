@@ -467,6 +467,25 @@
     font-size: 0.9em;
 }
 
+/* Cheat detection message styling */
+.cheat-detection-message {
+    margin: 15px 0;
+    padding: 15px;
+    border: 2px solid #ff4444;
+    border-radius: 8px;
+    background: rgba(255, 68, 68, 0.1);
+}
+
+/* Glowing animation for cheat message */
+@keyframes glow {
+    from {
+        text-shadow: 0 0 10px #ff4444, 0 0 20px #ff4444, 0 0 30px #ff4444;
+    }
+    to {
+        text-shadow: 0 0 20px #ff4444, 0 0 30px #ff4444, 0 0 40px #ff4444;
+    }
+}
+
 .checkbox-container {
     display: flex;
     align-items: center;

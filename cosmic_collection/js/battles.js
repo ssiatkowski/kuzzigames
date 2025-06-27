@@ -1492,7 +1492,10 @@ function battleLoop() {
             showDamageNumber(weakPointDamage, 'enemy', 'weakPoint');
           }
           if (state.battle.dismemberRealms.has(card.realm) && Math.random() < state.battle.dismemberChance) {
-            state.battle.currentEnemy.attack = Math.floor(state.battle.currentEnemy.attack * 0.99);
+            state.battle.currentEnemy.attack = Math.floor(state.battle.currentEnemy.attack * (state.battle.currentEnemy.name === 'Your Ego' ? 0.9975 : 0.99));
+            if (state.battle.currentEnemy.name === 'Your Ego') {
+              state.battle.currentEnemy.attack = Math.floor(state.battle.currentEnemy.attack * 0.75);
+            } 
             if (state.battle.currentEnemy.attack <= 1) {
               state.battle.currentEnemy.attack = 1;
               unlockAchievement('secret18');
@@ -1667,7 +1670,8 @@ function battleLoop() {
       // absorb
       if (
         state.battle.damageAbsorptionRealms.has(targetCard.realm) &&
-        state.battle.damageAbsorption > 0
+        state.battle.damageAbsorption > 0 &&
+        state.battle.currentEnemy.name !== 'Chaos'
       ) {
         damage *= (1 - state.battle.damageAbsorption);
         specialType = 'absorb';
@@ -1840,7 +1844,7 @@ function battleLoop() {
     state.battle.currentEnemy.currentHp += healAmount;
     showDamageNumber(healAmount, 'enemy', 'heal');
   } else if ((state.battle.currentEnemy.name === 'Gaia' || state.battle.currentEnemy.name === 'Papa Smurf') && state.battle.currentEnemy.currentHp < state.battle.currentEnemy.maxHp && Math.random() < 0.05) {
-    const healAmount = Math.min(state.battle.currentEnemy.maxHp - state.battle.currentEnemy.currentHp, state.battle.currentEnemy.maxHp * 0.01);
+    const healAmount = Math.min(state.battle.currentEnemy.maxHp - state.battle.currentEnemy.currentHp, state.battle.currentEnemy.maxHp * 0.02);
     state.battle.currentEnemy.currentHp += healAmount;
     showDamageNumber(healAmount, 'enemy', 'heal');
   } else if (state.battle.currentEnemy.name === 'T800' && state.battle.currentEnemy.currentHp >= state.battle.currentEnemy.maxHp && Math.random() < 0.03) {

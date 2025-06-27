@@ -215,22 +215,38 @@ function initializeSettingsTab() {
     unstuckWarningModal.id = 'unstuckWarningModal';
     unstuckWarningModal.className = 'unstuck-modal-overlay';
     unstuckWarningModal.style.display = 'none';
-    unstuckWarningModal.innerHTML = `
-        <div class="unstuck-modal-content">
-            <h2>Get Unstuck</h2>
-            <p>This feature is intended only for when you accidentally used realm filters with an astronomically high cooldown. This will:</p>
-            <ul>
-                <li>Remove any active cooldown</li>
-                <li>Reset all currencies to 0</li>
-                <li>Keep all your other progress</li>
-            </ul>
-            <p class="warning-text">This can only be used once per day!</p>
-            <div class="modal-buttons">
-                <button id="confirmUnstuckBtn" class="settings-button warning-button">Confirm</button>
-                <button id="cancelUnstuckBtn" class="settings-button safe-button">Cancel</button>
+
+    // Function to update modal content based on cheat detector
+    function updateUnstuckModalContent() {
+        const cheatMessage = state.lastSelectedRealmsCheatDetector ? `
+            <div class="cheat-detection-message">
+                <p style="color: #ff4444; text-shadow: 0 0 4px #ff4444; font-weight: bold; animation: glow 1.5s ease-in-out infinite alternate;">
+                    Did you deliberately use this to cheat?! I know you did and I'm disappointed. I'm not going to stop you because you can play the game however you want, but shame on you.
+                </p>
             </div>
-        </div>
-    `;
+        ` : '';
+
+        unstuckWarningModal.innerHTML = `
+            <div class="unstuck-modal-content">
+                <h2>Get Unstuck</h2>
+                <p>This feature is intended only for when you accidentally used realm filters with an astronomically high cooldown. This will:</p>
+                <ul>
+                    <li>Remove any active cooldown</li>
+                    <li>Reset all currencies to 0</li>
+                    <li>Keep all your other progress</li>
+                </ul>
+                <p class="warning-text">This can only be used once per day!</p>
+                ${cheatMessage}
+                <div class="modal-buttons">
+                    <button id="confirmUnstuckBtn" class="settings-button warning-button">Confirm</button>
+                    <button id="cancelUnstuckBtn" class="settings-button safe-button">Cancel</button>
+                </div>
+            </div>
+        `;
+    }
+
+    // Initialize modal content
+    updateUnstuckModalContent();
     document.body.appendChild(unstuckWarningModal);
 
     // Initialize dark theme from localStorage
@@ -265,7 +281,6 @@ function initializeSettingsTab() {
     confirmResetButton.addEventListener('click', function() {
         // Clear all game data from localStorage
         localStorage.removeItem('ccgSave');
-        localStorage.removeItem('lastUnstuck');
 
         // Reload the page to restart the game
         window.location.reload();
@@ -388,23 +403,23 @@ function initializeSettingsTab() {
     // Get Unstuck functionality
     getUnstuckBtn.addEventListener('click', function() {
         const now = Date.now();
-        
+
         if (state.lastUnstuck && (now - parseInt(state.lastUnstuck)) < 24 * 60 * 60 * 1000) {
             const hoursLeft = Math.ceil((24 * 60 * 60 * 1000 - (now - parseInt(state.lastUnstuck))) / (60 * 60 * 1000));
             alert(`You can only use Get Unstuck once per day. Please try again in ${hoursLeft} hours.`);
             return;
         }
-        
+
+        // Update modal content based on current cheat detector state
+        updateUnstuckModalContent();
         unstuckWarningModal.style.display = 'flex';
     });
 
-    // Cancel unstuck
-    document.getElementById('cancelUnstuckBtn').addEventListener('click', function() {
-        unstuckWarningModal.style.display = 'none';
-    });
-
-    // Confirm unstuck
-    document.getElementById('confirmUnstuckBtn').addEventListener('click', function() {
+    // Use event delegation for dynamically generated buttons
+    unstuckWarningModal.addEventListener('click', function(e) {
+        if (e.target.id === 'cancelUnstuckBtn') {
+            unstuckWarningModal.style.display = 'none';
+        } else if (e.target.id === 'confirmUnstuckBtn') {
         // Clear cooldown
         state.remainingCooldown = 0;
         if (fillAnim) anime.remove(globalFill);
@@ -434,6 +449,7 @@ function initializeSettingsTab() {
         alert('Successfully reset cooldown and currencies. You can use this feature again in 24 hours.');
 
         saveState();
+        }
     });
 
     // Initialize card size slider
