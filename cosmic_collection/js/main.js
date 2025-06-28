@@ -4415,7 +4415,7 @@ function showTheEndModal() {
     </p>
     <p style="font-size: clamp(0.9em, 2.5vw, 1.1em); margin: 20px 0; line-height: 1.6; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">
       I really appreciate you, and if you enjoyed the progression, strategy, and luck elements of this game,
-      I invite you to try my other games that I believe are even more fun and strategic:
+      I invite you to try my other games. (in my humble opinion as you saw in Incremental Games realm, I believe Degens Idle is way more fun and strategic)
     </p>
   `;
 
@@ -4430,9 +4430,6 @@ function showTheEndModal() {
       margin: 20px 0;
       box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
     ">
-      <p style="font-size: clamp(1em, 3vw, 1.3em); margin: 10px 0; color: #ffd700; font-weight: bold;">
-        🎮 <strong>Degens Idle</strong> & <strong>Prismatic Adventure</strong> 🎮
-      </p>
       <p style="font-size: clamp(0.9em, 2.5vw, 1.1em); margin: 15px 0; line-height: 1.5;">
         Play them for free at <a href="https://www.kuzzigames.com" target="_blank" style="
           color: #ffed4e;
