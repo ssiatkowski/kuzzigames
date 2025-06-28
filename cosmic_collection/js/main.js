@@ -4331,6 +4331,9 @@ function showTheEndModal() {
     justify-content: center;
     z-index: 10000;
     animation: theEndFadeIn 2s ease-in-out;
+    overflow: hidden;
+    padding: 20px;
+    box-sizing: border-box;
   `;
 
   const modal = document.createElement('div');
@@ -4339,16 +4342,19 @@ function showTheEndModal() {
     background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
     border: 4px solid #ffd700;
     border-radius: 20px;
-    padding: 40px;
+    padding: 20px;
     max-width: 800px;
     width: 90vw;
+    max-height: 90vh;
     text-align: center;
     position: relative;
     box-shadow:
       0 0 50px rgba(255, 215, 0, 0.8),
       inset 0 0 30px rgba(255, 215, 0, 0.2);
     animation: theEndGlow 3s ease-in-out infinite alternate;
-    overflow: hidden;
+    overflow-y: auto;
+    margin: auto;
+    transform-origin: center;
   `;
 
   // Add sparkle background
@@ -4381,9 +4387,9 @@ function showTheEndModal() {
   const title = document.createElement('h1');
   title.textContent = 'THE END';
   title.style.cssText = `
-    font-size: 4em;
+    font-size: clamp(2.5em, 8vw, 4em);
     font-weight: bold;
-    margin: 0 0 30px 0;
+    margin: 0 0 20px 0;
     background: linear-gradient(45deg, #ffd700, #ffed4e, #ffd700);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -4395,19 +4401,19 @@ function showTheEndModal() {
   // Thank you message
   const thankYou = document.createElement('div');
   thankYou.innerHTML = `
-    <p style="font-size: 1.5em; margin: 20px 0; line-height: 1.6; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">
+    <p style="font-size: clamp(1.2em, 4vw, 1.5em); margin: 15px 0; line-height: 1.6; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">
       🎉 <strong>CONGRATULATIONS!</strong> 🎉
     </p>
-    <p style="font-size: 1.2em; margin: 20px 0; line-height: 1.6; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">
+    <p style="font-size: clamp(1em, 3vw, 1.2em); margin: 15px 0; line-height: 1.6; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">
       You have completed <strong>Cosmic Collection</strong>!<br>
       Thank you so much for playing through this entire journey!
     </p>
-    <p style="font-size: 1.1em; margin: 25px 0; line-height: 1.6; text-shadow: 0 2px 4px rgba(0,0,0,0.5); color: #ffed4e;">
-      I am incredibly grateful to the amazing <strong>Discord community</strong> for all the feedback,
+    <p style="font-size: clamp(0.9em, 2.5vw, 1.1em); margin: 20px 0; line-height: 1.6; text-shadow: 0 2px 4px rgba(0,0,0,0.5); color: #ffed4e;">
+      I am incredibly grateful to the amazing <strong>Discord Community</strong> for all the feedback,
       discussions, and suggestions that shaped this game into what it is today.
-      You all made this so much better! 💜
+      You all made this so much better!
     </p>
-    <p style="font-size: 1.1em; margin: 25px 0; line-height: 1.6; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">
+    <p style="font-size: clamp(0.9em, 2.5vw, 1.1em); margin: 20px 0; line-height: 1.6; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">
       I really appreciate you, and if you enjoyed the progression, strategy, and luck elements of this game,
       I invite you to try my other games that I believe are even more fun and strategic:
     </p>
@@ -4424,11 +4430,18 @@ function showTheEndModal() {
       margin: 20px 0;
       box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
     ">
-      <p style="font-size: 1.3em; margin: 10px 0; color: #ffd700; font-weight: bold;">
-        🎮 <strong>Degens Idle</strong> & <strong>Prismatic Progression</strong> 🎮
+      <p style="font-size: clamp(1em, 3vw, 1.3em); margin: 10px 0; color: #ffd700; font-weight: bold;">
+        🎮 <strong>Degens Idle</strong> & <strong>Prismatic Adventure</strong> 🎮
       </p>
-      <p style="font-size: 1.1em; margin: 15px 0; line-height: 1.5;">
-        Play them for free at <strong style="color: #ffed4e;">www.kuzzigames.com</strong>
+      <p style="font-size: clamp(0.9em, 2.5vw, 1.1em); margin: 15px 0; line-height: 1.5;">
+        Play them for free at <a href="https://www.kuzzigames.com" target="_blank" style="
+          color: #ffed4e;
+          font-weight: bold;
+          text-decoration: underline;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        " onmouseover="this.style.color='#ffd700'; this.style.textShadow='0 0 10px rgba(255,215,0,0.8)'"
+           onmouseout="this.style.color='#ffed4e'; this.style.textShadow='none'">www.kuzzigames.com</a>
       </p>
     </div>
   `;
@@ -4441,11 +4454,11 @@ function showTheEndModal() {
     color: white;
     border: 2px solid #ffd700;
     border-radius: 25px;
-    padding: 15px 30px;
-    font-size: 1.2em;
+    padding: 12px 25px;
+    font-size: clamp(1em, 3vw, 1.2em);
     font-weight: bold;
     cursor: pointer;
-    margin-top: 30px;
+    margin-top: 25px;
     box-shadow: 0 4px 15px rgba(138, 43, 226, 0.4);
     transition: all 0.3s ease;
     text-shadow: 0 2px 4px rgba(0,0,0,0.5);
@@ -4482,6 +4495,22 @@ function showTheEndModal() {
   };
 
   document.body.appendChild(overlay);
+
+  // Check if content overflows and adjust scrolling accordingly
+  setTimeout(() => {
+    const modalHeight = modal.scrollHeight;
+    const viewportHeight = window.innerHeight * 0.9; // 90vh
+
+    if (modalHeight > viewportHeight) {
+      // Content overflows, enable scrolling
+      overlay.style.overflow = 'auto';
+      modal.style.overflowY = 'auto';
+    } else {
+      // Content fits, disable scrolling
+      overlay.style.overflow = 'hidden';
+      modal.style.overflowY = 'visible';
+    }
+  }, 100);
 }
 
 // Add cleanup function

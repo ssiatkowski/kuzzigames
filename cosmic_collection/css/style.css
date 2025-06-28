@@ -2037,11 +2037,13 @@ nav#tabs { margin-bottom: 15px; }
     box-shadow:
       0 0 50px rgba(255, 215, 0, 0.8),
       inset 0 0 30px rgba(255, 215, 0, 0.2);
+    filter: brightness(1);
   }
   100% {
     box-shadow:
       0 0 80px rgba(255, 215, 0, 1),
       inset 0 0 50px rgba(255, 215, 0, 0.4);
+    filter: brightness(1.1);
   }
 }
 
@@ -2053,12 +2055,14 @@ nav#tabs { margin-bottom: 15px; }
 
 @keyframes titlePulse {
   0% {
-    transform: scale(1);
+    transform: scale(1) translateZ(0);
     text-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+    filter: brightness(1);
   }
   100% {
-    transform: scale(1.05);
+    transform: scale(1.02) translateZ(0);
     text-shadow: 0 0 50px rgba(255, 215, 0, 1);
+    filter: brightness(1.1);
   }
 }
 
