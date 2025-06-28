@@ -712,7 +712,7 @@ function performPoke() {
   // Blend
   const blended = logRand * logWeight + linearRand * (1 - logWeight);
 
-  // Final draws calculation (same as before)
+  // Final draws calculation
   let draws = Math.floor(Math.floor(blended + 1) * absorberMultiplier);
 
   const isSpecialCondition = skillMap[30001].purchased && state.selectedRealms.includes(9) && state.selectedRealms.includes(12);
