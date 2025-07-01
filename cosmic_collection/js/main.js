@@ -1578,13 +1578,25 @@ holeBtn.addEventListener('click', ()=>{
     easing: 'easeInOutQuad'
   });
 
+  // Add CSS class for take animation
+  const cardOuters = document.querySelectorAll('#draw-area .card-outer');
+  cardOuters.forEach(card => {
+    card.classList.add('taking');
+  });
+
   const takeAnim = anime({
     targets: '#draw-area .card-outer',
-    translateX: 200,
-    opacity:   [1,0],
-    duration:  500,
-    easing:    'easeInBack',
-    complete:  ()=>{ performPoke(); updateCurrencyBar(); }
+    opacity: [1,0],
+    duration: 500,
+    easing: 'easeInBack',
+    complete: ()=>{
+      // Remove the taking class after animation
+      cardOuters.forEach(card => {
+        card.classList.remove('taking');
+      });
+      performPoke();
+      updateCurrencyBar();
+    }
   });
 
   Promise.all([ pokeAnim.finished, takeAnim.finished ])

@@ -1972,7 +1972,7 @@ function battleLoop() {
           showDamageNumber(papercutDamage, `slot${targetIdx}`, 'papercut');
         }
 
-        if (state.battle.currentEnemy.name === 'Kaguya' && Math.random() < 0.02) {
+        if (state.battle.currentEnemy.name === 'Kaguya' && Math.random() < 0.03) {
           const extraDamage = Math.floor(state.battle.currentEnemy.currentHp * 0.01) + Math.floor(targetCard.maxHp * 0.01);
           targetCard.currentHp -= extraDamage;
           showDamageNumber(extraDamage, `slot${targetIdx}`, 'papercut');

@@ -155,7 +155,7 @@ function getBossMechanicsByName() {
                             killReward: '+4% Global HP Mult' 
                         },
   'Kaguya':             { 
-                            specialPowers: 'Only Takes Damage from the Front Card. 40% chance to also attack the last card. 2% chance for attack to deal extra damage equal to (1% of Her current health + 1% of target max health).', 
+                            specialPowers: 'Only Takes Damage from the Front Card. 40% chance to also attack the last card. 3% chance for attack to deal extra damage equal to (1% of Her current health + 1% of target max health).', 
                             killReward: '+25% Global Attack Mult' 
                         },
   'One Above All':      { 
