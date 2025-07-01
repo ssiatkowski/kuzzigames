@@ -18,7 +18,7 @@
     border: 1px solid #333; /* Dark border */
     width: 60%; /* Could be more or less, depending on screen size */
     max-width: 500px; /* Ensure it fits nicely */
-    max-height: 80%; /* Ensure it fits nicely */
+    max-height: 80vh; /* Use viewport height for better consistency */
     text-align: center;
     position: relative;
     border-radius: 10px; /* Rounded corners */
@@ -26,6 +26,9 @@
     color: #e0e0e0; /* Light text color */
     font-family: Arial, sans-serif; /* Consistent font */
     overflow-y: auto; /* Enable scrolling within the content */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    display: flex;
+    flex-direction: column;
 }
 
 /* Close Button */
@@ -613,4 +616,30 @@ input[type="radio"]#toggleBuyMarkersNeutral:checked ~ .slider {
 /* Import File Input */
 #importFileInput {
     display: none;
+}
+
+/* Settings Footer Ad */
+#settings-footer-ad {
+    min-height: 90px; /* Reserve space for the ad */
+    width: 100%;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    display: block;
+    flex-shrink: 0; /* Prevent the ad container from shrinking */
+}
+
+#settings-footer-ad .adsbygoogle {
+    width: 100% !important;
+    min-height: 90px !important;
+    display: block !important;
+}
+
+/* Ensure the settings content scrolls properly */
+.settings-overlay-content > * {
+    flex-shrink: 0; /* Prevent content from shrinking */
+}
+
+.settings-overlay-content h3 {
+    margin-top: 20px;
+    margin-bottom: 10px;
 }

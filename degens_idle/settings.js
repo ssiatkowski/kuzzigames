@@ -41,16 +41,27 @@ function openSettings() {
 
         // Wait for script to load before adding ad
         adsScript.onload = () => {
-          const adContainer = document.createElement("ins");
-          adContainer.className = "adsbygoogle";
-          adContainer.style = "display:block; margin-top: 20px;";
-          adContainer.setAttribute("data-ad-client", "ca-pub-1862340236898418");
-          adContainer.setAttribute("data-ad-slot", "9994375638");
-          adContainer.setAttribute("data-ad-format", "auto");
-          adContainer.setAttribute("data-full-width-responsive", "true");
+          // Add a small delay to ensure the settings modal is fully rendered
+          setTimeout(() => {
+            const footerAdElement = document.getElementById("settings-footer-ad");
+            if (footerAdElement && footerAdElement.offsetWidth > 0) {
+              const adContainer = document.createElement("ins");
+              adContainer.className = "adsbygoogle";
+              adContainer.style.cssText = "display:block; width:100%; min-height:90px; margin:10px 0;";
+              adContainer.setAttribute("data-ad-client", "ca-pub-1862340236898418");
+              adContainer.setAttribute("data-ad-slot", "9994375638");
+              adContainer.setAttribute("data-ad-format", "auto");
+              adContainer.setAttribute("data-full-width-responsive", "true");
 
-          document.getElementById("settings-footer-ad").appendChild(adContainer);
-          (adsbygoogle = window.adsbygoogle || []).push({});
+              footerAdElement.appendChild(adContainer);
+
+              try {
+                (adsbygoogle = window.adsbygoogle || []).push({});
+              } catch (e) {
+                console.log("AdSense error:", e);
+              }
+            }
+          }, 100);
         };
       }
     }

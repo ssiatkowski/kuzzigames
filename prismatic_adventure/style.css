@@ -806,8 +806,10 @@ footer {
   text-align: center;
   max-width: 500px;
   width: 90%;
+  max-height: 90vh;
   color: #fff;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 /* Headings inside modals */
@@ -893,10 +895,14 @@ footer {
 #settings-footer-ad {
   width: 100%;
   max-width: 400px;
-  min-height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  min-height: 90px;
+  display: block;
+  text-align: center;
+}
+
+#settings-footer-ad .adsbygoogle {
+  width: 100% !important;
+  min-height: 90px !important;
 }
 
 .prestige-btn-wrapper {
