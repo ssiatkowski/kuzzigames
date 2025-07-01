@@ -4219,6 +4219,30 @@ document.addEventListener('DOMContentLoaded', async ()=>{
 
   // Check for Gauntlet on load
   checkGauntletOnLoad();
+
+  if (window.location.pathname.includes("/cosmic_collection")) {
+    // Load AdSense script once
+    const adsScript = document.createElement("script");
+    adsScript.async = true;
+    adsScript.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1862340236898418";
+    adsScript.crossOrigin = "anonymous";
+    document.head.appendChild(adsScript);
+
+    // Wait for script to load before adding ad
+    adsScript.onload = () => {
+      const adContainer = document.createElement("ins");
+      adContainer.className = "adsbygoogle";
+      adContainer.style = "display:block; margin-top: 20px;";
+      adContainer.setAttribute("data-ad-client", "ca-pub-1862340236898418");
+      adContainer.setAttribute("data-ad-slot", "9994375638");
+      adContainer.setAttribute("data-ad-format", "auto");
+      adContainer.setAttribute("data-full-width-responsive", "true");
+
+      document.getElementById("settings-footer-ad").appendChild(adContainer);
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    };
+  }
+
 });
 
 // Gauntlet timing functions
