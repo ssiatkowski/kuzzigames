@@ -726,9 +726,9 @@ function updateBattleUI() {
       state.battle.slots.splice(idx, 1);
       state.battle.slots.push(null);
 
-      if (state.battle.currentEnemy.name === 'Galactus') {
+      if (state.battle.currentEnemy && state.battle.currentEnemy.name === 'Galactus') {
         state.battle.currentEnemy.attack *= 1.5;
-      } else if (state.battle.currentEnemy.name === 'One Above All') {
+      } else if (state.battle.currentEnemy && state.battle.currentEnemy.name === 'One Above All') {
         state.battle.currentEnemy.attack += 1000;
       }
 
@@ -1599,9 +1599,9 @@ function battleLoop() {
 
         if (state.battle.currentEnemy.name === 'Darth Vader' && Math.random() < 0.97) {
           damage *= 0.03;
-        }
-
-        if (state.battle.currentEnemy.name === 'Typhon' && Math.random() < 0.025) {
+          state.battle.currentEnemy.currentHp -= damage;
+          showDamageNumber(damage, 'enemy', 'mitigated');
+        } else if (state.battle.currentEnemy.name === 'Typhon' && Math.random() < 0.025) {
           state.battle.currentEnemy.currentHp += damage;
           showDamageNumber(damage, 'enemy', 'heal');
         } else if ((state.battle.currentEnemy.name === 'Dr Wily' && Math.random() < 0.25) ||
@@ -1661,7 +1661,7 @@ function battleLoop() {
             removeSlotCard(index);
           }
         } else if (state.battle.currentEnemy.name === 'Godzilla') {
-          const reflect = Math.floor(damage * 0.15);
+          const reflect = Math.floor(damage * 0.2);
           card.currentHp -= reflect;
           showDamageNumber(reflect, `slot${index}`, 'reflect');
 

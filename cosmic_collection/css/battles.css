@@ -481,6 +481,10 @@
   font-size: 1.6em;
 }
 
+.damage-number.mitigated {
+  font-size: 0.6em;
+}
+
 /* Card remove animation */
 @keyframes cardRemove {
   0% {

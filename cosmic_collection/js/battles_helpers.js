@@ -91,7 +91,7 @@ function getBossMechanicsByName() {
                             killReward: '+0.8% Global HP Mult' 
                         },
   'Godzilla':           { 
-                            specialPowers: 'Reflects 15% Damage to Attackers', 
+                            specialPowers: 'Reflects 20% Damage to Attackers', 
                             killReward: skillMap[30002].purchased ? '+10% to Global Max Cards Mult' : '+1% to Global Max Cards Mult' 
                         },
   'Darth Vader':        { 
