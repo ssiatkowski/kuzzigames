@@ -2359,6 +2359,14 @@ window.cards = [
         },
         "currency": "pollen",
         "value": 2000.0
+      },
+      {
+        "type": "allGeneratorMultiplier",
+        "requirement": {
+          "type": "level",
+          "amount": 30
+        },
+        "value": 1.5
       }
     ]
   },
@@ -2807,7 +2815,15 @@ window.cards = [
         "type": "allGeneratorMultiplier",
         "requirement": {
           "type": "level",
-          "amount": 40
+          "amount": 30
+        },
+        "value": 1.5
+      },
+      {
+        "type": "allGeneratorMultiplier",
+        "requirement": {
+          "type": "level",
+          "amount": 50
         },
         "value": 2.0
       }
@@ -5727,7 +5743,7 @@ window.cards = [
           "type": "level",
           "amount": 10
         },
-        "value": 1.5
+        "value": 2.0
       },
       {
         "type": "currencyPerSecMultiplier",
@@ -7538,6 +7554,16 @@ window.cards = [
         "realm": 6,
         "rarity": "basic"
       }
+    ],
+    "specialEffects": [
+      {
+        "type": "allGeneratorMultiplier",
+        "requirement": {
+          "type": "level",
+          "amount": 20
+        },
+        "value": 1.5
+      }
     ]
   },
   {
@@ -8754,12 +8780,12 @@ window.cards = [
       {
         "type": "currencyPerPoke",
         "currency": "royal_jelly",
-        "value": 50.0
+        "value": 75.0
       },
       {
         "type": "currencyPerSec",
         "currency": "tooth",
-        "value": 500.0
+        "value": 750.0
       },
       {
         "type": "maxCardsPerPoke"
@@ -8838,6 +8864,11 @@ window.cards = [
         "type": "currencyPerPoke",
         "currency": "royal_jelly",
         "value": 100.0
+      },
+      {
+        "type": "currencyPerSec",
+        "currency": "tooth",
+        "value": 750.0
       },
       {
         "type": "cooldownDivider"
@@ -9851,6 +9882,16 @@ window.cards = [
         "type": "rarityOddsDivider",
         "realm": 6,
         "rarity": "decent"
+      }
+    ],
+    "specialEffects": [
+      {
+        "type": "allGeneratorMultiplier",
+        "requirement": {
+          "type": "level",
+          "amount": 15
+        },
+        "value": 1.5
       }
     ]
   },
@@ -13042,6 +13083,14 @@ window.cards = [
           "amount": 15
         },
         "value": 1500.0
+      },
+      {
+        "type": "allGeneratorMultiplier",
+        "requirement": {
+          "type": "level",
+          "amount": 20
+        },
+        "value": 1.5
       }
     ]
   },
