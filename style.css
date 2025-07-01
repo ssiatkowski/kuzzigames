@@ -72,6 +72,83 @@ body {
 }
 
 /*─────────────────────────────────────────────────────────────────────
+  Ad Notice Section
+─────────────────────────────────────────────────────────────────────*/
+.ad-notice {
+  background: linear-gradient(135deg, #2a2a2a 0%, #1f1f1f 100%);
+  border: 2px solid var(--accent-color);
+  border-radius: 12px;
+  margin: var(--sp-lg) auto;
+  padding: var(--sp-lg);
+  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.2);
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.ad-notice-content {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.ad-notice h2 {
+  font-size: var(--fz-lg);
+  color: var(--accent-color);
+  margin-bottom: var(--sp-md);
+  font-weight: 600;
+}
+
+.ad-notice p {
+  font-size: var(--fz-md);
+  line-height: 1.7;
+  color: #e0e0e0;
+  margin-bottom: var(--sp-md);
+}
+
+.ad-notice-highlight {
+  background: rgba(76, 175, 80, 0.1);
+  border: 1px solid var(--accent-color);
+  border-radius: 8px;
+  padding: var(--sp-md);
+  margin-top: var(--sp-md);
+}
+
+.ad-notice-highlight strong {
+  color: var(--accent-color);
+  font-size: var(--fz-lg);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive adjustments for ad notice */
+@media (max-width: 768px) {
+  .ad-notice {
+    margin: var(--sp-md) auto;
+    padding: var(--sp-md);
+  }
+
+  .ad-notice h2 {
+    font-size: var(--fz-md);
+  }
+
+  .ad-notice p {
+    font-size: var(--fz-sm);
+  }
+
+  .ad-notice-highlight strong {
+    font-size: var(--fz-md);
+  }
+}
+
+/*─────────────────────────────────────────────────────────────────────
   Game Grid
 ─────────────────────────────────────────────────────────────────────*/
 .game-grid {
