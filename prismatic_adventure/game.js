@@ -1,5 +1,41 @@
 (function() {
   /****************************************
+   * AD INJECTION SYSTEM
+   ****************************************/
+  let adInjected = false;
+
+  function injectSettingsAd() {
+    if (!adInjected) {
+      adInjected = true;
+      if (window.location.pathname.includes("/prismatic_adventure")) {
+        // Load AdSense script once
+        const adsScript = document.createElement("script");
+        adsScript.async = true;
+        adsScript.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1862340236898418";
+        adsScript.crossOrigin = "anonymous";
+        document.head.appendChild(adsScript);
+
+        // Wait for script to load before adding ad
+        adsScript.onload = () => {
+          const adContainer = document.createElement("ins");
+          adContainer.className = "adsbygoogle";
+          adContainer.style = "display:block; margin-top: 20px;";
+          adContainer.setAttribute("data-ad-client", "ca-pub-1862340236898418");
+          adContainer.setAttribute("data-ad-slot", "9994375638");
+          adContainer.setAttribute("data-ad-format", "auto");
+          adContainer.setAttribute("data-full-width-responsive", "true");
+
+          const footerAdElement = document.getElementById("settings-footer-ad");
+          if (footerAdElement) {
+            footerAdElement.appendChild(adContainer);
+            (adsbygoogle = window.adsbygoogle || []).push({});
+          }
+        };
+      }
+    }
+  }
+
+  /****************************************
    * DEFINITIONS: Skills affecting knowledge, copium, delusion
    ****************************************/
   let knowledgeSkills = ["tinkering", "intellect", "hacking"];
@@ -3759,10 +3795,23 @@
         updateBookwormAchievement("back");
       });
       content.appendChild(backBtn);
-  
+
+      // Settings Modal Footer with Ad
+      const settingsFooter = document.createElement("div");
+      settingsFooter.className = "settings-modal-footer";
+      settingsFooter.innerHTML = `
+        <div class="settings-footer-divider"></div>
+        <div class="settings-footer-ad-label">Advertisement</div>
+        <div id="settings-footer-ad"></div>
+      `;
+      content.appendChild(settingsFooter);
+
       modal.appendChild(content);
       document.body.appendChild(modal);
-      
+
+      // Inject ad into the settings footer
+      injectSettingsAd();
+
       modal.addEventListener("click", (e) => {
         // If the clicked element is the modal overlay (and not its inner content), close the modal.
         if (e.target === modal) {

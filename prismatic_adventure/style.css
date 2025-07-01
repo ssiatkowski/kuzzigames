@@ -865,6 +865,40 @@ footer {
   text-decoration: underline;
 }
 
+/* Settings Modal Footer */
+.settings-modal-footer {
+  margin-top: 20px;
+  padding-top: 15px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.settings-footer-divider {
+  width: 80%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #27ae60, transparent);
+  margin-bottom: 10px;
+}
+
+.settings-footer-ad-label {
+  font-size: 0.8em;
+  color: #999;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+#settings-footer-ad {
+  width: 100%;
+  max-width: 400px;
+  min-height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .prestige-btn-wrapper {
   text-align: center;
   margin-top: 30px;

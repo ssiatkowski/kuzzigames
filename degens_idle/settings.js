@@ -1,3 +1,5 @@
+let adInjected = false;
+
 // Function to open the settings overlay
 function openSettings() {
     // First, call saveGameState to ensure everything is saved to localStorage
@@ -26,6 +28,32 @@ function openSettings() {
         const enableButtonAnimationsSwitch = document.getElementById('enableButtonAnimations');
         enableButtonAnimationsSwitch.checked = enableButtonAnimations;
     }, 0); // Adjust timeout if necessary
+
+    if (!adInjected) {
+      adInjected = true;
+      if (window.location.pathname.includes("/degens_idle")) {
+        // Load AdSense script once
+        const adsScript = document.createElement("script");
+        adsScript.async = true;
+        adsScript.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1862340236898418";
+        adsScript.crossOrigin = "anonymous";
+        document.head.appendChild(adsScript);
+
+        // Wait for script to load before adding ad
+        adsScript.onload = () => {
+          const adContainer = document.createElement("ins");
+          adContainer.className = "adsbygoogle";
+          adContainer.style = "display:block; margin-top: 20px;";
+          adContainer.setAttribute("data-ad-client", "ca-pub-1862340236898418");
+          adContainer.setAttribute("data-ad-slot", "9994375638");
+          adContainer.setAttribute("data-ad-format", "auto");
+          adContainer.setAttribute("data-full-width-responsive", "true");
+
+          document.getElementById("settings-footer-ad").appendChild(adContainer);
+          (adsbygoogle = window.adsbygoogle || []).push({});
+        };
+      }
+    }
 }
 
 // Function to close the settings overlay
