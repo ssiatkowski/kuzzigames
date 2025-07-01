@@ -16,7 +16,7 @@
           if (footerAdElement && footerAdElement.offsetWidth > 0) {
             const adContainer = document.createElement("ins");
             adContainer.className = "adsbygoogle";
-            adContainer.style.cssText = "display:block; width:100%; min-height:90px; margin-top:10px;";
+            adContainer.style.cssText = "display:block !important; width:100% !important; min-height:90px !important; margin:10px 0 !important; flex-shrink:0 !important;";
             adContainer.setAttribute("data-ad-client", "ca-pub-1862340236898418");
             adContainer.setAttribute("data-ad-slot", "9994375638");
             adContainer.setAttribute("data-ad-format", "auto");
@@ -26,6 +26,23 @@
 
             try {
               (adsbygoogle = window.adsbygoogle || []).push({});
+
+              // Ensure modal positioning remains correct after ad loads
+              setTimeout(() => {
+                const modal = document.getElementById("settingsModal");
+                if (modal) {
+                  modal.style.position = "fixed";
+                  modal.style.top = "0";
+                  modal.style.left = "0";
+                  modal.style.width = "100%";
+                  modal.style.height = "100%";
+                  modal.style.display = "flex";
+                  modal.style.justifyContent = "center";
+                  modal.style.alignItems = "center";
+                  modal.style.background = "rgba(0, 0, 0, 0.8)";
+                  modal.style.zIndex = "1100";
+                }
+              }, 50);
             } catch (e) {
               console.log("AdSense error:", e);
             }

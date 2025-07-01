@@ -784,32 +784,37 @@ footer {
 /* ---------------------- */
 /* Modal overlay */
 .modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1100;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: rgba(0, 0, 0, 0.8) !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  z-index: 1100 !important;
 }
 
 /* Unified modal content with enhanced style */
 .modal-content {
-  background: linear-gradient(135deg, #555, #333);
-  border: 2px solid #27ae60;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
-  padding: 30px;
-  border-radius: 8px;
-  text-align: center;
-  max-width: 500px;
-  width: 90%;
-  max-height: 90vh;
-  color: #fff;
-  overflow-y: auto;
-  overflow-x: hidden;
+  background: linear-gradient(135deg, #555, #333) !important;
+  border: 2px solid #27ae60 !important;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.8) !important;
+  padding: 30px !important;
+  border-radius: 8px !important;
+  text-align: center !important;
+  max-width: 500px !important;
+  width: 90% !important;
+  max-height: 90vh !important;
+  color: #fff !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  position: relative !important;
+  margin: auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
 }
 
 /* Headings inside modals */
@@ -869,40 +874,66 @@ footer {
 
 /* Settings Modal Footer */
 .settings-modal-footer {
-  margin-top: 20px;
-  padding-top: 15px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  margin-top: 20px !important;
+  padding-top: 15px !important;
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  flex-shrink: 0 !important;
+  min-height: 120px !important;
 }
 
 .settings-footer-divider {
-  width: 80%;
-  height: 1px;
-  background: linear-gradient(to right, transparent, #27ae60, transparent);
-  margin-bottom: 10px;
+  width: 80% !important;
+  height: 1px !important;
+  background: linear-gradient(to right, transparent, #27ae60, transparent) !important;
+  margin-bottom: 10px !important;
+  flex-shrink: 0 !important;
 }
 
 .settings-footer-ad-label {
-  font-size: 0.8em;
-  color: #999;
-  margin-bottom: 8px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  font-size: 0.8em !important;
+  color: #999 !important;
+  margin-bottom: 8px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  flex-shrink: 0 !important;
 }
 
 #settings-footer-ad {
-  width: 100%;
-  max-width: 400px;
-  min-height: 90px;
-  display: block;
-  text-align: center;
+  width: 100% !important;
+  max-width: 400px !important;
+  min-height: 90px !important;
+  display: block !important;
+  text-align: center !important;
+  flex-shrink: 0 !important;
 }
 
 #settings-footer-ad .adsbygoogle {
   width: 100% !important;
   min-height: 90px !important;
+  display: block !important;
+}
+
+/* Save Buttons Container - 2x2 Grid Layout */
+.save-buttons-container {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  grid-template-rows: 1fr 1fr !important;
+  gap: 8px !important;
+  margin: 15px 0 !important;
+  width: 100% !important;
+  max-width: 420px !important;
+  flex-shrink: 0 !important;
+}
+
+.save-buttons-container button {
+  width: 100% !important;
+  height: 40px !important;
+  min-height: 40px !important;
+  margin: 0 !important;
+  flex-shrink: 0 !important;
 }
 
 .prestige-btn-wrapper {
@@ -939,18 +970,20 @@ footer {
 /* --- Settings Modal Buttons --- */
 /* Base style for all buttons in the settings modal */
 .modal-content button {
-  width: 200px;
-  height: 40px;
-  font-size: 1em;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin: 4px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  white-space: nowrap;
-  overflow: hidden;
+  width: 200px !important;
+  height: 40px !important;
+  min-height: 40px !important;
+  font-size: 1em !important;
+  border: none !important;
+  border-radius: 5px !important;
+  cursor: pointer !important;
+  margin: 4px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  flex-shrink: 0 !important;
 }
 
 /* Specific button colors with higher specificity */
