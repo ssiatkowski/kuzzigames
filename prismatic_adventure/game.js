@@ -1,45 +1,37 @@
 (function() {
-  /****************************************
-   * AD INJECTION SYSTEM
-   ****************************************/
-  let adInjected = false;
-
   function injectSettingsAd() {
-    if (!adInjected) {
-      adInjected = true;
-      if (window.location.pathname.includes("/prismatic_adventure")) {
-        // Load AdSense script once
-        const adsScript = document.createElement("script");
-        adsScript.async = true;
-        adsScript.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1862340236898418";
-        adsScript.crossOrigin = "anonymous";
-        document.head.appendChild(adsScript);
+    if (window.location.pathname.includes("/prismatic_adventure")) {
+      // Load AdSense script once
+      const adsScript = document.createElement("script");
+      adsScript.async = true;
+      adsScript.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1862340236898418";
+      adsScript.crossOrigin = "anonymous";
+      document.head.appendChild(adsScript);
 
-        // Wait for script to load before adding ad
-        adsScript.onload = () => {
-          // Add a delay to ensure the modal is fully rendered
-          setTimeout(() => {
-            const footerAdElement = document.getElementById("settings-footer-ad");
-            if (footerAdElement && footerAdElement.offsetWidth > 0) {
-              const adContainer = document.createElement("ins");
-              adContainer.className = "adsbygoogle";
-              adContainer.style.cssText = "display:block; width:100%; min-height:90px; margin-top:10px;";
-              adContainer.setAttribute("data-ad-client", "ca-pub-1862340236898418");
-              adContainer.setAttribute("data-ad-slot", "9994375638");
-              adContainer.setAttribute("data-ad-format", "auto");
-              adContainer.setAttribute("data-full-width-responsive", "true");
+      // Wait for script to load before adding ad
+      adsScript.onload = () => {
+        // Add a delay to ensure the modal is fully rendered
+        setTimeout(() => {
+          const footerAdElement = document.getElementById("settings-footer-ad");
+          if (footerAdElement && footerAdElement.offsetWidth > 0) {
+            const adContainer = document.createElement("ins");
+            adContainer.className = "adsbygoogle";
+            adContainer.style.cssText = "display:block; width:100%; min-height:90px; margin-top:10px;";
+            adContainer.setAttribute("data-ad-client", "ca-pub-1862340236898418");
+            adContainer.setAttribute("data-ad-slot", "9994375638");
+            adContainer.setAttribute("data-ad-format", "auto");
+            adContainer.setAttribute("data-full-width-responsive", "true");
 
-              footerAdElement.appendChild(adContainer);
+            footerAdElement.appendChild(adContainer);
 
-              try {
-                (adsbygoogle = window.adsbygoogle || []).push({});
-              } catch (e) {
-                console.log("AdSense error:", e);
-              }
+            try {
+              (adsbygoogle = window.adsbygoogle || []).push({});
+            } catch (e) {
+              console.log("AdSense error:", e);
             }
-          }, 100);
-        };
-      }
+          }
+        }, 100);
+      };
     }
   }
 
