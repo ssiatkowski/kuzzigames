@@ -1384,10 +1384,10 @@ function updateHarvesterTooltipContent() {
   }
 
   // make the harvesting rate gray color
-  content += `<div style="color:gray">Harvesting Rate: ${formatDuration(onlineRate, 2)}/sec</div>`;
+  content += `<div style="color:gray">Harvesting Rate: ${formatDuration(onlineRate, 2)} / sec</div>`;
 
   if (!skillMap[12003].purchased) {
-    content += `<div style="color:gray">Offline Rate: ${formatDuration(offlineRate, 3)}/sec</div>`;
+    content += `<div style="color:gray">Offline Rate: ${formatDuration(offlineRate, 3)} / sec</div>`;
   }
 
   if (skillMap[12004].purchased) {
@@ -1448,7 +1448,7 @@ function updateInterceptorTooltipContent() {
   } else {
     const actionText = skillMap[12203].purchased ? "poking and card flipping" : "card flipping";
     content += `<div>Click to activate automatic ${actionText} for ${formatDuration(state.interceptorValue)}</div>`;
-    content += `<div style="color:gray">Pasive Charge: ${formatDuration(passiveRate, 2)}/sec</div>`;
+    content += `<div style="color:gray">Passive Charge: ${formatDuration(passiveRate, 2)} / sec</div>`;
 
     const activeRate = passiveRate * (skillMap[12205].purchased ? 2.5 : 1);
     content += `<div style="color:gray">Manual Charge: ${formatDuration(activeRate, 2)} / card flip</div>`;
@@ -3279,7 +3279,7 @@ function giveCard(cardId, amount = 1) {
   // --- 2. Update quantity ---
   c.quantity += amount;
 
-  if (c.quantity >= 1e15) {
+  if (c.quantity >= 1e16) {
     unlockAchievement('endgameChecklist');
   }
 

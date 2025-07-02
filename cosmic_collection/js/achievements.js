@@ -1390,7 +1390,7 @@ const achievements = {
         id: 'endgameChecklist',
         name: 'Massive Card Pile',
         type: 'endgameChecklist',
-        condition: 'Get 1Qa of a single card',
+        condition: 'Get 10Qa of a single card',
         icon: '📜',
         rewardType: 'Max Cards Multiplier',
         reward: 2,

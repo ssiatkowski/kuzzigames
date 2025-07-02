@@ -1312,7 +1312,7 @@ window.skills = [
     {
       id: 12201,
       name: "Space Bending Interceptor",
-      description: "Unlocks a device that intercepts space bending (both passivly and when you flip over cards), which can be activated to automate flipping over cards for its duration.",
+      description: "Unlocks a device that intercepts space bending (both passively and when you flip over cards), which can be activated to automate flipping over cards for its duration.",
       cost: { realmId: 5, currencyId: "egg", amount: 8e6 },
       purchased: false
     },

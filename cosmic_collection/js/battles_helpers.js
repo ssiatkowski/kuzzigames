@@ -107,7 +107,7 @@ function getBossMechanicsByName() {
                             killReward: skillMap[30002].purchased ? '+15% to Global Max Cards Mult' : '+1.5% to Global Max Cards Mult' 
                         },
   'Sauron':             { 
-                            specialPowers: '10% Chance to Instantly Kill', 
+                            specialPowers: '8% Chance to Instantly Kill', 
                             killReward: '+1.5% Global HP Mult' 
                         },
   'Pudge':              { 
@@ -123,7 +123,7 @@ function getBossMechanicsByName() {
                             killReward: '+5% Global Attack Mult' 
                         },
   'Thanos':             { 
-                            specialPowers: '4% chance to kill half the cards (rounded up)', 
+                            specialPowers: '3.33% chance to kill half the cards (rounded up)', 
                             killReward: skillMap[30002].purchased ? '+50% to Global Max Cards Mult' : '+5% to Global Max Cards Mult' 
                         },
   'Isshin':             { 
@@ -143,7 +143,7 @@ function getBossMechanicsByName() {
                             killReward: '+3% Global HP Mult' 
                         },
   'Rick':               { 
-                            specialPowers: '15% chance to teleport random card to another dimension (instantly kill)', 
+                            specialPowers: '13% chance to teleport random card to another dimension (instantly kill)', 
                             killReward: skillMap[30002].purchased ? '+75% to Global Max Cards Mult' : '+7.5% to Global Max Cards Mult' 
                         },
   'Vegeta':             { 

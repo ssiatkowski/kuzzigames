@@ -1843,7 +1843,7 @@ function battleLoop() {
           specialType = 'empowerment';
         }
 
-        if (state.battle.currentEnemy.name === 'Sauron' && Math.random() < 0.1) {
+        if (state.battle.currentEnemy.name === 'Sauron' && Math.random() < 0.08) {
           damage = targetCard.maxHp * 1.01;
           specialType = 'empowerment';
         }
@@ -1898,7 +1898,7 @@ function battleLoop() {
           }
         }
 
-        if (state.battle.currentEnemy.name === 'Thanos' && Math.random() < 0.04) {
+        if (state.battle.currentEnemy.name === 'Thanos' && Math.random() < 0.0333) {
           const filled = state.battle.slots
             .map((c,i) => c ? i : -1)
             .filter(i => i !== -1);
@@ -1916,7 +1916,7 @@ function battleLoop() {
           }
         }
 
-        if ((state.battle.currentEnemy.name === 'Rick' && Math.random() < 0.15) ||
+        if ((state.battle.currentEnemy.name === 'Rick' && Math.random() < 0.13) ||
             (state.battle.currentEnemy.name === 'Kuzzi' && Math.random() < 0.66)) {
           const filled = state.battle.slots
             .map((c, i) => c ? i : -1)
