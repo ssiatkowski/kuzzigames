@@ -1393,7 +1393,7 @@ const achievements = {
         condition: 'Get 10Qa of a single card',
         icon: '📜',
         rewardType: 'Max Cards Multiplier',
-        reward: 1.5,
+        reward: 2,
     },
     endgameChecklist2: {
         id: 'endgameChecklist2',
@@ -1402,7 +1402,7 @@ const achievements = {
         condition: 'Purchase all 490 skills',
         icon: '📜',
         rewardType: 'Max Cards Multiplier',
-        reward: 1.5,
+        reward: 2,
     },
     endgameChecklist3: {
         id: 'endgameChecklist3',
@@ -1411,7 +1411,7 @@ const achievements = {
         condition: 'Have all 347 cards in collection',
         icon: '📜',
         rewardType: 'Max Cards Multiplier',
-        reward: 1.5,
+        reward: 2,
     },
     endgameChecklist4: {
         id: 'endgameChecklist4',

@@ -3300,7 +3300,7 @@ window.skills = [
     {
       id: 30001,
       name: "Spiritual Boss Poke",
-      description: "Pokes that have Spirit Familiars and Bosses realms selected (other realms can be selected as well) yield 11x cards.",
+      description: "Pokes that have Spirit Familiars and Bosses realms selected (other realms can be selected as well) yield 7x cards.",
       cost: { realmId: 12, currencyId: "spirit", amount: 2.2e32 },
       purchased: false
     },
@@ -3349,7 +3349,7 @@ window.skills = [
     {
       id: 30008,
       name: "Nothing But Love",
-      description: "Pokes generate 6.9x worth of pokes of all currencies.",
+      description: "Pokes generate 33x worth of pokes of all currencies.",
       cost: { realmId: 12, currencyId: "zeal", amount: 1e36 },
       purchased: false
     },
