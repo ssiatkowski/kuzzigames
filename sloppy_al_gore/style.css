@@ -13,23 +13,93 @@ main {
 }
 #game {
   background-color: #333; padding: 20px;
-  border-radius: 8px; width: 600px; text-align: center;
+  border-radius: 8px; width: min(1200px, 96vw); text-align: center;
 }
-#stats p, #actions p { margin: 6px 0; }
+#topControls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  margin-bottom: 6px;
+}
+#newsTicker {
+  border: 1px solid #555;
+  background: #262626;
+  border-radius: 6px;
+  padding: 6px 10px;
+  margin-bottom: 8px;
+  color: #9ce7ff;
+  min-height: 18px;
+  font-size: 0.85rem;
+  opacity: 0.85;
+}
+#layoutGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  align-items: start;
+}
+#leftColumn,
+#rightColumn {
+  background: #2b2b2b;
+  border: 1px solid #4a4a4a;
+  border-radius: 8px;
+  padding: 8px;
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+}
+.stat-card {
+  text-align: left;
+  border: 1px solid #4a4a4a;
+  background: #242424;
+  border-radius: 6px;
+  padding: 6px 8px;
+}
+.stat-card .label {
+  display: block;
+  color: #9fb1c8;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.stat-card .value {
+  display: block;
+  margin-top: 1px;
+  color: #ecf6ff;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+.stat-card.primary {
+  grid-column: span 2;
+  background: linear-gradient(135deg, #20323e, #273d2d);
+}
+#stats p, #actions p { margin: 2px 0; }
 button {
   background-color: #444; color: #eee; border: none;
-  padding: 10px 16px; margin: 4px; border-radius: 4px;
-  font-size: 1em; cursor: pointer; transition: background-color 0.2s;
+  padding: 7px 10px; margin: 2px; border-radius: 4px;
+  font-size: 0.88em; cursor: pointer; transition: background-color 0.2s;
 }
 button:hover { background-color: #555; }
 button:active { background-color: #666; }
 .affordable { border: 2px solid #0f0; }
 .prestige-row {
-  display: flex; align-items: center; margin-bottom: 8px;
+  display: grid;
+  grid-template-columns: 56% 44%;
+  align-items: stretch;
+  margin-bottom: 5px;
+  border: 1px solid #494949;
+  border-radius: 6px;
+  background: #252525;
+  padding: 4px;
 }
-.prestige-row button { flex-shrink: 0; }
+.prestige-row button { width: 100%; margin: 0; }
 .prestigeDesc {
-  margin-left: 12px; font-size: 0.85em; color: #ccc; text-align: left;
+  margin-left: 8px; font-size: 0.76em; color: #c7d5e7; text-align: left;
+  display: flex;
+  align-items: center;
 }
 #customTooltip {
   position: fixed; bottom: 20px; left: 50%;
@@ -37,6 +107,59 @@ button:active { background-color: #666; }
   background-color: #222; padding: 10px 20px;
   border-radius: 5px; opacity: 0; transition: opacity 0.5s;
   color: #fff; z-index: 1000;
+}
+#actions button,
+#prestige button {
+  width: calc(100% - 8px);
+}
+#achievementPanel {
+  margin-top: 8px;
+  padding: 10px;
+  border: 1px solid #4a4a4a;
+  border-radius: 6px;
+  background: #292929;
+  text-align: left;
+}
+#achievementPanel h3 {
+  margin: 0 0 8px;
+  font-size: 1rem;
+  text-align: center;
+}
+#achievementList {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px 8px;
+}
+.ach {
+  font-size: 0.8rem;
+  opacity: 0.75;
+  margin: 3px 0;
+}
+.ach.done {
+  opacity: 1;
+  color: #87ff9d;
+}
+#saveBox {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  width: 280px;
+  height: 80px;
+  background: #101010;
+  color: #ddd;
+  border: 1px solid #555;
+  border-radius: 6px;
+  display: none;
+  z-index: 1200;
+}
+.chaos #game {
+  animation: jitter 0.15s infinite;
+}
+.chaos button {
+  filter: hue-rotate(90deg) saturate(1.25);
+}
+.chaos #newsTicker {
+  background: repeating-linear-gradient(45deg, #2e002e, #2e002e 6px, #002f2f 6px, #002f2f 12px);
 }
 .modal {
   display: none; position: fixed; z-index: 2000;
@@ -145,3 +268,25 @@ button.unaffordable {
   @keyframes wobble {
     from { transform: rotate(-2deg) } to { transform: rotate(2deg) }
   }
+  @keyframes jitter {
+    0% { transform: translate(0, 0); }
+    25% { transform: translate(1px, -1px); }
+    50% { transform: translate(-1px, 1px); }
+    75% { transform: translate(1px, 1px); }
+    100% { transform: translate(0, 0); }
+  }
+
+@media (max-width: 1100px) {
+  #layoutGrid {
+    grid-template-columns: 1fr;
+  }
+  .stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .stat-card.primary {
+    grid-column: span 2;
+  }
+  #achievementList {
+    grid-template-columns: 1fr;
+  }
+}
