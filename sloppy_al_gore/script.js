@@ -2,6 +2,7 @@ let state;
 let achievementMultiplier = new Decimal(1);
 let tickerIdx = 0;
 let tickerTimerMs = 0;
+let isImporting = false;
 
 const BASE_GORE_COST = new Decimal(1000);
 const BASE_CLIMATE_COST = new Decimal(10);
@@ -11,14 +12,14 @@ const BASE_AWAKENING_COST = new Decimal(666);
 const suffixes = ["", "K", "M", "B", "T", "Qa", "Qi", "Sx", "Sp", "Oc", "No", "Dc", "Ud"];
 
 const achievements = [
-  { key: "ach1", name: "The First Slop", check: () => state.aiSlop.gte(100), boost: 1 },
-  { key: "ach2", name: "Gore Recruiter", check: () => state.gorePoints.gte(25), boost: 1.25 },
-  { key: "ach3", name: "Climate Menace", check: () => state.climatePoints.gte(50), boost: 1.5 },
-  { key: "ach4", name: "Revolutionary", check: () => state.revolutionPoints.gte(75), boost: 2 },
-  { key: "ach5", name: "Rebirth Addict", check: () => state.rebirthPoints.gte(100), boost: 2.5 },
-  { key: "ach6", name: "Time Breaker", check: () => state.awakeningPoints.gte(250), boost: 3 },
-  { key: "ach7", name: "No-Life Mode", check: () => state.upgradeLevel >= 600, boost: 3.5 },
-  { key: "ach8", name: "April Fools' Certified", check: () => state.prankEventsSurvived >= 3, boost: 4.1 }
+  { key: "ach1", name: "The First Slop", check: () => state.aiSlop.gte(1000), boost: 2 },
+  { key: "ach2", name: "Gore Recruiter", check: () => state.gorePoints.gte(25), boost: 3 },
+  { key: "ach3", name: "Climate Menace", check: () => state.climatePoints.gte(50), boost: 4 },
+  { key: "ach4", name: "Revolutionary", check: () => state.revolutionPoints.gte(75), boost: 5 },
+  { key: "ach5", name: "Rebirth Addict", check: () => state.rebirthPoints.gte(100), boost: 6 },
+  { key: "ach6", name: "Time Breaker", check: () => state.awakeningPoints.gte(250), boost: 7 },
+  { key: "ach7", name: "No-Life Mode", check: () => state.upgradeLevel >= 600, boost: 8 },
+  { key: "ach8", name: "Chaos Lord", check: () => state.chaosModeTimeMs >= 600000, boost: 10 }
 ];
 
 const newsLines = [
@@ -122,10 +123,9 @@ function initializeState() {
     finalAction3Unlocked: false,
     finalAction4Unlocked: false,
     chaosMode: false,
+    chaosModeTimeMs: 0,
     totalManualClicks: 0,
-    prankEventsSurvived: 0,
     achievements: {},
-    prankCooldownMs: 0,
     lastSavedAt: Date.now()
   };
 }
@@ -141,8 +141,10 @@ function saveState() {
     rebirthPoints: state.rebirthPoints.toString(),
     awakeningPoints: state.awakeningPoints.toString(),
     upgradeCost: state.upgradeCost.toString(),
-    lastSavedAt: Date.now()
+    lastSavedAt: Date.now(),
+    chaosModeTimeMs: state.chaosModeTimeMs || 0
   };
+  if (isImporting) return;
   localStorage.setItem("degensGore", JSON.stringify(payload));
 }
 
@@ -161,8 +163,9 @@ function loadState() {
     state.awakeningPoints = new Decimal(o.awakeningPoints || 0);
     state.upgradeCost = new Decimal(o.upgradeCost || 0);
     state.achievements = o.achievements || {};
-  } catch {
-    console.error("Failed to load state.");
+    state.chaosModeTimeMs = o.chaosModeTimeMs || 0;
+  } catch (e) {
+    console.error("Failed to load state:", e);
   }
 }
 
@@ -277,35 +280,7 @@ function renderAchievements() {
   }).join("");
 }
 
-function maybeTriggerPrankEvent() {
-  if (state.prankCooldownMs > 0) {
-    state.prankCooldownMs -= 1000;
-    return;
-  }
-  if (Math.random() > 0.005) return;
-  state.prankCooldownMs = 300000;
-  const modal = document.getElementById("confirmRestartModal");
-  const txt = modal.querySelector("p");
-  txt.textContent = "APRIL FOOLS: Fake crash prevented. Claim emergency slop?";
-  modal.style.display = "block";
-  const yes = document.getElementById("confirmRestartYes");
-  const no = document.getElementById("confirmRestartNo");
-  const cleanup = () => {
-    yes.replaceWith(yes.cloneNode(true));
-    no.replaceWith(no.cloneNode(true));
-    modal.style.display = "none";
-    txt.textContent = "Are you sure you want to restart? This will erase all progress.";
-    wireRestartModal();
-  };
-  document.getElementById("confirmRestartYes").addEventListener("click", () => {
-    const reward = calculateSlopRate().times(25);
-    state.aiSlop = state.aiSlop.plus(reward);
-    state.prankEventsSurvived += 1;
-    showCustomTooltip(`Emergency patch successful: +${formatNum(reward)} Slop`);
-    cleanup();
-  }, { once: true });
-  document.getElementById("confirmRestartNo").addEventListener("click", cleanup, { once: true });
-}
+
 
 function updateTicker() {
   tickerTimerMs += 1000;
@@ -326,7 +301,7 @@ function calculateSlopRate() {
   const extraPerAwak = state.awakeningBoostUnlocked ? cappedAwaks.times(grBase) : new Decimal(0);
   const perClimateBoost = baseClimateRate.plus(state.revolutionPoints.times(grBase.plus(extraPerAwak)));
   const cm = new Decimal(1).plus(state.climatePoints.times(perClimateBoost));
-  const rm = new Decimal(1).plus(state.revolutionPoints.times(0.07));
+  const rm = new Decimal(1).plus(state.revolutionPoints.times(0.1));
   const bm = new Decimal(1).plus(state.rebirthPoints.times(0.5));
   const am = new Decimal(1).plus(state.awakeningPoints);
   return state.slopPerClick.times(gm).times(cm).times(rm).times(bm).times(am).times(achievementMultiplier).times(40);
@@ -344,16 +319,29 @@ function updateDisplay() {
   document.getElementById("aiSlopDisplay").textContent = formatNum(state.aiSlop);
   document.getElementById("slopRateDisplay").textContent = formatNum(calculateSlopRate());
   document.getElementById("achievementBoostDisplay").textContent = formatNum(achievementMultiplier);
-  document.getElementById("gorePointsDisplay").textContent = formatNum(state.gorePoints);
+
+  const grBase = new Decimal(0.01);
+  const awakenCap = state.finalActionUnlocked ? new Decimal("3e30") : new Decimal(1e6);
+  const cappedAwaks = Decimal.min(state.awakeningPoints, awakenCap);
+  const perGoreBoost = new Decimal(0.1).plus(state.rebirthPoints.times(0.01));
+  const extraPerAwak = state.awakeningBoostUnlocked ? cappedAwaks.times(grBase) : new Decimal(0);
+  const climatePer = new Decimal(0.25).plus(state.revolutionPoints.times(grBase.plus(extraPerAwak)));
+  const passiveGore = state.cosmicGoreUnlocked ? state.rebirthPoints.pow(3) : state.rebirthPoints;
+  const passiveRev = state.awakeningPoints;
+  const passiveAwak = state.transcendentAwakeningUnlocked ? (state.finalAction4Unlocked ? state.aiSlop.pow(0.25).times(5e55) : state.aiSlop.pow(0.25)) : new Decimal(0);
+
+  document.getElementById("gorePointsDisplay").textContent = formatNum(state.gorePoints) + (passiveGore.gt(0) ? ` (+${formatNum(passiveGore)}/s)` : "");
   document.getElementById("climatePointsDisplay").textContent = formatNum(state.climatePoints);
-  document.getElementById("revolutionPointsDisplay").textContent = formatNum(state.revolutionPoints);
+  document.getElementById("revolutionPointsDisplay").textContent = formatNum(state.revolutionPoints) + (passiveRev.gt(0) ? ` (+${formatNum(passiveRev)}/s)` : "");
   document.getElementById("rebirthPointsDisplay").textContent = formatNum(state.rebirthPoints);
-  document.getElementById("awakeningPointsDisplay").textContent = formatNum(state.awakeningPoints);
+  document.getElementById("awakeningPointsDisplay").textContent = formatNum(state.awakeningPoints) + (passiveAwak.gt(0) ? ` (+${formatNum(passiveAwak)}/s)` : "");
   document.body.classList.toggle("chaos", !!state.chaosMode);
-  document.getElementById("chaosModeButton").textContent = state.chaosMode ? "Disable Chaos Mode" : "Enable Chaos Mode";
+  const chaosBtn = document.getElementById("chaosModeButton");
+  chaosBtn.textContent = state.chaosMode ? "Disable Chaos Mode" : "Enable Chaos Mode";
+  chaosBtn.classList.toggle("toggled-on", !!state.chaosMode);
 
   const upBtn = document.getElementById("upgradeButton");
-  upBtn.innerHTML = `Upgrade Generator (Lv ${state.upgradeLevel})<br>Cost: ${formatNum(state.upgradeCost)} Slop | +1 base Slop/click`;
+  upBtn.innerHTML = `Upgrade Generator (Lv ${state.upgradeLevel})<br>Cost: ${formatNum(state.upgradeCost)} Slop | +1 base Slop/sec`;
   upBtn.classList.toggle("affordable", state.aiSlop.gte(state.upgradeCost));
 
   const autoBtn = document.getElementById("autoBuyButton");
@@ -363,6 +351,7 @@ function updateDisplay() {
     autoBtn.style.display = "";
     autoBtn.textContent = !state.autoBuyUnlocked ? "Unlock Auto-Buy (5 Green Revolutions)" : (state.autoBuyEnabled ? "Disable Auto-Buy" : "Enable Auto-Buy");
     autoBtn.classList.toggle("unaffordable", !state.autoBuyUnlocked && !state.revolutionPoints.gte(5));
+    autoBtn.classList.toggle("toggled-on", !!state.autoBuyEnabled);
   }
 
   const toggles = [
@@ -409,11 +398,12 @@ function updateDisplay() {
   setUnlockText("climateEffButton", "Boost Auto-Climate", state.revolutionPoints, new Decimal(250), "Revolutions", "Auto climate buys up to 5/tick", state.autoClimateEfficiencyUnlocked);
   setUnlockText("rebirthScaling2Button", "Improve Rebirth Scaling Again", state.climatePoints, new Decimal(50000), "Climates", "Woah crazy cheap rebirths now", state.rebirthScaling2Unlocked);
   setUnlockText("autoClimateUltraButton", "Ultra Auto-Climate", state.rebirthPoints, new Decimal(500), "Rebirths", "Auto climate buys up to 2500/tick", state.autoClimateUltraEfficiencyUnlocked);
-  setUnlockText("awakeningBoostButton", "Awakening Climate Boost", state.awakeningPoints, new Decimal(5), "Awakenings", "Awakenings boost climate scaling", state.awakeningBoostUnlocked);
+
+  setUnlockText("awakeningBoostButton", "Awakening Climate Boost", state.awakeningPoints, new Decimal(5), "Awakenings", (state.awakeningBoostUnlocked ? `Each Revolution now adds +${formatNum(new Decimal(0.01).plus(cappedAwaks.times(grBase)).times(100))}% to Climate base (was 1%)` : "Awakenings boost climate scaling"), state.awakeningBoostUnlocked);
   setUnlockText("autoRebirthButton", "Unlock Auto Rebirth", state.aiSlop, Decimal.pow(10, 30), "Slop", "Free rebirth purchases each tick", state.autoRebirthUnlocked);
   setUnlockText("sloppyAwakeningsButton", "Sloppy Awakening", state.aiSlop, new Decimal(10).pow(50), "Slop", "Remove awakening cost scaling", state.sloppyAwakeningUnlocked);
   setUnlockText("alGoreCheapButton", "Al Gore is Cheap", state.awakeningPoints, new Decimal(7000), "Awakenings", "Remove Al Gore cost scaling", state.alGoreCheapUnlocked);
-  setUnlockText("greenCheapButton", "Green is Cheap", state.climatePoints, new Decimal(2e8), "Climates", "Remove Revolution scaling", state.greenCheapUnlocked);
+  setUnlockText("greenCheapButton", "Green is Cheap", state.climatePoints, new Decimal(2e8), "Climates", "Remove Revolution cost scaling", state.greenCheapUnlocked);
   setUnlockText("transcendentAwakeningButton", "Transcendent Awakening", state.rebirthPoints, new Decimal(1e8), "Rebirths", "Gain awakenings from Slop^0.25", state.transcendentAwakeningUnlocked);
   setUnlockText("cosmicGoreButton", "Cosmic Gore", state.revolutionPoints, new Decimal("5.55e55"), "Revolutions", "Rebirth gore output is cubed", state.cosmicGoreUnlocked);
   setUnlockText("finalActionButton", "Increase Awakening Cap", state.aiSlop, new Decimal("3.33e333"), "Slop", "Cap increases to 3e30", state.finalActionUnlocked);
@@ -445,17 +435,37 @@ function updateDisplay() {
   const enBtn = document.getElementById("prestigeEnlightenmentButton");
   enBtn.innerHTML = state.awakeningPoints.gte(ec) ? "Enlightenment<br>(Ready!)" : "Enlightenment<br>Need 6.9e420 Temporal Awakenings";
 
-  const perGoreBoost = new Decimal(0.1).plus(state.rebirthPoints.times(0.01));
-  const climatePer = new Decimal(0.25).plus(state.revolutionPoints.times(0.01));
-  document.getElementById("descGore").innerHTML = `Spend Slop to hire Al Gores. Each Gore adds +${formatNum(perGoreBoost.times(100))}% Slop multiplier.`;
-  document.getElementById("descClimate").innerHTML = `Spend Gores for Climate Changes. Each Climate multiplies Slop by ~x${formatNum(climatePer.plus(1))}.`;
-  document.getElementById("descRevolution").innerHTML = `Spend Climates for Revolutions. Each Revolution adds +7% Slop and boosts climate scaling.`;
-  document.getElementById("descRebirth").innerHTML = `Spend Climates for Rebirths. Rebirths add +50% Slop and passive Gore generation.`;
-  document.getElementById("descAwakening").innerHTML = `Spend Rebirths for Awakenings. Awakenings multiply Slop and generate Revolutions/sec.`;
+
+  const goreGenText = state.cosmicGoreUnlocked ? "Rebirth Points²" : "1";
+
+  document.getElementById("descGore").innerHTML = `Hire Al Gores. Each adds +${formatNum(perGoreBoost.times(100))}% to the Slop multiplier.`;
+
+  let climateDesc = `Each adds +${formatNum(climatePer.times(100))}% to the Slop multiplier.`;
+  document.getElementById("descClimate").innerHTML = climateDesc;
+
+  let revDesc = `Each adds +10% Slop and increases Climate base boost by +${formatNum(grBase.plus(extraPerAwak))}.`;
+  document.getElementById("descRevolution").innerHTML = revDesc;
+
+  let rebDesc = `Each adds +50% Slop, increases Gore boost by +1%, and generates ${goreGenText} Gores/sec.`;
+  document.getElementById("descRebirth").innerHTML = rebDesc;
+
+  let awakDesc = `Each multiplies Slop by x2 and generates 1 Revolution/sec.`;
+  if (state.awakeningBoostUnlocked) {
+    if (state.awakeningPoints.lt(awakenCap)) {
+      awakDesc += `<br>Each also adds +0.01 to Climate base boost per Revolution.`;
+    } else {
+      awakDesc += `<br>Each adds +0.01 to Climate base boost (Maxed at ${formatNum(awakenCap)}).`;
+    }
+  }
+  if (state.transcendentAwakeningUnlocked) {
+    const extra = state.finalAction4Unlocked ? state.aiSlop.pow(0.25).times(5e55) : state.aiSlop.pow(0.25);
+    awakDesc += `<br>Total passive gain: ${formatNum(extra)} Awakenings/sec from Slop.`;
+  }
+  document.getElementById("descAwakening").innerHTML = awakDesc;
+
   document.getElementById("descEnlightenment").innerHTML = `Final milestone. Requires 6.9e420 Awakenings.`;
 
   renderAchievements();
-  saveState();
 }
 
 function generateSlop() {
@@ -531,33 +541,44 @@ function prestigeAwakening() {
 function prestigeEnlightenment() {
   const ec = Decimal.pow(10, 420).times(6.9);
   if (!state.awakeningPoints.gte(ec)) return showCustomTooltip("Not enough Awakenings!");
-  document.getElementById("finalModal").style.display = "block";
+  document.getElementById("finalModal").style.display = "flex";
 }
 function restartGame() {
   localStorage.removeItem("degensGore");
   initializeState();
+  recomputeAchievementMultiplier();
   updateDisplay();
 }
 
 function exportSave() {
+  clearTimeout(window._saveBoxTimeout);
   const box = document.getElementById("saveBox");
-  box.value = btoa(unescape(encodeURIComponent(localStorage.getItem("degensGore") || "")));
+  const data = localStorage.getItem("degensGore") || "";
+  const code = btoa(unescape(encodeURIComponent(data)));
+  box.value = code;
   box.style.display = "block";
   box.select();
-  showCustomTooltip("Save copied to textbox.");
+  try {
+    document.execCommand("copy");
+    showCustomTooltip("Save code copied to clipboard!");
+  } catch {
+    showCustomTooltip("Save code in textbox below.");
+  }
+  window._saveBoxTimeout = setTimeout(() => { box.style.display = "none"; }, 5000);
 }
 function importSave() {
-  const box = document.getElementById("saveBox");
-  box.style.display = "block";
-  const input = prompt("Paste save code:");
+  const input = (prompt("Paste save code here:") || "").trim();
   if (!input) return;
   try {
-    const decoded = decodeURIComponent(escape(atob(input.trim())));
-    JSON.parse(decoded);
+    const b64 = input.replace(/\s/g, "");
+    const decoded = decodeURIComponent(escape(atob(b64)));
+    JSON.parse(decoded); // Validate format
+    isImporting = true; // Lock auto-saving
     localStorage.setItem("degensGore", decoded);
     location.reload();
-  } catch {
-    showCustomTooltip("Invalid save code.");
+  } catch (e) {
+    console.error("Import error:", e);
+    showCustomTooltip("Invalid save code format.");
   }
 }
 
@@ -588,8 +609,9 @@ function wireRestartModal() {
       state.awakeningPoints = state.awakeningPoints.plus(extra);
     }
     updateTicker();
-    maybeTriggerPrankEvent();
+    if (state.chaosMode) state.chaosModeTimeMs += 1000;
   }, 1000);
+  setInterval(saveState, 10000); // Decoupled auto-save every 10s
 
   document.getElementById("upgradeButton").addEventListener("click", () => buyUpgrade(true));
   document.getElementById("autoBuyButton").addEventListener("click", () => {
