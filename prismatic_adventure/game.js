@@ -3798,7 +3798,7 @@
         "packed with surprises and robust prestige layers."
       );
       degensIdleBtn.addEventListener("click", () => {
-        window.open("https://www.degensidle.com/", "_blank");
+        window.open("https://kuzzigames.com/degens_idle//", "_blank");
         updateBookwormAchievement("degensIdle");
       });
       content.appendChild(degensIdleBtn);
