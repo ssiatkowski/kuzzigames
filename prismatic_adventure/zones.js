@@ -153,7 +153,7 @@ var zones = [
     img: "images/zones/zone11.jpg",
     tasks: [
       { id: 111, name: "Travel: Proceed to Forsaken Bastion", type: "Travel", maxReps: 1, count: 0, baseTime: 5e7, description: "Travel to the forsaken bastion.", skills: ["travel"] },
-      { id: 112, name: "Deplot Cyber Barrier", type: "Training", maxReps: 2, count: 0, baseTime: 3e10, xpMult: 1.2, description: "Deploy a robust digital defense.", skills: ["hacking", "quantum"], mandatory: true },
+      { id: 112, name: "Deploy Cyber Barrier", type: "Training", maxReps: 2, count: 0, baseTime: 3e10, xpMult: 1.2, description: "Deploy a robust digital defense.", skills: ["hacking", "quantum"], mandatory: true },
       { id: 113, name: "Find Map to Forsaken Bastion", type: "Training", maxReps: 5, count: 0, baseTime: 1e14, xpMult: 0.9, description: "Find a map to the forsaken bastion.", skills: ["perception", "endurance"], mandatory: true },
       { id: 114, name: "Subatomic Experiment", type: "Training", maxReps: 10, count: 0, baseTime: 1e10, xpMult: 2, description: "Experiment with quantum particles.", skills: ["quantum", "intellect"] },
       { id: 115, name: "Algorithm Optimization", type: "Training", maxReps: 5, count: 0, baseTime: 1e11, description: "Refine and optimize complex algorithms.", skills: ["aiMastery", "intellect"] },
