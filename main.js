@@ -1,62 +1,58 @@
-// Wait until the DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-  const cards = document.querySelectorAll('.game-card');
+  // ── Star rating renderer ──────────────────────────────────────────
+  function renderStars(container) {
+    const rating = parseFloat(container.dataset.rating);
+    container.querySelectorAll('.star').forEach((star, i) => {
+      const fill = Math.max(0, Math.min(1, rating - i));
+      star.classList.remove('full', 'three-quarter', 'half', 'quarter');
+      if      (fill >= 1)    star.classList.add('full');
+      else if (fill >= 0.75) star.classList.add('three-quarter');
+      else if (fill >= 0.5)  star.classList.add('half');
+      else if (fill >= 0.25) star.classList.add('quarter');
+    });
+  }
 
-  // Function to animate star ratings
-  function animateStars() {
-    const starContainers = document.querySelectorAll('.stars');
-    starContainers.forEach(container => {
-      const rating = parseFloat(container.dataset.rating);
-      const stars = container.querySelectorAll('.star');
-
-      stars.forEach((star, index) => {
-        const fillAmount = Math.max(0, Math.min(1, rating - index));
-
-        // Remove existing classes
-        star.classList.remove('full', 'three-quarter', 'half', 'quarter');
-
-        // Add appropriate class based on fill amount
-        if (fillAmount >= 1) {
-          star.classList.add('full');
-        } else if (fillAmount >= 0.75) {
-          star.classList.add('three-quarter');
-        } else if (fillAmount >= 0.5) {
-          star.classList.add('half');
-        } else if (fillAmount >= 0.25) {
-          star.classList.add('quarter');
-        }
+  // ── Animate progress fill ─────────────────────────────────────────
+  function animateProgress(card) {
+    card.querySelectorAll('.progress-fill').forEach(fill => {
+      // Store the target width then reset & animate
+      const target = fill.style.width;
+      fill.style.width = '0';
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          fill.style.width = target;
+        });
       });
     });
   }
 
-  // If IntersectionObserver is available, use it to reveal cards on scroll
+  // ── Intersection Observer for scroll reveals ──────────────────────
+  const cards = document.querySelectorAll('.game-card');
+
   if ('IntersectionObserver' in window) {
-    const observerOptions = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.1,
-    };
-
-    const revealOnScroll = new IntersectionObserver((entries, observer) => {
+    const observer = new IntersectionObserver((entries, obs) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          // Animate stars when card becomes visible
-          setTimeout(() => {
-            animateStars();
-          }, 300);
-          observer.unobserve(entry.target);
-        }
-      });
-    }, observerOptions);
+        if (!entry.isIntersecting) return;
+        const card = entry.target;
+        card.classList.add('visible');
 
-    cards.forEach(card => {
-      revealOnScroll.observe(card);
-    });
+        // Slight delay so the card CSS transition fires first
+        setTimeout(() => {
+          card.querySelectorAll('.stars').forEach(renderStars);
+          animateProgress(card);
+        }, 200);
+
+        obs.unobserve(card);
+      });
+    }, { root: null, rootMargin: '0px', threshold: 0.08 });
+
+    cards.forEach(card => observer.observe(card));
   } else {
-    // Fallback: if IntersectionObserver isn't supported, simply make all cards visible
-    cards.forEach(card => card.classList.add('visible'));
-    // Animate stars immediately
-    animateStars();
+    // Fallback for old browsers
+    cards.forEach(card => {
+      card.classList.add('visible');
+      card.querySelectorAll('.stars').forEach(renderStars);
+      animateProgress(card);
+    });
   }
 });
