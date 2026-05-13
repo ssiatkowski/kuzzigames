@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artist Links | Rejected Draft</title>
+    <meta name="description"
+        content="Information for artists featured in Rejected Draft about linking their credited work to portfolios, socials, shops, and other destinations.">
+    <style>
+        :root {
+            color-scheme: light dark;
+            --bg: #151515;
+            --panel: #202020;
+            --panel-strong: #111716;
+            --ink: #f2f0ec;
+            --muted: #b9b3aa;
+            --line: #38332d;
+            --accent: #32b7a8;
+            --accent-strong: #6ee7da;
+            --accent-soft: #143833;
+            --shadow: 0 18px 40px rgba(0, 0, 0, 0.32);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background:
+                linear-gradient(135deg, rgba(50, 183, 168, 0.1), transparent 38%),
+                radial-gradient(circle at 86% 12%, rgba(111, 85, 48, 0.16), transparent 28%),
+                var(--bg);
+            color: var(--ink);
+            line-height: 1.55;
+        }
+
+        main {
+            width: min(1120px, calc(100% - 32px));
+            margin: 0 auto;
+            padding: 30px 0;
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: minmax(0, 1.4fr) minmax(260px, 0.6fr);
+            gap: 16px;
+            align-items: stretch;
+        }
+
+        .intro,
+        .panel {
+            background: color-mix(in srgb, var(--panel) 94%, transparent);
+            border: 1px solid var(--line);
+            box-shadow: var(--shadow);
+        }
+
+        .intro {
+            padding: clamp(24px, 4vw, 40px);
+        }
+
+        .eyebrow {
+            margin: 0 0 10px;
+            color: var(--accent-strong);
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin: 0;
+            max-width: 760px;
+            font-size: clamp(2.2rem, 5vw, 4.7rem);
+            line-height: 0.94;
+            letter-spacing: 0;
+        }
+
+        .lede {
+            max-width: 720px;
+            margin: 16px 0 0;
+            color: var(--muted);
+            font-size: clamp(1rem, 1.8vw, 1.16rem);
+        }
+
+        .quick-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 100%;
+            padding: 22px;
+            background: var(--panel-strong);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            color: #f4f1ea;
+            box-shadow: var(--shadow);
+        }
+
+        .contact-card {
+            position: relative;
+            color: #f4f1ea;
+            text-decoration: none;
+            transition: border-color 160ms ease, background 160ms ease, transform 160ms ease;
+        }
+
+        .contact-card:hover,
+        .contact-card:focus-visible {
+            background: #13211f;
+            border-color: rgba(110, 231, 218, 0.5);
+            transform: translateY(-1px);
+            outline: none;
+        }
+
+        .contact-hint {
+            position: absolute;
+            right: 14px;
+            bottom: 12px;
+            padding: 5px 8px;
+            background: rgba(7, 19, 17, 0.92);
+            border: 1px solid rgba(110, 231, 218, 0.42);
+            color: #d9fffa;
+            font-size: 0.72rem;
+            font-weight: 800;
+            line-height: 1;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(4px);
+            transition: opacity 160ms ease, transform 160ms ease;
+        }
+
+        .contact-card:hover .contact-hint,
+        .contact-card:focus-visible .contact-hint {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .quick-card h2,
+        .panel h2 {
+            margin: 0;
+            font-size: 1.15rem;
+            letter-spacing: 0;
+        }
+
+        .quick-card p {
+            margin: 12px 0 0;
+            color: #d7dedb;
+        }
+
+        .mini-flow {
+            display: grid;
+            gap: 8px;
+            margin-top: 18px;
+            padding: 0;
+            list-style: none;
+        }
+
+        .mini-flow li {
+            display: grid;
+            grid-template-columns: 28px 1fr;
+            gap: 10px;
+            align-items: start;
+            color: #e9f5f2;
+            font-size: 0.93rem;
+        }
+
+        .mini-flow span {
+            display: grid;
+            place-items: center;
+            width: 24px;
+            height: 24px;
+            background: var(--accent);
+            color: #071311;
+            font-size: 0.78rem;
+            font-weight: 900;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .panel {
+            padding: 18px;
+        }
+
+        .panel p {
+            margin: 8px 0 0;
+            color: var(--muted);
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: repeat(6, minmax(0, 1fr));
+            gap: 7px;
+            margin: 12px 0 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .options li {
+            padding: 7px 8px;
+            background: var(--accent-soft);
+            border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent);
+            color: #d9fffa;
+            font-size: 0.82rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .wide {
+            grid-column: 1 / -1;
+        }
+
+        footer {
+            margin-top: 14px;
+            color: var(--muted);
+            font-size: 0.92rem;
+            text-align: center;
+        }
+
+        @media (max-width: 860px) {
+            main {
+                padding: 28px 0;
+            }
+
+            .hero,
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 560px) {
+            main {
+                width: min(100% - 20px, 1120px);
+            }
+
+            .intro,
+            .quick-card,
+            .panel {
+                padding: 20px;
+            }
+
+            .options {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (prefers-color-scheme: light) {
+            :root {
+                --bg: #25221f;
+                --panel: #302d29;
+                --panel-strong: #161a19;
+                --ink: #f8f4ee;
+                --muted: #d4cbc0;
+                --line: #4a443d;
+                --accent-soft: #163f39;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <section class="hero" aria-labelledby="page-title">
+            <div class="intro">
+                <p class="eyebrow">Rejected Draft artist credits</p>
+                <h1 id="page-title">This link could lead to your page.</h1>
+                <p class="lede">
+                    Rejected Draft can hold endless versions of each sketch. If you submit art to Kuzzi and it fits the
+                    game, it can be added for players to discover, with your credited name linking straight to your
+                    work, shop, commissions, socials, or next big thing.
+                </p>
+            </div>
+
+            <a class="quick-card contact-card" href="https://discord.gg/n5vvXMcHs6"
+                aria-label="Go to the Rejected Draft artist Discord link"
+                title="Click to go to the Discord link">
+                <div>
+                    <h2>Artist submissions are welcome.</h2>
+                    <p>Want your art in the game, or already have a credited piece? Contact Kuzzi with your submission
+                        or the page you want your name to open.</p>
+                    <ul class="mini-flow">
+                        <li><span>1</span><strong>Submit a sketch version or claim your artist link.</strong></li>
+                        <li><span>2</span><strong>If submission accepted, it gets added for everyone.</strong></li>
+                        <li><span>3</span><strong>Players can click your name and find more of your work.</strong></li>
+                    </ul>
+                    <span class="contact-hint">Click to open Discord</span>
+                </div>
+            </a>
+        </section>
+
+        <section class="grid" aria-label="Artist link options">
+            <article class="panel wide">
+                <h2>Common link destinations</h2>
+                <p>Your credit should send curious players somewhere that helps them follow, hire, support, or remember
+                    you.</p>
+                <ul class="options">
+                    <li>Portfolio</li>
+                    <li>Personal site</li>
+                    <li>Instagram</li>
+                    <li>ArtStation</li>
+                    <li>DeviantArt</li>
+                    <li>Ko-fi</li>
+                    <li>Patreon</li>
+                    <li>Shop page</li>
+                    <li>Print store</li>
+                    <li>Linktree</li>
+                    <li>Carrd</li>
+                    <li>Game page</li>
+                </ul>
+            </article>
+
+            <article class="panel">
+                <h2>Discovery</h2>
+                <p>Turn a sketch version into a direct path from game art to the rest of your creative work.</p>
+            </article>
+
+            <article class="panel">
+                <h2>Support</h2>
+                <p>Point players toward commissions, shops, funding pages, or whatever helps you most.</p>
+            </article>
+
+            <article class="panel">
+                <h2>Momentum</h2>
+                <p>Use the link for what you are pushing now, then swap it later when your focus changes.</p>
+            </article>
+        </section>
+
+        <footer>
+            Rejected Draft credits are built to help players find the people behind the art.
+        </footer>
+    </main>
+</body>
+
+</html>
