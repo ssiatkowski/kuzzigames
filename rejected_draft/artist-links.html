@@ -18,7 +18,6 @@
             --line: #38332d;
             --accent: #32b7a8;
             --accent-strong: #6ee7da;
-            --accent-soft: #143833;
             --shadow: 0 18px 40px rgba(0, 0, 0, 0.32);
         }
 
@@ -98,7 +97,8 @@
             box-shadow: var(--shadow);
         }
 
-        .contact-card {
+        .contact-card,
+        .reference-card {
             position: relative;
             color: #f4f1ea;
             text-decoration: none;
@@ -106,7 +106,9 @@
         }
 
         .contact-card:hover,
-        .contact-card:focus-visible {
+        .contact-card:focus-visible,
+        .reference-card:hover,
+        .reference-card:focus-visible {
             background: #13211f;
             border-color: rgba(110, 231, 218, 0.5);
             transform: translateY(-1px);
@@ -131,7 +133,9 @@
         }
 
         .contact-card:hover .contact-hint,
-        .contact-card:focus-visible .contact-hint {
+        .contact-card:focus-visible .contact-hint,
+        .reference-card:hover .contact-hint,
+        .reference-card:focus-visible .contact-hint {
             opacity: 1;
             transform: translateY(0);
         }
@@ -178,7 +182,7 @@
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
+            grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 12px;
             margin-top: 12px;
         }
@@ -192,6 +196,17 @@
             color: var(--muted);
         }
 
+        .reference-card {
+            display: block;
+            background: var(--panel-strong);
+            border-color: rgba(255, 255, 255, 0.14);
+            box-shadow: var(--shadow);
+        }
+
+        .reference-card p {
+            color: #d7dedb;
+        }
+
         .options {
             display: grid;
             grid-template-columns: repeat(6, minmax(0, 1fr));
@@ -203,9 +218,9 @@
 
         .options li {
             padding: 7px 8px;
-            background: var(--accent-soft);
-            border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent);
-            color: #d9fffa;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            color: #e5e1da;
             font-size: 0.82rem;
             font-weight: 700;
             line-height: 1.2;
@@ -213,13 +228,6 @@
 
         .wide {
             grid-column: 1 / -1;
-        }
-
-        footer {
-            margin-top: 14px;
-            color: var(--muted);
-            font-size: 0.92rem;
-            text-align: center;
         }
 
         @media (max-width: 860px) {
@@ -257,7 +265,6 @@
                 --ink: #f8f4ee;
                 --muted: #d4cbc0;
                 --line: #4a443d;
-                --accent-soft: #163f39;
             }
         }
     </style>
@@ -271,8 +278,9 @@
                 <h1 id="page-title">This link could lead to your page.</h1>
                 <p class="lede">
                     Rejected Draft can hold endless versions of each sketch. If you submit art to Kuzzi and it fits the
-                    game, it can be added for players to discover, with your credited name linking straight to your
-                    work, shop, commissions, socials, or next big thing.
+                    game, it can be added for players to discover. Credits are built to help players find the people
+                    behind the art, with your name linking straight to your work, shop, commissions, socials, or next
+                    big thing.
                 </p>
             </div>
 
@@ -314,25 +322,23 @@
                 </ul>
             </article>
 
-            <article class="panel">
+            <a class="panel reference-card" href="https://kuzzigames.com/rejected_draft/all_art_exhibit"
+                aria-label="Browse all Rejected Draft sketch art">
                 <h2>Discovery</h2>
-                <p>Turn a sketch version into a direct path from game art to the rest of your creative work.</p>
-            </article>
+                <p>Not sure what to draw? Browse every current sketch and every existing version in one place, then look
+                    for subjects that fit your style or sketches that only have one interpretation so far. This exhibit
+                    is meant as an artist reference, but it does spoil the full sketch roster.</p>
+                <span class="contact-hint">Click to browse exhibit</span>
+            </a>
 
             <article class="panel">
-                <h2>Support</h2>
-                <p>Point players toward commissions, shops, funding pages, or whatever helps you most.</p>
-            </article>
-
-            <article class="panel">
-                <h2>Momentum</h2>
-                <p>Use the link for what you are pushing now, then swap it later when your focus changes.</p>
+                <h2>Next Steps</h2>
+                <p>When your version is added, your credited name can send players wherever it helps you most: a
+                    portfolio, commission page, shop, support page, or current project. Treat it like a living credit.
+                    If your focus changes later, send Kuzzi the new destination and the link can move with you.</p>
             </article>
         </section>
 
-        <footer>
-            Rejected Draft credits are built to help players find the people behind the art.
-        </footer>
     </main>
 </body>
 
